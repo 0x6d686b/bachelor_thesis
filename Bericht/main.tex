@@ -1,0 +1,107 @@
+ %GPL V3 by Mathias Hablützel, feel free to improve this template
+ \documentclass[a4paper,10pt]{article}
+ 
+ % Use UTF8 since the laptop is configured so and use ngerman for word breaking.
+ % If you encounter an encoding problem, remove the line with utf8.
+ \usepackage[utf8]{inputenc}
+ \usepackage[ngerman]{babel}
+ \usepackage[pdftex]{graphicx}
+% \usepackage{hyperref}
+ \usepackage{colortbl}
+ \usepackage{tabularx}
+ \usepackage{color}
+ \usepackage{amsfonts}
+ \usepackage{listings}
+ \usepackage{multirow}
+\usepackage{fancyhdr}
+ \usepackage{multicol}
+ \usepackage{pdfpages}
+ \usepackage[colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  filecolor=black,
+  pagecolor=black,
+  urlcolor=black,
+  bookmarks=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=3,
+  plainpages=false,
+  pdfpagelabels=true]{hyperref}
+
+% Hack for german umlaute
+\lstset{
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+}
+
+% define colors
+ \definecolor{hellgrau}{rgb}{0.8,0.8,0.8}
+
+ \include{java_listing}
+
+ % I set here a different sidemargin because the original margin looks not so
+ % good for normal documents. Additionally I have to enlarge the textwidth.
+ \setlength{\oddsidemargin}{0cm}
+ \setlength{\evensidemargin}{0cm}
+ \addtolength{\textwidth}{4cm}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}} 
+
+\begin{document} 
+ % Here I use the up-to-date font encoding T1 and the font familly Computer Modern
+ % Sans Serif (since I don't like the standard font) medium and normal (non-italic or so).
+ \usefont{T1}{cmss}{m}{n}
+
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[C]{LakeRouting - Optimale Wegfindung anhand von Wettermodellen} %zentrierte Kopfzeile
+\renewcommand{\headrulewidth}{0.4pt} 
+\fancyfoot[C]{\thepage}
+
+ \title{\begin{flushleft}\vspace*{-3cm}\includegraphics[keepaspectratio,width=7cm]{img/de-zhaw-cmyk}\end{flushleft} \vspace*{4cm} LakeRouting - Optimale Wegfindung anhand von Wettermodellen }
+ \date{\today}
+ \author{Fevzi Yükseldi (yuksefev@students.zhaw.ch)\\
+ Mathias Hablützel (hablumat@students.zhaw.ch)\\
+ \\
+Prof. Dr. Rudolf M. Füchslin (furu@zhaw.ch)\\
+Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
+ 
+ \maketitle
+\thispagestyle{empty}
+ \newpage
+\thispagestyle{empty}
+\part*{Management Summary}
+
+\vspace*{2cm}
+\setlength{\columnsep}{2cm}
+\begin{multicols}{2}
+
+\textbf{\textsc{Deutsch}}
+\vspace{1cm}\\
+
+\columnbreak
+
+\textbf{\textsc{English}}
+\vspace{1cm}\\
+
+\end{multicols}
+
+
+\newpage
+
+\cleardoublepage
+\begingroup
+\pagestyle{empty}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\clearpage
+\endgroup
+
+
+
+
+       
+\newpage
+\bibliographystyle{ba_zhaw}
+\bibliography{hablumat_biblio,yuksefev_biblio}
+ \end{document}
