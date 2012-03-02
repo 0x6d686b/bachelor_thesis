@@ -49,7 +49,7 @@ public class Decision {
 		return tableMatrix;
 	}
 	
-	public void programmationDynamique(int start){
+	public ArrayList<ArrayList<Graph>> programmationDynamique(int start){
 		ArrayList <ArrayList<Graph>> graphList = new ArrayList<ArrayList<Graph>>();
 		ArrayList<Graph> innerGraphList = new ArrayList<Graph>();
 		Graph graph;
@@ -77,12 +77,13 @@ public class Decision {
 		for (int i = 1; i < getMaxi(); i++) {
 			graphList = progrDyn(i, graphList);
 		}
-		for (ArrayList<Graph> d : graphList) {
-			for(int i=0;i<d.size();i++)
-			{
-				System.out.println("PN: "+d.get(i).getPreviousNode()[0]+" "+d.get(i).getPreviousNode()[1]+" N: "+d.get(i).getNode()[0]+" "+d.get(i).getNode()[1]+" TA: "+d.get(i).getTimeOfArrival());
-			}
-		}
+//		for (ArrayList<Graph> d : graphList) {
+//			for(int i=0;i<d.size();i++)
+//			{
+//				System.out.println("PN: "+d.get(i).getPreviousNode()[0]+" "+d.get(i).getPreviousNode()[1]+" N: "+d.get(i).getNode()[0]+" "+d.get(i).getNode()[1]+" TA: "+d.get(i).getTimeOfArrival());
+//			}
+//		}
+		return graphList;
 	}	
 	
 	private ArrayList<ArrayList<Graph>> progrDyn(int r, ArrayList<ArrayList<Graph>> graphList){
@@ -171,7 +172,7 @@ public class Decision {
 		de.setCoord(de.getLoc()[0][0].length);
 		System.out.println("Maxi: "+de.getMaxi()+" Maxj: "+de.getMaxj()+" Coord:"+de.getCoord());
 		
-		de.programmationDynamique(15);
+		ArrayList<ArrayList<Graph>> test = de.programmationDynamique(15);
 		
 	}
 }
