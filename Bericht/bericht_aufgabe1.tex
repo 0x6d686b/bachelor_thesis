@@ -111,8 +111,8 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	
 	\def\angEl{25} % elevation angle
 	\def\angAz{-100} % azimuth angle
-	\def\angPhiOne{-50} % longitude of point P
-	\def\angPhiTwo{-15} % longitude of point Q
+	\def\angPhiOne{-110} % longitude of point P
+	\def\angPhiTwo{-45} % longitude of point Q
 	\def\angBeta{30} % latitude of point P and Q
 	
 	%% working planes
@@ -134,7 +134,15 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	%labelling north and south
 	\node[above=8pt] at (N) {$\mathbf{N}$};
 	\node[below=8pt] at (S) {$\mathbf{S}$};
-        \draw[-,dashed, thick] (N) -- (S);	
+        \draw[-,dashed, thick] (N) -- (S);
+
+    %setup coordinates P and Q
+    \path[pzplane] (0:\R) coordinate (P);
+    \draw[->] (O) -- (P);
+    \path[qzplane] (\angBeta:\R) coordinate (Q);
+    \draw[->] (O) -- (Q);
+
+    %draw the shortest path between P and Q
     	
 \end{tikzpicture}
 
