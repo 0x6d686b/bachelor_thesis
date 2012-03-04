@@ -121,6 +121,7 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	\LongitudePlane[xzplane]{\angEl}{\angAz}
 	\LongitudePlane[pzplane]{\angEl}{\angPhiOne}
 	\LongitudePlane[qzplane]{\angEl}{\angPhiTwo}
+        \LongitudePlane[nzplane]{\angEl}{-86}
 	\LatitudePlane[equator]{\angEl}{0}
 	\fill[ball color=white!10] (0,0) circle (\R); % 3D lighting effect
 	\coordinate (O) at (0,0);
@@ -141,6 +142,8 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
     \draw[->] (O) -- (P);
     \path[qzplane] (\angBeta:\R) coordinate (Q);
     \draw[->] (O) -- (Q);
+    \path[nzplane] (153:\R) coordinate (N);
+    \draw[->] (O) -- (N);
 
     %draw the shortest path between P and Q
     	

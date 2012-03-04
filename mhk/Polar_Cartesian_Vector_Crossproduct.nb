@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     10107,        282]
-NotebookOptionsPosition[      9106,        244]
-NotebookOutlinePosition[      9447,        259]
-CellTagsIndexPosition[      9404,        256]
+NotebookDataLength[      8925,        261]
+NotebookOptionsPosition[      8006,        225]
+NotebookOutlinePosition[      8347,        240]
+CellTagsIndexPosition[      8304,        237]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -162,53 +162,34 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"cross", "[", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"1", ",", 
-     RowBox[{"Pi", "/", "2"}], ",", 
-     RowBox[{"Pi", "/", "2"}]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"1", ",", "0", ",", 
-     RowBox[{"Pi", "/", "2"}]}], "}"}]}], "]"}]], "Input",
+ RowBox[{"N", "[", 
+  RowBox[{"cross", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"1", ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "2"}], "/", "3"}], "Pi"}], ",", 
+      RowBox[{"Pi", "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", 
+      RowBox[{
+       RowBox[{"-", "Pi"}], "/", "2"}], ",", 
+      RowBox[{"Pi", "/", "3"}]}], "}"}]}], "]"}], "]"}]], "Input",
  CellChangeTimes->{{3.5398746764833593`*^9, 3.5398747395006037`*^9}, {
   3.539875767375279*^9, 3.53987580737105*^9}, {3.539876781879369*^9, 
-  3.5398767978608427`*^9}, {3.539876841242818*^9, 3.539876842544776*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"Power", "::", "\<\"infy\"\>"}], 
-  RowBox[{
-  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Infinite expression \\\\\\\"\
-\\\", \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(1\\/0\\), \
-\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" encountered.\\\\\\\"\\\
-\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\
-\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/infy\\\", ButtonNote -> \
-\\\"Power::infy\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.539875781414288*^9, 3.539875809600788*^9}, {
-   3.5398767660847054`*^9, 3.53987679835041*^9}, 3.5398768433405237`*^9}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"\[Infinity]", "::", "\<\"indet\"\>"}], 
-  RowBox[{
-  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Indeterminate expression \
-\\\\\\\"\\\", \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(0\\\\ \
-ComplexInfinity\\), \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" \
-encountered.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/indet\\\", ButtonNote -> \
-\\\"Infinity::indet\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.539875781414288*^9, 3.539875809600788*^9}, {
-   3.5398767660847054`*^9, 3.53987679835041*^9}, 3.5398768433449917`*^9}],
+  3.5398767978608427`*^9}, {3.539876841242818*^9, 3.539876842544776*^9}, {
+  3.539877136216964*^9, 3.539877164684065*^9}}],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"1", ",", "Indeterminate", ",", "\[Pi]"}], "}"}]], "Output",
+  RowBox[{"0.6614378277661477`", ",", 
+   RowBox[{"-", "0.5235987755982988`"}], ",", "0.8570719478501311`"}], 
+  "}"}]], "Output",
  CellChangeTimes->{{3.539874708884981*^9, 3.539874740217005*^9}, {
    3.539875781506506*^9, 3.53987580960775*^9}, {3.5398767660940857`*^9, 
-   3.539876798355639*^9}, 3.5398768433464947`*^9}]
+   3.539876798355639*^9}, 3.5398768433464947`*^9, {3.539877157174765*^9, 
+   3.539877165258659*^9}}]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -243,7 +224,7 @@ Cell[BoxData["1"], "Output",
 }, Open  ]]
 },
 WindowSize->{640, 750},
-WindowMargins->{{Automatic, 155}, {81, Automatic}},
+WindowMargins->{{Automatic, -20}, {66, Automatic}},
 FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (November 10, 2008)",
 StyleDefinitions->"Default.nb"
 ]
@@ -270,19 +251,17 @@ Cell[4674, 121, 199, 4, 27, "Output"]
 }, Open  ]],
 Cell[4888, 128, 1154, 31, 103, "Input"],
 Cell[CellGroupData[{
-Cell[6067, 163, 495, 12, 27, "Input"],
-Cell[6565, 177, 677, 12, 41, "Message"],
-Cell[7245, 191, 710, 12, 23, "Message"],
-Cell[7958, 205, 290, 5, 27, "Output"]
+Cell[6067, 163, 678, 18, 27, "Input"],
+Cell[6748, 183, 400, 8, 27, "Output"]
 }, Open  ]],
-Cell[8263, 213, 94, 1, 27, "Input"],
+Cell[7163, 194, 94, 1, 27, "Input"],
 Cell[CellGroupData[{
-Cell[8382, 218, 300, 7, 27, "Input"],
-Cell[8685, 227, 147, 3, 27, "Output"]
+Cell[7282, 199, 300, 7, 27, "Input"],
+Cell[7585, 208, 147, 3, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8869, 235, 148, 3, 27, "Input"],
-Cell[9020, 240, 70, 1, 27, "Output"]
+Cell[7769, 216, 148, 3, 27, "Input"],
+Cell[7920, 221, 70, 1, 27, "Output"]
 }, Open  ]]
 }
 ]
