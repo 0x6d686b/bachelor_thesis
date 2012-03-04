@@ -112,7 +112,7 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	\def\angEl{25} % elevation angle
 	\def\angAz{-100} % azimuth angle
 	\def\angPhiOne{-50} % longitude of point P
-	\def\angPhiTwo{-35} % longitude of point Q
+	\def\angPhiTwo{-15} % longitude of point Q
 	\def\angBeta{30} % latitude of point P and Q
 	
 	%% working planes
@@ -126,22 +126,7 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	\coordinate (O) at (0,0);
 	\coordinate[mark coordinate] (N) at (0,\H);
 	\coordinate[mark coordinate] (S) at (0,-\H);
-	\path[xzplane] (\R,0) coordinate (XE);
 	
-    %defining points outsided the area bounded by the sphere
-	\path[qzplane] (\angBeta:\R+5.2376) coordinate (XEd);
-	\path[pzplane] (\angBeta:\R) coordinate (P);%fino alla sfera
-	\path[pzplane] (\angBeta:\R+5.2376) coordinate (Pd);%sfora di una quantità pari a 10 dopo la sfera
-	\path[pzplane] (\angBeta:\R+5.2376) coordinate (Td);%sfora di una quantità pari a 10 dopo la sfera
-	\path[pzplane] (\R,0) coordinate (PE);
-    \path[pzplane] (\R+4,0) coordinate (PEd);
-	\path[qzplane] (\angBeta:\R) coordinate (Q);
-	\path[qzplane] (\angBeta:\R) coordinate (Qd);%sfora di una quantità pari a 10 dopo la sfera
-	
-	\path[qzplane] (\R,0) coordinate (QE);
-    \path[qzplane] (\R+4,0) coordinate (QEd);%sfora di una quantità 10 dalla sfera sul piano equat.
-
-
     \DrawLongitudeCircle[\R]{\angPhiOne} % pzplane
     \DrawLongitudeCircle[\R]{\angPhiTwo} % qzplane
     \DrawLatitudeCircle[\R]{\angBeta}
@@ -149,48 +134,7 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 	%labelling north and south
 	\node[above=8pt] at (N) {$\mathbf{N}$};
 	\node[below=8pt] at (S) {$\mathbf{S}$};
-	
-	\draw[-,dashed, thick] (N) -- (S);
-	\draw[->] (O) -- (P);
-	\draw[dashed] (XE) -- (O) -- (PE);
-	\draw[dashed] (O) -- (QE);
-	%connecting Points outside the sphere
-	\draw[-,dashed,black,very thick] (O) -- (Pd);
-	\draw[-,dashed,black,very thick] (O) -- (PEd);
-    \draw[-,dashed,black,very thick] (O) -- (QEd);
-    \draw[-,dashed,black,very thick] (O) -- (XEd);
-    \draw[dashed] (XE) -- (O) -- (PE);
-    %draw black thick flat grid
-    \draw[-,ultra thick,black] (Pd) -- (PEd) node[below, left] {$P_1$};%verticale sinistro
-    \draw[-,ultra thick,black] (PEd) -- (QEd)node[below, right] {$P_3$};%orizzontale inferiore
-    \draw[-,ultra thick,black] (Pd)-- (XEd)node[above, right] {$P_2$};%orizzontale superiore	
-    \draw[-,ultra thick,black] (XEd) -- (QEd);	
-    		
-	\draw[pzplane,->,thin] (0:0.5*\R) to[bend right=15]
-	    node[midway,right] {$\lambda$} (\angBeta:0.5*\R);
-	\path[pzplane] (0.5*\angBeta:\R) node[right] {$$};
-	\path[qzplane] (0.5*\angBeta:\R) node[right] {$$};
-	\draw[equator,->,thin] (\angAz:0.5*\R) to[bend right=30]
-	    node[pos=0.4,above] {$\phi_1$} (\angPhiOne:0.5*\R);
-	\draw[equator,->,thin] (\angAz:0.6*\R) to[bend right=35]
-	    node[midway,below] {$\phi_2$} (\angPhiTwo:0.6*\R);
-			\path[xzplane] (0:\R) node[below] {$$};
-	\path[xzplane] (\angBeta:\R) node[below left] {$$};
-    \foreach \t in {0,2,...,30} { \DrawLatitudeCirclered[\R]{\t} }
-	\foreach \t in {130,133,...,145} { \DrawLongitudeCirclered[\R]{\t} }
-	
-	%drawing grids on the spere invoking DLongredd and DrawLongitudeCirclered
-	
-	\foreach \t in {130,145,...,145} { \DLongredd[\R+3]{\t} }
-	\foreach \t in {130,133,...,145} { \DrawLongitudeCirclered[\R+3]{\t} }
-
-	\foreach \t in {0,30,...,30} { \DLatred[\R+3]{\t} }
-    \foreach \t in {0,2,...,30} { \DrawLatitudeCirclered[\R+3]{\t} }
-	
-    %labelling
-    \draw[-latex,thick](4,-5.5)node[left]{$\mathsf{Grid(s)\ in\ Fig. \ (\ref{fig:Grid})}$}
-    	         to[out=0,in=270] (5.8,-2.3);
-    \draw[thick](3.6,-6)node[left]{$[\mathsf{Rectilinear}]$};
+        \draw[-,dashed, thick] (N) -- (S);	
     	
 \end{tikzpicture}
 
