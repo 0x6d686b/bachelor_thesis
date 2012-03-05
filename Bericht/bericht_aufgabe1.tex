@@ -104,7 +104,7 @@
 \subsection{Analyse der Problemstellung}
 Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden. Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $A$ und $B$ einfach berechnet:
 
-\begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
+begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
 	%% some definitions
 	
 	\def\R{4} % sphere radius
@@ -139,13 +139,11 @@ Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzest
 
     %setup coordinates P and Q
     \path[pzplane] (0:\R) coordinate (P);
-    \draw[->] (O) -- (P);
+    \draw[->] (O) -- node[above=4pt] {$\overrightarrow{P}$} (P);
     \path[qzplane] (\angBeta:\R) coordinate (Q);
-    \draw[->] (O) -- (Q);
+    \draw[->] (O) -- node[above=2pt] {$\overrightarrow{Q}$} (Q);
     \path[nzplane] (153:\R) coordinate (N);
-    \draw[->,color=red] (O) -- (N);
-
-    %draw the shortest path between P and Q
-    	
+    \draw[->,color=red] (O) -- node[right=2pt] {$\overrightarrow{N}$} (N);
+    \draw (P) arc (-110:-45:\R) (Q);	
 \end{tikzpicture}
 
