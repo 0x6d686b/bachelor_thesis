@@ -6,11 +6,18 @@
  \usepackage[utf8]{inputenc}
  \usepackage[ngerman]{babel}
  \usepackage[pdftex]{graphicx}
+ 
+ % TikZ für schöne Grafiken und so.
+ \usepackage{tikz}
+ \usetikzlibrary{positioning,calc,fadings,decorations.pathreplacing,arrows}
+ \usepackage{pgfplots}
+
 % \usepackage{hyperref}
  \usepackage{colortbl}
  \usepackage{tabularx}
  \usepackage{color}
  \usepackage{amsfonts}
+ \usepackage{amsmath}
  \usepackage{listings}
  \usepackage{multirow}
 \usepackage{fancyhdr}
@@ -175,6 +182,9 @@ Fax   +41 44 256 92 78\\
 \subsection{Arbeitspakete}
 
 \newpage
+
+\part{Arbeitsberichte}
+\include{bericht_aufgabe1}
 \bibliographystyle{ba_zhaw}
 \bibliography{hablumat_biblio,yuksefev_biblio}
  \end{document}
