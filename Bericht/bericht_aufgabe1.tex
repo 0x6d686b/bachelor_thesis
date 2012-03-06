@@ -152,3 +152,21 @@ Das ist die sogenannte Orthodromie und wird durch die Formel \ref{eq:orthodromie
 \begin{equation} \label{eq:orthodromie}
     \arccos(\cos(\theta_{1} - \theta_{2}) \cos(\Phi_{1} \cos\Phi_{2} + \sin(\Phi_{1} \sin\Phi_{2}))) 
 \end{equation}
+
+\subsubsection{Nautische Meilen} Damit Berechnungen einfacher werden, werden
+hier nautische Meilen verwendet. Diese sind durch eine Bogenminute am Äquator
+definiert und damit nur vom Radius des Planeten abhängig. Somit können unsere
+Berechnungen genauso für andere Planeten gelten, einzig der
+Umrechnungskoeffizient von Knoten nach $m/s$ muss angepasst werden.
+
+\subsubsection{Aufspannen des Gitters für die Pfadberechnung} Das Gitter für die
+Berechnung des schnellsten Pfades wird zwischen dem Start- und Zielpunkt so
+aufgespannt, dass relativ-nördlich und -südlich des Startpunktes (und
+Zielpunktes) jeweils eine gegebene Anzahl von Gitterpunkten erstellt wird, die
+Gitterbreite. Vom Start- zum Zielpunkt hin werden auch eine gegebene Anzahl
+Punkte verwendet, die Gitterlänge. Dieses Gitter bestehend aus Gitterbreite und
+-länge, also $n\times m$, stellt den Suchbereich dar.
+
+%% TikZ-Grafik mit Matrix
+
+
