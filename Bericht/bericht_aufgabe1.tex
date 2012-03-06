@@ -102,9 +102,9 @@
 \end{itemize}
 
 \subsection{Analyse der Problemstellung}
-Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden. Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $A$ und $B$ einfach berechnet:
+Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden. Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $P$ und $Q$ einfach berechnet: Die durch das Kreuzprodukt von $P \times Q$ gegebene Ebene, geschnitten mit der Sphäre, ist der kürzeste Pfad zwischen $P$ und $Q$.
 
-begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
+\begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
 	%% some definitions
 	
 	\def\R{4} % sphere radius
@@ -147,3 +147,8 @@ begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
     \draw (P) arc (-110:-45:\R) (Q);	
 \end{tikzpicture}
 
+Das ist die sogenannte Orthodromie und wird durch die Formel \ref{eq:orthodromie} beschrieben.
+
+\begin{equation} \label{eq:orthodromie}
+    \arccos(\cos(\theta_{1} - \theta_{2}) \cos(\Phi_{1} \cos\Phi_{2} + \sin(\Phi_{1} \sin\Phi_{2}))) 
+\end{equation}
