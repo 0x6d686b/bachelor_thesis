@@ -1,3 +1,4 @@
+package task1and2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class GridFrame extends JFrame {
 
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(new Color(0, 0, 0));
+        g.setColor(Color.BLACK);
         
         Decision de = new Decision();
 		de.setLoc(de.graphe(8.05, 47.3, 226.88, -47.22));
@@ -44,9 +45,9 @@ public class GridFrame extends JFrame {
 				{
 					g.fillOval(50*i-20*i, 50*j-20*j, 10, 10);
 				}else{
-					g.setColor(new Color(40, 150, 140));
+					g.setColor(Color.BLUE);
 					g.fillOval(50*i-20*i, 50*j-20*j, 10, 10);
-					g.setColor(new Color(0, 0, 0));
+					g.setColor(Color.BLACK);
 				}
 			}
 			Graph obj = (Graph)Collections.min(graphList.get(x));
@@ -88,11 +89,29 @@ public class GridFrame extends JFrame {
 			}
 			
 		}
-		
+		g.setColor(Color.RED);
 		int z = 0;
 		for(int i=1;i<de.getMaxi();i++){
 			g.drawLine(50*(i)-20*(i)+5, 50*((int)position[z][0]+1)-20*((int)position[z][0]+1)+5, 50*(i+1)-20*(i+1)+5, 50*((int)position[z][1]+1)-20*((int)position[z][1]+1)+5);
 			z++;
+		}
+		g.setColor(Color.GRAY);
+		z = 0;
+		double pos;
+		double posx;
+		for(int i=0;i<de.getMaxi();i++){
+			x=de.getMaxi()-i-1;
+			z=de.getMaxi()-i;
+			for (int j = 0; j < de.getMaxi(); j++) {
+				if(x<=0) break;
+				if(j!=(int)position[x-1][1] && graphList.get(x).get(j).getTimeOfArrival()<1000000)
+				{
+					pos = graphList.get(x).get(j).getPreviousNode()[1];
+					posx = graphList.get(x).get(j).getNode()[1];
+					g.drawLine(50*(z)-20*(z)+5, 50*((int)posx+1)-20*((int)posx+1)+5, 50*(z-1)-20*(z-1)+5, 50*((int)pos+1)-20*((int)pos+1)+5);
+				}
+				
+			}
 		}
     }
 }

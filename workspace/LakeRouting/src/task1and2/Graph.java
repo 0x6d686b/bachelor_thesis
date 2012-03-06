@@ -1,3 +1,4 @@
+package task1and2;
 /**
  * This class represents the elements of the Decision-Matrix
  * with the structure: ({{previous node} , {node}} ; time of arrival) 
