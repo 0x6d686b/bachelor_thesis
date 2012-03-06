@@ -31,12 +31,14 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="75" name="Planung" color="#8cb6ce" meeting="false" start="2012-02-20" duration="4" complete="0" priority="1" expand="true"/>
+        <task id="75" name="Planung (SOLL)" color="#8cb6ce" meeting="false" start="2012-02-20" duration="11" complete="0" priority="1" expand="true"/>
+        <task id="87" name="Planung (IST)" color="#ff0033" shape="0,1,0,1,0,0,1,0,0,1,0,1,1,0,0,0" meeting="false" start="2012-02-20" duration="11" complete="0" priority="1" expand="true"/>
         <task id="10" name="Implementierung" color="#8cb6ce" meeting="false" start="2012-02-24" duration="53" complete="0" priority="1" expand="true">
-            <task id="76" name="Aufgabe 1+2" color="#8cb6ce" meeting="false" start="2012-02-24" duration="2" complete="0" priority="1" expand="true"/>
-            <task id="77" name="Aufgabe 3" color="#8cb6ce" meeting="false" start="2012-02-28" duration="5" complete="0" priority="1" expand="true"/>
+            <task id="76" name="Aufgabe 1+2 (SOLL)" color="#8cb6ce" meeting="false" start="2012-02-24" duration="7" complete="0" priority="1" expand="true"/>
+            <task id="89" name="Aufgabe 1+2 (IST)" color="#ff0033" shape="0,1,0,1,0,0,1,0,0,1,0,1,1,0,0,0" meeting="false" start="2012-02-24" duration="7" complete="0" priority="1" expand="false"/>
+            <task id="77" name="Aufgabe 3" color="#8cb6ce" meeting="false" start="2012-03-06" duration="10" complete="0" priority="1" expand="true"/>
             <task id="83" name="MEILENSTEIN 1" color="#33cc00" meeting="true" start="2012-03-06" duration="1" complete="0" priority="1" expand="true"/>
-            <task id="78" name="Aufgabe 4" color="#8cb6ce" meeting="false" start="2012-03-06" duration="10" complete="0" priority="1" expand="true"/>
+            <task id="78" name="Aufgabe 4" color="#8cb6ce" meeting="false" start="2012-03-13" duration="10" complete="0" priority="1" expand="true"/>
             <task id="79" name="Aufgabe 5" color="#8cb6ce" meeting="false" start="2012-03-20" duration="10" complete="0" priority="1" expand="true"/>
             <task id="84" name="MEILENSTEIN 2" color="#33cc00" meeting="true" start="2012-04-03" duration="1" complete="0" priority="1" expand="true"/>
             <task id="80" name="Aufgabe 6" color="#8cb6ce" meeting="false" start="2012-04-03" duration="10" complete="0" priority="1" expand="true"/>
