@@ -150,16 +150,16 @@ Fax   +41 44 256 92 78\\
     \hline
     \rowcolor{hellgrau} 
     \textbf{Arbeitspakete} & \textbf{Tasks} & \textbf{Zeitaufwand} & \textbf{\color{black}Effektiv} \\ \hline \hline
-    \multirow{1}{*}{Nr. 1} & \textbf{Planung} & \textbf{Tage} & \textbf{Tage}  \\ \cline{2-4} \hline \hline
+    \multirow{1}{*}{} & \textbf{Planung} & \textbf{Tage} & \textbf{Tage}  \\ \cline{2-4} \hline \hline
      & \textbf{Implementierung} & \textbf{Tage} & \textbf{Tage}  \\ \hline
-     \multirow{2}{*}{Nr. 2}& Aufgabe 1+2 &  Tage & Tage \\ \cline{2-4}
-     & Aufgabe 3 &  Tage &  Tage \\ \hline
-     \multirow{2}{*}{Nr. 3}& Aufgabe 4 &  Tage &  Tage \\ \cline{2-4}
-     & Aufgabe 5 &  Tage &  Tag \\ \hline
-     Nr. 4& Aufgabe 6 &  Tage &  Tage \\ \hline
-     Nr. 5& Aufgabe 7 &  Tage &  Tage \\ \cline{2-4}\hline \hline
-     Nr. 6& \textbf{Testing / Finetuning} & \textbf{ Tage} & \textbf{ Tage}  \\ \hline \hline
-     \multirow{3}{*}{Nr. 7} & \textbf{Erkenntnis} & \textbf{ Tage} & \textbf{ Tage} \\ \cline{2-4}
+     \multirow{1}{*}{Nr. 1}& Aufgabe 1+2 &  Tage & Tage \\ \hline
+     Nr. 2 & Aufgabe 3 &  Tage &  Tage \\ \hline
+     Nr. 3& Aufgabe 4 &  Tage &  Tage \\ \hline
+     Nr. 4& Aufgabe 5 &  Tage &  Tag \\ \hline
+     Nr. 5& Aufgabe 6 &  Tage &  Tage \\ \hline
+     Nr. 6& Aufgabe 7 &  Tage &  Tage \\ \cline{2-4}\hline \hline
+     Nr. 7& \textbf{Testing / Finetuning} & \textbf{ Tage} & \textbf{ Tage}  \\ \hline \hline
+     \multirow{3}{*}{Nr. 8} & \textbf{Erkenntnis} & \textbf{ Tage} & \textbf{ Tage} \\ \cline{2-4}
      & Schlussfolgerung &  Tage &  Tage  \\ \cline{2-4}
      & Arbeitsrevue &  Tage &   Tage \\ \cline{2-4} \hline \hline
      & \textbf{Reserve} & \textbf{10 Tage} & \textbf{ Tage} \\ \hline \hline \hline
@@ -180,11 +180,75 @@ Fax   +41 44 256 92 78\\
 \end{figure}
 
 \subsection{Arbeitspakete}
+\begin{table}[h!]
+\centering 
+  \begin{tabular}{| l | l | l| l | >{\color{red}} r |}
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l}{1}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l}{Aufgabe 1 \& 2} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung eines Entscheidungsnetzes auf der Erdkugel}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Berechnung einer Orthodromie} \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l}{(Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung der Koordinatendatei eines Sees (in Koordinaten)}  \\ \cline{2-4}
+    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung eines Entscheidungskernes in Dynamische Programmierung}  \\ 
+     \multirow{-6}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l}{•	Berechnung von Orthodromien auf der Erdoberfläche mit Testdaten} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 06.03.12\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Fevzi Yükseldi\\ \hline
+  \end{tabular}
+  \caption{Arbeitspaket 1}
+\end{table}
+
+2
+Aufgabe 3
+•	Erfassung des Polardiagramms eines Segelschiffes
+•	Interpolationsverfahren
+•	Test: Schiffgeschwindigkeiten berechnen
+06.03.2012 13.03.2012
+Keine Mathias Hablützel
+
+3
+Aufgabe 4
+•	Erfassung des Windfeldes. Quelle: stündige Vorhersagedaten des COSMO-2 Modells
+•	Interpolation auf des Entscheidungsnetzes (zwei mögliche Methoden)
+•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz, pro Vorhersagefrist.
+13.03.2012 20.03.2012
+Keine 
+
+4
+Aufgabe 5
+•	Wechselwirkung Windfeld – Segelschiff
+•	Geometrie um das Schiff, Ableitung dessen Geschwindigkeit
+•	Test: Berechnung der Schiffgeschwindigkeit im Windfeld
+20.03.2012 03.04.2012
+Aufgabe 3 \& 4 
+
+5
+Aufgabe 6
+•	Erweiterung des geometrischen Entscheidungskerns mit 
+o	Zeitmanagement
+o	Rekursion
+•	Erstellung eines Entscheidungsbaums und Test
+03.04.2012 17.04.2012
+Aufgabe 2 \& 5
+
+6
+Aufgabe 7
+•	Im Entscheidungsbaum Rückberechnung der optimalen Route 
+•	Erstellung eines Logbuchs
+•	Graphische Darstellung  See, Windfeld, Entscheidungsbaum, optimale Route
+17.04.2012 08.05.2012
+Aufgabe 1 \& 4\& 6 
+
+7
+Testing / Finetuning
+
+24.02.2012 08.05.12
+Keine 
 
 \newpage
 
 \part{Arbeitsberichte}
-\include{bericht_aufgabe1}
+%\include{bericht_aufgabe1}
 \bibliographystyle{ba_zhaw}
 \bibliography{hablumat_biblio,yuksefev_biblio}
  \end{document}
