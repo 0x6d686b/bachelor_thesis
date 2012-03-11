@@ -2,3 +2,5 @@
 *.aux
 *.log
 main.pdf
+
+workspace/LakeRouting/bin/ch/
