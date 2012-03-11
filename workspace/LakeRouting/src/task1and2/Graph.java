@@ -45,6 +45,11 @@ public class Graph implements Comparable<Graph>{
 		this.timeOfArrival = timeOfArrival;
 	}
 
+	/**
+	 * This method allows us to use the methods of the Collections-class,
+	 * like getMin() or getMax etc.
+	 * It compares the TimeOfArrival value of two Graphs
+	 */
 	@Override
 	public int compareTo(Graph o) {
 		
@@ -58,9 +63,4 @@ public class Graph implements Comparable<Graph>{
 		// TODO Auto-generated method stub
 		return 1;
 	}
-	
-//	public void compare(double e1, double e2)
-//	{
-//		
-//	}
 }
