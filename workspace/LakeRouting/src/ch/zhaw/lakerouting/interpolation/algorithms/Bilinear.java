@@ -1,6 +1,5 @@
 package ch.zhaw.lakerouting.interpolation.algorithms;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import org.junit.Test;
 
 /**
