@@ -120,7 +120,7 @@ Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \subsection{Benötigte Ressourcen}
 \begin{itemize}
 \item Menschliche Ressourcen \\
-Das Projekt wird von 2 Personen für rund 1 Semester mit der Betreuung eines Dozenten gemäss dem Auftrag des Auftraggebers durchgeführt. Auch seitens des Auftraggebers steht ein Betreuer zu Verfügung, den wir bei Unklarheiten ebenfalls kontaktieren können. Es wird davon ausgegangen, dass alle Projektmitglieder durchschnittlich 20 bis 25 Stunden pro Woche am Projekt arbeiten.\\
+Das Projekt wird von 2 Personen für rund 1 Semester mit der Betreuung eines Dozenten gemäss dem Auftrag des Auftraggebers durchgeführt. Auch seitens des Auftraggebers steht ein Betreuer zu Verfügung, den wir bei Unklarheiten ebenfalls kontaktieren können und von dem wir auch die nötigen Unterlagen zugeschickt bekommen. Ausserdem steht auch ein Nebenbetreuer zur Verfügung, der grundsätzlich für IT spezifische Fragen zuständig ist. Es wird davon ausgegangen, dass alle Projektmitglieder durchschnittlich 20 bis 25 Stunden pro Woche am Projekt arbeiten.\\
 \item Räume \\
 Es werden keine speziellen Räume gebraucht. Aber für eine bessere, verstärkte und erfolgreiche Zusammenarbeit wurde das Zimmer TE616 in der ZHAW-Schulgebäude reserviert. Ausserdem werden einmal die Woche, jeweils am Dienstag, zwei Zimmer der Abteilung Wetterdienst in der MeteoSchweiz-Gebäude benutzt. Jedoch wird das Projekt weitgehend als virtuelle Organisation geführt, das heisst, dass der physische Standort der Teilnehmer nicht von Bedeutung ist.
 
@@ -139,14 +139,15 @@ Tel.   +41 44 256 91 11 \\
 Fax   +41 44 256 92 78\\
 
 \section{Vorgehensmodell}
+%Unvollständig
+Für unser Projekt haben wir uns für das V-Modell entschieden, da die Phasen stabile Anforderungen haben und sie wenig Management-Aufwand benötigen. Desweiteren besitzen sie klare Abgrenzungen und der Umfang der Arbeit ist klar abschätzbar. 
 
 \section{Zeitliche Planung}
-
+%Unvollständig
 \subsection{Effektiver Ablauf}
 \begin{table}[h!]
 \centering 
   \begin{tabular}{| c | l | r | >{\color{red}} r |}
-
     \hline
     \rowcolor{hellgrau} 
     \textbf{Arbeitspakete} & \textbf{Tasks} & \textbf{Zeitaufwand} & \textbf{\color{black}Effektiv} \\ \hline \hline
@@ -166,6 +167,7 @@ Fax   +41 44 256 92 78\\
      & \textbf{Zeitaufwand insgesamt} & \textbf{ Tage}  & \textbf{ Tage} \\ \hline \hline
   \end{tabular}
   \caption{Projektplan Ablauf}
+  \label{EffektivPlan}
 \end{table}
 
 \subsubsection{Definition}
@@ -174,76 +176,126 @@ Fax   +41 44 256 92 78\\
 \subsection{Gantt-Diagramm}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\linewidth]{img/projektplanung.png}
+\includegraphics[width=0.8\linewidth]{img/projektplanung.png}
 \caption{Projektplan}
 \label{prplan}
 \end{figure}
 
 \subsection{Arbeitspakete}
+Im Folgenden wird das Projekt in Arbeitspakete und ihre Abhängigkeiten eingeteilt, wie es auch in der Tabelle \ref{EffektivPlan} ersichtlich ist. Die Pakete wurden so gewählt, dass sie genau eine geschlossene Aufgabenstellung beschreiben und die Abhängigkeiten definieren, welche Arbeitspakete abgeschlossen sein müssen, damit ein bestimmtes Arbeitspaket begonnen werden kann. Desweiteren wurden auch die geplanten Dauer der Arbeitspakete angegeben. \\
+
+Es ist festgelegt, dass beide Projektmitglieder auch gleichzeitig die Projektleiter für die gesamte Projektlaufzeit sind. Es wird aber im Verlauf des Projektes in jeder einzelnen Phase jeweils ein Projektmitglied die eigentliche Projektleitung übernehmen.
+Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzeitige Fertigstellung und die Qualität des Produkts der jeweiligen Phase.
+
 \begin{table}[h!]
 \centering 
-  \begin{tabular}{| l | l | l| l | >{\color{red}} r |}
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
     \hline
-    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l}{1}  \\ \hline
-    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l}{Aufgabe 1 \& 2} \\ \hline       
-    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung eines Entscheidungsnetzes auf der Erdkugel}  \\ 
-    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Berechnung einer Orthodromie} \\ 
-    \cellcolor{hellgrau} & \multicolumn{3}{l}{(Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)}  \\ 
-    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung der Koordinatendatei eines Sees (in Koordinaten)}  \\ \cline{2-4}
-    \cellcolor{hellgrau} & \multicolumn{3}{l}{•	Erstellung eines Entscheidungskernes in Dynamische Programmierung}  \\ 
-     \multirow{-6}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l}{•	Berechnung von Orthodromien auf der Erdoberfläche mit Testdaten} \\ \hline
-    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 06.03.12\\ \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{1}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 1 \& 2} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungsnetzes auf der Erdkugel}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Berechnung einer Orthodromie} \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{(Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung der Koordinatendatei eines Sees (in Koordinaten)}  \\ \cline{2-4}
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungskernes in Dynamische Programmierung}  \\ 
+     \multirow{-6}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Berechnung von Orthodromien auf der Erdoberfläche mit Testdaten} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 06.03.2012\\ \hline
     \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Fevzi Yükseldi\\ \hline
-  \end{tabular}
+  \end{tabularx}
   \caption{Arbeitspaket 1}
 \end{table}
 
-2
-Aufgabe 3
-•	Erfassung des Polardiagramms eines Segelschiffes
-•	Interpolationsverfahren
-•	Test: Schiffgeschwindigkeiten berechnen
-06.03.2012 13.03.2012
-Keine Mathias Hablützel
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{2}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 3} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Polardiagramms eines Segelschiffes}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolationsverfahren} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Schiffgeschwindigkeiten berechnen} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 06.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 13.03.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Mathias Hablützeli\\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 2}
+\end{table}
 
-3
-Aufgabe 4
-•	Erfassung des Windfeldes. Quelle: stündige Vorhersagedaten des COSMO-2 Modells
-•	Interpolation auf des Entscheidungsnetzes (zwei mögliche Methoden)
-•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz, pro Vorhersagefrist.
-13.03.2012 20.03.2012
-Keine 
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{3}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 4} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Windfeldes. Quelle: stündige Vorhersagedaten des COSMO-2 Modells}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolation auf des Entscheidungsnetzes (zwei mögliche Methoden)} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz, pro Vorhersagefrist.} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 13.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 20.03.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 3}
+\end{table}
 
-4
-Aufgabe 5
-•	Wechselwirkung Windfeld – Segelschiff
-•	Geometrie um das Schiff, Ableitung dessen Geschwindigkeit
-•	Test: Berechnung der Schiffgeschwindigkeit im Windfeld
-20.03.2012 03.04.2012
-Aufgabe 3 \& 4 
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{4}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 5} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Wechselwirkung Windfeld – Segelschiff}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Geometrie um das Schiff, Ableitung dessen Geschwindigkeit} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Berechnung der Schiffgeschwindigkeit im Windfeld} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 20.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 03.04.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 2 \& 3 &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 4}
+\end{table}
 
-5
-Aufgabe 6
-•	Erweiterung des geometrischen Entscheidungskerns mit 
-o	Zeitmanagement
-o	Rekursion
-•	Erstellung eines Entscheidungsbaums und Test
-03.04.2012 17.04.2012
-Aufgabe 2 \& 5
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{5}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 6} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erweiterung des geometrischen Entscheidungskerns}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{~~~~~o	Zeitmanagement} \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{~~~~~o	Rekursion} \\ 
+     \multirow{-4}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungsbaums und Test} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 03.04.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 17.04.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 1 \& 4 &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 5}
+\end{table}
 
-6
-Aufgabe 7
-•	Im Entscheidungsbaum Rückberechnung der optimalen Route 
-•	Erstellung eines Logbuchs
-•	Graphische Darstellung  See, Windfeld, Entscheidungsbaum, optimale Route
-17.04.2012 08.05.2012
-Aufgabe 1 \& 4\& 6 
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{6}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 7} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Im Entscheidungsbaum Rückberechnung der optimalen Route}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Logbuchs} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Graphische Darstellung  See, Windfeld, Entscheidungsbaum, optimale Route} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 17.04.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 08.05.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 1 \& 3 \& 5 &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 6}
+\end{table}
 
-7
-Testing / Finetuning
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{7}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Testing / Finetuning} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 08.05.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 7}
+\end{table}
 
-24.02.2012 08.05.12
-Keine 
 
 \newpage
 
