@@ -44,7 +44,7 @@ public class Polaire {
 		}catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		catch (NumberFormatException | IOException e) {
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
