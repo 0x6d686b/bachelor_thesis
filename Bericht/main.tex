@@ -107,10 +107,19 @@ Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \setcounter{page}{1} 
 \part{Vorwort}
 \section{Einleitung}
+Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter Randbedingungen (physikalischer oder ökonomischer Natur).\\
+...
+%Unvollständig
 
 \section{Ziel / Auftrag}
+Die vorgeschlagene Bachelorarbeit schlägt eine Anwendung der DP zur Kursbestimmung eines Segelschiffs vor. Aufgrund der mit einem numerischen Modell vorausgesagten Wetterentwicklung und in Anbetracht der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale Route mittels DP gerechnet. Ähnliche Methoden wurden beim Alinghi Team im Rahmen des Americas Cup verwendet. \\
+Weitere Anwendungen der DP zum Thema "energy trading" für erneuerbare Energiequellen sind denkbar und eine Übertragung der Resultate der BA in diesen Bereich werden von MeteoSchweiz angestrebt. \\
+
+Die Bachelorarbeit läuft unter fachlicher Betreuung der MeteoSchweiz (numerische Meteorologie und angewandte Mathematik). Sie besteht darin, zur Lösung des obigen Problems eine in Java geschriebene Applikation der DP zu entwickeln. Sämtliche zu diesem Zweck nötige Algorithmen sind vorhanden und müssen nicht neu entwickelt werden, hingegen müssen bestehende Algorithmen auf an die spezielle Problemsituation angepasst werden. 
 
 \section{Weitere Informationen sowie Danksagung}
+Für die professionelle und freundliche Kooperation möchten wir uns an dieser Stelle herzlich bedanken!\\
+...
 
 \newpage
 \part{Projektplanung}
@@ -215,7 +224,7 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
     \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolationsverfahren} \\ 
      \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Schiffgeschwindigkeiten berechnen} \\ \hline
     \cellcolor{hellgrau}\textbf{Start} & 06.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 13.03.2012\\ \hline
-    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Mathias Hablützeli\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Mathias Hablützel\\ \hline
   \end{tabularx}
   \caption{Arbeitspaket 2}
 \end{table}
@@ -226,9 +235,9 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
     \hline
     \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{3}  \\ \hline
     \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 4} \\ \hline       
-    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Windfeldes. Quelle: stündige Vorhersagedaten des COSMO-2 Modells}  \\ 
-    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolation auf des Entscheidungsnetzes (zwei mögliche Methoden)} \\ 
-     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz, pro Vorhersagefrist.} \\ \hline
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Windfeldes. Quelle: stündliche Vorhersagedaten des COSMO-2 Modells}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolation auf das Entscheidungsnetzes (zwei mögliche Methoden)} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz für eine Vorhersagefrist.} \\ \hline
     \cellcolor{hellgrau}\textbf{Start} & 13.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 20.03.2012\\ \hline
     \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
   \end{tabularx}
@@ -287,11 +296,10 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
     \hline
     \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{7}  \\ \hline
     \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Testing / Finetuning} \\ \hline       
-    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	}  \\ 
-    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	} \\ 
-     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	} \\ \hline
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Die Tests werden laufend durchgeführt.}  \\ 
+     \multirow{-2}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Am Ende jedes Pakets wird die Arbeit mit realen Daten getestet} \\ \hline
     \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 08.05.2012\\ \hline
-    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine &  \cellcolor{hellgrau}\textbf{Verantwortung} & Alle \\ \hline
   \end{tabularx}
   \caption{Arbeitspaket 7}
 \end{table}
