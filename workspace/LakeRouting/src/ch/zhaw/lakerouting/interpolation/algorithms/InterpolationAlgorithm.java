@@ -7,5 +7,5 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
  * Time: 11:24
  */
 public interface InterpolationAlgorithm {
-    double interpolate(double x, double y, double[][] matrix) throws IllegalArgumentException;
+    double interpolate(double x, double y, Double[][] matrix) throws IllegalArgumentException;
 }
