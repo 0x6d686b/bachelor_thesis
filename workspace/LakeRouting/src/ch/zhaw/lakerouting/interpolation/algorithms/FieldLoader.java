@@ -1,6 +1,6 @@
 package ch.zhaw.lakerouting.interpolation.algorithms;
 
-import java.net.URL;
+import java.net.URI;
 
 /**
  * Created by IntelliJ IDEA.
@@ -8,7 +8,7 @@ import java.net.URL;
  * Date: 11.03.12
  * Time: 18:39
  */
-public interface FieldLoader<E> {
-    boolean loadRessource (URL identifier) throws UnsupportedOperationException;
-    E convertToArray();
+public interface FieldLoader {
+    boolean loadRessource (URI identifier) throws UnsupportedOperationException;
+    Float[][] convertToArray();
 }
