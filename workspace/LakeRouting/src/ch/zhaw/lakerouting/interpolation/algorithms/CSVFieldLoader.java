@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Time: 18:41
  */
 public class CSVFieldLoader implements FieldLoader{
-    private AbstractList<AbstractList<Float>> field;
+    private AbstractList<AbstractList<Double>> field;
 
     @Override
     public boolean loadRessource(URI identifier) throws UnsupportedOperationException{
@@ -33,20 +33,20 @@ public class CSVFieldLoader implements FieldLoader{
         }
 
         try {
-            field = new ArrayList<AbstractList<Float>>();
+            field = new ArrayList<AbstractList<Double>>();
             filereader.readHeaders();
             String[] headers = filereader.getHeaders();
             columns = filereader.getHeaderCount();
-            AbstractList<Float> header = new ArrayList<Float>();
+            AbstractList<Double> header = new ArrayList<Double>();
             for (int k = 1; k < columns; k++) {
-                header.add(Float.parseFloat(headers[k]));
+                header.add(Double.parseDouble(headers[k]));
             }
             field.add(header);
 
             while(filereader.readRecord()) {
-                AbstractList<Float> line = new ArrayList<Float>();
+                AbstractList<Double> line = new ArrayList<Double>();
                 for(int k = 0; k < columns; k++) {
-                    line.add(Float.parseFloat(filereader.get(k)));
+                    line.add(Double.parseDouble(filereader.get(k)));
                 }
                 field.add(line);
             }
@@ -57,10 +57,10 @@ public class CSVFieldLoader implements FieldLoader{
     }
 
     @Override
-    public Float[][] convertToArray() {
-        Float[][] arr = new Float[field.size()][field.get(0).size()];
+    public Double[][] convertToArray() {
+        Double[][] arr = new Double[field.size()][field.get(0).size()];
         for (int i = 0; i < field.size(); i++) {
-            arr[i] = field.get(i).toArray(new Float[field.get(0).size()]);
+            arr[i] = field.get(i).toArray(new Double[field.get(0).size()]);
         }
         return arr;
     }

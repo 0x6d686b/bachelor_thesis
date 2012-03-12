@@ -10,5 +10,5 @@ import java.net.URI;
  */
 public interface FieldLoader {
     boolean loadRessource (URI identifier) throws UnsupportedOperationException;
-    Float[][] convertToArray();
+    Double[][] convertToArray();
 }
