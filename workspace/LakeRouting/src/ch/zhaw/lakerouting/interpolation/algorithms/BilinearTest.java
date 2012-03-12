@@ -40,8 +40,8 @@ public class BilinearTest {
     @Test
     public void testInterpolate() throws Exception {
         Bilinear bilinear_object = new Bilinear();
-        double[][] arr = {{1,3},{2,4}};
-        double[][] arr2 = {{21,171},{4,68}};
+        Double[][] arr = {{1d,3d},{2d,4d}};
+        Double[][] arr2 = {{21d,171d},{4d,68d}};
         assertEquals(2.1, bilinear_object.interpolate(0.6, 0.25, arr), 0.001);
         assertEquals(103.527, bilinear_object.interpolate(0.41, 0.78, arr2), 0.001);
     }
