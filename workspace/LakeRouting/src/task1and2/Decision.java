@@ -43,7 +43,7 @@ public class Decision {
 				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
 						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
 				/ (2 * Math.PI);
-		// System.out.println("DISTANCE: "+distance);
+//		System.out.println("DISTANCE: "+distance*1.852);
 		return distance;
 	}
 
@@ -71,7 +71,7 @@ public class Decision {
 
 		// the euclidian distance
 		e = Math.sqrt(Math.pow((theta2-theta1), 2.0) + Math.pow((phi2-phi1), 2.0));
-		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
+//		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		// cosinus value
 		c = (theta2 - theta1) / e;
 		// sinus value
@@ -255,16 +255,16 @@ public class Decision {
 	 */
 	public static void main(String[] args) {
 		Decision de = new Decision();
-		System.out.println("Äquator(0,0) - Thailand(0,90)");
+		System.out.println("ï¿½quator(0,0) - Thailand(0,90)");
 		de.setLoc(de.graphe(0, 0, 90, 0));
-		System.out.println("(0,0) - (0,200)");
-		de.setLoc(de.graphe(0, 0, 200, 0));
-		System.out.println("Zurich(47.3,8.05) - Pacific(-47.22,226.88)");
-		de.setLoc(de.graphe(8.05, 47.3, 226.88, -47.22));
-		System.out.println("Zurich(47.3,8.05) - Peking(39.9288889,116.3883333)");
-		de.setLoc(de.graphe(8.05, 47.3, 116.3883333, 39.9288889));
-		System.out.println("Zurich(47.3,8.05) - Sao Paulo(-23.5333333,-46.6166667)");
-		de.setLoc(de.graphe(8.05, 47.3, -46.6166667, -23.5333333));
+//		System.out.println("(0,0) - (0,200)");
+//		de.setLoc(de.graphe(0, 0, 200, 0));
+//		System.out.println("Zurich(47.3,8.05) - Pacific(-47.22,226.88)");
+//		de.setLoc(de.graphe(8.05, 47.3, 226.88, -47.22));
+//		System.out.println("Zurich(47.3,8.05) - Peking(39.9288889,116.3883333)");
+//		de.setLoc(de.graphe(8.05, 47.3, 116.3883333, 39.9288889));
+//		System.out.println("Zurich(47.3,8.05) - Sao Paulo(-23.5333333,-46.6166667)");
+//		de.setLoc(de.graphe(8.05, 47.3, -46.6166667, -23.5333333));
 		de.setMaxi(de.getLoc().length);
 		de.setMaxj(de.getLoc()[0].length);
 		de.setCoord(de.getLoc()[0][0].length);
