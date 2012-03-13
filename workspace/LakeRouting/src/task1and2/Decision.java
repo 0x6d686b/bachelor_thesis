@@ -255,7 +255,7 @@ public class Decision {
 	 */
 	public static void main(String[] args) {
 		Decision de = new Decision();
-		System.out.println("Äquator(0,0) - Thailand(0,90)");
+		System.out.println("Ã„quator(0,0) - Thailand(0,90)");
 		de.setLoc(de.graphe(0, 0, 90, 0));
 		System.out.println("(0,0) - (0,200)");
 		de.setLoc(de.graphe(0, 0, 200, 0));
