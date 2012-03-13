@@ -1,0 +1,44 @@
+Anwesende: Amb, Hab, Yuk, Furu Ort: MeteoSchweiz Zürich
+
+1. Stand der Arbeit besprochen: Sourcecode ist schon sehr weit gekommen
+(Aufgabe 1 und 2) zur Zufriedenheit von Betreuern, Doku/Bericht wird nach
+Einverständnis weiterhin in LaTeX verfasst.
+
+2,1. Testcases mit Beispieldaten zur Plausibilitätskontrolle, wird verlangt,
+muss also unbedingt durchgeführt werden. Vorschlag das mit Unit-Tests zu
+automatisieren wird den Entwickler überlassen.
+
+2,2. Sourcecode muss dokumentiert werden, dafür eignet sich Doxygen am besten.
+Entscheidung obliegt den Entwicklern
+
+3. Weiteres Vorgehen: Wie geplant wird Aufgabe 3 und 4 in Angriff genommen. Es
+handelt sich dabei um die bilineare Interpolation für die Polardaten des
+Schiffes und die Windfelder.  Sollte die Windgeschwindigkeit des Windes
+kleiner als 0.5 Knoten sein, so wird der automatisch die Bootsgeschwindigkeit
+von 0.01 Knoten angenommen. Verhindert dass die Berechnung nie terminiert.
+
+Dasselbe gilt für die Bootsgeschwindigkeit, diese kann nie unter 0.01 Knoten
+fallen, somit ist garantiert, dass die Berechnungen terminieren.
+Dadurch werden die Algorithmen robust, daher sie terminieren garantiert.
+
+Sollte der Windeinfallswinkel am Boot [0°,35°) sein (also das Boot zu hart am
+Wind), so wird eine Bootsgeschwindigkeit von 0.01 Knoten angenommen.
+Sollte die Windgeschwindigkeit sich ausserhalb der spezifizierten Daten
+bewegen, so wird einfach die unter dem einfallenden Windwinkel angenommene
+Maximalgeschwindigkeit angenommen (das Boot fährt also so schnell wie
+möglich).
+
+Punkte des Windfeldes ausserhalb des Sees haben die Vektoren-Werte unterhalb
+des Schwellwertes 0.5, somit werden die Zeitkosten enorm hoch und die Punkte
+im Gitter automatisch gemieden vom Algorithmus. Allerdings würde in so einem
+Extremfall der Algorithmus immer noch terminieren, er würde einfach die
+Orthodromie berechnen und garantiert so eine Division-by-Zero-Freiheit.
+
+Die Grundlegende Idee dahinter: Die Abfangmechanismen von der Logik in die
+Datenstruktur verschieben, so dass die Algorithmen gar nicht in Extremfälle
+geraten und versagen.
+
+3.bis Amb versorgt Yuk/Hab noch mit genauen Unterlagen zur bilinearen
+Interpolation
+
+4. Nächste Sitzung ist am 06.03.2012 1300CET in der MeteoSchweiz veranschlagt.

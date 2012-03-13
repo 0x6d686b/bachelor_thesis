@@ -1,31 +1,43 @@
-Anwesende: Morgens Amb, Hab, Yuk
-  Nachmittags Amb, Hab, Yuk, Füch
-Ort: MeteoSchweiz Zürich
+Anwesende: Morgens Amb, Hab, Yuk Nachmittags Amb, Hab, Yuk, Füch Ort:
+MeteoSchweiz Zürich
 
-1. Administratives, Rundgang und Vorstellung von Büro (2. Stock, OperationCenter).
+1. Administratives, Rundgang und Vorstellung von Büro (2. Stock,
+OperationCenter).
 
-2. Diskussion über Vorbereitung der IT-Umgebung: Vonnöten sind Eclipse mit entsprechendem SDK, ein VCS (git) und bei Laptopeinsatz ein Zugriff nach aussen.
+2. Diskussion über Vorbereitung der IT-Umgebung: Vonnöten sind Eclipse mit
+entsprechendem SDK, ein VCS (git) und bei Laptopeinsatz ein Zugriff nach
+aussen.
 
 3. Vorstellung von MeteoSchweiz und Aufträge
 
-4. Wiederholung und Vertiefung des LakeRouting-Systems und der Mathematik dahinter. Diskussion von Sonderfällen (nicht-optimale Lösung), sollen in BA-Bericht diskutiert werden.
+4. Wiederholung und Vertiefung des LakeRouting-Systems und der Mathematik
+dahinter. Diskussion von Sonderfällen (nicht-optimale Lösung), sollen in
+BA-Bericht diskutiert werden.
 
-5. Vorgeschlagene Aufteilung in einzelne Pakete für Arbeit durch Amb in sieben Aufgaben.
+5. Vorgeschlagene Aufteilung in einzelne Pakete für Arbeit durch Amb in sieben
+Aufgaben.
 
 6. Diverses
 
-a) Vollständig selbstständige Arbeit, Arbeitsplanung, Protokolle und Entscheidungen sollen geführt werden, werden zwar nicht kontrolliert, aber fliessen in die Bewertung ein.
+a) Vollständig selbstständige Arbeit, Arbeitsplanung, Protokolle und
+Entscheidungen sollen geführt werden, werden zwar nicht kontrolliert, aber
+fliessen in die Bewertung ein.
 
-b) Einzelne Klassen und Module sollen wenn möglich testbar, validierbar sein aufgrund der instabilen Natur der Algorithmen. Somit können früh Fehler und Probleme ausgeschlossen werden.
+b) Einzelne Klassen und Module sollen wenn möglich testbar, validierbar sein
+aufgrund der instabilen Natur der Algorithmen. Somit können früh Fehler und
+Probleme ausgeschlossen werden.
 
 7. Weiteres Vorgehen
 
-a) Amb liefert alle Unterlagen per Mail, dokumentierter bzw. kommentierter Mathematika-Sourcecode bis Di. 21.02.2012
+a) Amb liefert alle Unterlagen per Mail, dokumentierter bzw. kommentierter
+Mathematika-Sourcecode bis Di. 21.02.2012
 
 b) Amb kümmert sich um die IT-Infrastruktur
 
-c) Hab/Yuk werden ab erhalt der Unterlagen prüfen, ob der vorgeschlagene Aufgabenplan sinnvoll ist und eine Projektplannung erstellen.
+c) Hab/Yuk werden ab erhalt der Unterlagen prüfen, ob der vorgeschlagene
+Aufgabenplan sinnvoll ist und eine Projektplannung erstellen.
 
-d) Hab/Yuk erstellen ein präzises Anforderungsdokument für die Javaimplementation (Genauigkeit, Einheiten,Schnittstellen etc.)
+d) Hab/Yuk erstellen ein präzises Anforderungsdokument für die
+Javaimplementation (Genauigkeit, Einheiten,Schnittstellen etc.)
 
 e) nächste Sitzung ist am 28.02.2012 um 1500CET bei MeteoSchweiz in Zürich.
