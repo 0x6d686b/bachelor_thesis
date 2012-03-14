@@ -49,7 +49,7 @@ public class InterpolatorTest {
     private URI testfile;
 
     @Before
-    public void before() throws Exception {
+    public void before() {
         try {
             testfile = new URI("/var/tmp/interpolationtest.csv");
         } catch (URISyntaxException e) {
@@ -71,19 +71,9 @@ public class InterpolatorTest {
         //Close the output stream
     }
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-
-    }
-
     @After
-    public void after() throws Exception {
+    public void after() {
         new File(testfile.getPath()).delete();
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-
     }
 
     /**
