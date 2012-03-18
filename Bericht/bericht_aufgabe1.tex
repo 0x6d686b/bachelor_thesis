@@ -98,13 +98,17 @@
 \begin{itemize}
   \item Erstellung eines Entscheidungsnetzes auf der Erdkugel
   \item Berechnung einer Orthodromie (Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)
-  \item Erstellung der Koordinatendatei eines Sees (in Koordinaten)
+  \item Erstellung der Koordinatendatei eines Sees
 \end{itemize}
 
 \subsection{Analyse der Problemstellung}
-Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden. Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $A$ und $B$ einfach berechnet:
+Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt.  
 
-begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
+Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $A$ und $B$ einfach berechnet:
+
+Da die Erde eine Kugelform hat, werden die Koordinaten in Längen- und Breitengraden und die Distanz in Seemeilen angegeben. 
+
+\begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
 	%% some definitions
 	
 	\def\R{4} % sphere radius
@@ -146,4 +150,6 @@ begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
     \draw[->,color=red] (O) -- node[right=2pt] {$\overrightarrow{N}$} (N);
     \draw (P) arc (-110:-45:\R) (Q);	
 \end{tikzpicture}
+
+
 
