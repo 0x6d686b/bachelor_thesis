@@ -36,6 +36,6 @@ import java.net.URI;
  * Time: 18:39
  */
 public interface FieldLoader {
-    boolean loadRessource (URI identifier) throws UnsupportedOperationException;
+    boolean loadRessource (URI identifier);
     Double[][] convertToArray();
 }

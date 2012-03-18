@@ -45,7 +45,7 @@ public class CSVFieldLoader implements FieldLoader{
     private AbstractList<AbstractList<Double>> field;
 
     @Override
-    public boolean loadRessource(URI identifier) throws UnsupportedOperationException{
+    public final boolean loadRessource(URI identifier){
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
@@ -85,7 +85,7 @@ public class CSVFieldLoader implements FieldLoader{
     }
 
     @Override
-    public Double[][] convertToArray() {
+    public final Double[][] convertToArray() {
         Double[][] arr = new Double[field.size()][field.get(0).size()];
         for (int i = 0; i < field.size(); i++) {
             arr[i] = field.get(i).toArray(new Double[field.get(0).size()]);

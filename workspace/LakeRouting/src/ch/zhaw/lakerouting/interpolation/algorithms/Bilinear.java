@@ -37,7 +37,7 @@ import org.junit.Test;
  */
 public class Bilinear implements InterpolationAlgorithm {
     @Override @Test
-    public double interpolate(double x, double y, Double[][] matrix) {
+    public final double interpolate(double x, double y, Double[][] matrix) {
         if (!(x >= 0 && x <= 1 && y >= 0 && y <= 1))
             throw new IllegalArgumentException("Params not in required range, got x: " + x + " and y: " + y);
 

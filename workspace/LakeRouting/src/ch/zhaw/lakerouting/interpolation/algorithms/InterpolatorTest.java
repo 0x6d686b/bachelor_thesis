@@ -30,10 +30,7 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -49,7 +46,7 @@ public class InterpolatorTest {
     private URI testfile;
 
     @Before
-    public void before() {
+    public final void before() {
         try {
             testfile = new URI("/var/tmp/interpolationtest.csv");
         } catch (URISyntaxException e) {
@@ -72,15 +69,16 @@ public class InterpolatorTest {
     }
 
     @After
-    public void after() {
-        new File(testfile.getPath()).delete();
+    public final void after() throws FileNotFoundException {
+        if(! new File(testfile.getPath()).delete())
+            throw new FileNotFoundException("Couldn't delete test boat field.");
     }
 
     /**
      * Method: interpolate(double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm)
      */
     @Test
-    public void testInterpolate() throws Exception {
+    public final void testInterpolate() throws URISyntaxException {
         testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
         FieldLoader loader = new CSVFieldLoader();
         BoatSpeedDiagram field = new BoatSpeedDiagram();

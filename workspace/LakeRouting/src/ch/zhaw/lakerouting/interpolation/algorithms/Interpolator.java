@@ -37,9 +37,8 @@ import org.junit.Test;
  */
 public class Interpolator {
     @Test
-    public double interpolate (double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
-        double a = field.getNormalizedValues(x, y)[0];
-        double b = field.getNormalizedValues(x, y)[1];
-        return algorithm.interpolate(a, b, field.getRange(x,y));
+    public final double interpolate (double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
+        Double[] val = field.getNormalizedValues(x,y);
+        return algorithm.interpolate(val[0], val[1], field.getRange(x,y));
     }
 }

@@ -38,14 +38,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class BilinearTest {
     @Test
-    public void testInterpolate() throws Exception {
-        Bilinear bilinear_object = new Bilinear();
+    public final void testInterpolate() throws Exception {
+        Bilinear bilinearObject = new Bilinear();
         Double[][] arr = new Double[][] {{1d, 3d}, {2d, 4d}};
         Double[][] arr2 = new Double[][] {{21d,171d},{4d,68d}};
         Double[][] arr3 = new Double[][] {{2.8,3.95},{2.84,4.2}};
-        assertEquals(2.1, bilinear_object.interpolate(0.6, 0.25, arr), 0.001);
-        assertEquals(103.527, bilinear_object.interpolate(0.41, 0.78, arr2), 0.001);
-        assertEquals(2.87871, bilinear_object.interpolate(0.21,0.046, arr3), 0.1);
+        assertEquals(2.1, bilinearObject.interpolate(0.6, 0.25, arr), 0.001);
+        assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
+        assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
         
     }
 }
