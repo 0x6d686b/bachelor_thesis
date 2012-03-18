@@ -112,6 +112,8 @@ public class GridFrame extends JFrame{
 		z = 0;
 		double pos;
 		double posx;
+		int shortestPoint=de.getMaxi()/2;
+		boolean atFirstTime = true;
 		for(int i=0;i<de.getMaxi();i++){
 			x=de.getMaxi()-i-1;
 			z=de.getMaxi()-i;
@@ -121,25 +123,22 @@ public class GridFrame extends JFrame{
 				{
 					pos = graphList.get(x).get(j).getPreviousNode()[1];
 					posx = graphList.get(x).get(j).getNode()[1];
+					if(j==shortestPoint && atFirstTime)
+					{
+						g.setColor(Color.GREEN);
+						shortestPoint = (int)pos;
+						atFirstTime = false;
+					}else
+					{
+						g.setColor(Color.GRAY);
+					}
 					g.drawLine(positionLoLa[x][j][0], positionLoLa[x][(int)posx][1], positionLoLa[x-1][(int)pos][0], positionLoLa[x-1][(int)pos][1]);
 				}
-				
 			}
+			atFirstTime = true;
 		}
-//		for(int i=0;i<de.getMaxi();i++){
-//			x=de.getMaxi()-i-1;
-//			z=de.getMaxi()-i;
-//			for (int j = 0; j < de.getMaxi(); j++) {
-//				if(x<=0) break;
-//				if(j!=(int)position[x-1][1] && graphList.get(x).get(j).getTimeOfArrival()<1000000)
-//				{
-//					pos = graphList.get(x).get(j).getPreviousNode()[1];
-//					posx = graphList.get(x).get(j).getNode()[1];
-//					g.drawLine(50*(z)-20*(z)+5, 50*((int)posx+1)-20*((int)posx+1)+5, 50*(z-1)-20*(z-1)+5, 50*((int)pos+1)-20*((int)pos+1)+5);
-//				}
-//				
-//			}
-//		}
+
+
 		
     }
 }

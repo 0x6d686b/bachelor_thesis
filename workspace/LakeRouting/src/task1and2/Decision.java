@@ -70,8 +70,10 @@ public class Decision {
 		n = 10;
 
 		// the euclidian distance
+		e = Math.sqrt(Math.pow((360), 2.0) + Math.pow((0), 2.0));
+		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		e = Math.sqrt(Math.pow((theta2-theta1), 2.0) + Math.pow((phi2-phi1), 2.0));
-//		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
+		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		// cosinus value
 		c = (theta2 - theta1) / e;
 		// sinus value
@@ -95,8 +97,8 @@ public class Decision {
 				tableMatrix[i][j + n][1] = M[1][0] * (e * i / m) + M[1][1]
 						* (p * e * j / (2*n)) + phi1;
 				// output on the Console for verification
-				// System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
-				// +" , "+ tableMatrix[i][j+n][1]);
+//				 System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
+//				 +" , "+ tableMatrix[i][j+n][1]);
 			}
 		}
 		return tableMatrix;
