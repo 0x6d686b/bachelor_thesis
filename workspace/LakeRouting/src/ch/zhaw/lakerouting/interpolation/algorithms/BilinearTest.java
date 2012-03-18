@@ -31,10 +31,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 11.03.12
- * Time: 17:53
+ * Tests the {@link Bilinear} if it works correct
+ * @author Mathias Hablützel
+ * @version 1.0
+ * @since 1.0
+ *
  */
 public class BilinearTest {
     @Test

@@ -36,14 +36,19 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 11.03.12
- * Time: 18:41
+ * Loads the values for a boat speed diagram from a CSV file
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0
  */
 public class CSVFieldLoader implements FieldLoader{
     private AbstractList<AbstractList<Double>> field;
 
+    /**
+     * Loads the indicated ressource
+     * @param identifier Object containing the URI to the ressource
+     * @return Returns {@code true} if successful, {@code false} if not
+     */
     @Override
     public final boolean loadRessource(URI identifier){
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
@@ -84,6 +89,10 @@ public class CSVFieldLoader implements FieldLoader{
         return true;
     }
 
+    /**
+     * Converts the whole input file into an array
+     * @return returns the array
+     */
     @Override
     public final Double[][] convertToArray() {
         Double[][] arr = new Double[field.size()][field.get(0).size()];

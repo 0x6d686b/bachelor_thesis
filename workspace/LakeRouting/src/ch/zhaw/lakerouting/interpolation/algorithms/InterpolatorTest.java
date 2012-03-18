@@ -35,11 +35,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Interpolator Tester.
+ * Interpolator Tester
  *
- * @author mhk
+ * PMD will not be happy about my non usage of constants
+ *
+ * @author Mathias Hablützel
  * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
+ * @since 1.0
  */
 public class InterpolatorTest {
     
@@ -74,9 +76,6 @@ public class InterpolatorTest {
             throw new FileNotFoundException("Couldn't delete test boat field.");
     }
 
-    /**
-     * Method: interpolate(double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm)
-     */
     @Test
     public final void testInterpolate() throws URISyntaxException {
         testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");

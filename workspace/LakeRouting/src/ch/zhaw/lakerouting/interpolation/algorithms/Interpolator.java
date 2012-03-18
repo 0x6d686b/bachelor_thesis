@@ -30,10 +30,13 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
 import org.junit.Test;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 12.03.12
- * Time: 18:31
+ * The main class for the interpolation process, handles all calls
+ *
+ * When given the windfield and the interpolation algorithm it'll
+ * calculate the interpolated value at {@code x,y}
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0
  */
 public class Interpolator {
     @Test

@@ -30,12 +30,20 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
 import org.junit.Test;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 10.03.12
- * Time: 11:21
+ * Implements the bilinear interpolation algorithm.
+ *
+ * @author Mathias Hablützel
+ * @version 1.0
+ * @since 1.0
  */
 public class Bilinear implements InterpolationAlgorithm {
+    /**
+     * Interpolates at the position (x,y) on the matrix.
+     * @param x Must be between (0,1)
+     * @param y Must be between (0,1)
+     * @param matrix Is a 2D array of size 2x2 with the corner value needed to interpolate
+     * @return returns a double contain the interpolated value.
+     */
     @Override @Test
     public final double interpolate(double x, double y, Double[][] matrix) {
         if (!(x >= 0 && x <= 1 && y >= 0 && y <= 1))
