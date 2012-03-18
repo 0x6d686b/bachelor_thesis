@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This class computes the Decision-Matrix between two locations
  * 
- * @author Fevzi YÃ¼kseldi, Mathias HablÃ¼tzel
+ * @author Fevzi Yükseldi, Mathias Hablützel
  * 
  */
 public class Decision {
@@ -43,6 +43,7 @@ public class Decision {
 				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
 						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
 				/ (2 * Math.PI);
+		// System.out.println("DISTANCE: "+distance);
 //		System.out.println("DISTANCE: "+distance*1.852);
 		return distance;
 	}
@@ -70,8 +71,6 @@ public class Decision {
 		n = 10;
 
 		// the euclidian distance
-		e = Math.sqrt(Math.pow((360), 2.0) + Math.pow((0), 2.0));
-		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		e = Math.sqrt(Math.pow((theta2-theta1), 2.0) + Math.pow((phi2-phi1), 2.0));
 		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		// cosinus value
@@ -257,7 +256,7 @@ public class Decision {
 	 */
 	public static void main(String[] args) {
 		Decision de = new Decision();
-		System.out.println("ï¿½quator(0,0) - Thailand(0,90)");
+		System.out.println("Äquator(0,0) - Thailand(0,90)");
 		de.setLoc(de.graphe(0, 0, 90, 0));
 //		System.out.println("(0,0) - (0,200)");
 //		de.setLoc(de.graphe(0, 0, 200, 0));
