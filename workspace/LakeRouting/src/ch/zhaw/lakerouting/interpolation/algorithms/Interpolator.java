@@ -27,6 +27,8 @@
 
 package ch.zhaw.lakerouting.interpolation.algorithms;
 
+import org.junit.Test;
+
 /**
  * Created by IntelliJ IDEA.
  * User: mhk
@@ -34,7 +36,10 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
  * Time: 18:31
  */
 public class Interpolator {
-    public double interpolate (double x, double y, Windfield field, InterpolationAlgorithm algorithm) {
-        return algorithm.interpolate(x, y, field.getRange(x,y));
+    @Test
+    public double interpolate (double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
+        double a = field.getNormalizedValues(x, y)[0];
+        double b = field.getNormalizedValues(x, y)[1];
+        return algorithm.interpolate(a, b, field.getRange(x,y));
     }
 }

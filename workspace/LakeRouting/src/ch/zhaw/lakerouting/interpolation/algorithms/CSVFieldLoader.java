@@ -65,6 +65,7 @@ public class CSVFieldLoader implements FieldLoader{
             String[] headers = filereader.getHeaders();
             columns = filereader.getHeaderCount();
             AbstractList<Double> header = new ArrayList<Double>();
+            header.add(0.0);
             for (int k = 1; k < columns; k++) {
                 header.add(Double.parseDouble(headers[k]));
             }
