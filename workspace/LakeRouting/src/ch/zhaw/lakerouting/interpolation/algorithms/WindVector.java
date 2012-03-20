@@ -43,6 +43,11 @@ public class WindVector {
             throw new IllegalArgumentException("Input value too high: max " + MAXWIND + "kts.");
     }
 
+    public WindVector (double i, double j) {
+        setU(i);
+        setV(j);
+    }
+    
     public final double getU() {
         return u;
     }
