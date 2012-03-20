@@ -29,7 +29,6 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
 
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,6 +38,11 @@ import java.text.DecimalFormat;
  * To change this template use File | Settings | File Templates.
  */
 public class Coordinate {
+    private static final double MIN_LONGITUDE = -180.0;
+    private static final double MAX_LONGITUDE = 180.0;
+    private static final double MIN_LATITUDE = -90.0;
+    private static final double MAX_LATITUDE = 90.0;
+
     private BigDecimal longitude;
     private BigDecimal latitude;
     
@@ -47,27 +51,27 @@ public class Coordinate {
         setLatitude(lat);
     }
 
-    public double getLongitude() {
+    public final double getLongitude() {
         return longitude.doubleValue();
     }
 
-    public void setLongitude(double l) throws IllegalArgumentException {
-        if (l >= 180.0 || l < -180.0)
+    public final void setLongitude(double l) {
+        if (l < MAX_LONGITUDE || l >= MIN_LONGITUDE)
             throw new IllegalArgumentException("Longitude is out of range.");
         this.longitude = BigDecimal.valueOf(l);
     }
 
-    public double getLatitude() {
+    public final double getLatitude() {
         return latitude.doubleValue();
     }
 
-    public void setLatitude(double l) throws IllegalArgumentException{
-        if (l > -90.0 || l < 90.0)
+    public final void setLatitude(double l) {
+        if (l > MIN_LATITUDE || l < MAX_LATITUDE)
             throw new IllegalArgumentException("Latitude is out of range.");
         this.latitude = BigDecimal.valueOf(l);
     }
 
-    public String toString() {
+    public final String toString() {
         return "Longitude: " + longitude + "°, Latitude: " + latitude;
     }
 
