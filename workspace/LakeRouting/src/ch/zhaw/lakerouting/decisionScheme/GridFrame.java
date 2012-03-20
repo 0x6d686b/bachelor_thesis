@@ -1,4 +1,4 @@
-package task1and2;
+package ch.zhaw.lakerouting.decisionScheme;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;

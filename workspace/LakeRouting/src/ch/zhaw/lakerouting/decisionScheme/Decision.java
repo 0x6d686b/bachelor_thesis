@@ -1,4 +1,4 @@
-package task1and2;
+package ch.zhaw.lakerouting.decisionScheme;
 
 import java.util.ArrayList;
 

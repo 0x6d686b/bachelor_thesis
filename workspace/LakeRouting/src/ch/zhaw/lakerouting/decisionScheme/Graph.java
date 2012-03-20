@@ -1,4 +1,4 @@
-package task1and2;
+package ch.zhaw.lakerouting.decisionScheme;
 
 /**
  * This class represents the elements of the Decision-Matrix with the structure:
