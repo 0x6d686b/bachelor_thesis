@@ -33,7 +33,7 @@ public class GridFrame extends JFrame{
 		de.setCoord(de.getLoc()[0][0].length);
 		System.out.println("Maxi: "+de.getMaxi()+" Maxj: "+de.getMaxj()+" Coord:"+de.getCoord());
 		
-		ArrayList <ArrayList<Graph>> graphList = de.programmationDynamique(15);
+		ArrayList <ArrayList<Graph>> graphList = de.programmationDynamique(10);//15
 		//longitudes, latitudes
 		double[][][] loc = de.getLoc();
 		int[][][] positionLoLa = new int[de.getMaxi()][de.getMaxj()][2];

@@ -213,7 +213,7 @@ public class Decision {
 	 * @param theta
 	 * @param phi
 	 */
-	public double[] setX(double theta, double phi) {
+	public double[] transformCoordToVector(double theta, double phi) {
 		double[] sphere = new double[3];
 		sphere[0] = Math.cos(Math.PI * theta / 180)
 				* Math.cos(Math.PI * phi / 180);

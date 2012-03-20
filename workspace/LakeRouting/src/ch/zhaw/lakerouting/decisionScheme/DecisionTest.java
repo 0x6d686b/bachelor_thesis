@@ -57,7 +57,7 @@ public class DecisionTest {
 			de.setMaxj(de.getLoc()[0].length);
 			de.setCoord(de.getLoc()[0][0].length);
 
-			test = de.programmationDynamique(15);
+			test = de.programmationDynamique(10);
 
 			orthoDistanceKm = de.ortho(entry.getValue()[0],
 					entry.getValue()[1], entry.getValue()[2],
