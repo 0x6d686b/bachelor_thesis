@@ -34,37 +34,38 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
  * Time: 11:28
  */
 public class WindVector {
+    private static final int MAXWIND = 180;
     private double u;
     private double v;
 
-    private void validateInput (double input) throws IllegalArgumentException{
-        if (Math.abs(input) > 180)
-            throw new IllegalArgumentException("Input value too high: max 180kts.");
+    private void validateInput (double input) {
+        if (Math.abs(input) > MAXWIND)
+            throw new IllegalArgumentException("Input value too high: max " + MAXWIND + "kts.");
     }
 
-    public double getU() {
+    public final double getU() {
         return u;
     }
 
-    public void setU(double input) throws IllegalArgumentException{
+    public final void setU(double input) {
         validateInput(input);
         this.u = input;
     }
 
-    public double getV() {
+    public final double getV() {
         return v;
     }
 
-    public void setV(double input) {
+    public final void setV(double input) {
         validateInput(input);
         this.v = input;
     }
 
-    public double getWindspeed() {
+    public final double getWindspeed() {
         return Math.sqrt(Math.pow(getU(),2) + Math.pow(getV(),2));
     }
 
-    public double getAngle() {
+    public final double getAngle() {
         /**
          * Assume: (1,0) is the vector pointing to the North
          * Assume: (u,v) is our wind vector
