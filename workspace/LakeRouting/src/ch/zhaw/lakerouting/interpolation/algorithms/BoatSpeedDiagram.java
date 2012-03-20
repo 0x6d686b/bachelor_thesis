@@ -121,8 +121,7 @@ public class BoatSpeedDiagram implements Field {
     public final boolean loadDiagram(FieldLoader fieldplane, URI uri) {
         if (!fieldplane.loadRessource(uri))
             return false;
-        this.loadArray(fieldplane);
-        return true;
+        return this.loadArray(fieldplane);
     }
 
 }
