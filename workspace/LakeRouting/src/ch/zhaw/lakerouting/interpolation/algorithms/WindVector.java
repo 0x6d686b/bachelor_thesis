@@ -61,6 +61,16 @@ public class WindVector {
     }
 
     public double getWindspeed() {
-        return Math.sqrt(Math.pow(u,2) + Math.pow(v,2));
+        return Math.sqrt(Math.pow(getU(),2) + Math.pow(getV(),2));
+    }
+
+    public double getAngle() {
+        /**
+         * Assume: (1,0) is the vector pointing to the North
+         * Assume: (u,v) is our wind vector
+         * dot-product is defined as Sum(i=0 -> n) {A_i * B_i}
+         * We simplify: 1*u + 0*v = u
+         */
+        return Math.acos( ( getU() ) / getWindspeed() );
     }
 }
