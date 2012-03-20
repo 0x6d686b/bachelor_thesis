@@ -37,7 +37,7 @@ import java.net.URI;
  * @since 1.0
  * @version 1.0
  */
-public class BoatSpeedDiagram {
+public class BoatSpeedDiagram implements Field {
     private Double[][] field;
 
     @Test
@@ -54,8 +54,9 @@ public class BoatSpeedDiagram {
      * @param y
      * @return Returns a 2D array with size 2x2 containing the next known lower and higher values containing x,y.
      */
+    @Override
     @Test
-    public final Double[][] getRange (double x, double y) {
+    public final Double[][] getRange(double x, double y) {
         int fromX = 1;
         int fromY = 1;
         int toX = 2;
@@ -86,8 +87,9 @@ public class BoatSpeedDiagram {
      * @param b
      * @return
      */
+    @Override
     @Test
-    public final Double[] getNormalizedValues (double a, double b) {
+    public final Double[] getNormalizedValues(double a, double b) {
         int x = 1;
         int y = 1;
         for (int i = 0; i < field[0].length; i++) {
@@ -114,8 +116,9 @@ public class BoatSpeedDiagram {
      * @param uri {@link URI} of the file to load
      * @return Returns {@code true} if successfull, {@code false} if not
      */
+    @Override
     @Test
-    public final boolean loadDiagram (FieldLoader fieldplane, URI uri) {
+    public final boolean loadDiagram(FieldLoader fieldplane, URI uri) {
         if (!fieldplane.loadRessource(uri))
             return false;
         this.loadArray(fieldplane);

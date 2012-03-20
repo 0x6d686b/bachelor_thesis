@@ -83,7 +83,7 @@ public class InterpolatorTest {
     public void testInterpolate() throws Exception {
         testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
         FieldLoader loader = new CSVFieldLoader();
-        BoatSpeedDiagram field = new BoatSpeedDiagram();
+        Field field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
         InterpolationAlgorithm bil = new Bilinear();
         Interpolator interpoler = new Interpolator();

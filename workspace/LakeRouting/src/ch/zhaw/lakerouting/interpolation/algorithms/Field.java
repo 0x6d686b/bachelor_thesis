@@ -29,19 +29,21 @@ package ch.zhaw.lakerouting.interpolation.algorithms;
 
 import org.junit.Test;
 
+import java.net.URI;
+
 /**
- * The main class for the interpolation process, handles all calls
- *
- * When given the windfield and the interpolation algorithm it'll
- * calculate the interpolated value at {@code x,y}
- * @author Mathias Hablützel
- * @since 1.0
- * @version 1.0
+ * Created by IntelliJ IDEA.
+ * User: mhk
+ * Date: 20.03.12
+ * Time: 14:49
  */
-public class Interpolator {
+public interface Field {
     @Test
-    public final double interpolate (double x, double y, Field field, InterpolationAlgorithm algorithm) {
-        Double[] val = field.getNormalizedValues(x,y);
-        return algorithm.interpolate(val[0], val[1], field.getRange(x,y));
-    }
+    Double[][] getRange(double x, double y);
+
+    @Test
+    Double[] getNormalizedValues(double a, double b);
+
+    @Test
+    boolean loadDiagram (FieldLoader fieldplane, URI uri);
 }
