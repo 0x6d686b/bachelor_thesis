@@ -7,7 +7,7 @@ import java.util.Collections;
 import javax.swing.JFrame;
 /**
  * This class demonstrates the Decision-Matrix in a graphical way.
- * @author
+ * @author Fevzi Yuekseldi, Mathias Habluetzel
  *
  */
 public class GridFrame extends JFrame{
@@ -41,8 +41,8 @@ public class GridFrame extends JFrame{
 		double latMin = loc[0][0][1];
 		double longMax=loc[0][0][0];
 		double latMax=loc[0][0][1];
-		int x;
-		int y;
+		
+		//determine the smallest/biggest longitude and latitude
 		for(int i=0;i<de.getMaxi();i++){
 			for (int j = 0; j < de.getMaxj(); j++) {
 				if(loc[i][j][0]<longMin)
@@ -61,10 +61,11 @@ public class GridFrame extends JFrame{
 				}
 			}
 		}
-		int maxLaenge = 500/(Math.abs((int)longMin) + Math.abs((int)longMax));
-		int maxBreite = 500/(Math.abs((int)latMin) + Math.abs((int)latMax));
+		
+		//draw the points related to longitudes and latitudes
 		for(int i=1;i<=de.getMaxi();i++){
 			for (int j = 1; j <= de.getMaxj(); j++) {
+				//the multiplication with 3 and addition of 50 is only a constant variable for this example
 				positionLoLa[i-1][j-1][0]=((int)loc[i-1][j-1][0]+Math.abs((int)longMin))*3+50;
 				positionLoLa[i-1][j-1][1]=(90-((int)loc[i-1][j-1][1]))*3+50;
 				if(graphList.get(i-1).get(j-1).getTimeOfArrival()>=1000000d)
@@ -79,15 +80,18 @@ public class GridFrame extends JFrame{
 			}
 		}
 		
-		
+		//get the minimum timeOfArrival Node of every column x and save it to position
+		int x;
 		double[][] position = new double[de.getMaxi()][2];
 		for(int i=1;i<=de.getMaxi();i++){
 			x=i-1;
 			Graph obj = (Graph)Collections.min(graphList.get(x));
 			position[x][0] = obj.getPreviousNode()[1];
 			position[x][1] = graphList.get(x).indexOf(obj);
-//			System.out.println("MINIMUM: "+obj.getTimeOfArrival() +" POS: "+graphList.get(x).get((int)position[x][1]).getTimeOfArrival());
 		}
+		
+		//Now we have the last minimum timeOfArrival Node of the last column
+		//We have now to go backwards started at the last minimum Node and save the path
 		int w;
 		for(int i=1;i<=de.getMaxi();i++){
 			w = de.getMaxi()-i;
@@ -98,20 +102,20 @@ public class GridFrame extends JFrame{
 			}
 		}
 		
+		//draw the shortest path in red
 		g.setColor(Color.RED);
 		int z = 0;
-//		for(int i=1;i<de.getMaxi();i++){
-//			g.drawLine(50*(i)-20*(i)+5, 50*((int)position[z][0]+1)-20*((int)position[z][0]+1)+5, 50*(i+1)-20*(i+1)+5, 50*((int)position[z][1]+1)-20*((int)position[z][1]+1)+5);
-//			z++;
-//		}
 		for(int i=1;i<de.getMaxi();i++){
 			g.drawLine(positionLoLa[i-1][(int)position[z][0]][0], positionLoLa[i-1][(int)position[z][0]][1], positionLoLa[i][(int)position[z][1]][0], positionLoLa[i][(int)position[z][1]][1]);
 			z++;
 		}
+		
+		//Start at the last column and draw all shortest connections of every nodes 
 		g.setColor(Color.GRAY);
 		z = 0;
 		double pos;
 		double posx;
+		//the destination point is in our algorithm exactly in the middle of the last column
 		int shortestPoint=de.getMaxi()/2;
 		boolean atFirstTime = true;
 		for(int i=0;i<de.getMaxi();i++){
@@ -119,10 +123,13 @@ public class GridFrame extends JFrame{
 			z=de.getMaxi()-i;
 			for (int j = 0; j < de.getMaxi(); j++) {
 				if(x<=0) break;
+				//Disallow to draw the shortest path again and ignore the nodes with TOA <1000000
 				if(j!=(int)position[x-1][1] && graphList.get(x).get(j).getTimeOfArrival()<1000000)
 				{
+					//save the previous and the current node
 					pos = graphList.get(x).get(j).getPreviousNode()[1];
 					posx = graphList.get(x).get(j).getNode()[1];
+					//the path from the destination node will be drawn green
 					if(j==shortestPoint && atFirstTime)
 					{
 						g.setColor(Color.GREEN);
@@ -132,7 +139,7 @@ public class GridFrame extends JFrame{
 					{
 						g.setColor(Color.GRAY);
 					}
-					g.drawLine(positionLoLa[x][j][0], positionLoLa[x][(int)posx][1], positionLoLa[x-1][(int)pos][0], positionLoLa[x-1][(int)pos][1]);
+					g.drawLine(positionLoLa[x][(int)posx][0], positionLoLa[x][(int)posx][1], positionLoLa[x-1][(int)pos][0], positionLoLa[x-1][(int)pos][1]);
 				}
 			}
 			atFirstTime = true;
