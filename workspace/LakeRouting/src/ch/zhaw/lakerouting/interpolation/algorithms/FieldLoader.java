@@ -31,5 +31,5 @@ import java.net.URI;
 
 public interface FieldLoader {
     boolean loadRessource (URI identifier);
-    Double[][] convertToArray();
+    Object[][] convertToArray();
 }
