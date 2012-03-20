@@ -208,18 +208,20 @@ public class Decision {
 	}
 
 	/**
-	 * Computes the coordinates of the sphere, which we yet don't use now
+	 * Computes the coordinates of the sphere to a vector in 3d, which we yet don't use now
 	 * 
 	 * @param theta
 	 * @param phi
 	 */
-	public void setX(double theta, double phi) {
+	public double[] setX(double theta, double phi) {
 		double[] sphere = new double[3];
 		sphere[0] = Math.cos(Math.PI * theta / 180)
 				* Math.cos(Math.PI * phi / 180);
 		sphere[1] = Math.sin(Math.PI * theta / 180)
 				* Math.cos(Math.PI * phi / 180);
 		sphere[2] = Math.sin(Math.PI * phi / 180);
+		
+		return sphere;
 	}
 
 	// Just some default methods to get the value of this variables
@@ -247,31 +249,5 @@ public class Decision {
 	}
 	public void setCoord(int coord) {
 		this.coord = coord;
-	}
-
-	/**
-	 * The main method, which calls the methods
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-//		Decision de = new Decision();
-//		System.out.println("�quator(0,0) - Thailand(0,90)");
-//		de.setLoc(de.graphe(0, 0, 90, 0));
-//		System.out.println("(0,0) - (0,200)");
-//		de.setLoc(de.graphe(0, 0, 200, 0));
-//		System.out.println("Zurich(47.3,8.05) - Pacific(-47.22,226.88)");
-//		de.setLoc(de.graphe(8.05, 47.3, 226.88, -47.22));
-//		System.out.println("Zurich(47.3,8.05) - Peking(39.9288889,116.3883333)");
-//		de.setLoc(de.graphe(8.05, 47.3, 116.3883333, 39.9288889));
-//		System.out.println("Zurich(47.3,8.05) - Sao Paulo(-23.5333333,-46.6166667)");
-//		de.setLoc(de.graphe(8.05, 47.3, -46.6166667, -23.5333333));
-//		de.setMaxi(de.getLoc().length);
-//		de.setMaxj(de.getLoc()[0].length);
-//		de.setCoord(de.getLoc()[0][0].length);
-//		System.out.println("Maxi: "+de.getMaxi()+" Maxj: "+de.getMaxj()+" Coord:"+de.getCoord());
-//		
-//		ArrayList<ArrayList<Graph>> test = de.programmationDynamique(15);
-
 	}
 }
