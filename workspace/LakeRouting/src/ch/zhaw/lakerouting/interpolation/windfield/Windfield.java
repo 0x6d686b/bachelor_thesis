@@ -58,17 +58,19 @@ public class Windfield implements Field {
 
     @Override
     public Double[][] getRange(double x, double y) {
-        return new Double[0][];  //To change body of implemented methods use File | Settings | File Templates.
+        // TODO: Double[][] getRange(double x, double y)
+        return new Double[0][];
     }
 
     @Override
     public Double[] getNormalizedValues(double a, double b) {
-        return new Double[0];  //To change body of implemented methods use File | Settings | File Templates.
+        // TODO: Double[] getNormalizedValues(double a, double b)
+        return new Double[0];
     }
 
     @Override
     public boolean loadDiagram(BoatFieldLoader fieldplane, URI uri) {
-
+        // TODO: boolean loadDiagram(BoatFieldLoader fieldplane, URI uri)
         return true;
     }
 }
