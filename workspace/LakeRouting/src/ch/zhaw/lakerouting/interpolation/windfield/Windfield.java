@@ -25,23 +25,50 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.windfield;
 
-import org.junit.Test;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.Field;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+
+import java.net.URI;
+import java.util.Calendar;
 
 /**
- * The main class for the interpolation process, handles all calls
- *
- * When given the windfield and the interpolation algorithm it'll
- * calculate the interpolated value at {@code x,y}
- * @author Mathias Hablützel
- * @since 1.0
- * @version 1.0
+ * Created by IntelliJ IDEA.
+ * User: mhk
+ * Date: 20.03.12
+ * Time: 11:26
+ * To change this template use File | Settings | File Templates.
  */
-public class Interpolator {
-    @Test
-    public final double interpolate (double x, double y, Field field, InterpolationAlgorithm algorithm) {
-        Double[] val = field.getNormalizedValues(x,y);
-        return algorithm.interpolate(val[0], val[1], field.getRange(x,y));
+public class Windfield implements Field {
+    private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
+    private static final int MAX_WINDFIELD_SIZE = 0xff;
+    
+    private Calendar date;
+    private double deltaLng;
+    private double deltaLat;
+    private Coordinate northWestCorner;
+    private Coordinate southEastCorner;
+    private int countLngVectors;
+    private int countLatVectors;
+    private WindVector[][] field;
+
+
+    @Override
+    public Double[][] getRange(double x, double y) {
+        return new Double[0][];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Double[] getNormalizedValues(double a, double b) {
+        return new Double[0];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean loadDiagram(BoatFieldLoader fieldplane, URI uri) {
+
+        return true;
     }
 }

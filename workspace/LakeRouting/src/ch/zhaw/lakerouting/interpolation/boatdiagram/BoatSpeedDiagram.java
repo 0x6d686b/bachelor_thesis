@@ -25,8 +25,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
+import ch.zhaw.lakerouting.interpolation.Field;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import org.junit.Test;
 
 import java.net.URI;
@@ -41,7 +43,7 @@ public class BoatSpeedDiagram implements Field {
     private Double[][] field;
 
     @Test
-    private boolean loadArray (FieldLoader fieldplane) {
+    private boolean loadArray (BoatFieldLoader fieldplane) {
         this.field = fieldplane.convertToArray().clone();
         if (this.field != null)
             return true;
@@ -107,18 +109,18 @@ public class BoatSpeedDiagram implements Field {
         double deltaX = field[0][x+1] - field[0][x];
         double deltaY = field[y+1][0] - field[y][0];
         
-        return new Double[] {((a - field[0][x])/deltaX),((b - field[y][0])/deltaY)};
+        return new Double[] { ((a - field[0][x])/deltaX),((b - field[y][0])/deltaY) };
         
     }
     /**
-     * Loads the data from {@link FieldLoader}
-     * @param fieldplane Object of type {@link FieldLoader}
+     * Loads the data from {@link BoatFieldLoader}
+     * @param fieldplane Object of type {@link BoatFieldLoader}
      * @param uri {@link URI} of the file to load
      * @return Returns {@code true} if successfull, {@code false} if not
      */
     @Override
     @Test
-    public final boolean loadDiagram(FieldLoader fieldplane, URI uri) {
+    public final boolean loadDiagram(BoatFieldLoader fieldplane, URI uri) {
         if (!fieldplane.loadRessource(uri))
             return false;
         return this.loadArray(fieldplane);

@@ -25,54 +25,70 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.datatypes;
 
-
-import java.math.BigDecimal;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 09:53
- * To change this template use File | Settings | File Templates.
+ * Coordinate Tester.
+ *
+ * @author <Authors name>
+ * @version 1.0
+ * @since <pre>Mrz 20, 2012</pre>
  */
-public class Coordinate {
-    private static final double MIN_LONGITUDE = -180.0;
-    private static final double MAX_LONGITUDE = 180.0;
-    private static final double MIN_LATITUDE = -90.0;
-    private static final double MAX_LATITUDE = 90.0;
+public class CoordinateTest {
+    private Coordinate foo;
 
-    private BigDecimal longitude;
-    private BigDecimal latitude;
-    
-    public Coordinate (double lng, double lat) {
-        setLongitude(lng);
-        setLatitude(lat);
+    @Before
+    public void before() throws Exception {
+        foo = new Coordinate(25.3456, 34.3334);
     }
 
-    public final double getLongitude() {
-        return longitude.doubleValue();
+    @After
+    public void after() throws Exception {
     }
 
-    public final void setLongitude(double l) {
-        if (l < MAX_LONGITUDE || l >= MIN_LONGITUDE)
-            throw new IllegalArgumentException("Longitude is out of range.");
-        this.longitude = BigDecimal.valueOf(l);
+    /**
+     * Method: getLongitude()
+     */
+    @Test
+    public void testGetLongitude() throws Exception {
+//TODO: Test goes here... 
     }
 
-    public final double getLatitude() {
-        return latitude.doubleValue();
+    /**
+     * Method: setLongitude(double l)
+     */
+    @Test
+    public void testSetLongitude() throws Exception {
+//TODO: Test goes here... 
     }
 
-    public final void setLatitude(double l) {
-        if (l > MIN_LATITUDE || l < MAX_LATITUDE)
-            throw new IllegalArgumentException("Latitude is out of range.");
-        this.latitude = BigDecimal.valueOf(l);
+    /**
+     * Method: getLatitude()
+     */
+    @Test
+    public void testGetLatitude() throws Exception {
+//TODO: Test goes here... 
     }
 
-    public final String toString() {
-        return "Longitude: " + longitude + "°, Latitude: " + latitude;
+    /**
+     * Method: setLatitude(double l)
+     */
+    @Test
+    public void testSetLatitude() throws Exception {
+//TODO: Test goes here... 
     }
 
-}
+    /**
+     * Method: toString()
+     */
+    @Test
+    public void testToString() throws Exception {
+//TODO: Test goes here... 
+    }
+
+
+} 

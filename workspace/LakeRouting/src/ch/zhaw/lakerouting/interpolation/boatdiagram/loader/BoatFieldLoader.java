@@ -25,25 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
-
-import org.junit.Test;
+package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
 
 import java.net.URI;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 14:49
- */
-public interface Field {
-    @Test
-    Double[][] getRange(double x, double y);
-
-    @Test
-    Double[] getNormalizedValues(double a, double b);
-
-    @Test
-    boolean loadDiagram (FieldLoader fieldplane, URI uri);
+public interface BoatFieldLoader {
+    boolean loadRessource (URI identifier);
+    Double[][] convertToArray();
 }

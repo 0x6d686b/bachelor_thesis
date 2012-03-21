@@ -25,8 +25,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation;
 
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
@@ -82,7 +87,7 @@ public class InterpolatorTest {
     @Test
     public void testInterpolate() throws Exception {
         testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
-        FieldLoader loader = new CSVFieldLoader();
+        BoatFieldLoader loader = new CSVBoatFieldLoader();
         Field field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
         InterpolationAlgorithm bil = new Bilinear();

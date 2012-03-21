@@ -25,15 +25,54 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.datatypes;
+
+
+import java.math.BigDecimal;
 
 /**
- * BoatSpeedDiagram Tester.
- *
- * @author <Authors name>
- * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
+ * Created by IntelliJ IDEA.
+ * User: mhk
+ * Date: 20.03.12
+ * Time: 09:53
+ * To change this template use File | Settings | File Templates.
  */
-public class BoatSpeedDiagramTest {
+public class Coordinate {
+    private static final double MIN_LONGITUDE = -180.0;
+    private static final double MAX_LONGITUDE = 180.0;
+    private static final double MIN_LATITUDE = -90.0;
+    private static final double MAX_LATITUDE = 90.0;
 
-} 
+    private BigDecimal longitude;
+    private BigDecimal latitude;
+    
+    public Coordinate (double lng, double lat) {
+        setLongitude(lng);
+        setLatitude(lat);
+    }
+
+    public final double getLongitude() {
+        return longitude.doubleValue();
+    }
+
+    public final void setLongitude(double l) {
+        if (l < MAX_LONGITUDE || l >= MIN_LONGITUDE)
+            throw new IllegalArgumentException("Longitude is out of range.");
+        this.longitude = BigDecimal.valueOf(l);
+    }
+
+    public final double getLatitude() {
+        return latitude.doubleValue();
+    }
+
+    public final void setLatitude(double l) {
+        if (l > MIN_LATITUDE || l < MAX_LATITUDE)
+            throw new IllegalArgumentException("Latitude is out of range.");
+        this.latitude = BigDecimal.valueOf(l);
+    }
+
+    public final String toString() {
+        return "Longitude: " + longitude + "°, Latitude: " + latitude;
+    }
+
+}

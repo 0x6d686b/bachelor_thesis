@@ -25,7 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.windfield.loader;
+
+import ch.zhaw.lakerouting.datatypes.WindVector;
 
 import java.io.*;
 import java.net.URI;
@@ -39,7 +41,7 @@ import java.util.regex.Pattern;
  * Date: 20.03.12
  * Time: 14:53
  */
-public class WindFieldLoader implements FieldLoader {
+public class SpaceWindFieldLoader implements WindFieldLoader {
     private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}");
 
     private AbstractList<AbstractList<Object>> field;
@@ -79,7 +81,6 @@ public class WindFieldLoader implements FieldLoader {
         try {
             while (scanner.hasNextLine()) {
                 // does not take in account of empty lines -> new field
-                // does not (yet) take in account of the header line
                 if (scanner.hasNext(HEADER_START_PATTERN)) {
                     processHeader(scanner.next());
                 }

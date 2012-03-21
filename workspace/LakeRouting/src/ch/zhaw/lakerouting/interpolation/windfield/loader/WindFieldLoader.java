@@ -25,58 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.windfield.loader;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 11:28
- */
-public class WindVector {
-    private static final int MAXWIND = 180;
-    private double u;
-    private double v;
+import ch.zhaw.lakerouting.datatypes.WindVector;
 
-    private void validateInput (double input) {
-        if (Math.abs(input) > MAXWIND)
-            throw new IllegalArgumentException("Input value too high: max " + MAXWIND + "kts.");
-    }
+import java.net.URI;
 
-    public WindVector (double i, double j) {
-        setU(i);
-        setV(j);
-    }
-    
-    public final double getU() {
-        return u;
-    }
+public interface WindFieldLoader {
+    boolean loadRessource(URI identifier);
 
-    public final void setU(double input) {
-        validateInput(input);
-        this.u = input;
-    }
-
-    public final double getV() {
-        return v;
-    }
-
-    public final void setV(double input) {
-        validateInput(input);
-        this.v = input;
-    }
-
-    public final double getWindspeed() {
-        return Math.sqrt(Math.pow(getU(),2) + Math.pow(getV(),2));
-    }
-
-    public final double getAngle() {
-        /**
-         * Assume: (1,0) is the vector pointing to the North
-         * Assume: (u,v) is our wind vector
-         * dot-product is defined as Sum(i=0 -> n) {A_i * B_i}
-         * We simplify: 1*u + 0*v = u
-         */
-        return Math.acos( ( getU() ) / getWindspeed() );
-    }
+    WindVector[][] convertToArray();
 }
