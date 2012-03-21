@@ -2,6 +2,8 @@ package ch.zhaw.lakerouting.decisionScheme;
 
 import java.util.ArrayList;
 
+import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
+
 /**
  * This class computes the Decision-Matrix between two locations
  * 
@@ -25,26 +27,53 @@ public class Decision {
 	 * @param y2
 	 * @return The distance
 	 */
-	public double ortho(double x1, double y1, double x2, double y2) {
-		
+//	public double ortho(double x1, double y1, double x2, double y2) {
+//
+//		/* Convert from degree to radian */
+//		double theta1 = Math.PI * x1 / 180;
+//		double phi1 = Math.PI * y1 / 180;
+//		double theta2 = Math.PI * x2 / 180;
+//		double phi2 = Math.PI * y2 / 180;
+//
+//		/*
+//		 * Calculate the distance, since a nautical mile is defined by 1' at the
+//		 * aequator, we can use this formula for any near-spherical object.
+//		 * Later we would just use a given convertion factor to get meters or
+//		 * similar.
+//		 */
+//		double distance = 360
+//				* 60 /* we need minutes */
+//				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
+//						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
+//				/ (2 * Math.PI);
+//		// System.out.println("DISTANCE: "+distance);
+//		// System.out.println("DISTANCE: "+distance*1.852);
+//		return distance;
+//	}
+
+	public double ortho(Coordinate crd1, Coordinate crd2) {
+
 		/* Convert from degree to radian */
-		double theta1 = Math.PI * x1 / 180;
-		double phi1 = Math.PI * y1 / 180;
-		double theta2 = Math.PI * x2 / 180;
-		double phi2 = Math.PI * y2 / 180;
+		crd1.convertToRadian();
+		crd2.convertToRadian();
+		double theta1 = crd1.getLongitude();
+		double phi1 = crd1.getLatitude();
+		double theta2 = crd2.getLongitude();
+		double phi2 = crd2.getLatitude();
 
-
-		/* Calculate the distance, since a nautical mile is defined by
-		 * 1' at the aequator, we can use this formula for any near-spherical
-		 * object. Later we would just use a given convertion factor to get
-		 * meters or similar.
+		/*
+		 * Calculate the distance, since a nautical mile is defined by 1' at the
+		 * aequator, we can use this formula for any near-spherical object.
+		 * Later we would just use a given convertion factor to get meters or
+		 * similar.
 		 */
-		double distance = 360 * 60 /* we need minutes */
+		double distance = 360
+				* 60 /* we need minutes */
 				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
 						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
 				/ (2 * Math.PI);
 		// System.out.println("DISTANCE: "+distance);
-//		System.out.println("DISTANCE: "+distance*1.852);
+		// System.out.println("DISTANCE: "+distance*1.852);
 		return distance;
 	}
 
@@ -61,8 +90,12 @@ public class Decision {
 	 *            - latitudes of the 2nd location
 	 * @return A three dimensional array with the nodes
 	 */
-	public double[][][] graphe(double theta1, double phi1, double theta2,
-			double phi2) {
+	public double[][][] graphe(Coordinate crd1, Coordinate crd2) {
+		double theta1 = crd1.getLongitude();
+		double phi1 = crd1.getLatitude();
+		double theta2 = crd2.getLongitude();
+		double phi2 = crd2.getLatitude();
+		
 		// local variables
 		double p, e, c, s;
 		int m, n;
@@ -71,8 +104,9 @@ public class Decision {
 		n = 10;
 
 		// the euclidian distance
-		e = Math.sqrt(Math.pow((theta2-theta1), 2.0) + Math.pow((phi2-phi1), 2.0));
-//		System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
+		e = Math.sqrt(Math.pow((theta2 - theta1), 2.0)
+				+ Math.pow((phi2 - phi1), 2.0));
+		// System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		// cosinus value
 		c = (theta2 - theta1) / e;
 		// sinus value
@@ -92,12 +126,12 @@ public class Decision {
 			for (int j = -n; j <= n; j++) {
 				// fill the table
 				tableMatrix[i][j + n][0] = M[0][0] * (e * i / m) + M[0][1]
-						* (p * e * j / (2*n)) + theta1;
+						* (p * e * j / (2 * n)) + theta1;
 				tableMatrix[i][j + n][1] = M[1][0] * (e * i / m) + M[1][1]
-						* (p * e * j / (2*n)) + phi1;
+						* (p * e * j / (2 * n)) + phi1;
 				// output on the Console for verification
-//				 System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
-//				 +" , "+ tableMatrix[i][j+n][1]);
+				// System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
+				// +" , "+ tableMatrix[i][j+n][1]);
 			}
 		}
 		return tableMatrix;
@@ -117,7 +151,7 @@ public class Decision {
 		Graph graph;
 
 		// fill the graph with default values 0 and 1000000
-		double[] init = {0,0};
+		double[] init = { 0, 0 };
 		for (int i = 0; i < getMaxi(); i++) {
 			graphList.add(new ArrayList<Graph>());
 			for (int j = 0; j < getMaxj(); j++) {
@@ -130,7 +164,7 @@ public class Decision {
 		}
 
 		// fill at point (0,start) the node with values 1 and 0
-		double[] init2 = {1,1};
+		double[] init2 = { 1, 1 };
 		graphList.get(0).get(start).setPreviousNode(init2);
 		graphList.get(0).get(start).setNode(init2);
 		graphList.get(0).get(start).setTimeOfArrival(0);
@@ -166,6 +200,7 @@ public class Decision {
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
+		Coordinate crd1, crd2;
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
@@ -174,9 +209,10 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-				etabli[j] = ortho(loc[r - 1][j][0], loc[r - 1][j][1],
-                                  loc[r][k][0],     loc[r][k][1]     )
-                            + graphList.get(r - 1).get(j).getTimeOfArrival();
+				crd1 = new Coordinate(loc[r - 1][j][0], loc[r - 1][j][1]);
+				crd2 = new Coordinate(loc[r][k][0], loc[r][k][1]);
+				etabli[j] = ortho(crd1, crd2)
+						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
 				// position
@@ -187,9 +223,9 @@ public class Decision {
 				}
 			}
 
-            // assume k = 20
-            // assume etabli[2] is minimum, therefore position[20][0] = 2
-            // (20 - 2 > spread) -->> This node will NOT have a previous node!!
+			// assume k = 20
+			// assume etabli[2] is minimum, therefore position[20][0] = 2
+			// (20 - 2 > spread) -->> This node will NOT have a previous node!!
 
 			// computes the spread and updates the matrix graphList
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
@@ -208,19 +244,23 @@ public class Decision {
 	}
 
 	/**
-	 * Computes the coordinates of the sphere to a vector in 3d, which we yet don't use now
+	 * Computes the coordinates of the sphere to a vector in 3d, which we yet
+	 * don't use now
 	 * 
 	 * @param theta
 	 * @param phi
 	 */
-	public double[] transformCoordToVector(double theta, double phi) {
+	public double[] transformCoordToVector(Coordinate crd) {
+		crd.convertToRadian();
+		double theta = crd.getLongitude();
+		double phi = crd.getLatitude();
 		double[] sphere = new double[3];
-		sphere[0] = Math.cos(Math.PI * theta / 180)
-				* Math.cos(Math.PI * phi / 180);
-		sphere[1] = Math.sin(Math.PI * theta / 180)
-				* Math.cos(Math.PI * phi / 180);
-		sphere[2] = Math.sin(Math.PI * phi / 180);
-		
+		sphere[0] = Math.cos(theta)
+				* Math.cos(phi);
+		sphere[1] = Math.sin(theta)
+				* Math.cos(phi);
+		sphere[2] = Math.sin(phi);
+
 		return sphere;
 	}
 
@@ -229,24 +269,31 @@ public class Decision {
 	public double[][][] getLoc() {
 		return loc.clone();
 	}
+
 	public void setLoc(double[][][] loc) {
 		this.loc = loc.clone();
 	}
+
 	public int getMaxi() {
 		return maxi;
 	}
+
 	public void setMaxi(int maxi) {
 		this.maxi = maxi;
 	}
+
 	public int getMaxj() {
 		return maxj;
 	}
+
 	public void setMaxj(int maxj) {
 		this.maxj = maxj;
 	}
+
 	public int getCoord() {
 		return coord;
 	}
+
 	public void setCoord(int coord) {
 		this.coord = coord;
 	}

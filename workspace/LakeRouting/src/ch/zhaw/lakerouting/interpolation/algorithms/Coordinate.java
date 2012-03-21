@@ -27,48 +27,90 @@
 
 package ch.zhaw.lakerouting.interpolation.algorithms;
 
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 /**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 09:53
- * To change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: mhk Date: 20.03.12 Time: 09:53 To change this
+ * template use File | Settings | File Templates.
  */
 public class Coordinate {
-    private BigDecimal longitude;
-    private BigDecimal latitude;
-    
-    public Coordinate (double lng, double lat) {
-        setLongitude(lng);
-        setLatitude(lat);
-    }
+	// theta
+	private BigDecimal longitude;
+	// phi
+	private BigDecimal latitude;
+	private Boolean isDegree = true;
 
-    public double getLongitude() {
-        return longitude.doubleValue();
-    }
+	public Coordinate(double lng, double lat) {
+		setLongitude(lng);
+		setLatitude(lat);
+	}
 
-    public void setLongitude(double l) throws IllegalArgumentException {
-        if (l >= 180.0 || l < -180.0)
-            throw new IllegalArgumentException("Longitude is out of range.");
-        this.longitude = BigDecimal.valueOf(l);
-    }
+	public double getLongitude() {
+		return longitude.doubleValue();
+	}
 
-    public double getLatitude() {
-        return latitude.doubleValue();
-    }
+	public void setLongitude(double l) throws IllegalArgumentException {
+		//
+//		if (l >= 180.0 || l < -180.0)
+//			throw new IllegalArgumentException("Longitude is out of range.");
+		this.longitude = BigDecimal.valueOf(l);
+	}
 
-    public void setLatitude(double l) throws IllegalArgumentException{
-        if (l > -90.0 || l < 90.0)
-            throw new IllegalArgumentException("Latitude is out of range.");
-        this.latitude = BigDecimal.valueOf(l);
-    }
+	public double getLatitude() {
+		return latitude.doubleValue();
+	}
 
-    public String toString() {
-        return "Longitude: " + longitude + "°, Latitude: " + latitude;
-    }
+	public void setLatitude(double l) throws IllegalArgumentException {
+//		if (l < -90.0 || l > 90.0)
+//			throw new IllegalArgumentException("Latitude is out of range.");
+		this.latitude = BigDecimal.valueOf(l);
+	}
 
+	public Boolean isDegree() {
+		return isDegree;
+	}
+
+	public void setIsDegree(Boolean isDegree) {
+		this.isDegree = isDegree;
+	}
+
+	public String toString() {
+		return "Longitude: " + longitude + "°, Latitude: " + latitude;
+	}
+
+	/**
+	 * This method converts the degrees into radians. It makes an operation how
+	 * degree*PI/180
+	 * 
+	 * @returns a double array [2]
+	 */
+	public double[] getRadian() {
+		double[] radian = new double[2];
+		radian[0] = getLongitude() * Math.PI / 180;
+		radian[1] = getLatitude() * Math.PI / 180;
+		return radian;
+	}
+
+	/**
+	 * Converts the actual Coordinate from degrees to radians.
+	 * 
+	 * Important: the negative degrees are represented as negative radians too
+	 */
+	public void convertToRadian() {
+		if(isDegree()){
+			setLatitude(getLatitude() * Math.PI / 180);
+			setLongitude(getLongitude() * Math.PI / 180);
+			setIsDegree(false);
+		}
+	}
+	/**
+	 * Converts the actual Coordinate from radians to degrees.
+	 */
+	public void convertToDegree() {
+		if(!isDegree()){
+			setLatitude(getLatitude() * 180 /Math.PI);
+			setLongitude(getLongitude() * 180 /Math.PI);
+			setIsDegree(true);
+		}
+	}
 }
