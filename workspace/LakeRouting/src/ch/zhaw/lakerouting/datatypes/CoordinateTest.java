@@ -43,7 +43,9 @@ public class CoordinateTest {
 
     @Before
     public void before() throws Exception {
-        foo = new Coordinate(25.3456, 34.3334);
+        foo = new Coordinate();
+        foo.setLongitudeInDegree(25.3456);
+        foo.setLatitudeInDegree(34.3334);
     }
 
     @After
