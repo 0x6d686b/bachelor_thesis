@@ -30,7 +30,8 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.Field;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
+import org.junit.Test;
 
 import java.net.URI;
 import java.util.Calendar;
@@ -55,7 +56,13 @@ public class Windfield implements Field {
     private int countLatVectors;
     private WindVector[][] field;
 
-
+    @Test
+    private boolean loadArray (WindFieldLoader fieldplane) {
+        this.field = fieldplane.convertToArray().clone();
+        if (this.field != null)
+            return true;
+        return false;
+    }
     @Override
     public Double[][] getRange(double x, double y) {
         // TODO: Double[][] getRange(double x, double y)
@@ -69,8 +76,12 @@ public class Windfield implements Field {
     }
 
     @Override
-    public boolean loadDiagram(BoatFieldLoader fieldplane, URI uri) {
-        // TODO: boolean loadDiagram(BoatFieldLoader fieldplane, URI uri)
-        return true;
+    public final <T> boolean loadDiagram(T fieldplane, URI uri) {
+        if (fieldplane.getClass() != WindFieldLoader.class) {
+            throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
+        }
+        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
+            return false;
+        return this.loadArray((WindFieldLoader) fieldplane);
     }
 }

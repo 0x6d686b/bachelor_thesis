@@ -28,6 +28,7 @@
 package ch.zhaw.lakerouting.interpolation;
 
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
 
 import java.net.URI;
@@ -46,5 +47,5 @@ public interface Field {
     Double[] getNormalizedValues(double a, double b);
 
     @Test
-    boolean loadDiagram (BoatFieldLoader fieldplane, URI uri);
+    <T> boolean loadDiagram (T fieldplane, URI uri);
 }
