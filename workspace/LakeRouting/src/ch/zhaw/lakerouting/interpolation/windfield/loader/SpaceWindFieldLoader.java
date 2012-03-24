@@ -27,11 +27,14 @@
 
 package ch.zhaw.lakerouting.interpolation.windfield.loader;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 
 import java.io.*;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -74,6 +77,81 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             }
         }
         return arr;
+    }
+
+    @Override
+    public Calendar getDate() {
+        /**
+         * This is real FUBAR code. Someone should fix that ...
+         * I propose to change the timestamp in the file to
+         * a proper format requiring less touchy functions and
+         * index. This will one day blow up ...
+         */
+        String s = field.get(0).get(0).toString();
+        int y = Integer.parseInt(s.substring(0, 3));
+
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(s.substring(4,6));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int mon = date.getMonth();
+        int d = Integer.parseInt(s.substring(7, 8));
+        int h = Integer.parseInt(s.substring(9, 10));
+        int min = 0;
+        Calendar c = Calendar.getInstance();
+        c.set(y,mon,d,h,min);
+        return c;
+    }
+
+    @Override
+    public double getDeltaLng() {
+        /**
+         *  Oh shit ... we can't directly convert an Object into a
+         *  double. Convert: Object -> String -> Double
+         *  Did I mention that in C++ we wouldn't need such clumsy
+         *  conversion?
+         */
+        return Double.parseDouble(field.get(0).get(2).toString())
+             - Double.parseDouble(field.get(0).get(1).toString());
+    }
+
+    @Override
+    public double getDeltaLat() {
+        /**
+         * Look at getDeltaLng() for why this shit must be ...
+         */
+        return Double.parseDouble(field.get(2).get(0).toString())
+             - Double.parseDouble(field.get(1).get(0).toString());
+    }
+
+    @Override
+    public Coordinate getNorthWestCorner() {
+        Coordinate c = new Coordinate();
+        c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(1).toString()));
+        c.setLatitudeInDegree(Double.parseDouble(field.get(1).get(0).toString()));
+        return c;
+    }
+
+    @Override
+    public Coordinate getSouthEastCorner() {
+        int j = field.size();
+        int i = field.get(0).size() ;
+        Coordinate c = new Coordinate();
+        c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(i).toString()));
+        c.setLatitudeInDegree(Double.parseDouble(field.get(j).get(0).toString()));
+        return c;
+    }
+
+    @Override
+    public int getCountLngVectors() {
+        return field.size() - 1;
+    }
+
+    @Override
+    public int getCountLatVectors() {
+        return field.get(0).size() - 1;
     }
 
     private void read(InputStream fis) {
