@@ -121,7 +121,7 @@ public class BoatSpeedDiagram implements Field {
     @Override
     @Test
     public final <T> boolean loadDiagram(T fieldplane, URI uri) {
-        if (fieldplane.getClass() != BoatFieldLoader.class) {
+        if (!(fieldplane instanceof BoatFieldLoader)) {
             throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
         }
         if (!((BoatFieldLoader)fieldplane).loadRessource(uri))

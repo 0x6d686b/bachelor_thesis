@@ -77,8 +77,8 @@ public class Windfield implements Field {
 
     @Override
     public final <T> boolean loadDiagram(T fieldplane, URI uri) {
-        if (fieldplane.getClass() != WindFieldLoader.class) {
-            throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
+        if (!(fieldplane instanceof WindFieldLoader)) {
+            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
         }
         if (!((WindFieldLoader)fieldplane).loadRessource(uri))
             return false;
