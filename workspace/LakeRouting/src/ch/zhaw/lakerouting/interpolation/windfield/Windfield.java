@@ -36,13 +36,6 @@ import org.junit.Test;
 import java.net.URI;
 import java.util.Calendar;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 11:26
- * To change this template use File | Settings | File Templates.
- */
 public class Windfield implements Field {
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
@@ -65,8 +58,11 @@ public class Windfield implements Field {
     }
     @Override
     public Double[][] getRange(double x, double y) {
-        // TODO: Double[][] getRange(double x, double y)
-        return new Double[0][];
+        int fromX = 0;
+        int fromY = 0;
+        int toX = 1;
+        int toY = 1;
+        return new Double[0][0];
     }
 
     @Override

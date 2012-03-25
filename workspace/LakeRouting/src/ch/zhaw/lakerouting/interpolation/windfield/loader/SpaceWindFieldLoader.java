@@ -61,19 +61,27 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             f.printStackTrace();
             return false;
         }
-
+        field = new ArrayList<AbstractList<Object>>();
         read(fis);
 
         return true;
     }
 
+
     @Override
     public final WindVector[][] convertToArray() {
-        WindVector[][] arr = new WindVector[field.size()-1][field.get(0).size()-1];
-        for (int i = 0; i < field.size(); i++) {
-            for (int j = 0; j < field.size(); j++) {
+
+        /**
+         * KNOWN FLAWS:
+         * The input file seems to have one more column than necessary in the
+         * longitude row (first row in each block), up to now 25.03.2012 it is
+         * not known if this is intended or a mistake!         *
+         */
+        WindVector[][] arr = new WindVector[field.size()-1][field.get(0).size()-2];
+        for (int i = 1; i < field.size(); i++) {
+            for (int j = 1; j < field.get(0).size()-1; j++) {
                 // TODO: Boundary problem? Double check!
-                arr[i][j] = (WindVector) field.get(i+1).get(j+1);
+                arr[i-1][j-1] = (WindVector) field.get(i).get(j);
             }
         }
         return arr;
@@ -96,7 +104,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        int mon = date.getMonth();
+        Calendar tmp = Calendar.getInstance();
+        tmp.setTime(date);
+        int mon = tmp.get(Calendar.MONTH);
         int d = Integer.parseInt(s.substring(7, 8));
         int h = Integer.parseInt(s.substring(9, 10));
         int min = 0;
@@ -160,9 +170,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             while (scanner.hasNextLine()) {
                 // does not take in account of empty lines -> new field
                 if (scanner.hasNext(HEADER_START_PATTERN)) {
-                    processHeader(scanner.next());
+                    field.add(processHeader(scanner.nextLine()));
                 }
-                field.add(processLine(scanner.next()));
+                field.add(processLine(scanner.nextLine()));
             }
         } finally {
             scanner.close();
@@ -173,7 +183,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
-        Scanner scanner = new Scanner(input);
+        Scanner scanner = new Scanner(input).useLocale(Locale.ENGLISH);
         scanner.useDelimiter(" ");
         try {
             while(scanner.hasNext()) {
@@ -197,7 +207,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 arr.add(v);
                 i++;
             }
-        } finally {
+        } catch (RuntimeException e) {
+            e.printStackTrace();
             scanner.close();
         }
         return arr;
@@ -207,7 +218,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
-        Scanner scanner = new Scanner(input);
+        Scanner scanner = new Scanner(input).useLocale(Locale.ENGLISH);
         scanner.useDelimiter(" ");
         try {
             while(scanner.hasNext()) {
@@ -217,10 +228,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                     continue;
                 }
 
-                arr.add(scanner.hasNextDouble());
+                arr.add(scanner.nextDouble());
                 i++;
             }
-        } finally {
+        } catch (RuntimeException e) {
+            e.printStackTrace();
             scanner.close();
         }
         return arr;    

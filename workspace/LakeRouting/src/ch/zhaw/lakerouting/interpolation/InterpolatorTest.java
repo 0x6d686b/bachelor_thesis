@@ -32,6 +32,9 @@ import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
@@ -94,6 +97,11 @@ public class InterpolatorTest {
         Interpolator interpoler = new Interpolator();
         assertEquals(3.98924, interpoler.interpolate(47.6, 12.47, field, bil), 0.1);
         assertEquals(2.87871, interpoler.interpolate(124.2, 5.23, field, bil), 0.1);
+
+
+        WindFieldLoader loader_wind = new SpaceWindFieldLoader();
+        Field windfield = new Windfield();
+        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/windfieldtest.dat", ""));
     }
 
 
