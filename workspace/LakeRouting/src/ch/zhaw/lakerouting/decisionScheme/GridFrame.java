@@ -6,7 +6,9 @@ import java.util.Collections;
 
 import javax.swing.JFrame;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Graph;
+
 /**
  * This class demonstrates the Decision-Matrix in a graphical way.
  * @author Fevzi Yuekseldi, Mathias Habluetzel
@@ -29,8 +31,14 @@ public class GridFrame extends JFrame{
         g.setColor(Color.BLACK);
         
         Decision de = new Decision();
-        Coordinate crd1 = new Coordinate(8.05, 47.3);
-        Coordinate crd2 = new Coordinate(226.88, -47.22);
+        
+        Coordinate crd1 = new Coordinate();
+        Coordinate crd2 = new Coordinate();
+        crd1.setLongitudeInDegree(8.05);
+		crd1.setLatitudeInDegree(47.3);
+		crd2.setLongitudeInDegree(226.88);
+		crd2.setLatitudeInDegree(-47.22);
+		
 		de.setLoc(de.graphe(crd1, crd2));
 		de.setMaxi(de.getLoc().length);
 		de.setMaxj(de.getLoc()[0].length);

@@ -1,13 +1,12 @@
 package ch.zhaw.lakerouting.navigation;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
 
 public class Track {
 
 	private double trackLong;
 	private double trackLat;
 
-	public Track(Coordinate crd1, Coordinate crd2) {
+	public Track(double[] crd1, double[] crd2) {
 		setTrackLong(crd1, crd2);
 		setTrackLat(crd1, crd2);
 	}
@@ -16,17 +15,17 @@ public class Track {
 		return trackLong;
 	}
 
-	public void setTrackLong(Coordinate crd1, Coordinate crd2) {
-		this.trackLong = -Math.cos(crd2.getLatitude())
-				* Math.sin(crd1.getLongitude() - crd2.getLongitude());
+	public void setTrackLong(double[] crd1, double[] crd2) {
+		this.trackLong = -Math.cos(crd2[1])
+				* Math.sin(crd1[0] - crd2[0]);
 	}
 
 	public double getTrackLat() {
 		return trackLat;
 	}
 
-	public void setTrackLat(Coordinate crd1, Coordinate crd2) {
-		this.trackLat = (Math.cos(crd1.getLatitude())* Math.sin(crd2.getLatitude()))
-				- (Math.cos(crd1.getLongitude() - crd2.getLongitude()) * Math.cos(crd2.getLatitude()) * Math.sin(crd1.getLatitude()));
+	public void setTrackLat(double[] crd1, double[] crd2) {
+		this.trackLat = (Math.cos(crd1[1])* Math.sin(crd2[1]))
+				- (Math.cos(crd1[0] - crd2[0]) * Math.cos(crd2[1]) * Math.sin(crd1[1]));
 	}
 }

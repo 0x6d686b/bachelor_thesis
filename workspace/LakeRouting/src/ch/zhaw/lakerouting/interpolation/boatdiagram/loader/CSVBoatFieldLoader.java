@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
 
 import com.csvreader.CsvReader;
 import java.io.FileNotFoundException;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
  * @since 1.0
  * @version 1.0
  */
-public class CSVFieldLoader implements FieldLoader{
+public class CSVBoatFieldLoader implements BoatFieldLoader {
     private AbstractList<AbstractList<Double>> field;
 
     /**

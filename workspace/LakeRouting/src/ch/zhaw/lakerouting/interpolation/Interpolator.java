@@ -25,8 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation;
 
+import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import org.junit.Test;
 
 /**
@@ -40,7 +41,7 @@ import org.junit.Test;
  */
 public class Interpolator {
     @Test
-    public final double interpolate (double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
+    public final double interpolate (double x, double y, Field field, InterpolationAlgorithm algorithm) {
         Double[] val = field.getNormalizedValues(x,y);
         return algorithm.interpolate(val[0], val[1], field.getRange(x,y));
     }

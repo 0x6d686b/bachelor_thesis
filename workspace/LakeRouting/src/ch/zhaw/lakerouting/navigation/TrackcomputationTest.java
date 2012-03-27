@@ -8,7 +8,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
 
 public class TrackcomputationTest {
 
@@ -38,12 +38,17 @@ public class TrackcomputationTest {
 	@Test
 	public void track12Test() {
 
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
+		
 		for (Map.Entry<String, double[]> entry : punkteCoord.entrySet()) {
 
-			Coordinate crd1 = new Coordinate(entry.getValue()[0],
-					entry.getValue()[1]);
-			Coordinate crd2 = new Coordinate(entry.getValue()[2],
-					entry.getValue()[3]);
+
+			crd1.setLongitudeInDegree(entry.getValue()[0]);
+			crd1.setLatitudeInDegree(entry.getValue()[1]);
+			crd2.setLongitudeInDegree(entry.getValue()[2]);
+			crd2.setLatitudeInDegree(entry.getValue()[3]);
+			
 			double rslt = trackComp.track12(crd1, crd2);
 
 			System.out.println(entry.getKey() + " Track in Degrees: " + rslt);

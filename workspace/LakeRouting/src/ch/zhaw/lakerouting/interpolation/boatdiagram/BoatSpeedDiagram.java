@@ -25,8 +25,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
+import ch.zhaw.lakerouting.interpolation.Field;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import org.junit.Test;
 
 import java.net.URI;
@@ -37,11 +39,11 @@ import java.net.URI;
  * @since 1.0
  * @version 1.0
  */
-public class BoatSpeedDiagram {
+public class BoatSpeedDiagram implements Field {
     private Double[][] field;
 
     @Test
-    private boolean loadArray (FieldLoader fieldplane) {
+    private boolean loadArray (BoatFieldLoader fieldplane) {
         this.field = fieldplane.convertToArray().clone();
         if (this.field != null)
             return true;
@@ -54,8 +56,9 @@ public class BoatSpeedDiagram {
      * @param y
      * @return Returns a 2D array with size 2x2 containing the next known lower and higher values containing x,y.
      */
+    @Override
     @Test
-    public final Double[][] getRange (double x, double y) {
+    public final Double[][] getRange(double x, double y) {
         int fromX = 1;
         int fromY = 1;
         int toX = 2;
@@ -86,8 +89,9 @@ public class BoatSpeedDiagram {
      * @param b
      * @return
      */
+    @Override
     @Test
-    public final Double[] getNormalizedValues (double a, double b) {
+    public final Double[] getNormalizedValues(double a, double b) {
         int x = 1;
         int y = 1;
         for (int i = 0; i < field[0].length; i++) {
@@ -105,21 +109,24 @@ public class BoatSpeedDiagram {
         double deltaX = field[0][x+1] - field[0][x];
         double deltaY = field[y+1][0] - field[y][0];
         
-        return new Double[] {((a - field[0][x])/deltaX),((b - field[y][0])/deltaY)};
+        return new Double[] { ((a - field[0][x])/deltaX),((b - field[y][0])/deltaY) };
         
     }
     /**
-     * Loads the data from {@link FieldLoader}
-     * @param fieldplane Object of type {@link FieldLoader}
+     * Loads the data from {@link BoatFieldLoader}
+     * @param fieldplane Object of type {@link BoatFieldLoader}
      * @param uri {@link URI} of the file to load
      * @return Returns {@code true} if successfull, {@code false} if not
      */
+    @Override
     @Test
-    public final boolean loadDiagram (FieldLoader fieldplane, URI uri) {
-        if (!fieldplane.loadRessource(uri))
+    public final <T> boolean loadDiagram(T fieldplane, URI uri) {
+        if (!(fieldplane instanceof BoatFieldLoader)) {
+            throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
+        }
+        if (!((BoatFieldLoader)fieldplane).loadRessource(uri))
             return false;
-        this.loadArray(fieldplane);
-        return true;
+        return this.loadArray((BoatFieldLoader) fieldplane);
     }
 
 }

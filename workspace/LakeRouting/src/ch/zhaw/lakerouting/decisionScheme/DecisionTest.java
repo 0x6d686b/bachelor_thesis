@@ -1,7 +1,6 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
 import static org.junit.Assert.*;
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +8,9 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Graph;
 
 public class DecisionTest {
 
@@ -49,12 +51,15 @@ public class DecisionTest {
 		double orthoDistanceKm = 0;
 		double timeOfArrival = 0;
 		int i = 0;
-		Coordinate crd1, crd2;
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
 
 		for (Map.Entry<String, double[]> entry : punkteCoord.entrySet()) {
 
-			crd1 = new Coordinate(entry.getValue()[0], entry.getValue()[1]);
-			crd2 = new Coordinate(entry.getValue()[2], entry.getValue()[3]);
+			crd1.setLongitudeInDegree(entry.getValue()[0]);
+			crd1.setLatitudeInDegree(entry.getValue()[1]);
+			crd2.setLongitudeInDegree(entry.getValue()[2]);
+			crd2.setLatitudeInDegree(entry.getValue()[3]);
 
 			de.setLoc(de.graphe(crd1, crd2));
 			de.setMaxi(de.getLoc().length);

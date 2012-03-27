@@ -2,7 +2,9 @@ package ch.zhaw.lakerouting.decisionScheme;
 
 import java.util.ArrayList;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Graph;
+
 
 /**
  * This class computes the Decision-Matrix between two locations
@@ -27,39 +29,13 @@ public class Decision {
 	 * @param y2
 	 * @return The distance
 	 */
-//	public double ortho(double x1, double y1, double x2, double y2) {
-//
-//		/* Convert from degree to radian */
-//		double theta1 = Math.PI * x1 / 180;
-//		double phi1 = Math.PI * y1 / 180;
-//		double theta2 = Math.PI * x2 / 180;
-//		double phi2 = Math.PI * y2 / 180;
-//
-//		/*
-//		 * Calculate the distance, since a nautical mile is defined by 1' at the
-//		 * aequator, we can use this formula for any near-spherical object.
-//		 * Later we would just use a given convertion factor to get meters or
-//		 * similar.
-//		 */
-//		double distance = 360
-//				* 60 /* we need minutes */
-//				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
-//						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
-//				/ (2 * Math.PI);
-//		// System.out.println("DISTANCE: "+distance);
-//		// System.out.println("DISTANCE: "+distance*1.852);
-//		return distance;
-//	}
-
 	public double ortho(Coordinate crd1, Coordinate crd2) {
 
 		/* Convert from degree to radian */
-		crd1.convertToRadian();
-		crd2.convertToRadian();
-		double theta1 = crd1.getLongitude();
-		double phi1 = crd1.getLatitude();
-		double theta2 = crd2.getLongitude();
-		double phi2 = crd2.getLatitude();
+		double theta1 = crd1.getLongitudeInRadian();
+		double phi1 = crd1.getLatitudeInRadian();
+		double theta2 = crd2.getLongitudeInRadian();
+		double phi2 = crd2.getLatitudeInRadian();
 
 		/*
 		 * Calculate the distance, since a nautical mile is defined by 1' at the
@@ -91,10 +67,11 @@ public class Decision {
 	 * @return A three dimensional array with the nodes
 	 */
 	public double[][][] graphe(Coordinate crd1, Coordinate crd2) {
-		double theta1 = crd1.getLongitude();
-		double phi1 = crd1.getLatitude();
-		double theta2 = crd2.getLongitude();
-		double phi2 = crd2.getLatitude();
+		/* Convert from degree to radian */
+		double theta1 = crd1.getLongitudeInDegree();
+		double phi1 = crd1.getLatitudeInDegree();
+		double theta2 = crd2.getLongitudeInDegree();
+		double phi2 = crd2.getLatitudeInDegree();
 		
 		// local variables
 		double p, e, c, s;
@@ -200,7 +177,8 @@ public class Decision {
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
-		Coordinate crd1, crd2;
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
@@ -209,8 +187,10 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-				crd1 = new Coordinate(loc[r - 1][j][0], loc[r - 1][j][1]);
-				crd2 = new Coordinate(loc[r][k][0], loc[r][k][1]);
+				crd1.setLongitudeInDegree(loc[r - 1][j][0]);
+				crd1.setLatitudeInDegree(loc[r - 1][j][1]);
+				crd2.setLongitudeInDegree(loc[r][k][0]);
+				crd2.setLatitudeInDegree(loc[r][k][1]);
 				etabli[j] = ortho(crd1, crd2)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
@@ -251,9 +231,9 @@ public class Decision {
 	 * @param phi
 	 */
 	public double[] transformCoordToVector(Coordinate crd) {
-		crd.convertToRadian();
-		double theta = crd.getLongitude();
-		double phi = crd.getLatitude();
+		double theta = crd.getLongitudeInRadian();
+		double phi = crd.getLatitudeInRadian();
+		
 		double[] sphere = new double[3];
 		sphere[0] = Math.cos(theta)
 				* Math.cos(phi);

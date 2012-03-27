@@ -1,14 +1,18 @@
 package ch.zhaw.lakerouting.navigation;
 
-import ch.zhaw.lakerouting.interpolation.algorithms.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
 
 public class TrackComputation {
 
 	public double track12(Coordinate crd1, Coordinate crd2) {
-		crd1.convertToRadian();
-		crd2.convertToRadian();
+		double crd1Radian[] = new double[2];
+		double crd2Radian[] = new double[2];
+		crd1Radian[0] = crd1.getLongitudeInRadian();
+		crd1Radian[1] = crd1.getLatitudeInRadian();
+		crd2Radian[0] = crd2.getLongitudeInRadian();
+		crd2Radian[1] = crd2.getLatitudeInRadian();
 
-		Track t = computeScalar(crd1, crd2);
+		Track t = computeScalar(crd1Radian, crd2Radian);
 		double nTrack1=180*arcTangente(t)/Math.PI;
 		
 		if(nTrack1>90){
@@ -47,10 +51,10 @@ public class TrackComputation {
 	public double[] computeCross(Coordinate crd1, Coordinate crd2) {
 		double[] cross = new double[3];
 
-		double theta1 = crd1.getLongitude();
-		double phi1 = crd1.getLatitude();
-		double theta2 = crd2.getLongitude();
-		double phi2 = crd2.getLatitude();
+		double theta1 = crd1.getLongitudeInDegree();
+		double phi1 = crd1.getLatitudeInDegree();
+		double theta2 = crd2.getLongitudeInDegree();
+		double phi2 = crd2.getLatitudeInDegree();
 
 		cross[0] = quadrat(Math.cos(phi1)) * Math.cos(phi2) * Math.sin(theta1)
 				* Math.sin(theta1 - theta2) + Math.cos(theta2) * Math.cos(phi2)
@@ -76,7 +80,7 @@ public class TrackComputation {
 		return x * x;
 	}
 
-	public Track computeScalar(Coordinate crd1, Coordinate crd2) {
+	public Track computeScalar(double[] crd1, double[] crd2) {
 		Track t = new Track(crd1, crd2);
 		return t;
 	}

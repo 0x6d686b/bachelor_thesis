@@ -25,15 +25,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
 
-/**
- * BoatSpeedDiagram Tester.
- *
- * @author <Authors name>
- * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
- */
-public class BoatSpeedDiagramTest {
+import java.net.URI;
 
-} 
+public interface BoatFieldLoader {
+    boolean loadRessource (URI identifier);
+    Double[][] convertToArray();
+}
