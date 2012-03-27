@@ -36,7 +36,7 @@ import org.junit.Test;
 import java.net.URI;
 import java.util.Calendar;
 
-public class Windfield implements Field {
+public class Windfield implements Field{
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
@@ -52,32 +52,57 @@ public class Windfield implements Field {
     @Test
     private boolean loadArray (WindFieldLoader fieldplane) {
         this.field = fieldplane.convertToArray().clone();
+        this.northWestCorner = fieldplane.getNorthWestCorner();
+        this.southEastCorner = fieldplane.getSouthEastCorner();
+        this.deltaLng = fieldplane.getDeltaLng();
+        this.deltaLat = fieldplane.getDeltaLat();
+        this.countLngVectors = fieldplane.getCountLngVectors();
+        this.countLatVectors = fieldplane.getCountLatVectors();
         if (this.field != null)
             return true;
         return false;
     }
-    @Override
-    public Double[][] getRange(double x, double y) {
-        int fromX = 0;
-        int fromY = 0;
-        int toX = 1;
-        int toY = 1;
-        return new Double[0][0];
-    }
 
     @Override
+    public WindVector[][] getRange(Coordinate coordinate) {
+        /**
+         * Don't ask about this voodoo ...
+         */
+        int lnglow = new Double(Math.floor((coordinate.getLongitudeInRadian() -
+                northWestCorner.getLongitudeInRadian())
+                / deltaLng)).intValue();
+        int lnghigh = new Double(Math.ceil((coordinate.getLongitudeInRadian() -
+                northWestCorner.getLongitudeInRadian())
+                / deltaLng)).intValue();
+        int latlow = new Double(Math.floor((coordinate.getLatitudeInRadian() -
+                northWestCorner.getLatitudeInRadian())
+                / deltaLat)).intValue();
+        int lathigh = new Double(Math.ceil((coordinate.getLatitudeInRadian() -
+                northWestCorner.getLatitudeInRadian())
+               / deltaLat)).intValue();
+        return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
+                            {field[lathigh][lnglow],field[lathigh][lnghigh]}};
+    }
+
     public Double[] getNormalizedValues(double a, double b) {
         // TODO: Double[] getNormalizedValues(double a, double b)
         return new Double[0];
     }
 
     @Override
-    public final <T> boolean loadDiagram(T fieldplane, URI uri) {
+    public <T> boolean loadDiagram(T fieldplane, URI uri) {
         if (!(fieldplane instanceof WindFieldLoader)) {
             throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
         }
         if (!((WindFieldLoader)fieldplane).loadRessource(uri))
             return false;
         return this.loadArray((WindFieldLoader) fieldplane);
+
     }
+
+    @Override
+    public Double[][] getRange(double x, double y) {
+        return new Double[0][];
+    }
+
 }

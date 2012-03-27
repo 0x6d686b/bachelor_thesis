@@ -27,6 +27,8 @@
 
 package ch.zhaw.lakerouting.interpolation;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
@@ -42,6 +44,9 @@ import java.net.URI;
 public interface Field {
     @Test
     Double[][] getRange(double x, double y);
+    
+    @Test
+    WindVector[][] getRange(Coordinate coordinate);
 
     @Test
     Double[] getNormalizedValues(double a, double b);

@@ -27,6 +27,8 @@
 
 package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.Field;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import org.junit.Test;
@@ -78,6 +80,11 @@ public class BoatSpeedDiagram implements Field {
             }
         }
         return new Double[][] {{field[fromY][fromX],field[toY][fromX]},{field[fromY][toX],field[toY][toX]}};
+    }
+
+    @Override
+    public WindVector[][] getRange(Coordinate coordinate) {
+        return new WindVector[0][];
     }
 
     /**
