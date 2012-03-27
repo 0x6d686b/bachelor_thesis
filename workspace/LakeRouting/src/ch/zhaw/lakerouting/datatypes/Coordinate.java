@@ -47,7 +47,7 @@ public class Coordinate {
     }
 
     public final void setLongitudeInDegree(double l) {
-        if (l < MAX_LONGITUDE || l >= MIN_LONGITUDE)
+        if (l > MAX_LONGITUDE || l <= MIN_LONGITUDE)
             throw new IllegalArgumentException("Longitude is out of range.");
         this.longitude = BigDecimal.valueOf(l);
     }
@@ -57,7 +57,7 @@ public class Coordinate {
     }
 
     public final void setLatitudeInDegree(double l) {
-        if (l > MIN_LATITUDE || l < MAX_LATITUDE)
+        if (l > MAX_LATITUDE || l < MIN_LATITUDE)
             throw new IllegalArgumentException("Latitude is out of range.");
         this.latitude = BigDecimal.valueOf(l);
     }
