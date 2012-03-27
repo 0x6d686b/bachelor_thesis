@@ -88,4 +88,15 @@ public class WindVector {
          */
         return Math.acos( ( getU() ) / getWindspeed() );
     }
+    
+    public final String toString() {
+        String s = "";
+
+        s += "u: " + getU() + ", ";
+        s += "v: " + getV() + ", ";
+        s += "angle: " + getAngle() + " °, ";
+        s += "velocity: " + getWindspeed() + " kts";
+        
+        return s;
+    }
 }
