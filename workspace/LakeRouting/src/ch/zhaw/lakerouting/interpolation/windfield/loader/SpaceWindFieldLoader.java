@@ -147,10 +147,10 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     @Override
     public Coordinate getSouthEastCorner() {
         int j = field.size();
-        int i = field.get(0).size() ;
+        int i = field.get(0).size();
         Coordinate c = new Coordinate();
-        c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(i).toString()));
-        c.setLatitudeInDegree(Double.parseDouble(field.get(j).get(0).toString()));
+        c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(i-1).toString()));
+        c.setLatitudeInDegree(Double.parseDouble(field.get(j-1).get(0).toString()));
         return c;
     }
 
