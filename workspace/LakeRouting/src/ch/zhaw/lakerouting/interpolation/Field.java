@@ -50,6 +50,9 @@ public interface Field {
 
     @Test
     Double[] getNormalizedValues(double a, double b);
+    
+    @Test
+    Double[] getNormalizedCoordinate(Coordinate c);
 
     @Test
     <T> boolean loadDiagram (T fieldplane, URI uri);

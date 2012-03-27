@@ -85,8 +85,18 @@ public class Windfield implements Field{
     }
 
     public Double[] getNormalizedValues(double a, double b) {
-        // TODO: Double[] getNormalizedValues(double a, double b)
         return new Double[0];
+    }
+
+
+    @Override
+    public Double[] getNormalizedCoordinate(Coordinate c) {
+        /**
+         * First Latitude then Longitude... BECAUSE IT'S SO!!
+         */
+        double lng = ((c.getLongitudeInRadian() - northWestCorner.getLongitudeInRadian()) / deltaLng) % 1;
+        double lat = ((c.getLatitudeInRadian() - northWestCorner.getLatitudeInRadian()) / deltaLat) % 1;
+        return new Double[] {lat,lng};
     }
 
     @Override

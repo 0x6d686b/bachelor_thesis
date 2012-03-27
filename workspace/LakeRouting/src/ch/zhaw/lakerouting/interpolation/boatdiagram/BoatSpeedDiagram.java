@@ -119,6 +119,12 @@ public class BoatSpeedDiagram implements Field {
         return new Double[] { ((a - field[0][x])/deltaX),((b - field[y][0])/deltaY) };
         
     }
+
+    @Override
+    public Double[] getNormalizedCoordinate(Coordinate c) {
+        return new Double[0];
+    }
+
     /**
      * Loads the data from {@link BoatFieldLoader}
      * @param fieldplane Object of type {@link BoatFieldLoader}
