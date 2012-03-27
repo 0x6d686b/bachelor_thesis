@@ -27,6 +27,8 @@
 
 package ch.zhaw.lakerouting.interpolation;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
@@ -101,7 +103,12 @@ public class InterpolatorTest {
 
         WindFieldLoader loader_wind = new SpaceWindFieldLoader();
         Field windfield = new Windfield();
-        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/windfieldtest.dat", ""));
+        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
+        Coordinate c = new Coordinate();
+        c.setLongitudeInDegree(09.01);
+        c.setLatitudeInDegree(45.525);
+        WindVector result = interpoler.interpolate(c,windfield,bil);
+        System.out.println(result.toString());
     }
 
 

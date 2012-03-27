@@ -27,6 +27,8 @@
 
 package ch.zhaw.lakerouting.interpolation;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import org.junit.Test;
 
@@ -40,9 +42,32 @@ import org.junit.Test;
  * @version 1.0
  */
 public class Interpolator {
+    /**
+     *
+     * @param windAttackAngle in Degree, 0 is from front, 180 is from behind
+     * @param windSpeed in knots
+     * @param field {@link ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram} Field containing the boatdiagram
+     * @param algorithm
+     * @return
+     */
     @Test
-    public final double interpolate (double x, double y, Field field, InterpolationAlgorithm algorithm) {
-        Double[] val = field.getNormalizedValues(x,y);
-        return algorithm.interpolate(val[0], val[1], field.getRange(x,y));
+    public final double interpolate (double windAttackAngle, double windSpeed, Field field, InterpolationAlgorithm algorithm) {
+        Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
+        return algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
+    }
+    
+    @Test
+    public final WindVector interpolate (Coordinate c, Field field, InterpolationAlgorithm algorithm) {
+        WindVector vector = new WindVector(0,0);
+        WindVector[][] r = field.getRange(c);
+        Double[][] uVector = {{r[0][0].getU() , r[1][0].getU()},
+                              {r[0][1].getU() , r[1][1].getU()}};
+        Double[][] vVector = {{r[0][0].getV() , r[1][0].getV()},
+                              {r[0][1].getV() , r[1][1].getV()}};
+        Double[] val = field.getNormalizedCoordinate(c);
+        vector.setU( algorithm.interpolate(val[0], val[1], uVector) );
+        vector.setV( algorithm.interpolate(val[0], val[1], vVector) );
+
+        return vector;
     }
 }
