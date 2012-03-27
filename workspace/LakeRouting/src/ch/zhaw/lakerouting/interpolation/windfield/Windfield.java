@@ -64,6 +64,16 @@ public class Windfield implements Field{
     }
 
     @Override
+    public Double[][] getRange(double x, double y) {
+        return new Double[0][];
+    }
+
+    /**
+     * Returns the directly neighbouring WindVectors
+     * @param coordinate
+     * @return
+     */
+    @Override
     public WindVector[][] getRange(Coordinate coordinate) {
         /**
          * Don't ask about this voodoo ...
@@ -88,7 +98,14 @@ public class Windfield implements Field{
         return new Double[0];
     }
 
-
+    /**
+     * Returns the normalized value of the Coordinate c,
+     * basically meaning you get a double value between 0 and
+     * 1 where 0 is the preceding grid point and the 1 is the
+     * next grid point.
+     * @param c
+     * @return A Double[] containing the longitude ratio and the latitude ratio
+     */
     @Override
     public Double[] getNormalizedCoordinate(Coordinate c) {
         /**
@@ -109,10 +126,4 @@ public class Windfield implements Field{
         return this.loadArray((WindFieldLoader) fieldplane);
 
     }
-
-    @Override
-    public Double[][] getRange(double x, double y) {
-        return new Double[0][];
-    }
-
 }
