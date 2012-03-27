@@ -37,6 +37,10 @@ public class DecisionTest {
 				116.3883333, 39.9288889 });
 		punkteCoord.put("Zürich-Sao Paulo", new double[] { 8.05, 47.3,
 				-46.6166667, -23.5333333 });
+//		punkteCoord.put("Test-Zürich", new double[] { 359, 47.3,
+//				8.05, 47.3 });
+//		punkteCoord.put("Test-Zürich1", new double[] { 8.05, 47.3,
+//				350, 47.3 });
 	}
 
 	@Test

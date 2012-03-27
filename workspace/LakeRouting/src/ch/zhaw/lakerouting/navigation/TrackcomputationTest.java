@@ -23,6 +23,8 @@ public class TrackcomputationTest {
 		punkteCoord = new HashMap<String, double[]>();
 		punkteCoord.put("{8, 47} {8.01, 48}", new double[] { 8, 47, 8.01, 48,
 				0.383 });
+		punkteCoord.put("{8, 47} {7, 46}", new double[] { 8, 47, 7,46,
+				214.905 });
 		punkteCoord.put("{8, 47} {7.99, 48}", new double[] { 8, 47, 7.99, 48,
 				359.616 });
 		punkteCoord

@@ -72,6 +72,7 @@ public class GridFrame extends JFrame{
 				//the multiplication with 3 and addition of 50 is only a constant variable for this example
 				positionLoLa[i-1][j-1][0]=((int)loc[i-1][j-1][0]+Math.abs((int)longMin))*3+50;
 				positionLoLa[i-1][j-1][1]=(90-((int)loc[i-1][j-1][1]))*3+50;
+//				System.out.println("TEST: "+loc[i-1][j-1][0]+" "+loc[i-1][j-1][1]+" "+graphList.get(i-1).get(j-1).getNode()[0]);
 				if(graphList.get(i-1).get(j-1).getTimeOfArrival()>=1000000d)
 				{
 					g.fillOval(positionLoLa[i-1][j-1][0], positionLoLa[i-1][j-1][1], 4, 4);
