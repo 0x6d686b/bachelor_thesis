@@ -30,6 +30,8 @@ package ch.zhaw.lakerouting.interpolation;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import org.junit.Test;
 
 /**
@@ -51,13 +53,14 @@ public class Interpolator {
      * @return
      */
     @Test
-    public final double interpolate (double windAttackAngle, double windSpeed, Field field, InterpolationAlgorithm algorithm) {
+    public final double interpolate (double windAttackAngle, double windSpeed, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
         Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
-        return algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
+        double value = algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
+        return field.limiter(windAttackAngle, windSpeed, value);
     }
     
     @Test
-    public final WindVector interpolate (Coordinate c, Field field, InterpolationAlgorithm algorithm) {
+    public final WindVector interpolate (Coordinate c, Windfield field, InterpolationAlgorithm algorithm) {
         WindVector vector = new WindVector(0,0);
         WindVector[][] r = field.getRange(c);
         Double[][] uVector = {{r[0][0].getU() , r[1][0].getU()},

@@ -32,4 +32,8 @@ import java.net.URI;
 public interface BoatFieldLoader {
     boolean loadRessource (URI identifier);
     Double[][] convertToArray();
+    double getMinimalAttackAngle();
+    double getMaximalAttackAngle();
+    double getMinimalWindspeed();
+    double getMaximalWindspeed();
 }

@@ -101,4 +101,22 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         }
         return arr;
     }
+
+    @Override
+    public double getMinimalAttackAngle() {
+        return field.get(0).get(1);
+    }
+    @Override
+    public double getMaximalAttackAngle() {
+        return field.get(0).get( field.get(0).size()-1 );
+    }
+    @Override
+    public double getMinimalWindspeed() {
+        return field.get(1).get(0);
+    }
+    @Override
+    public double getMaximalWindspeed() {
+        return field.get( field.size() -1 ).get(0);
+
+    }
 }

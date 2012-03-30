@@ -42,14 +42,43 @@ import java.net.URI;
  * @version 1.0
  */
 public class BoatSpeedDiagram implements Field {
+    public static final double HARD_LOWER_BOAT_LIMIT = 0.01;
     private Double[][] field;
+    private double minimalAttackAngle;
+    private double maximalAttackAngle;
+    private double minimalBoatSpeed;
+    private double maximalBoatSpeed;
 
     @Test
     private boolean loadArray (BoatFieldLoader fieldplane) {
         this.field = fieldplane.convertToArray().clone();
+        setMinimalAttackAngle(fieldplane.getMinimalAttackAngle());
+        setMaximalAttackAngle(fieldplane.getMaximalAttackAngle());
+        setMinimalWindspeed(fieldplane.getMinimalWindspeed());
+        setMaximalWindspeed(fieldplane.getMaximalWindspeed());
         if (this.field != null)
             return true;
         return false;
+    }
+
+    /**
+     * This method prevents to get values out of range when interpolating.
+     * Especially it will prevent our boat to get stuck and the calculation
+     * to never finish.
+     * @param windAttackAngle
+     * @param windSpeed
+     * @param value
+     * @return
+     */
+    public double limiter (double windAttackAngle, double windSpeed, double value) {
+        // prevent our boat to get stuck
+        if (windAttackAngle < getMinimalAttackAngle() || windSpeed < getMinimalWindspeed())
+            return HARD_LOWER_BOAT_LIMIT;
+        if (windSpeed > maximalBoatSpeed)
+            return maximalBoatSpeed;
+        if (windAttackAngle > getMaximalAttackAngle())
+            return HARD_LOWER_BOAT_LIMIT;
+        return value;
     }
 
     /**
@@ -140,6 +169,43 @@ public class BoatSpeedDiagram implements Field {
         if (!((BoatFieldLoader)fieldplane).loadRessource(uri))
             return false;
         return this.loadArray((BoatFieldLoader) fieldplane);
+    }
+
+    /**
+     * Getter and Setter (private only) for more security and prevent
+     * some stupid mistakes by programmer.
+     */
+
+    public double getMinimalAttackAngle() {
+        return minimalAttackAngle;
+    }
+
+    private void setMinimalAttackAngle(double input) {
+        this.minimalAttackAngle = input;
+    }
+
+    public double getMaximalAttackAngle() {
+        return maximalAttackAngle;
+    }
+
+    private void setMaximalAttackAngle(double input) {
+        this.maximalAttackAngle = input;
+    }
+
+    public double getMinimalWindspeed() {
+        return minimalBoatSpeed;
+    }
+
+    private void setMinimalWindspeed(double input) {
+        this.minimalBoatSpeed = input;
+    }
+
+    public double getMaximalWindspeed() {
+        return maximalBoatSpeed;
+    }
+
+    private void setMaximalWindspeed(double input) {
+        this.maximalBoatSpeed = input;
     }
 
 }
