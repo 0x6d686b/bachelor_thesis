@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package test.ch.zhaw.lakerouting.interpolation.boatdiagram;
+package test.ch.zhaw.lakerouting.interpolation.algorithms.interpolation.boatdiagram;
 
 /**
  * BoatSpeedDiagram Tester.

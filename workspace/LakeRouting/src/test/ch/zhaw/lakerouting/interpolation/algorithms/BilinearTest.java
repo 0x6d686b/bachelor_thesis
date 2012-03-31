@@ -48,6 +48,6 @@ public class BilinearTest {
         assertEquals(2.1, bilinearObject.interpolate(0.6, 0.25, arr), 0.001);
         assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
         assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
-        
+
     }
 }

@@ -25,10 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation;
+package test.ch.zhaw.lakerouting.interpolation;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.Field;
+import ch.zhaw.lakerouting.interpolation.Interpolator;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
@@ -96,7 +98,7 @@ public class InterpolatorTest {
     public void testInterpolate() throws Exception {
         testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
         BoatFieldLoader loader = new CSVBoatFieldLoader();
-        Field field = new BoatSpeedDiagram();
+        BoatSpeedDiagram field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
         InterpolationAlgorithm bil = new Bilinear();
         Interpolator interpoler = new Interpolator();
@@ -105,7 +107,7 @@ public class InterpolatorTest {
 
 
         WindFieldLoader loader_wind = new SpaceWindFieldLoader();
-        Field windfield = new Windfield();
+        Windfield windfield = new Windfield();
         windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
         Coordinate c = new Coordinate();
         c.setLongitudeInDegree(09.01);
