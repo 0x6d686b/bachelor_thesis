@@ -29,7 +29,6 @@ package test.ch.zhaw.lakerouting.interpolation;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.Field;
 import ch.zhaw.lakerouting.interpolation.Interpolator;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;

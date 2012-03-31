@@ -29,7 +29,6 @@ package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.Field;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import org.junit.Test;
 
@@ -41,7 +40,7 @@ import java.net.URI;
  * @since 1.0
  * @version 1.0
  */
-public class BoatSpeedDiagram implements Field {
+public class BoatSpeedDiagram {
     public static final double HARD_LOWER_BOAT_LIMIT = 0.01;
     private Double[][] field;
     private BoatSpeedDiagramMetadata metadata;
@@ -81,7 +80,6 @@ public class BoatSpeedDiagram implements Field {
      * @param y
      * @return Returns a 2D array with size 2x2 containing the next known lower and higher values containing x,y.
      */
-    @Override
     @Test
     public final Double[][] getRange(double x, double y) {
         int fromX = 1;
@@ -105,11 +103,6 @@ public class BoatSpeedDiagram implements Field {
         return new Double[][] {{field[fromY][fromX],field[toY][fromX]},{field[fromY][toX],field[toY][toX]}};
     }
 
-    @Override
-    public WindVector[][] getRange(Coordinate coordinate) {
-        return new WindVector[0][];
-    }
-
     /**
      * Calculate the normalized values.
      *
@@ -119,7 +112,6 @@ public class BoatSpeedDiagram implements Field {
      * @param b
      * @return
      */
-    @Override
     @Test
     public final Double[] getNormalizedValues(double a, double b) {
         int x = 1;
@@ -142,19 +134,12 @@ public class BoatSpeedDiagram implements Field {
         return new Double[] { ((a - field[0][x])/deltaX),((b - field[y][0])/deltaY) };
         
     }
-
-    @Override
-    public Double[] getNormalizedCoordinate(Coordinate c) {
-        return new Double[0];
-    }
-
     /**
      * Loads the data from {@link BoatFieldLoader}
      * @param fieldplane Object of type {@link BoatFieldLoader}
      * @param uri {@link URI} of the file to load
      * @return Returns {@code true} if successfull, {@code false} if not
      */
-    @Override
     @Test
     public final <T> boolean loadDiagram(T fieldplane, URI uri) {
         if (!(fieldplane instanceof BoatFieldLoader)) {

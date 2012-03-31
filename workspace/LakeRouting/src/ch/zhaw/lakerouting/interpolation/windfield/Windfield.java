@@ -29,14 +29,13 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.Field;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
 
 import java.net.URI;
 import java.util.Calendar;
 
-public class Windfield implements Field{
+public class Windfield {
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
@@ -63,17 +62,11 @@ public class Windfield implements Field{
         return false;
     }
 
-    @Override
-    public Double[][] getRange(double x, double y) {
-        return new Double[0][];
-    }
-
     /**
      * Returns the directly neighbouring WindVectors
      * @param coordinate
      * @return
      */
-    @Override
     public WindVector[][] getRange(Coordinate coordinate) {
         /**
          * Don't ask about this voodoo ...
@@ -94,10 +87,6 @@ public class Windfield implements Field{
                             {field[lathigh][lnglow],field[lathigh][lnghigh]}};
     }
 
-    public Double[] getNormalizedValues(double a, double b) {
-        return new Double[0];
-    }
-
     /**
      * Returns the normalized value of the Coordinate c,
      * basically meaning you get a double value between 0 and
@@ -106,7 +95,6 @@ public class Windfield implements Field{
      * @param c
      * @return A Double[] containing the longitude ratio and the latitude ratio
      */
-    @Override
     public Double[] getNormalizedCoordinate(Coordinate c) {
         /**
          * First Latitude then Longitude... BECAUSE IT'S SO!!
@@ -116,7 +104,6 @@ public class Windfield implements Field{
         return new Double[] {lat,lng};
     }
 
-    @Override
     public <T> boolean loadDiagram(T fieldplane, URI uri) {
         if (!(fieldplane instanceof WindFieldLoader)) {
             throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
