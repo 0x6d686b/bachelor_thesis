@@ -30,15 +30,16 @@ package ch.zhaw.lakerouting.interpolation;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -46,6 +47,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Interpolator Tester.

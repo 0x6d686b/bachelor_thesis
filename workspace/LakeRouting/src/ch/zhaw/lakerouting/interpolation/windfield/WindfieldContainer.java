@@ -25,14 +25,25 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
+package ch.zhaw.lakerouting.interpolation.windfield;
 
-import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagramMetadata;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 
 import java.net.URI;
+import java.util.Calendar;
 
-public interface BoatFieldLoader {
-    boolean loadRessource (URI identifier);
-    Double[][] convertToArray();
-    BoatSpeedDiagramMetadata getMetadata();
+public class WindfieldContainer {
+    private Calendar starttime;
+    private Calendar endtime;
+    private Calendar delta;
+
+    public final <T> boolean loadDiagram(T fieldplane, URI uri) {
+       /* if (!(fieldplane instanceof WindFieldLoader)) {
+            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
+        }
+        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
+            return false;
+        return this.loadArray((WindFieldLoader) fieldplane);*/
+        return false;
+    }
 }

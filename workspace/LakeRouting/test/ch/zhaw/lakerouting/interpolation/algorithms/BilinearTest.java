@@ -25,8 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package test.ch.zhaw.lakerouting.interpolation.algorithms;
 
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
