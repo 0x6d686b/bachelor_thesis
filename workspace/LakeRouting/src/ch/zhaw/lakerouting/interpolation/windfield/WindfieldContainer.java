@@ -27,23 +27,33 @@
 
 package ch.zhaw.lakerouting.interpolation.windfield;
 
+import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URI;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class WindfieldContainer {
     private Calendar starttime;
     private Calendar endtime;
     private Calendar delta;
+    private AbstractList<Windfield> fields;
 
-    public final <T> boolean loadDiagram(T fieldplane, URI uri) {
-       /* if (!(fieldplane instanceof WindFieldLoader)) {
-            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
-        }
-        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
+    public final boolean bulkLoadWindfield (URI identifier, WindFieldLoader loader) {
+        try {
+            fields = loader.loadRessource(identifier);
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
-        return this.loadArray((WindFieldLoader) fieldplane);*/
-        return false;
+        }
+        return true;
+    }
+
+    public final Windfield get(int index) {
+        return fields.get(index);
     }
 }

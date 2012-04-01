@@ -41,12 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mhk
- * Date: 20.03.12
- * Time: 14:53
- */
 public class SpaceWindFieldLoader implements WindFieldLoader {
     private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}");
     private static final Pattern WINDFIELD_BLOCK_DELIMITER =  Pattern.compile("\\n{2}");
@@ -184,7 +178,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                  *
                  * Fuck.
                  */
-                if (scanner.hasNext(WINDFIELD_BLOCK_DELIMITER)) {
+                if (scanner.hasNext("")) {
                     windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
                     field = new ArrayList<AbstractList<Object>>();
                 }
@@ -195,6 +189,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             }
         } finally {
             scanner.close();
+            windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
         }
     }
 

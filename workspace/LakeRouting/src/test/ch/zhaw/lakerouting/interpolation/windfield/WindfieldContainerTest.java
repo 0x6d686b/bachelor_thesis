@@ -32,6 +32,7 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
+import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
@@ -41,13 +42,13 @@ import org.junit.After;
 import java.net.URI;
 
 /**
- * Windfield Tester.
+ * WindfieldContainer Tester.
  *
  * @author Mathias Hablützel
  * @since <pre>Apr 1, 2012</pre>
  * @version 1.0
  */
-public class WindfieldTest {
+public class WindfieldContainerTest {
 
     @Before
     public void before() throws Exception {
@@ -59,31 +60,22 @@ public class WindfieldTest {
 
     /**
      *
-     * Method: loadDiagram(T fieldplane, URI uri)
+     * Method: bulkLoadWindfield(URI identifier)
      *
      */
     @Test
-    public void testLoadDiagram() throws Exception {
-//TODO: Test goes here... 
-    }
-
-    /**
-     *
-     * Method: interpolate(Coordinate c, InterpolationAlgorithm algorithm)
-     *
-     */
-    /*@Test
-    public void testInterpolate() throws Exception {
-        WindFieldLoader loader_wind = new SpaceWindFieldLoader();
-        InterpolationAlgorithm bil = new Bilinear();
-        Windfield windfield = new Windfield();
-        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
+    public void testBulkLoadWindfield() throws Exception {
+        SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
         Coordinate c = new Coordinate();
+        InterpolationAlgorithm bil = new Bilinear();
+
+        WindfieldContainer foo = new WindfieldContainer();
+        foo.bulkLoadWindfield(new URI("file", "/var/tmp/testfilewindfield.dat", ""), loader);
         c.setLongitudeInDegree(09.01);
         c.setLatitudeInDegree(45.525);
-        WindVector result = windfield.interpolate(c,bil);
+        WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
-    }*/
+    }
 
 
 } 
