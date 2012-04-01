@@ -25,43 +25,75 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation;
+package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
-import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
-import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
-import org.junit.Test;
+import java.util.Calendar;
 
-/**
- * The main class for the interpolation process, handles all calls
- *
- * When given the windfield and the interpolation algorithm it'll
- * calculate the interpolated value at {@code x,y}
- * @author Mathias Hablützel
- * @since 1.0
- * @version 1.0
- */
-public class Interpolator {
-    /**
-     *
-     * @param windAttackAngle in Degree, 0 is from front, 180 is from behind
-     * @param windSpeed in knots
-     * @param field {@link ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram} Field containing the boatdiagram
-     * @param algorithm
-     * @return
-     */
-    @Test
-    public final double interpolate (double windAttackAngle, double windSpeed, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
-        //Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
-        //double value = algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
-        //return field.limiter(windAttackAngle, windSpeed, value);
-        return 0d;
-    }
+public class WindfieldMetadata {
+    private Calendar date;
+    private double deltaLng;
+    private double deltaLat;
+    private Coordinate northWestCorner;
+    private Coordinate southEastCorner;
+    private int countLngVectors;
+    private int countLatVectors;
     
-    @Test
-    public final WindVector interpolate (Coordinate c, Windfield field, InterpolationAlgorithm algorithm) {
-        return null;
+    public Calendar getDate() {
+        return date;
     }
+
+    public void setDate(Calendar input) {
+        this.date = input;
+    }
+
+    public double getDeltaLng() {
+        return deltaLng;
+    }
+
+    public void setDeltaLng(double deltaLat) {
+        this.deltaLng = deltaLat;
+    }
+
+    public double getDeltaLat() {
+        return deltaLat;
+    }
+
+    public void setDeltaLat(double input) {
+        this.deltaLat = input;
+    }
+
+    public Coordinate getNorthWestCorner() {
+        return northWestCorner;
+    }
+
+    public void setNorthWestCorner(Coordinate input) {
+        this.northWestCorner = input;
+    }
+
+    public Coordinate getSouthEastCorner() {
+        return southEastCorner;
+    }
+
+    public void setSouthEastCorner(Coordinate countLngVectors) {
+        this.southEastCorner = countLngVectors;
+    }
+
+    public int getCountLngVectors() {
+        return countLngVectors;
+    }
+
+    public void setCountLngVectors(int input) {
+        this.countLngVectors = input;
+    }
+
+    public int getCountLatVectors() {
+        return countLatVectors;
+    }
+
+    public void setCountLatVectors(int input) {
+        this.countLatVectors = input;
+    }
+
+
 }

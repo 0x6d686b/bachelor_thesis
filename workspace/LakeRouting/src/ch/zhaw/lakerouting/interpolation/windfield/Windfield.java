@@ -29,6 +29,7 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
 
@@ -39,25 +40,37 @@ public class Windfield {
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
-    private Calendar date;
-    private double deltaLng;
-    private double deltaLat;
-    private Coordinate northWestCorner;
-    private Coordinate southEastCorner;
-    private int countLngVectors;
-    private int countLatVectors;
+    private WindfieldMetadata metadata;
     private WindVector[][] field;
+
+    public <T> boolean loadDiagram(T fieldplane, URI uri) {
+        if (!(fieldplane instanceof WindFieldLoader)) {
+            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
+        }
+        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
+            return false;
+        return this.loadArray((WindFieldLoader) fieldplane);
+
+    }
+
+    public WindVector interpolate(Coordinate c, InterpolationAlgorithm algorithm) {
+        WindVector vector = new WindVector(0,0);
+        WindVector[][] r = this.getRange(c);
+        Double[][] uVector = {{r[0][0].getU() , r[1][0].getU()},
+                              {r[0][1].getU() , r[1][1].getU()}};
+        Double[][] vVector = {{r[0][0].getV() , r[1][0].getV()},
+                              {r[0][1].getV() , r[1][1].getV()}};
+        Double[] val = this.getNormalizedCoordinate(c);
+        vector.setU( algorithm.interpolate(val[0], val[1], uVector) );
+        vector.setV( algorithm.interpolate(val[0], val[1], vVector) );
+        return vector;
+    }
 
     @Test
     private boolean loadArray (WindFieldLoader fieldplane) {
         this.field = fieldplane.convertToArray().clone();
-        this.northWestCorner = fieldplane.getNorthWestCorner();
-        this.southEastCorner = fieldplane.getSouthEastCorner();
-        this.deltaLng = fieldplane.getDeltaLng();
-        this.deltaLat = fieldplane.getDeltaLat();
-        this.countLngVectors = fieldplane.getCountLngVectors();
-        this.countLatVectors = fieldplane.getCountLatVectors();
-        if (this.field != null)
+        this.metadata = fieldplane.getMetadata();
+        if (this.field != null && this.metadata != null)
             return true;
         return false;
     }
@@ -67,22 +80,22 @@ public class Windfield {
      * @param coordinate
      * @return
      */
-    public WindVector[][] getRange(Coordinate coordinate) {
+    private WindVector[][] getRange(Coordinate coordinate) {
         /**
          * Don't ask about this voodoo ...
          */
         int lnglow = new Double(Math.floor((coordinate.getLongitudeInRadian() -
-                northWestCorner.getLongitudeInRadian())
-                / deltaLng)).intValue();
+                metadata.getNorthWestCorner().getLongitudeInRadian())
+                / metadata.getDeltaLng())).intValue();
         int lnghigh = new Double(Math.ceil((coordinate.getLongitudeInRadian() -
-                northWestCorner.getLongitudeInRadian())
-                / deltaLng)).intValue();
+                metadata.getNorthWestCorner().getLongitudeInRadian())
+                / metadata.getDeltaLng())).intValue();
         int latlow = new Double(Math.floor((coordinate.getLatitudeInRadian() -
-                northWestCorner.getLatitudeInRadian())
-                / deltaLat)).intValue();
+                metadata.getNorthWestCorner().getLatitudeInRadian())
+                / metadata.getDeltaLat())).intValue();
         int lathigh = new Double(Math.ceil((coordinate.getLatitudeInRadian() -
-                northWestCorner.getLatitudeInRadian())
-               / deltaLat)).intValue();
+                metadata.getNorthWestCorner().getLatitudeInRadian())
+               / metadata.getDeltaLat())).intValue();
         return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
                             {field[lathigh][lnglow],field[lathigh][lnghigh]}};
     }
@@ -95,22 +108,14 @@ public class Windfield {
      * @param c
      * @return A Double[] containing the longitude ratio and the latitude ratio
      */
-    public Double[] getNormalizedCoordinate(Coordinate c) {
+    private Double[] getNormalizedCoordinate(Coordinate c) {
         /**
          * First Latitude then Longitude... BECAUSE IT'S SO!!
          */
-        double lng = ((c.getLongitudeInRadian() - northWestCorner.getLongitudeInRadian()) / deltaLng) % 1;
-        double lat = ((c.getLatitudeInRadian() - northWestCorner.getLatitudeInRadian()) / deltaLat) % 1;
+        double lng = ((c.getLongitudeInRadian() - metadata.getNorthWestCorner().getLongitudeInRadian()) /
+                metadata.getDeltaLng()) % 1;
+        double lat = ((c.getLatitudeInRadian() - metadata.getNorthWestCorner().getLatitudeInRadian()) /
+                metadata.getDeltaLat()) % 1;
         return new Double[] {lat,lng};
-    }
-
-    public <T> boolean loadDiagram(T fieldplane, URI uri) {
-        if (!(fieldplane instanceof WindFieldLoader)) {
-            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
-        }
-        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
-            return false;
-        return this.loadArray((WindFieldLoader) fieldplane);
-
     }
 }

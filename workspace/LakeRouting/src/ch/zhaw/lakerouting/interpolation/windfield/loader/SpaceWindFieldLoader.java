@@ -29,6 +29,7 @@ package ch.zhaw.lakerouting.interpolation.windfield.loader;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
 
 import java.io.*;
 import java.net.URI;
@@ -75,7 +76,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          * KNOWN FLAWS:
          * The input file seems to have one more column than necessary in the
          * longitude row (first row in each block), up to now 25.03.2012 it is
-         * not known if this is intended or a mistake!         *
+         * not known if this is intended or a mistake!
          */
         WindVector[][] arr = new WindVector[field.size()-1][field.get(0).size()-2];
         for (int i = 1; i < field.size(); i++) {
@@ -87,8 +88,18 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return arr;
     }
 
-    @Override
-    public Calendar getDate() {
+    public final WindfieldMetadata getMetadata() {
+        WindfieldMetadata m = new WindfieldMetadata();
+        m.setNorthWestCorner(this.getNorthWestCorner());
+        m.setSouthEastCorner(this.getSouthEastCorner());
+        m.setDeltaLng(this.getDeltaLng());
+        m.setDeltaLat(this.getDeltaLat());
+        m.setCountLngVectors(this.getCountLngVectors());
+        m.setCountLatVectors( this.getCountLatVectors());
+        return m;
+    }
+
+    private Calendar getDate() {
         /**
          * This is real FUBAR code. Someone should fix that ...
          * I propose to change the timestamp in the file to
@@ -115,8 +126,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return c;
     }
 
-    @Override
-    public double getDeltaLng() {
+    private double getDeltaLng() {
         /**
          *  Oh shit ... we can't directly convert an Object into a
          *  double. Convert: Object -> String -> Double
@@ -127,8 +137,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
              - Double.parseDouble(field.get(0).get(1).toString());
     }
 
-    @Override
-    public double getDeltaLat() {
+    private double getDeltaLat() {
         /**
          * Look at getDeltaLng() for why this shit must be ...
          */
@@ -136,16 +145,14 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
              - Double.parseDouble(field.get(1).get(0).toString());
     }
 
-    @Override
-    public Coordinate getNorthWestCorner() {
+    private Coordinate getNorthWestCorner() {
         Coordinate c = new Coordinate();
         c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(1).toString()));
         c.setLatitudeInDegree(Double.parseDouble(field.get(1).get(0).toString()));
         return c;
     }
 
-    @Override
-    public Coordinate getSouthEastCorner() {
+    private Coordinate getSouthEastCorner() {
         int j = field.size();
         int i = field.get(0).size();
         Coordinate c = new Coordinate();
@@ -154,13 +161,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return c;
     }
 
-    @Override
-    public int getCountLngVectors() {
+    private int getCountLngVectors() {
         return field.size() - 1;
     }
 
-    @Override
-    public int getCountLatVectors() {
+    private int getCountLatVectors() {
         return field.get(0).size() - 1;
     }
 
