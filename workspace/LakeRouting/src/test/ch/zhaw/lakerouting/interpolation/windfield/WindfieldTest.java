@@ -25,89 +25,63 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation;
+package test.ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
- * Interpolator Tester.
+ * Windfield Tester.
  *
- * @author mhk
+ * @author Mathias Hablützel
+ * @since <pre>Apr 1, 2012</pre>
  * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
  */
-public class InterpolatorTest {
-    
-    private URI testfile;
+public class WindfieldTest {
 
     @Before
-    public void before() {
-        try {
-            testfile = new URI("/var/tmp/interpolationtest.csv");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        try {
-            FileWriter fstream = new FileWriter(testfile.getPath());
-            BufferedWriter out = new BufferedWriter(fstream);
-            out.write(",35,40,45,60,100,120,140,165,175,180\n");
-            out.write("1,0.3,0.6,0.8,1,1.2,1.2,1.1,0.8,0.65,0.6\n");
-            out.write("5,1.9,2,2.1,2.35,2.7,2.8,2.84,2.95,2.9,2.85\n");
-            out.write("10,3.3,3.47,3.6,3.8,3.9,3.95,4.2,4.39,4.4,4.35\n");
-            out.write("15,4.01,4.2,4.4,5,5.1,5.2,5.35,5.5,5.44,5.42\n");
-            out.write("20,4.2,4.5,4.8,5.6,5.8,6,6.3,6.4,6.32,6.3\n");
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //Close the output stream
+    public void before() throws Exception {
     }
 
     @After
-    public void after() {
-        new File(testfile.getPath()).delete();
+    public void after() throws Exception {
     }
 
     /**
-     * Method: interpolate(double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm)
+     *
+     * Method: loadDiagram(T fieldplane, URI uri)
+     *
+     */
+    @Test
+    public void testLoadDiagram() throws Exception {
+//TODO: Test goes here... 
+    }
+
+    /**
+     *
+     * Method: interpolate(Coordinate c, InterpolationAlgorithm algorithm)
+     *
      */
     @Test
     public void testInterpolate() throws Exception {
-        testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
-        BoatFieldLoader loader = new CSVBoatFieldLoader();
-        Field field = new BoatSpeedDiagram();
-        field.loadDiagram(loader, testfile);
-        InterpolationAlgorithm bil = new Bilinear();
-        Interpolator interpoler = new Interpolator();
-        assertEquals(3.98924, interpoler.interpolate(47.6, 12.47, field, bil), 0.1);
-        assertEquals(2.87871, interpoler.interpolate(124.2, 5.23, field, bil), 0.1);
-
-
         WindFieldLoader loader_wind = new SpaceWindFieldLoader();
-        Field windfield = new Windfield();
+        InterpolationAlgorithm bil = new Bilinear();
+        Windfield windfield = new Windfield();
         windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
         Coordinate c = new Coordinate();
         c.setLongitudeInDegree(09.01);
         c.setLatitudeInDegree(45.525);
-        WindVector result = interpoler.interpolate(c,windfield,bil);
+        WindVector result = windfield.interpolate(c,bil);
         System.out.println(result.toString());
     }
 

@@ -25,14 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
+package test.ch.zhaw.lakerouting.interpolation.algorithms;
 
-import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagramMetadata;
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import java.net.URI;
+/**
+ * Tests the {@link Bilinear} if it works correct
+ * @author Mathias Hablützel
+ * @version 1.0
+ * @since 1.0
+ *
+ */
+public class BilinearTest {
+    @Test
+    public final void testInterpolate() throws Exception {
+        Bilinear bilinearObject = new Bilinear();
+        Double[][] arr = new Double[][] {{1d, 3d}, {2d, 4d}};
+        Double[][] arr2 = new Double[][] {{21d,171d},{4d,68d}};
+        Double[][] arr3 = new Double[][] {{2.8,3.95},{2.84,4.2}};
+        assertEquals(2.1, bilinearObject.interpolate(0.6, 0.25, arr), 0.001);
+        assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
+        assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
 
-public interface BoatFieldLoader {
-    boolean loadRessource (URI identifier);
-    Double[][] convertToArray();
-    BoatSpeedDiagramMetadata getMetadata();
+    }
 }
