@@ -42,7 +42,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class SpaceWindFieldLoader implements WindFieldLoader {
-    private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}");
+    private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}", Pattern.MULTILINE);
     private static final Pattern WINDFIELD_BLOCK_DELIMITER =  Pattern.compile("\\n{2}");
 
     private AbstractList<AbstractList<Object>> field;
@@ -59,7 +59,6 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         } catch (FileNotFoundException f) {
             f.printStackTrace();
         }
-        field = new ArrayList<AbstractList<Object>>();
         windfieldArray = new ArrayList<Windfield>();
         read(fis);
 
@@ -166,7 +165,10 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
     private void read(InputStream fis) {
+        // TODO: Rewrite this for usage without Scanner, blank detection fails.
+        // Cool ...
         Scanner scanner = new Scanner(fis, Charset.forName("UTF-8").toString());
+        String s;
         try {
             while (scanner.hasNextLine()) {
                 /**
@@ -178,14 +180,17 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                  *
                  * Fuck.
                  */
-                if (scanner.hasNext("")) {
-                    windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
-                    field = new ArrayList<AbstractList<Object>>();
-                }
                 if (scanner.hasNext(HEADER_START_PATTERN)) {
+                    if (field != null) {
+                        windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
+                    }
+                    field = new ArrayList<AbstractList<Object>>();
                     field.add(processHeader(scanner.nextLine()));
                 }
-                field.add(processLine(scanner.nextLine()));
+                s = scanner.nextLine();
+                if (!s.isEmpty()) {
+                    field.add(processLine(s));
+                }
             }
         } finally {
             scanner.close();
@@ -194,6 +199,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
     private AbstractList<Object> processLine(String input) {
+        System.out.println("processLine(): "+input);
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
@@ -229,6 +235,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
     
     private AbstractList<Object> processHeader(String input) {
+        System.out.println("processHeader(): "+input);
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
