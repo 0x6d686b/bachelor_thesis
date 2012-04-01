@@ -27,15 +27,12 @@
 
 package ch.zhaw.lakerouting.interpolation.windfield.loader;
 
-import ch.zhaw.lakerouting.datatypes.Coordinate;
-import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 
 import java.net.URI;
+import java.util.AbstractList;
 import java.util.Calendar;
 
 public interface WindFieldLoader {
-    boolean loadRessource(URI identifier);
-    WindVector[][] convertToArray();
-    WindfieldMetadata getMetadata();
+    AbstractList<Windfield> loadRessource(URI identifier);
 }

@@ -43,14 +43,8 @@ public class Windfield {
     private WindfieldMetadata metadata;
     private WindVector[][] field;
 
-    public <T> boolean loadDiagram(T fieldplane, URI uri) {
-        if (!(fieldplane instanceof WindFieldLoader)) {
-            throw new IllegalArgumentException("You need to pass me WindFieldLoader!");
-        }
-        if (!((WindFieldLoader)fieldplane).loadRessource(uri))
-            return false;
-        return this.loadArray((WindFieldLoader) fieldplane);
-
+    public static Windfield getInstance() {
+        return new Windfield();
     }
 
     public WindVector interpolate(Coordinate c, InterpolationAlgorithm algorithm) {
@@ -64,6 +58,12 @@ public class Windfield {
         vector.setU( algorithm.interpolate(val[0], val[1], uVector) );
         vector.setV( algorithm.interpolate(val[0], val[1], vVector) );
         return vector;
+    }
+
+    public Windfield setField (WindfieldMetadata m, WindVector[][] f) {
+        this.field = f.clone();
+        this.metadata = m;
+        return this;
     }
 
     @Test
@@ -97,7 +97,7 @@ public class Windfield {
                 metadata.getNorthWestCorner().getLatitudeInRadian())
                / metadata.getDeltaLat())).intValue();
         return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
-                            {field[lathigh][lnglow],field[lathigh][lnghigh]}};
+                                   {field[lathigh][lnglow],field[lathigh][lnghigh]}};
     }
 
     /**

@@ -29,7 +29,9 @@ package ch.zhaw.lakerouting.interpolation.windfield.loader;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
+import com.sun.xml.internal.ws.api.addressing.WSEndpointReference;
 
 import java.io.*;
 import java.net.URI;
@@ -47,11 +49,13 @@ import java.util.regex.Pattern;
  */
 public class SpaceWindFieldLoader implements WindFieldLoader {
     private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}");
+    private static final Pattern WINDFIELD_BLOCK_DELIMITER =  Pattern.compile("\\n{2}");
 
     private AbstractList<AbstractList<Object>> field;
+    private AbstractList<Windfield> windfieldArray;
 
     @Override
-    public final boolean loadRessource(URI identifier) {
+    public final AbstractList<Windfield> loadRessource(URI identifier) {
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
@@ -60,17 +64,16 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             fis = new FileInputStream(identifier.getPath());
         } catch (FileNotFoundException f) {
             f.printStackTrace();
-            return false;
         }
         field = new ArrayList<AbstractList<Object>>();
+        windfieldArray = new ArrayList<Windfield>();
         read(fis);
 
-        return true;
+        return windfieldArray;
     }
 
 
-    @Override
-    public final WindVector[][] convertToArray() {
+    private final WindVector[][] convertToArray() {
 
         /**
          * KNOWN FLAWS:
@@ -81,14 +84,13 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         WindVector[][] arr = new WindVector[field.size()-1][field.get(0).size()-2];
         for (int i = 1; i < field.size(); i++) {
             for (int j = 1; j < field.get(0).size()-1; j++) {
-                // TODO: Boundary problem? Double check!
                 arr[i-1][j-1] = (WindVector) field.get(i).get(j);
             }
         }
         return arr;
     }
 
-    public final WindfieldMetadata getMetadata() {
+    private final WindfieldMetadata getMetadata() {
         WindfieldMetadata m = new WindfieldMetadata();
         m.setNorthWestCorner(this.getNorthWestCorner());
         m.setSouthEastCorner(this.getSouthEastCorner());
@@ -173,7 +175,19 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         Scanner scanner = new Scanner(fis, Charset.forName("UTF-8").toString());
         try {
             while (scanner.hasNextLine()) {
-                // does not take in account of empty lines -> new field
+                /**
+                 * Ok, this is really fucked up.
+                 * If we find a block delimiter, we create a new windfield (since the
+                 * old one has just finished), at the full windfield to the array.
+                 * I think this is soooo crappy it should be reworked!
+                 * Or you can pray this doesn't blow up.
+                 *
+                 * Fuck.
+                 */
+                if (scanner.hasNext(WINDFIELD_BLOCK_DELIMITER)) {
+                    windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
+                    field = new ArrayList<AbstractList<Object>>();
+                }
                 if (scanner.hasNext(HEADER_START_PATTERN)) {
                     field.add(processHeader(scanner.nextLine()));
                 }
@@ -183,7 +197,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             scanner.close();
         }
     }
-    
+
     private AbstractList<Object> processLine(String input) {
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
