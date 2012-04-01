@@ -54,9 +54,10 @@ public class Interpolator {
      */
     @Test
     public final double interpolate (double windAttackAngle, double windSpeed, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
-        Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
-        double value = algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
-        return field.limiter(windAttackAngle, windSpeed, value);
+        //Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
+        //double value = algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
+        //return field.limiter(windAttackAngle, windSpeed, value);
+        return 0d;
     }
     
     @Test
