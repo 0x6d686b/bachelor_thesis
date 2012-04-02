@@ -39,6 +39,7 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SpaceWindFieldLoader implements WindFieldLoader {
@@ -53,9 +54,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
-        FileInputStream fis = null;
+        FileReader fis = null;
         try {
-            fis = new FileInputStream(identifier.getPath());
+            fis = new FileReader(identifier.getPath());
         } catch (FileNotFoundException f) {
             f.printStackTrace();
         }
@@ -164,13 +165,14 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return field.get(0).size() - 1;
     }
 
-    private void read(InputStream fis) {
+    private void read(FileReader fis) {
         // TODO: Rewrite this for usage without Scanner, blank detection fails.
         // Cool ...
-        Scanner scanner = new Scanner(fis, Charset.forName("UTF-8").toString());
+        BufferedReader br = new BufferedReader(fis);
         String s;
         try {
-            while (scanner.hasNextLine()) {
+            // Yeah, shit hit's the fan ... BufferedReader does not tell when we are at EOF.
+            while ((s = br.readLine()) != null) {
                 /**
                  * Ok, this is really fucked up.
                  * If we find a block delimiter, we create a new windfield (since the
@@ -180,21 +182,28 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                  *
                  * Fuck.
                  */
-                if (scanner.hasNext(HEADER_START_PATTERN)) {
-                    if (field != null) {
+                Matcher header = HEADER_START_PATTERN.matcher(s);
+                if (header.find()) {
+                    if (field != null)
                         windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
-                    }
                     field = new ArrayList<AbstractList<Object>>();
-                    field.add(processHeader(scanner.nextLine()));
+                    field.add(processHeader(s));
+                    continue;
                 }
-                s = scanner.nextLine();
                 if (!s.isEmpty()) {
                     field.add(processLine(s));
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
-            scanner.close();
-            windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
+            try {
+                // seriously what could possibly go wrong closing a FUCKING input?!
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToArray()));
         }
     }
 
