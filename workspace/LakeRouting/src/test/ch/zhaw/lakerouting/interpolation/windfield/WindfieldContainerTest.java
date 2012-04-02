@@ -70,9 +70,9 @@ public class WindfieldContainerTest {
         InterpolationAlgorithm bil = new Bilinear();
 
         WindfieldContainer foo = new WindfieldContainer();
-        foo.bulkLoadWindfield(new URI("file", "/var/tmp/testfilewindfield.dat", ""), loader);
-        c.setLongitudeInDegree(09.01);
-        c.setLatitudeInDegree(45.525);
+        foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
+        c.setLongitudeInDegree(09.31);
+        c.setLatitudeInDegree(47.525);
         WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
     }

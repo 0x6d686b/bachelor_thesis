@@ -188,7 +188,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                     field.add(processHeader(s));
                     continue;
                 }
-                if (!s.isEmpty()) {
+                // What moron leaves trailing whitespaces there?!
+                // Thank you for letting me HARDCODE this shit!
+                if (!s.isEmpty() && !(s.charAt(0)==0x20)) {
                     field.add(processLine(s));
                 }
             }
