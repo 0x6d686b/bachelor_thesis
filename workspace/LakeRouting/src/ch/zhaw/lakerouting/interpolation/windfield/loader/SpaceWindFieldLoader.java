@@ -166,12 +166,10 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
     private void read(FileReader fis) {
-        // TODO: Rewrite this for usage without Scanner, blank detection fails.
-        // Cool ...
         BufferedReader br = new BufferedReader(fis);
         String s;
         try {
-            // Yeah, shit hit's the fan ... BufferedReader does not tell when we are at EOF.
+            // Yeah, shit hits the fan ... BufferedReader does not tell when we are at EOF.
             while ((s = br.readLine()) != null) {
                 /**
                  * Ok, this is really fucked up.
@@ -198,7 +196,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             e.printStackTrace();
         } finally {
             try {
-                // seriously what could possibly go wrong closing a FUCKING input?!
+                // seriously, what could possibly go wrong closing a FUCKING input?!
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
