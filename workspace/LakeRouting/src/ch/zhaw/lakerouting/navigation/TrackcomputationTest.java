@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 
-public class TrackcomputationTest {
+public class TrackComputationTest {
 
 	private Map<String, double[]> punkteCoord;
 	private static double tolerance = 1e-1;

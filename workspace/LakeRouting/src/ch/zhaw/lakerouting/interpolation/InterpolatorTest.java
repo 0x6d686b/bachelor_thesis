@@ -59,7 +59,7 @@ public class InterpolatorTest {
     @Before
     public void before() {
         try {
-            testfile = new URI("/var/tmp/interpolationtest.csv");
+            testfile = new URI("C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -79,17 +79,17 @@ public class InterpolatorTest {
         //Close the output stream
     }
 
-    @After
-    public void after() {
-        new File(testfile.getPath()).delete();
-    }
+//    @After
+//    public void after() {
+//        new File(testfile.getPath()).delete();
+//    }
 
     /**
      * Method: interpolate(double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm)
      */
     @Test
     public void testInterpolate() throws Exception {
-        testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
+        testfile = new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv", "");
         BoatFieldLoader loader = new CSVBoatFieldLoader();
         Field field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);

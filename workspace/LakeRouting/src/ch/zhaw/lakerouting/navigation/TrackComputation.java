@@ -1,6 +1,7 @@
 package ch.zhaw.lakerouting.navigation;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Track;
 
 public class TrackComputation {
 

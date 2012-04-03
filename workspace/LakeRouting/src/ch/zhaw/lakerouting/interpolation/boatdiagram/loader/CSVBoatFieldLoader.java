@@ -58,7 +58,8 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         int columns;
 
         try{
-            filereader = new CsvReader(identifier.getPath(), ',', Charset.forName("UTF-8"));
+//            filereader = new CsvReader(identifier.getPath(), ',', Charset.forName("UTF-8"));
+        	filereader = new CsvReader(identifier.getSchemeSpecificPart(), ',', Charset.forName("UTF-8"));
         } catch (FileNotFoundException f) {
             f.printStackTrace();
             return false;

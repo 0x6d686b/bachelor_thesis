@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Graph;
+import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
 
 
 /**
@@ -19,6 +21,7 @@ public class Decision {
 	private int maxi;
 	private int maxj;
 	private int coord;
+	private SailingDuration sd = new SailingDuration();
 
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
@@ -179,6 +182,12 @@ public class Decision {
 		double[] node;
 		Coordinate crd1 = new Coordinate();
 		Coordinate crd2 = new Coordinate();
+		
+		
+		//Test, nachher durch interpolation ersetzen!!!!
+		WindVector wv1 = new WindVector(10, 15);
+		WindVector wv2 = new WindVector(10, 15);
+		
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
@@ -191,7 +200,7 @@ public class Decision {
 				crd1.setLatitudeInDegree(loc[r - 1][j][1]);
 				crd2.setLongitudeInDegree(loc[r][k][0]);
 				crd2.setLatitudeInDegree(loc[r][k][1]);
-				etabli[j] = ortho(crd1, crd2)
+				etabli[j] = sd.getSailingDuration(crd1, crd2, wv1, wv2)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
