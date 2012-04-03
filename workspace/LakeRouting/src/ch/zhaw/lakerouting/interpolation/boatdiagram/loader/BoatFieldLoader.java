@@ -27,9 +27,12 @@
 
 package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
 
+import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagramMetadata;
+
 import java.net.URI;
 
 public interface BoatFieldLoader {
     boolean loadRessource (URI identifier);
     Double[][] convertToArray();
+    BoatSpeedDiagramMetadata getMetadata();
 }

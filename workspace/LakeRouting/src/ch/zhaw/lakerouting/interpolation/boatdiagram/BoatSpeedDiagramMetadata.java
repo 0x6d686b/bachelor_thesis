@@ -27,13 +27,41 @@
 
 package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
-/**
- * BoatSpeedDiagram Tester.
- *
- * @author <Authors name>
- * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
- */
-public class BoatSpeedDiagramTest {
+public final class BoatSpeedDiagramMetadata {
+    private double minimalAttackAngle;
+    private double maximalAttackAngle;
+    private double minimalWindspeed;
+    private double maximalWindspeed;
 
-} 
+    public double getMinimalAttackAngle() {
+        return minimalAttackAngle;
+    }
+
+    public void setMinimalAttackAngle(double input) {
+        this.minimalAttackAngle = input;
+    }
+
+    public double getMaximalAttackAngle() {
+        return maximalAttackAngle;
+    }
+
+    public void setMaximalAttackAngle(double input) {
+        this.maximalAttackAngle = input;
+    }
+
+    public double getMinimalWindspeed() {
+        return minimalWindspeed;
+    }
+
+    public void setMinimalWindspeed(double maximalWindspeed) {
+        this.minimalWindspeed = maximalWindspeed;
+    }
+
+    public double getMaximalWindspeed() {
+        return maximalWindspeed;
+    }
+
+    public void setMaximalWindspeed(double input) {
+        this.maximalWindspeed = input;
+    }
+}

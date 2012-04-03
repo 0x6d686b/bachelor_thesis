@@ -25,28 +25,75 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation.algorithms;
+package ch.zhaw.lakerouting.interpolation.windfield;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import java.util.Calendar;
 
-/**
- * Tests the {@link Bilinear} if it works correct
- * @author Mathias Hablützel
- * @version 1.0
- * @since 1.0
- *
- */
-public class BilinearTest {
-    @Test
-    public final void testInterpolate() throws Exception {
-        Bilinear bilinearObject = new Bilinear();
-        Double[][] arr = new Double[][] {{1d, 3d}, {2d, 4d}};
-        Double[][] arr2 = new Double[][] {{21d,171d},{4d,68d}};
-        Double[][] arr3 = new Double[][] {{2.8,3.95},{2.84,4.2}};
-        assertEquals(2.1, bilinearObject.interpolate(0.6, 0.25, arr), 0.001);
-        assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
-        assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
-        
+public class WindfieldMetadata {
+    private Calendar date;
+    private double deltaLng;
+    private double deltaLat;
+    private Coordinate northWestCorner;
+    private Coordinate southEastCorner;
+    private int countLngVectors;
+    private int countLatVectors;
+    
+    public Calendar getDate() {
+        return date;
     }
+
+    public void setDate(Calendar input) {
+        this.date = input;
+    }
+
+    public double getDeltaLng() {
+        return deltaLng;
+    }
+
+    public void setDeltaLng(double deltaLat) {
+        this.deltaLng = deltaLat;
+    }
+
+    public double getDeltaLat() {
+        return deltaLat;
+    }
+
+    public void setDeltaLat(double input) {
+        this.deltaLat = input;
+    }
+
+    public Coordinate getNorthWestCorner() {
+        return northWestCorner;
+    }
+
+    public void setNorthWestCorner(Coordinate input) {
+        this.northWestCorner = input;
+    }
+
+    public Coordinate getSouthEastCorner() {
+        return southEastCorner;
+    }
+
+    public void setSouthEastCorner(Coordinate countLngVectors) {
+        this.southEastCorner = countLngVectors;
+    }
+
+    public int getCountLngVectors() {
+        return countLngVectors;
+    }
+
+    public void setCountLngVectors(int input) {
+        this.countLngVectors = input;
+    }
+
+    public int getCountLatVectors() {
+        return countLatVectors;
+    }
+
+    public void setCountLatVectors(int input) {
+        this.countLatVectors = input;
+    }
+
+
 }

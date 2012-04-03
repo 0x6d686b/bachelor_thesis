@@ -25,18 +25,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation;
+package test.ch.zhaw.lakerouting.interpolation.boatdiagram;
 
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
-import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,19 +43,21 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Interpolator Tester.
- *
- * @author mhk
- * @version 1.0
- * @since <pre>Mrz 13, 2012</pre>
- */
-public class InterpolatorTest {
-    
-    private URI testfile;
+import static org.junit.Assert.assertEquals;
 
-    @Before
-    public void before() {
+/**
+ * BoatSpeedDiagram Tester.
+ *
+ * @author <Authors name>
+ * @since <pre>03/31/2012</pre>
+ * @version 1.0
+ */
+public class BoatSpeedDiagramTest {
+
+    private static URI testfile;
+
+    @BeforeClass
+    public static void oneTimeSetup() {
         try {
             testfile = new URI("C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv");
         } catch (URISyntaxException e) {
@@ -79,30 +79,47 @@ public class InterpolatorTest {
         //Close the output stream
     }
 
+<<<<<<< HEAD:workspace/LakeRouting/src/ch/zhaw/lakerouting/interpolation/InterpolatorTest.java
 //    @After
 //    public void after() {
 //        new File(testfile.getPath()).delete();
 //    }
+=======
+    @AfterClass
+    public static void after() {
+        new File(testfile.getPath()).delete();
+    }
+>>>>>>> dc43a1a41ebabec836f84d4d6be565c9aab772bc:workspace/LakeRouting/src/test/ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagramTest.java
 
-    /**
-     * Method: interpolate(double x, double y, BoatSpeedDiagram field, InterpolationAlgorithm algorithm)
-     */
+//    public BoatSpeedDiagramTest(String name) {
+//        super(name);
+//    }
+//
+//    public void setUp() throws Exception {
+//        super.setUp();
+//    }
+//
+//    public void tearDown() throws Exception {
+//        super.tearDown();
+//    }
+//
+//    public static Test suite() {
+//        return new TestSuite(BoatSpeedDiagramTest.class);
+//    }
+
     @Test
+<<<<<<< HEAD:workspace/LakeRouting/src/ch/zhaw/lakerouting/interpolation/InterpolatorTest.java
     public void testInterpolate() throws Exception {
         testfile = new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv", "");
+=======
+    public void testInterpolation() throws Exception{
+        testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
+>>>>>>> dc43a1a41ebabec836f84d4d6be565c9aab772bc:workspace/LakeRouting/src/test/ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagramTest.java
         BoatFieldLoader loader = new CSVBoatFieldLoader();
-        Field field = new BoatSpeedDiagram();
+        BoatSpeedDiagram field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
         InterpolationAlgorithm bil = new Bilinear();
-        Interpolator interpoler = new Interpolator();
-        assertEquals(3.98924, interpoler.interpolate(47.6, 12.47, field, bil), 0.1);
-        assertEquals(2.87871, interpoler.interpolate(124.2, 5.23, field, bil), 0.1);
-
-
-        WindFieldLoader loader_wind = new SpaceWindFieldLoader();
-        Field windfield = new Windfield();
-        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/windfieldtest.dat", ""));
+        assertEquals(3.98924, field.interpolate(47.6, 12.47, bil), 0.1);
+        assertEquals(2.87871, field.interpolate(124.2, 5.23, bil), 0.1);
     }
-
-
-} 
+}

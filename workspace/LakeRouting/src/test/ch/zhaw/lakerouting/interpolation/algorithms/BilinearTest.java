@@ -25,56 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.datatypes;
+package test.ch.zhaw.lakerouting.interpolation.algorithms;
 
-import java.math.BigDecimal;
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-public class Coordinate {
-    private static final double MIN_LONGITUDE = -180.0;
-    private static final double MAX_LONGITUDE = 180.0;
-    private static final double MIN_LATITUDE = -90.0;
-    private static final double MAX_LATITUDE = 90.0;
+/**
+ * Tests the {@link Bilinear} if it works correct
+ * @author Mathias Hablützel
+ * @version 1.0
+ * @since 1.0
+ *
+ */
+public class BilinearTest {
+    @Test
+    public final void testInterpolate() throws Exception {
+        Bilinear bilinearObject = new Bilinear();
+        Double[][] arr = new Double[][] {{1d, 3d}, {2d, 4d}};
+        Double[][] arr2 = new Double[][] {{21d,171d},{4d,68d}};
+        Double[][] arr3 = new Double[][] {{2.8,3.95},{2.84,4.2}};
+        assertEquals(2.1, bilinearObject.interpolate(0.6, 0.25, arr), 0.001);
+        assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
+        assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
 
-    private BigDecimal longitude;
-    private BigDecimal latitude;
-
-    public final String toString() {
-        return "Longitude: " + longitude + "°, Latitude: " + latitude;
-    }
-
-    public final double getLongitudeInDegree() {
-        return longitude.doubleValue();
-    }
-
-    public final void setLongitudeInDegree(double l) {
-        if (l > MAX_LONGITUDE || l <= MIN_LONGITUDE)
-            throw new IllegalArgumentException("Longitude is out of range.");
-        this.longitude = BigDecimal.valueOf(l);
-    }
-
-    public final double getLatitudeInDegree() {
-        return latitude.doubleValue();
-    }
-
-    public final void setLatitudeInDegree(double l) {
-        if (l > MAX_LATITUDE || l < MIN_LATITUDE)
-            throw new IllegalArgumentException("Latitude is out of range.");
-        this.latitude = BigDecimal.valueOf(l);
-    }
-
-    public final double getLongitudeInRadian() {
-        return getLongitudeInDegree()/180*Math.PI;
-    }
-
-    public final void setLongitudeInRadian(double l) {
-        setLongitudeInDegree(l/Math.PI*180);
-    }
-
-    public final double getLatitudeInRadian() {
-        return getLatitudeInDegree()/180*Math.PI;
-    }
-
-    public final void setLatitudeInRadian(double l) {
-        setLatitudeInDegree(l/Math.PI*180);
     }
 }

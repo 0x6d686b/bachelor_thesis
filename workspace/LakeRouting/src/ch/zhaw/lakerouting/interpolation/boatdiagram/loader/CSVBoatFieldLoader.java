@@ -27,7 +27,9 @@
 
 package ch.zhaw.lakerouting.interpolation.boatdiagram.loader;
 
+import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagramMetadata;
 import com.csvreader.CsvReader;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
@@ -37,27 +39,29 @@ import java.util.ArrayList;
 
 /**
  * Loads the values for a boat speed diagram from a CSV file
+ *
  * @author Mathias Hablützel
- * @since 1.0
  * @version 1.0
+ * @since 1.0
  */
 public class CSVBoatFieldLoader implements BoatFieldLoader {
     private AbstractList<AbstractList<Double>> field;
 
     /**
      * Loads the indicated ressource
+     *
      * @param identifier Object containing the URI to the ressource
      * @return Returns {@code true} if successful, {@code false} if not
      */
     @Override
-    public final boolean loadRessource(URI identifier){
-        if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
+    public final boolean loadRessource(URI identifier) {
+        if (!(identifier.getScheme().equalsIgnoreCase("file")))
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
         CsvReader filereader;
         int columns;
 
-        try{
+        try {
 //            filereader = new CsvReader(identifier.getPath(), ',', Charset.forName("UTF-8"));
         	filereader = new CsvReader(identifier.getSchemeSpecificPart(), ',', Charset.forName("UTF-8"));
         } catch (FileNotFoundException f) {
@@ -77,9 +81,9 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
             }
             field.add(header);
 
-            while(filereader.readRecord()) {
+            while (filereader.readRecord()) {
                 AbstractList<Double> line = new ArrayList<Double>();
-                for(int k = 0; k < columns; k++) {
+                for (int k = 0; k < columns; k++) {
                     line.add(Double.parseDouble(filereader.get(k)));
                 }
                 field.add(line);
@@ -92,6 +96,7 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
 
     /**
      * Converts the whole input file into an array
+     *
      * @return returns the array
      */
     @Override
@@ -101,5 +106,31 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
             arr[i] = field.get(i).toArray(new Double[field.get(0).size()]);
         }
         return arr;
+    }
+
+    @Override
+    public BoatSpeedDiagramMetadata getMetadata() {
+        BoatSpeedDiagramMetadata m = new BoatSpeedDiagramMetadata();
+        m.setMaximalAttackAngle(getMaximalAttackAngle());
+        m.setMaximalWindspeed(getMaximalWindspeed());
+        m.setMinimalAttackAngle(getMinimalAttackAngle());
+        m.setMinimalWindspeed(getMinimalWindspeed());
+        return m;
+    }
+
+    private double getMinimalAttackAngle() {
+        return field.get(0).get(1);
+    }
+
+    private double getMaximalAttackAngle() {
+        return field.get(0).get(field.get(0).size() - 1);
+    }
+
+    private double getMinimalWindspeed() {
+        return field.get(1).get(0);
+    }
+
+    private double getMaximalWindspeed() {
+        return field.get(field.size() - 1).get(0);
     }
 }

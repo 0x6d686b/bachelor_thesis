@@ -37,6 +37,7 @@ public class WindVector {
     private static final int MAXWIND = 180;
     private double u;
     private double v;
+    private Coordinate coordinate;
 
     private void validateInput (double input) {
         if (Math.abs(input) > MAXWIND)
@@ -66,6 +67,14 @@ public class WindVector {
         this.v = input;
     }
 
+    public final void setCoordinate(Coordinate c) {
+        this.coordinate = c;
+    }
+
+    public final Coordinate getCoordinate() {
+        return this.coordinate;
+    }
+
     public final double getWindspeed() {
         return Math.sqrt(Math.pow(getU(),2) + Math.pow(getV(),2));
     }
@@ -78,5 +87,16 @@ public class WindVector {
          * We simplify: 1*u + 0*v = u
          */
         return Math.acos( ( getU() ) / getWindspeed() );
+    }
+    
+    public final String toString() {
+        String s = "";
+
+        s += "u: " + getU() + ", ";
+        s += "v: " + getV() + ", ";
+        s += "angle: " + getAngle() + " °, ";
+        s += "velocity: " + getWindspeed() + " kts";
+        
+        return s;
     }
 }

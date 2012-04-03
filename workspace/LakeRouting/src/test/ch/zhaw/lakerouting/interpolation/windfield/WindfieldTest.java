@@ -25,43 +25,65 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.interpolation;
+package test.ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+
+import java.net.URI;
 
 /**
- * The main class for the interpolation process, handles all calls
+ * Windfield Tester.
  *
- * When given the windfield and the interpolation algorithm it'll
- * calculate the interpolated value at {@code x,y}
  * @author Mathias Hablützel
- * @since 1.0
+ * @since <pre>Apr 1, 2012</pre>
  * @version 1.0
  */
-public class Interpolator {
+public class WindfieldTest {
+
+    @Before
+    public void before() throws Exception {
+    }
+
+    @After
+    public void after() throws Exception {
+    }
+
     /**
      *
-     * @param windAttackAngle in Degree, 0 is from front, 180 is from behind
-     * @param windSpeed in knots
-     * @param field {@link ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram} Field containing the boatdiagram
-     * @param algorithm
-     * @return
+     * Method: loadDiagram(T fieldplane, URI uri)
+     *
      */
     @Test
-    public final double interpolate (double windAttackAngle, double windSpeed, BoatSpeedDiagram field, InterpolationAlgorithm algorithm) {
-        //Double[] val = field.getNormalizedValues(windAttackAngle,windSpeed);
-        //double value = algorithm.interpolate(val[0], val[1], field.getRange(windAttackAngle,windSpeed));
-        //return field.limiter(windAttackAngle, windSpeed, value);
-        return 0d;
+    public void testLoadDiagram() throws Exception {
+//TODO: Test goes here... 
     }
-    
-    @Test
-    public final WindVector interpolate (Coordinate c, Windfield field, InterpolationAlgorithm algorithm) {
-        return null;
-    }
-}
+
+    /**
+     *
+     * Method: interpolate(Coordinate c, InterpolationAlgorithm algorithm)
+     *
+     */
+    /*@Test
+    public void testInterpolate() throws Exception {
+        WindFieldLoader loader_wind = new SpaceWindFieldLoader();
+        InterpolationAlgorithm bil = new Bilinear();
+        Windfield windfield = new Windfield();
+        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
+        Coordinate c = new Coordinate();
+        c.setLongitudeInDegree(09.01);
+        c.setLatitudeInDegree(45.525);
+        WindVector result = windfield.interpolate(c,bil);
+        System.out.println(result.toString());
+    }*/
+
+
+} 

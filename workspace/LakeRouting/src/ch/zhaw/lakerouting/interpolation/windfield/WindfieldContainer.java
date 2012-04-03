@@ -25,56 +25,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.datatypes;
+package ch.zhaw.lakerouting.interpolation.windfield;
 
-import java.math.BigDecimal;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 
-public class Coordinate {
-    private static final double MIN_LONGITUDE = -180.0;
-    private static final double MAX_LONGITUDE = 180.0;
-    private static final double MIN_LATITUDE = -90.0;
-    private static final double MAX_LATITUDE = 90.0;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.URI;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Calendar;
 
-    private BigDecimal longitude;
-    private BigDecimal latitude;
+public class WindfieldContainer {
+    private Calendar starttime;
+    private Calendar endtime;
+    private Calendar delta;
+    private AbstractList<Windfield> fields;
 
-    public final String toString() {
-        return "Longitude: " + longitude + "°, Latitude: " + latitude;
+    public final boolean bulkLoadWindfield (URI identifier, WindFieldLoader loader) {
+        try {
+            fields = loader.loadRessource(identifier);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    public final double getLongitudeInDegree() {
-        return longitude.doubleValue();
-    }
-
-    public final void setLongitudeInDegree(double l) {
-        if (l > MAX_LONGITUDE || l <= MIN_LONGITUDE)
-            throw new IllegalArgumentException("Longitude is out of range.");
-        this.longitude = BigDecimal.valueOf(l);
-    }
-
-    public final double getLatitudeInDegree() {
-        return latitude.doubleValue();
-    }
-
-    public final void setLatitudeInDegree(double l) {
-        if (l > MAX_LATITUDE || l < MIN_LATITUDE)
-            throw new IllegalArgumentException("Latitude is out of range.");
-        this.latitude = BigDecimal.valueOf(l);
-    }
-
-    public final double getLongitudeInRadian() {
-        return getLongitudeInDegree()/180*Math.PI;
-    }
-
-    public final void setLongitudeInRadian(double l) {
-        setLongitudeInDegree(l/Math.PI*180);
-    }
-
-    public final double getLatitudeInRadian() {
-        return getLatitudeInDegree()/180*Math.PI;
-    }
-
-    public final void setLatitudeInRadian(double l) {
-        setLatitudeInDegree(l/Math.PI*180);
+    public final Windfield get(int index) {
+        return fields.get(index);
     }
 }
