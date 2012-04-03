@@ -208,7 +208,6 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
     private AbstractList<Object> processLine(String input) {
-        System.out.println("processLine(): "+input);
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
@@ -244,7 +243,6 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
     
     private AbstractList<Object> processHeader(String input) {
-        System.out.println("processHeader(): "+input);
         int i = 0;
         AbstractList<Object> arr = new ArrayList<Object>();
 
