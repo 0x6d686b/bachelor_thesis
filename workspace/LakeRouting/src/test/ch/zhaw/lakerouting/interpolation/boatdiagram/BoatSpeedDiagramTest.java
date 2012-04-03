@@ -79,17 +79,10 @@ public class BoatSpeedDiagramTest {
         //Close the output stream
     }
 
-<<<<<<< HEAD:workspace/LakeRouting/src/ch/zhaw/lakerouting/interpolation/InterpolatorTest.java
-//    @After
-//    public void after() {
+//    @AfterClass
+//    public static void after() {
 //        new File(testfile.getPath()).delete();
 //    }
-=======
-    @AfterClass
-    public static void after() {
-        new File(testfile.getPath()).delete();
-    }
->>>>>>> dc43a1a41ebabec836f84d4d6be565c9aab772bc:workspace/LakeRouting/src/test/ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagramTest.java
 
 //    public BoatSpeedDiagramTest(String name) {
 //        super(name);
@@ -108,13 +101,8 @@ public class BoatSpeedDiagramTest {
 //    }
 
     @Test
-<<<<<<< HEAD:workspace/LakeRouting/src/ch/zhaw/lakerouting/interpolation/InterpolatorTest.java
-    public void testInterpolate() throws Exception {
-        testfile = new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv", "");
-=======
     public void testInterpolation() throws Exception{
-        testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
->>>>>>> dc43a1a41ebabec836f84d4d6be565c9aab772bc:workspace/LakeRouting/src/test/ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagramTest.java
+        testfile = new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv", "");
         BoatFieldLoader loader = new CSVBoatFieldLoader();
         BoatSpeedDiagram field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
