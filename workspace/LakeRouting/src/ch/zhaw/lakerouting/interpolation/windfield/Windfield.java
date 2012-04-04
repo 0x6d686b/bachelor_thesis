@@ -34,6 +34,8 @@ import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Windfield {
@@ -58,6 +60,19 @@ public class Windfield {
         vector.setU( algorithm.interpolate(val[0], val[1], uVector) );
         vector.setV( algorithm.interpolate(val[0], val[1], vVector) );
         return vector;
+    }
+
+    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(AbstractList<AbstractList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+        AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
+        AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
+        for (int i = 0; i < coordinates.size(); i++) {
+            for (int j = 0; j < coordinates.get(0).size(); j++) {
+                vectorRow.add(interpolate(coordinates.get(i).get(j), algorithm));
+            }
+            vectorField.add(vectorRow);
+            vectorRow = new ArrayList<WindVector>();
+        }
+        return vectorField;
     }
 
     public Windfield setField (WindfieldMetadata m, WindVector[][] f) {
