@@ -186,8 +186,8 @@ public class Decision {
 		
 		
 		//Test, nachher durch interpolation ersetzen!!!!
-		WindVector wv1 = new WindVector(0.1, 0.1);
-		WindVector wv2 = new WindVector(0.1, 0.1);
+		WindVector wv1 = new WindVector(0, 1);
+		WindVector wv2 = new WindVector(0, 1);
 		
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
