@@ -50,10 +50,26 @@ public class WindfieldContainer {
             e.printStackTrace();
             return false;
         }
+        this.starttime = fields.get(0).getMetadata().getDate();
+        this.endtime = fields.get(fields.size()-1).getMetadata().getDate();
+        //this.delta
         return true;
     }
 
     public final Windfield get(int index) {
         return fields.get(index);
     }
+
+    public Calendar getStarttime() {
+        return this.starttime;
+    }
+
+    public Calendar getEndtime() {
+        return this.endtime;
+    }
+
+    public Calendar getDelta() {
+        return this.delta;
+    }
+
 }
