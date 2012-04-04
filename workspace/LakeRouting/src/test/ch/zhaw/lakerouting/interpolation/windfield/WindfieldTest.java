@@ -32,6 +32,7 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
+import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
@@ -72,18 +73,19 @@ public class WindfieldTest {
      * Method: interpolate(Coordinate c, InterpolationAlgorithm algorithm)
      *
      */
-    /*@Test
+    @Test
     public void testInterpolate() throws Exception {
-        WindFieldLoader loader_wind = new SpaceWindFieldLoader();
-        InterpolationAlgorithm bil = new Bilinear();
-        Windfield windfield = new Windfield();
-        windfield.loadDiagram(loader_wind, new URI("file", "/var/tmp/testfilewindfield.dat", ""));
+        SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
         Coordinate c = new Coordinate();
-        c.setLongitudeInDegree(09.01);
-        c.setLatitudeInDegree(45.525);
-        WindVector result = windfield.interpolate(c,bil);
+        InterpolationAlgorithm bil = new Bilinear();
+        WindfieldContainer foo = new WindfieldContainer();
+
+        foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
+        c.setLongitudeInDegree(09.31);
+        c.setLatitudeInDegree(47.525);
+        WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
-    }*/
+    }
 
 
 } 

@@ -66,14 +66,10 @@ public class Windfield {
         return this;
     }
 
-    /*@Test
-    private boolean loadArray (WindFieldLoader fieldplane) {
-        this.field = fieldplane.convertToArray().clone();
-        this.metadata = fieldplane.getMetadata();
-        if (this.field != null && this.metadata != null)
-            return true;
-        return false;
-    }*/
+    public WindfieldMetadata getMetadata () {
+        return this.metadata;
+    }
+
 
     /**
      * Returns the directly neighbouring WindVectors
