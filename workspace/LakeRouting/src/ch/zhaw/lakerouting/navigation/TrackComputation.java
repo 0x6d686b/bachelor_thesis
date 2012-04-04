@@ -6,14 +6,8 @@ import ch.zhaw.lakerouting.datatypes.Track;
 public class TrackComputation {
 
 	public double track12(Coordinate crd1, Coordinate crd2) {
-		double crd1Radian[] = new double[2];
-		double crd2Radian[] = new double[2];
-		crd1Radian[0] = crd1.getLongitudeInRadian();
-		crd1Radian[1] = crd1.getLatitudeInRadian();
-		crd2Radian[0] = crd2.getLongitudeInRadian();
-		crd2Radian[1] = crd2.getLatitudeInRadian();
 
-		Track t = computeScalar(crd1Radian, crd2Radian);
+		Track t = computeScalar(crd1, crd2);
 		double nTrack1=180*arcTangente(t)/Math.PI;
 		
 		if(nTrack1>90){
@@ -81,7 +75,7 @@ public class TrackComputation {
 		return x * x;
 	}
 
-	public Track computeScalar(double[] crd1, double[] crd2) {
+	public Track computeScalar(Coordinate crd1, Coordinate crd2) {
 		Track t = new Track(crd1, crd2);
 		return t;
 	}

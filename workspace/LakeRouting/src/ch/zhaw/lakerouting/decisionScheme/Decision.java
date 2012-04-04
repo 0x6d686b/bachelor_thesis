@@ -182,11 +182,12 @@ public class Decision {
 		double[] node;
 		Coordinate crd1 = new Coordinate();
 		Coordinate crd2 = new Coordinate();
+		double distance;
 		
 		
 		//Test, nachher durch interpolation ersetzen!!!!
-		WindVector wv1 = new WindVector(10, 15);
-		WindVector wv2 = new WindVector(10, 15);
+		WindVector wv1 = new WindVector(0.1, 0.1);
+		WindVector wv2 = new WindVector(0.1, 0.1);
 		
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
@@ -200,7 +201,9 @@ public class Decision {
 				crd1.setLatitudeInDegree(loc[r - 1][j][1]);
 				crd2.setLongitudeInDegree(loc[r][k][0]);
 				crd2.setLatitudeInDegree(loc[r][k][1]);
-				etabli[j] = sd.getSailingDuration(crd1, crd2, wv1, wv2)
+				distance = ortho(crd1, crd2);
+//				System.out.println("SD:"+sd.getSailingDuration(crd1, crd2, wv1, wv2, distance));
+				etabli[j] = sd.getSailingDuration(crd1, crd2, wv1, wv2, distance)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
