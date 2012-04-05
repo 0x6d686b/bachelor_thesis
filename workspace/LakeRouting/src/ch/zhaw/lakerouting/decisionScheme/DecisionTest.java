@@ -3,6 +3,7 @@ package ch.zhaw.lakerouting.decisionScheme;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +36,10 @@ public class DecisionTest {
 //				39.57 });
 //		punkteCoord
 //				.put("Zürich-Genf", new double[] { 8.05, 47.3, 6.09, 46.12 });
+//		punkteCoord
+//		.put("Zürich-Genf", new double[] { 8, 47, 8, 48 });		
 		punkteCoord
-		.put("Zürich-Genf", new double[] { 8, 47, 8, 48 });		
+		.put("Zürich-Genf", new double[] { 9.40, 47.525, 9.70, 47.6 });	
 //		punkteCoord.put("Zürich-Peking", new double[] { 8.05, 47.3,
 //				116.3883333, 39.9288889 });
 //		punkteCoord.put("Zürich-Sao Paulo", new double[] { 8.05, 47.3,
@@ -64,9 +67,9 @@ public class DecisionTest {
 			crd2.setLatitudeInDegree(entry.getValue()[3]);
 
 			de.setLoc(de.graphe(crd1, crd2));
-			de.setMaxi(de.getLoc().length);
-			de.setMaxj(de.getLoc()[0].length);
-			de.setCoord(de.getLoc()[0][0].length);
+			de.setMaxi(de.getLoc().size());
+			de.setMaxj(de.getLoc().get(0).size());
+			de.setCoord(2);
 
 			test = de.programmationDynamique(10);
 

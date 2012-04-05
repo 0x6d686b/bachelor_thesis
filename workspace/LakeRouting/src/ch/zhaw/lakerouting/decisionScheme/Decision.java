@@ -1,12 +1,19 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Graph;
 import ch.zhaw.lakerouting.datatypes.WindVector;
+import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
+import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
+import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
+import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
-
 
 /**
  * This class computes the Decision-Matrix between two locations
@@ -17,7 +24,8 @@ import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
 public class Decision {
 
 	// contains the coordinates of the nodes as [theta, phi]
-	private double[][][] loc;
+	private ArrayList<ArrayList<Coordinate>> loc;
+	private AbstractList<AbstractList<WindVector>> wv;
 	private int maxi;
 	private int maxj;
 	private int coord;
@@ -69,13 +77,17 @@ public class Decision {
 	 *            - latitudes of the 2nd location
 	 * @return A three dimensional array with the nodes
 	 */
-	public double[][][] graphe(Coordinate crd1, Coordinate crd2) {
+	public ArrayList<ArrayList<Coordinate>> graphe(Coordinate crd1,
+			Coordinate crd2) {
 		/* Convert from degree to radian */
+		ArrayList<ArrayList<Coordinate>> coordList = new ArrayList<ArrayList<Coordinate>>();
+		ArrayList<Coordinate> coordRow = new ArrayList<Coordinate>();
+		Coordinate crd = new Coordinate();
 		double theta1 = crd1.getLongitudeInDegree();
 		double phi1 = crd1.getLatitudeInDegree();
 		double theta2 = crd2.getLongitudeInDegree();
 		double phi2 = crd2.getLatitudeInDegree();
-		
+
 		// local variables
 		double p, e, c, s;
 		int m, n;
@@ -99,22 +111,21 @@ public class Decision {
 		M[1][0] = s;
 		M[1][1] = c;
 
-		// the three dimensional tableMatrix
-		double[][][] tableMatrix = new double[m + 1][2 * n + 1][2];
 		// create the table
 		for (int i = 0; i <= m; i++) {
 			for (int j = -n; j <= n; j++) {
 				// fill the table
-				tableMatrix[i][j + n][0] = M[0][0] * (e * i / m) + M[0][1]
-						* (p * e * j / (2 * n)) + theta1;
-				tableMatrix[i][j + n][1] = M[1][0] * (e * i / m) + M[1][1]
-						* (p * e * j / (2 * n)) + phi1;
-				// output on the Console for verification
-				// System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
-				// +" , "+ tableMatrix[i][j+n][1]);
+				crd = new Coordinate();
+				crd.setLongitudeInDegree(M[0][0] * (e * i / m) + M[0][1]
+						* (p * e * j / (2 * n)) + theta1);
+				crd.setLatitudeInDegree(M[1][0] * (e * i / m) + M[1][1]
+						* (p * e * j / (2 * n)) + phi1);
+				coordRow.add(crd);
 			}
+			coordList.add(coordRow);
+			coordRow = new ArrayList<Coordinate>();
 		}
-		return tableMatrix;
+		return coordList;
 	}
 
 	/**
@@ -143,6 +154,17 @@ public class Decision {
 			}
 		}
 
+		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
+		InterpolationAlgorithm bil = new Bilinear();
+        WindfieldContainer foo = new WindfieldContainer();
+        try {
+			foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}        		
+		wv = foo.get(0).interpolateOnDecisionNet(loc, bil);
+		
 		// fill at point (0,start) the node with values 1 and 0
 		double[] init2 = { 1, 1 };
 		graphList.get(0).get(start).setPreviousNode(init2);
@@ -180,15 +202,14 @@ public class Decision {
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
-		Coordinate crd1 = new Coordinate();
-		Coordinate crd2 = new Coordinate();
+//		Coordinate crd1 = new Coordinate();
+//		Coordinate crd2 = new Coordinate();
 		double distance;
-		
-		
-		//Test, nachher durch interpolation ersetzen!!!!
+
+		// Test, nachher durch interpolation ersetzen!!!!
 		WindVector wv1 = new WindVector(0, 1);
 		WindVector wv2 = new WindVector(0, 1);
-		
+
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
@@ -197,13 +218,15 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-				crd1.setLongitudeInDegree(loc[r - 1][j][0]);
-				crd1.setLatitudeInDegree(loc[r - 1][j][1]);
-				crd2.setLongitudeInDegree(loc[r][k][0]);
-				crd2.setLatitudeInDegree(loc[r][k][1]);
-				distance = ortho(crd1, crd2);
-//				System.out.println("SD:"+sd.getSailingDuration(crd1, crd2, wv1, wv2, distance));
-				etabli[j] = sd.getSailingDuration(crd1, crd2, wv1, wv2, distance)
+				loc.get(r - 1).get(j).getLatitudeInDegree();
+				loc.get(r).get(k).getLongitudeInDegree();
+				loc.get(r).get(k).getLatitudeInDegree();
+				distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
+				// System.out.println("SD:"+sd.getSailingDuration(crd1, crd2,
+				// wv1, wv2, distance));
+				
+				etabli[j] = sd.getSailingDuration(loc.get(r - 1).get(j), loc
+						.get(r).get(k), wv.get(r-1).get(j), wv.get(r).get(k), distance)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
@@ -245,12 +268,10 @@ public class Decision {
 	public double[] transformCoordToVector(Coordinate crd) {
 		double theta = crd.getLongitudeInRadian();
 		double phi = crd.getLatitudeInRadian();
-		
+
 		double[] sphere = new double[3];
-		sphere[0] = Math.cos(theta)
-				* Math.cos(phi);
-		sphere[1] = Math.sin(theta)
-				* Math.cos(phi);
+		sphere[0] = Math.cos(theta) * Math.cos(phi);
+		sphere[1] = Math.sin(theta) * Math.cos(phi);
 		sphere[2] = Math.sin(phi);
 
 		return sphere;
@@ -258,12 +279,12 @@ public class Decision {
 
 	// Just some default methods to get the value of this variables
 	// A common Java-usage
-	public double[][][] getLoc() {
-		return loc.clone();
+	public ArrayList<ArrayList<Coordinate>> getLoc() {
+		return loc;
 	}
 
-	public void setLoc(double[][][] loc) {
-		this.loc = loc.clone();
+	public void setLoc(ArrayList<ArrayList<Coordinate>> loc) {
+		this.loc = loc;
 	}
 
 	public int getMaxi() {

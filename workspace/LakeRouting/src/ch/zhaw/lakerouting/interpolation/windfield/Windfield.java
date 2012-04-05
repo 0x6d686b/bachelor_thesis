@@ -62,7 +62,7 @@ public class Windfield {
         return vector;
     }
 
-    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(AbstractList<AbstractList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(ArrayList<ArrayList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
         AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
         AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
         for (int i = 0; i < coordinates.size(); i++) {

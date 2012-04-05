@@ -56,7 +56,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
 
         FileReader fis = null;
         try {
-            fis = new FileReader(identifier.getPath());
+            //fis = new FileReader(identifier.getPath());
+        	fis = new FileReader(identifier.getSchemeSpecificPart());
         } catch (FileNotFoundException f) {
             f.printStackTrace();
         }
