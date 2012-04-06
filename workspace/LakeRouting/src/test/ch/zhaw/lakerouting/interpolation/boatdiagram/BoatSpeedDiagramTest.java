@@ -84,22 +84,6 @@ public class BoatSpeedDiagramTest {
         new File(testfile.getPath()).delete();
     }
 
-//    public BoatSpeedDiagramTest(String name) {
-//        super(name);
-//    }
-//
-//    public void setUp() throws Exception {
-//        super.setUp();
-//    }
-//
-//    public void tearDown() throws Exception {
-//        super.tearDown();
-//    }
-//
-//    public static Test suite() {
-//        return new TestSuite(BoatSpeedDiagramTest.class);
-//    }
-
     @Test
     public void testInterpolation() throws Exception{
         BoatFieldLoader loader = new CSVBoatFieldLoader();
