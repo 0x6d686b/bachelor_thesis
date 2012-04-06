@@ -32,6 +32,7 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
 import com.sun.xml.internal.ws.api.addressing.WSEndpointReference;
+import org.joda.time.DateTime;
 
 import java.io.*;
 import java.net.URI;
@@ -95,7 +96,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return m;
     }
 
-    private Calendar getDate() {
+    private DateTime getDate() {
         /**
          * This is real FUBAR code. Someone should fix that ...
          * I propose to change the timestamp in the file to
@@ -117,9 +118,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         int d = Integer.parseInt(s.substring(7, 8));
         int h = Integer.parseInt(s.substring(9, 10));
         int min = 0;
-        Calendar c = Calendar.getInstance();
-        c.set(y,mon,d,h,min);
-        return c;
+
+        return new DateTime(y,mon,d,h,min);
     }
 
     private double getDeltaLng() {

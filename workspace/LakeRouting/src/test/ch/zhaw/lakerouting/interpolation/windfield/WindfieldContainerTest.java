@@ -71,6 +71,8 @@ public class WindfieldContainerTest {
 
         WindfieldContainer foo = new WindfieldContainer();
         foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
+
+        //9.31, 47.525
         c.setLongitudeInDegree(09.31);
         c.setLatitudeInDegree(47.525);
         WindVector result = foo.get(0).interpolate(c, bil);

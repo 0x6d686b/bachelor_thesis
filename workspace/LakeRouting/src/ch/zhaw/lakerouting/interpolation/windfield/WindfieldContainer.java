@@ -29,6 +29,8 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,9 +40,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class WindfieldContainer {
-    private Calendar starttime;
-    private Calendar endtime;
-    private Calendar delta;
+    private DateTime starttime;
+    private DateTime endtime;
+    private Interval delta;
     private AbstractList<Windfield> fields;
 
     public final boolean bulkLoadWindfield (URI identifier, WindFieldLoader loader) {
@@ -50,9 +52,10 @@ public class WindfieldContainer {
             e.printStackTrace();
             return false;
         }
+        // Ugly ...
         this.starttime = fields.get(0).getMetadata().getDate();
         this.endtime = fields.get(fields.size()-1).getMetadata().getDate();
-        //this.delta
+        this.delta = new Interval(starttime, fields.get(1).getMetadata().getDate());
         return true;
     }
 
@@ -60,15 +63,15 @@ public class WindfieldContainer {
         return fields.get(index);
     }
 
-    public Calendar getStarttime() {
+    public DateTime getStarttime() {
         return this.starttime;
     }
 
-    public Calendar getEndtime() {
+    public DateTime getEndtime() {
         return this.endtime;
     }
 
-    public Calendar getDelta() {
+    public Interval getDelta() {
         return this.delta;
     }
 

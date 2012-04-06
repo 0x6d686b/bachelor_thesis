@@ -28,10 +28,12 @@
 package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
+import org.joda.time.DateTime;
+
 import java.util.Calendar;
 
 public class WindfieldMetadata {
-    private Calendar date;
+    private DateTime date;
     private double deltaLng;
     private double deltaLat;
     private Coordinate northWestCorner;
@@ -39,11 +41,11 @@ public class WindfieldMetadata {
     private int countLngVectors;
     private int countLatVectors;
     
-    public Calendar getDate() {
+    public DateTime getDate() {
         return date;
     }
 
-    public void setDate(Calendar input) {
+    public void setDate(DateTime input) {
         this.date = input;
     }
 
