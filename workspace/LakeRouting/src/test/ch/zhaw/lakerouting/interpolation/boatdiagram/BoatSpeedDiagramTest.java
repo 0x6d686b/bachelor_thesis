@@ -59,8 +59,8 @@ public class BoatSpeedDiagramTest {
     @BeforeClass
     public static void oneTimeSetup() {
         try {
-            testfile = new URI("/var/tmp/interpolationtest.csv");
-        } catch (URISyntaxException e) {
+            testfile =  File.createTempFile("interpolationtest.csv", ".tmp" ).toURI();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         try {
@@ -102,7 +102,6 @@ public class BoatSpeedDiagramTest {
 
     @Test
     public void testInterpolation() throws Exception{
-        testfile = new URI("file", "/var/tmp/interpolationtest.csv", "");
         BoatFieldLoader loader = new CSVBoatFieldLoader();
         BoatSpeedDiagram field = new BoatSpeedDiagram();
         field.loadDiagram(loader, testfile);
