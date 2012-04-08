@@ -180,6 +180,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                  *
                  * Fuck.
                  */
+                s = s.replaceAll("\\s+$", "");
                 Matcher header = HEADER_START_PATTERN.matcher(s);
                 if (header.find()) {
                     if (field != null)
@@ -188,9 +189,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                     field.add(processHeader(s));
                     continue;
                 }
-                // What moron leaves trailing whitespaces there?!
-                // Thank you for letting me HARDCODE this shit!
-                if (!s.isEmpty() && !(s.charAt(0)==0x20)) {
+                if (!s.isEmpty()) {
                     field.add(processLine(s));
                 }
             }
