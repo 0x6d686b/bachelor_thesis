@@ -101,7 +101,7 @@ public class GridFrame extends JFrame{
 				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
 //				System.out.println(positionLoLa[i - 1][j - 1][0]+(int)(de.getWv().get(i-1).get(j-1).getV()* stepWidth));
 				g.setColor(Color.orange);
-				g.drawLine(positionLoLa[i - 1][j - 1][0], positionLoLa[i - 1][j - 1][1], positionLoLa[i - 1][j - 1][0]+(int)(de.getWv().get(i-1).get(j-1).getV()* step*0.005), positionLoLa[i - 1][j - 1][1]+(int)(de.getWv().get(i-1).get(j-1).getU()* step*0.005));
+				g.drawLine(positionLoLa[i - 1][j - 1][0], positionLoLa[i - 1][j - 1][1], positionLoLa[i - 1][j - 1][0]+(int)(de.getWv().get(i-1).get(j-1).getV()* step*0.005), positionLoLa[i - 1][j - 1][1]-(int)(de.getWv().get(i-1).get(j-1).getU()* step*0.005));
 				g.setColor(Color.BLACK);
 			}
 		}
