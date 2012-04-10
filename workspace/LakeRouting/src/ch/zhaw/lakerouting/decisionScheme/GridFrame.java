@@ -78,16 +78,16 @@ public class GridFrame extends JFrame{
 		}
 		double stepWidth = 840 / (longMax - longMin);
 		double stepHeight = 630 / (latMax - latMin);
-		double step = 21.0 / (longMax - longMin);
+		double step = (stepWidth<stepHeight)? stepWidth : stepHeight;
 		System.out.println("Step:" + stepWidth + " " + stepHeight);
-		// System.out.println("LongMin: "+longMin+" LongMax:"+longMax);
-		// draw the points related to longitudes and latitudes
+//		System.out.println("LongMin: "+longMin+" LongMax:"+longMax);
+		//draw the points related to longitudes and latitudes
 		for (int i = 1; i <= de.getMaxi(); i++) {
 			for (int j = 1; j <= de.getMaxj(); j++) {
 				// the multiplication with 3 and addition of 50 is only a
 				// constant variable for this example
-				positionLoLa[i - 1][j - 1][0] = (int) ((loc.get(i - 1).get(j - 1).getLongitudeInDegree() - longMin) * stepWidth) + 50;
-				positionLoLa[i - 1][j - 1][1] = (int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * stepHeight) + 50;
+				positionLoLa[i - 1][j - 1][0] = (int) ((loc.get(i - 1).get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
+				positionLoLa[i - 1][j - 1][1] = (int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
 //				System.out.println("TEST: "+loc.get(i-1).get(j-1).getLongitudeInDegree()+" "+loc.get(i-1).get(j-1).getLatitudeInDegree()+" "+graphList.get(i-1).get(j-1).getNode()[0]);
 //				System.out.println("Psotion: " + positionLoLa[i - 1][j - 1][0] + " " + positionLoLa[i - 1][j - 1][1]);
 				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
@@ -98,6 +98,11 @@ public class GridFrame extends JFrame{
 							positionLoLa[i - 1][j - 1][1], 4, 4);
 					g.setColor(Color.BLACK);
 				}
+				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
+//				System.out.println(positionLoLa[i - 1][j - 1][0]+(int)(de.getWv().get(i-1).get(j-1).getV()* stepWidth));
+				g.setColor(Color.orange);
+				g.drawLine(positionLoLa[i - 1][j - 1][0], positionLoLa[i - 1][j - 1][1], positionLoLa[i - 1][j - 1][0]+(int)(de.getWv().get(i-1).get(j-1).getV()* step*0.005), positionLoLa[i - 1][j - 1][1]+(int)(de.getWv().get(i-1).get(j-1).getU()* step*0.005));
+				g.setColor(Color.BLACK);
 			}
 		}
 

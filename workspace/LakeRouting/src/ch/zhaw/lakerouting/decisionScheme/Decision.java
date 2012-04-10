@@ -161,8 +161,10 @@ public class Decision {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}        		
-		wv = foo.get(0).interpolateOnDecisionNet(loc, bil);
+		}      
+//		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
+//		setWv(foo.get(0));
+		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 		
 		// fill at point (0,start) the node with values 1 and 0
 		double[] init2 = { 1, 1 };
@@ -221,7 +223,7 @@ public class Decision {
 				// wv1, wv2, distance));
 				
 				etabli[j] = sd.getSailingDuration(loc.get(r - 1).get(j), loc
-						.get(r).get(k), wv.get(r-1).get(j), wv.get(r).get(k), distance)
+						.get(r).get(k), getWv().get(r-1).get(j), getWv().get(r).get(k), distance)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
@@ -305,4 +307,13 @@ public class Decision {
 	public void setCoord(int coord) {
 		this.coord = coord;
 	}
+
+	public AbstractList<AbstractList<WindVector>> getWv() {
+		return wv;
+	}
+
+	public void setWv(AbstractList<AbstractList<WindVector>> wv) {
+		this.wv = wv;
+	}
+	
 }
