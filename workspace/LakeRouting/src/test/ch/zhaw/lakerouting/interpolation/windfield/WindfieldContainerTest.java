@@ -40,6 +40,8 @@ import org.junit.Before;
 import org.junit.After;
 
 import java.net.URI;
+import java.util.AbstractList;
+import java.util.ArrayList;
 
 /**
  * WindfieldContainer Tester.
@@ -72,11 +74,31 @@ public class WindfieldContainerTest {
         WindfieldContainer foo = new WindfieldContainer();
         foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
 
-        //9.31, 47.525
-        c.setLongitudeInDegree(09.31);
+        System.out.print("Single point interpolation: ");
+        c.setLongitudeInDegree(09.23);
         c.setLatitudeInDegree(47.525);
         WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
+
+        System.out.println("\n\nInterpolation on decision net: ");
+        AbstractList<AbstractList<Coordinate>> net = new ArrayList<AbstractList<Coordinate>>();
+        for (int i = 0; i < 4; ++i) {
+            AbstractList<Coordinate> row = new ArrayList<Coordinate>();
+            for (int j = 0; j < 5; ++j) {
+                Coordinate k = new Coordinate();
+                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.02);
+                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.03);
+                row.add(k);
+            }
+            net.add(row);
+        }
+        AbstractList<AbstractList<WindVector>> vectorField =  foo.get(22).interpolateOnDecisionNet(net,bil);
+        for (AbstractList<WindVector> vectorRow : vectorField) {
+            for(WindVector vector : vectorRow) {
+                System.out.println(vector.toString());
+            }
+            System.out.print("\n\n\n\n\n");
+        }
     }
 
 
