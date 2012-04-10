@@ -164,7 +164,7 @@ public class Decision {
 		}      
 //		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
 //		setWv(foo.get(0));
-		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
+		setWv(foo.get(12).interpolateOnDecisionNet(loc, bil));
 		
 		// fill at point (0,start) the node with values 1 and 0
 		double[] init2 = { 1, 1 };

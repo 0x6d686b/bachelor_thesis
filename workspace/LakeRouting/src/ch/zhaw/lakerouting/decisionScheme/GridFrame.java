@@ -52,7 +52,7 @@ public class GridFrame extends JFrame{
 		System.out.println("Maxi: " + de.getMaxi() + " Maxj: " + de.getMaxj()
 				+ " Coord:" + de.getCoord());
 
-		ArrayList<ArrayList<Graph>> graphList = de.programmationDynamique(10);// 15
+		ArrayList<ArrayList<Graph>> graphList = de.programmationDynamique(0);// 15
 		// longitudes, latitudes
 		ArrayList<ArrayList<Coordinate>> loc = de.getLoc();
 		int[][][] positionLoLa = new int[de.getMaxi()][de.getMaxj()][2];
@@ -87,7 +87,7 @@ public class GridFrame extends JFrame{
 				// the multiplication with 3 and addition of 50 is only a
 				// constant variable for this example
 				positionLoLa[i - 1][j - 1][0] = (int) ((loc.get(i - 1).get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
-				positionLoLa[i - 1][j - 1][1] = (int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
+				positionLoLa[i - 1][j - 1][1] = 360-(int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * step)+50;
 //				System.out.println("TEST: "+loc.get(i-1).get(j-1).getLongitudeInDegree()+" "+loc.get(i-1).get(j-1).getLatitudeInDegree()+" "+graphList.get(i-1).get(j-1).getNode()[0]);
 //				System.out.println("Psotion: " + positionLoLa[i - 1][j - 1][0] + " " + positionLoLa[i - 1][j - 1][1]);
 				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
