@@ -75,7 +75,7 @@ public class Windfield {
         return vectorField;
     }
 
-    public Windfield setField (WindfieldMetadata m, WindVector[][] f) {
+    public final Windfield setField (WindfieldMetadata m, WindVector[][] f) {
         this.field = f.clone();
         this.metadata = m;
         return this;
