@@ -39,7 +39,7 @@ public class DecisionTest {
 //		punkteCoord
 //		.put("Zürich-Genf", new double[] { 8, 47, 8, 48 });		
 		punkteCoord
-		.put("Zürich-Genf", new double[] { 9.40, 47.525, 9.70, 47.6 });	
+		.put("Zürich-Genf", new double[] { 9.40, 47.6, 9.6, 47.58 });	
 //		punkteCoord.put("Zürich-Peking", new double[] { 8.05, 47.3,
 //				116.3883333, 39.9288889 });
 //		punkteCoord.put("Zürich-Sao Paulo", new double[] { 8.05, 47.3,
@@ -76,7 +76,7 @@ public class DecisionTest {
 			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;
 
 			System.out.println("OrthoTest " + i + ": " + entry.getKey()
-					+ " distance:" + orthoDistanceKm + " km");
+					+ " distance:" + orthoDistanceKm + " sm");
 
 			if (Math.abs(entry.getValue()[0] - entry.getValue()[2]) > 180) {
 				orthoDistanceKm = 40003.2 - orthoDistanceKm;

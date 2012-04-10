@@ -10,7 +10,6 @@ import ch.zhaw.lakerouting.datatypes.Graph;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
@@ -205,10 +204,6 @@ public class Decision {
 //		Coordinate crd1 = new Coordinate();
 //		Coordinate crd2 = new Coordinate();
 		double distance;
-
-		// Test, nachher durch interpolation ersetzen!!!!
-		WindVector wv1 = new WindVector(0, 1);
-		WindVector wv2 = new WindVector(0, 1);
 
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
