@@ -49,5 +49,11 @@ public class BilinearTest {
         assertEquals(103.527, bilinearObject.interpolate(0.41, 0.78, arr2), 0.001);
         assertEquals(2.87871, bilinearObject.interpolate(0.21,0.046, arr3), 0.1);
 
+        // Epsilon testing
+        assertEquals(0, bilinearObject.interpolate(0.00001,0.00001,arr) - arr[0][0], 0.0001);
+        assertEquals(0, bilinearObject.interpolate(0.99999,0.00001,arr) - arr[1][0], 0.0001);
+        assertEquals(0, bilinearObject.interpolate(0.00001,0.99999,arr) - arr[0][1], 0.0001);
+        assertEquals(0, bilinearObject.interpolate(0.99999,0.99999,arr) - arr[1][1], 0.0001);
+
     }
 }

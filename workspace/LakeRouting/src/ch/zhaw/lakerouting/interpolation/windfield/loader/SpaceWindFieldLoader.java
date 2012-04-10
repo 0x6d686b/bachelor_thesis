@@ -32,6 +32,7 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
 import com.sun.xml.internal.ws.api.addressing.WSEndpointReference;
+import org.joda.time.DateTime;
 
 import java.io.*;
 import java.net.URI;
@@ -96,7 +97,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return m;
     }
 
-    private Calendar getDate() {
+    private DateTime getDate() {
         /**
          * This is real FUBAR code. Someone should fix that ...
          * I propose to change the timestamp in the file to
@@ -118,9 +119,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         int d = Integer.parseInt(s.substring(7, 8));
         int h = Integer.parseInt(s.substring(9, 10));
         int min = 0;
-        Calendar c = Calendar.getInstance();
-        c.set(y,mon,d,h,min);
-        return c;
+
+        return new DateTime(y,mon,d,h,min);
     }
 
     private double getDeltaLng() {
@@ -181,6 +181,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                  *
                  * Fuck.
                  */
+                s = s.replaceAll("\\s+$", "");
                 Matcher header = HEADER_START_PATTERN.matcher(s);
                 if (header.find()) {
                     if (field != null)
@@ -189,9 +190,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                     field.add(processHeader(s));
                     continue;
                 }
-                // What moron leaves trailing whitespaces there?!
-                // Thank you for letting me HARDCODE this shit!
-                if (!s.isEmpty() && !(s.charAt(0)==0x20)) {
+                if (!s.isEmpty()) {
                     field.add(processLine(s));
                 }
             }
