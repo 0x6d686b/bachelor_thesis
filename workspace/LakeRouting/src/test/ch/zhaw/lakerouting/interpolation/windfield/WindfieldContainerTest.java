@@ -81,9 +81,9 @@ public class WindfieldContainerTest {
         System.out.println(result.toString());
 
         System.out.println("\n\nInterpolation on decision net: ");
-        AbstractList<AbstractList<Coordinate>> net = new ArrayList<AbstractList<Coordinate>>();
+        ArrayList<ArrayList<Coordinate>> net = new ArrayList<ArrayList<Coordinate>>();
         for (int i = 0; i < 4; ++i) {
-            AbstractList<Coordinate> row = new ArrayList<Coordinate>();
+        	ArrayList<Coordinate> row = new ArrayList<Coordinate>();
             for (int j = 0; j < 5; ++j) {
                 Coordinate k = new Coordinate();
                 k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.02);
