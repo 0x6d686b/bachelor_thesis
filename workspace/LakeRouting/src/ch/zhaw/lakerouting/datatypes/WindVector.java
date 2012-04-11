@@ -99,4 +99,9 @@ public class WindVector {
         
         return s;
     }
+
+    public final String mathematicaVectorOutput() {
+        String s = "";
+        return s += "{" + getU() + "," + getV() + "}";
+    }
 }
