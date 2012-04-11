@@ -72,11 +72,11 @@ public class WindfieldContainerTest {
         InterpolationAlgorithm bil = new Bilinear();
 
         WindfieldContainer foo = new WindfieldContainer();
-        foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
+        foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
 
         System.out.print("Single point interpolation: ");
-        c.setLongitudeInDegree(09.23);
-        c.setLatitudeInDegree(47.525);
+        c.setLongitudeInDegree(09.34);
+        c.setLatitudeInDegree(47.62);
         WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
 

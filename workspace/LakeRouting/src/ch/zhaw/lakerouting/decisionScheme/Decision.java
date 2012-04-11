@@ -64,7 +64,9 @@ public class Decision {
 	}
 
 	/**
-	 * Enables the construction of a grid of nodes without the decision tree
+	 * Enables the construction of a grid of nodes with coordinates,
+	 * but without the decision tree
+	 * 
 	 * 
 	 * @param theta1
 	 *            - longitudes of the 1st location
@@ -82,6 +84,7 @@ public class Decision {
 		ArrayList<ArrayList<Coordinate>> coordList = new ArrayList<ArrayList<Coordinate>>();
 		ArrayList<Coordinate> coordRow = new ArrayList<Coordinate>();
 		Coordinate crd = new Coordinate();
+		
 		double theta1 = crd1.getLongitudeInDegree();
 		double phi1 = crd1.getLatitudeInDegree();
 		double theta2 = crd2.getLongitudeInDegree();
@@ -114,12 +117,12 @@ public class Decision {
 		for (int i = 0; i <= m; i++) {
 			for (int j = -n; j <= n; j++) {
 				// fill the table
-				crd = new Coordinate();
 				crd.setLongitudeInDegree(M[0][0] * (e * i / m) + M[0][1]
 						* (p * e * j / (2 * n)) + theta1);
 				crd.setLatitudeInDegree(M[1][0] * (e * i / m) + M[1][1]
 						* (p * e * j / (2 * n)) + phi1);
 				coordRow.add(crd);
+				crd = new Coordinate();
 			}
 			coordList.add(coordRow);
 			coordRow = new ArrayList<Coordinate>();
@@ -128,12 +131,13 @@ public class Decision {
 	}
 
 	/**
-	 * In this method starts the dynamical programming it defines the default
-	 * 5-dimensional matrix and the start-point
+	 * This method handles the dynamical programming.
+	 * It fills the graph at first with default-values, 
+	 * after that it calculates the shortest distance.
 	 * 
 	 * @param start
 	 *            - the starting node
-	 * @return A 5-dimensional Array
+	 * @return A 2-dimensional arrayList with the decision tree
 	 */
 	public ArrayList<ArrayList<Graph>> programmationDynamique(int start) {
 		// 5-dimensional Matrix, defined with the generics
@@ -153,18 +157,7 @@ public class Decision {
 			}
 		}
 
-		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
-		InterpolationAlgorithm bil = new Bilinear();
-        WindfieldContainer foo = new WindfieldContainer();
-        try {
-			foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}      
-//		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
-//		setWv(foo.get(0));
-		setWv(foo.get(12).interpolateOnDecisionNet(loc, bil));
+		getInterpolatedWindfield();
 		
 		// fill at point (0,start) the node with values 1 and 0
 		double[] init2 = { 1, 1 };
@@ -183,6 +176,21 @@ public class Decision {
 		// }
 		// }
 		return graphList;
+	}
+
+	private void getInterpolatedWindfield() {
+		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
+		InterpolationAlgorithm bil = new Bilinear();
+        WindfieldContainer foo = new WindfieldContainer();
+        try {
+			foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}      
+//		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
+//		setWv(foo.get(0));
+		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 	}
 
 	/**
@@ -215,9 +223,9 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-				loc.get(r - 1).get(j).getLatitudeInDegree();
-				loc.get(r).get(k).getLongitudeInDegree();
-				loc.get(r).get(k).getLatitudeInDegree();
+//				loc.get(r - 1).get(j).getLatitudeInDegree();
+//				loc.get(r).get(k).getLongitudeInDegree();
+//				loc.get(r).get(k).getLatitudeInDegree();
 				distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
 				// System.out.println("SD:"+sd.getSailingDuration(crd1, crd2,
 				// wv1, wv2, distance));
