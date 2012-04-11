@@ -107,6 +107,7 @@ public class Windfield {
         int lathigh = new Double(Math.ceil((coordinate.getLatitudeInRadian() -
                 metadata.getNorthWestCorner().getLatitudeInRadian())
                / metadata.getDeltaLat())).intValue();
+        
         return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
                                    {field[lathigh][lnglow],field[lathigh][lnghigh]}};
     }

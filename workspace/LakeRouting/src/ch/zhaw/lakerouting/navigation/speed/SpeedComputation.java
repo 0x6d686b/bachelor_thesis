@@ -61,7 +61,7 @@ public class SpeedComputation {
 		// Abfrage machen
 //		double test = interpoler.interpolate(angle, wSpeed, field, bil);
 		double test = field.interpolate(angle, wSpeed, bil);
-		System.out.println("Interpoler:"+test);
+//		System.out.println("Interpoler:"+test);
 		return test;
 	}
 

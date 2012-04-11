@@ -104,7 +104,7 @@ public class GridFrame extends JFrame{
 				}
 				
 				// Draw the WindVectors with a factor 0.005
-				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
+//				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
 				g.setColor(Color.orange);
 				double calcV = positionLoLa[i - 1][j - 1][0] + (de.getWv().get(i-1).get(j-1).getV() * step * 0.005);
 				double calcU = positionLoLa[i - 1][j - 1][1] - (de.getWv().get(i-1).get(j-1).getU() * step * 0.005);
