@@ -76,12 +76,12 @@ public class Windfield {
         return vectorField;
     }
 
-    public final Windfield setField (WindfieldMetadata m, WindVector[][] f) {
+    public final Windfield setField (WindfieldMetadata m, AbstractList<AbstractList<WindVector>> f) {
         AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
         AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
-        for (int i = 0; i < f.length; i++) {
-            for (int j = 0; j < f[0].length; j++) {
-                vectorRow.add(f[i][j]);
+        for (int i = 0; i < f.size(); i++) {
+            for (int j = 0; j < f.get(0).size(); j++) {
+                vectorRow.add(f.get(i).get(j));
             }
             vectorField.add(vectorRow);
             vectorRow = new ArrayList<WindVector>();
