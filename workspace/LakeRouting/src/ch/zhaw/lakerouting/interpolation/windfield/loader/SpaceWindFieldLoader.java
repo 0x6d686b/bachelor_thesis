@@ -32,11 +32,16 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.DateTimeParser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,7 +99,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         m.setDeltaLng(this.getDeltaLng());
         m.setDeltaLat(this.getDeltaLat());
         m.setCountLngVectors(this.getCountLngVectors());
-        m.setCountLatVectors( this.getCountLatVectors());
+        m.setCountLatVectors(this.getCountLatVectors());
+        m.setDate(this.getDate());
         return m;
     }
 
@@ -106,22 +112,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          * index. This will one day blow up ...
          */
         String s = field.get(0).get(0).toString();
-        int y = Integer.parseInt(s.substring(0, 3));
-
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(s.substring(4,6));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar tmp = Calendar.getInstance();
-        tmp.setTime(date);
-        int mon = tmp.get(Calendar.MONTH);
-        int d = Integer.parseInt(s.substring(7, 8));
-        int h = Integer.parseInt(s.substring(9, 10));
-        int min = 0;
-
-        return new DateTime(y,mon,d,h,min);
+        DateTimeParser[] parsers = {
+                DateTimeFormat.forPattern("yyyMMMddHH").getParser()
+        };
+        DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder().append(null, parsers).toFormatter();
+        return inputFormatter.withLocale(Locale.US).parseDateTime(s);
     }
 
     private double getDeltaLng() {
