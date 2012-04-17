@@ -37,13 +37,14 @@ import java.net.URI;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.AbstractList;
 
 public class Windfield {
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
     private WindfieldMetadata metadata;
-    private WindVector[][] field;
+    private AbstractList<AbstractList<WindVector>> field;
 
     public static Windfield getInstance() {
         return new Windfield();
@@ -76,13 +77,30 @@ public class Windfield {
     }
 
     public final Windfield setField (WindfieldMetadata m, WindVector[][] f) {
-        this.field = f.clone();
+        AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
+        AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
+        for (int i = 0; i < f.length; i++) {
+            for (int j = 0; j < f[0].length; j++) {
+                vectorRow.add(f[i][j]);
+            }
+            vectorField.add(vectorRow);
+            vectorRow = new ArrayList<WindVector>();
+        }
+        this.field = vectorField;
         this.metadata = m;
         return this;
     }
 
     public WindfieldMetadata getMetadata () {
         return this.metadata;
+    }
+
+    public WindVector get(int x, int y) {
+        return field.get(x).get(y);
+    }
+
+    public AbstractList<AbstractList<WindVector>> getField() {
+        return field;
     }
 
 
@@ -107,8 +125,8 @@ public class Windfield {
         int lathigh = new Double(Math.ceil((coordinate.getLatitudeInDegree() -
                 metadata.getNorthWestCorner().getLatitudeInDegree())
                / metadata.getDeltaLat())).intValue();
-        return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
-                                   {field[lathigh][lnglow],field[lathigh][lnghigh]}};
+        return new WindVector[][] {{field.get(latlow).get(lnglow),field.get(latlow).get(lnghigh)},
+                                   {field.get(lathigh).get(lnglow),field.get(lathigh).get(lnghigh)}};
     }
 
     /**
