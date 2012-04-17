@@ -29,6 +29,7 @@ public class Decision {
 	private int maxj;
 	private int coord;
 	private SailingDuration sd = new SailingDuration();
+	private WindfieldContainer foo;
 
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
@@ -181,7 +182,7 @@ public class Decision {
 	private void getInterpolatedWindfield() {
 		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
 		InterpolationAlgorithm bil = new Bilinear();
-        WindfieldContainer foo = new WindfieldContainer();
+        foo = new WindfieldContainer();
         try {
 			foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
 		} catch (URISyntaxException e) {
@@ -193,8 +194,7 @@ public class Decision {
         
         foo = foo.bulkInterpolateOnDecisionNet(loc, bil); 
         
-		//setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
-        setWv(foo.get(0).getField());
+//		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 	}
 
 	/**
@@ -209,15 +209,14 @@ public class Decision {
 	private ArrayList<ArrayList<Graph>> progrDyn(int r,
 			ArrayList<ArrayList<Graph>> graphList) {
 		int spread = 4;
-
+		int wf = 3;
+		
 		// table of arrival times
 		double[] etabli;
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
-//		Coordinate crd1 = new Coordinate();
-//		Coordinate crd2 = new Coordinate();
-		double distance;
+		
 
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
@@ -227,13 +226,10 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-				distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
 				// System.out.println("SD:"+sd.getSailingDuration(crd1, crd2,
 				// wv1, wv2, distance));
 				
-				etabli[j] = sd.getSailingDuration(loc.get(r - 1).get(j), loc
-						.get(r).get(k), getWv().get(r-1).get(j), getWv().get(r).get(k), distance)
-						+ graphList.get(r - 1).get(j).getTimeOfArrival();
+				etabli[j] = getEtabli(r, j, k, wf, graphList);
 
 				// finds the position of a minimum value and saves it into
 				// position
@@ -250,6 +246,13 @@ public class Decision {
 
 			// computes the spread and updates the matrix graphList
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
+				if(position[k][1]>=30d)
+				{
+					int w = (int)position[k][1]/30;
+					System.out.print("Position1: "+position[k][1]);
+					position[k][1]=getEtabli(r, (int)position[k][0], k, w, graphList);
+					System.out.println(" Position2: "+position[k][1]);
+				}
 				node = new double[2];
 				node[0] = r - 1;
 				node[1] = position[k][0];
@@ -262,6 +265,15 @@ public class Decision {
 			}
 		}
 		return graphList;
+	}
+	
+	private double getEtabli(int r, int j, int k, int wf, ArrayList<ArrayList<Graph>> graphList)
+	{
+		setWv(foo.get(wf).getField());
+		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
+		return (sd.getSailingDuration(loc.get(r - 1).get(j), loc
+				.get(r).get(k), getWv().get(r-1).get(j), getWv().get(r).get(k), distance)
+				+ graphList.get(r - 1).get(j).getTimeOfArrival());
 	}
 
 	/**

@@ -64,6 +64,7 @@ public class WindfieldContainer {
 
     public final WindfieldContainer bulkInterpolateOnDecisionNet (ArrayList<ArrayList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
         WindfieldContainer container = new WindfieldContainer();
+        container.fields = new ArrayList<Windfield>();
         container.starttime = this.starttime;
         container.endtime = this.endtime;
         container.delta = this.delta;

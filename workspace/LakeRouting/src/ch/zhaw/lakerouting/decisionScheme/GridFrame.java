@@ -82,7 +82,7 @@ public class GridFrame extends JFrame{
 		double stepWidth = 840 / (longMax - longMin);
 		double stepHeight = 630 / (latMax - latMin);
 		double step = (stepWidth<stepHeight)? stepWidth : stepHeight;
-		System.out.println("Step:" + stepWidth + " " + stepHeight);
+//		System.out.println("Step:" + stepWidth + " " + stepHeight);
 		
 		// Draw the points related to longitudes and latitudes
 		for (int i = 1; i <= de.getMaxi(); i++) {
@@ -104,7 +104,7 @@ public class GridFrame extends JFrame{
 				}
 				
 				// Draw the WindVectors with a factor 0.005
-//				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
+				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
 				g.setColor(Color.orange);
 				double calcV = positionLongLat[i - 1][j - 1][0] + (de.getWv().get(i-1).get(j-1).getV() * step * 0.005);
 				double calcU = positionLongLat[i - 1][j - 1][1] - (de.getWv().get(i-1).get(j-1).getU() * step * 0.005);
