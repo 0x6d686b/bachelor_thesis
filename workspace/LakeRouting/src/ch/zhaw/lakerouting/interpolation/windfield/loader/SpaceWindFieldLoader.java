@@ -57,7 +57,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
 
         FileReader fis = null;
         try {
-            fis = new FileReader(identifier.getPath());
+            //fis = new FileReader(identifier.getPath());
+        	fis = new FileReader(identifier.getSchemeSpecificPart());
         } catch (FileNotFoundException f) {
             f.printStackTrace();
         }
@@ -131,6 +132,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          */
         return Double.parseDouble(field.get(0).get(2).toString())
              - Double.parseDouble(field.get(0).get(1).toString());
+    	/**
+    	 * Please, don't cry...:)
+    	 * If you have made a better research, you would have found this...!!!
+    	 * return (Double) field.get(0).get(2);
+    	 */
     }
 
     private double getDeltaLat() {
@@ -170,6 +176,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         String s;
         try {
             // Yeah, shit hits the fan ... BufferedReader does not tell when we are at EOF.
+        	// Sure does it, if you have null, you are at the end. So difficult?? Common don't cry...
             while ((s = br.readLine()) != null) {
                 /**
                  * Ok, this is really fucked up.
@@ -198,6 +205,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         } finally {
             try {
                 // seriously, what could possibly go wrong closing a FUCKING input?!
+            	// Hmmm, -> Google -> "bufferedreader close finally" -> first entry, and you have the answer!
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -5,18 +5,19 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Graph;
+
 public class DecisionTest {
 
-	private double[][][] loc;
 	private Decision de;
 	private static double seamileToKm = 1.852;
-	private static double tolerance = 1e-3;
+	private static double tolerance = 300;
 	private Map<String, double[]> punkteCoord;
 	private ArrayList<ArrayList<Graph>> test;
 
@@ -27,19 +28,26 @@ public class DecisionTest {
 		punkteCoord = new HashMap<String, double[]>();
 		// punkteCoord.put("Äquator-Thailand", new double[] { 0, 0, 90, 0,
 		// 10000.800 });
-		punkteCoord.put("Äquator-Äquator(160)", new double[] { 0d, 0d, 160d,
-				0d, 17779.2d });
-		punkteCoord.put("Zürich-Pacific", new double[] { 8.05, 47.3, 226.88,
-				-47.22, 26487.754 });
-		punkteCoord.put("Zürich-Ankara", new double[] { 8.05, 47.3, 32.54,
-				39.57, 26487.754 });
-		punkteCoord.put("Zürich-Genf", new double[] { 8.05, 47.3, 6.09, 46.12,
-				26487.754 });
-		punkteCoord.put("Zürich-Peking", new double[] { 8.05, 47.3,
-				116.3883333, 39.9288889, 12066.387 });
-		punkteCoord.put("Zürich-Sao Paulo", new double[] { 8.05, 47.3,
-				-46.6166667, -23.5333333, 9942.480 });
-
+//		punkteCoord.put("Äquator-Äquator(160)",
+//				new double[] { 0d, 0d, 160d, 0d });
+//		punkteCoord.put("Zürich-Pacific", new double[] { 8.05, 47.3, 226.88,
+//				-47.22 });
+//		punkteCoord.put("Zürich-Ankara", new double[] { 8.05, 47.3, 32.54,
+//				39.57 });
+//		punkteCoord
+//				.put("Zürich-Genf", new double[] { 8.05, 47.3, 6.09, 46.12 });
+//		punkteCoord
+//		.put("Zürich-Genf", new double[] { 8, 47, 8, 48 });		
+		punkteCoord
+		.put("Zürich-Genf", new double[] { 9.40, 47.6, 9.6, 47.58 });	
+//		punkteCoord.put("Zürich-Peking", new double[] { 8.05, 47.3,
+//				116.3883333, 39.9288889 });
+//		punkteCoord.put("Zürich-Sao Paulo", new double[] { 8.05, 47.3,
+//				-46.6166667, -23.5333333 });
+//		punkteCoord.put("Test-Zürich", new double[] { 359, 47.3,
+//				8.05, 47.3 });
+//		punkteCoord.put("Test-Zürich1", new double[] { 8.05, 47.3,
+//				350, 47.3 });
 	}
 
 	@Test
@@ -48,24 +56,27 @@ public class DecisionTest {
 		double orthoDistanceKm = 0;
 		double timeOfArrival = 0;
 		int i = 0;
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
 
 		for (Map.Entry<String, double[]> entry : punkteCoord.entrySet()) {
 
-			de.setLoc(de.graphe(entry.getValue()[0], entry.getValue()[1],
-					entry.getValue()[2], entry.getValue()[3]));
-			de.setMaxi(de.getLoc().length);
-			de.setMaxj(de.getLoc()[0].length);
-			de.setCoord(de.getLoc()[0][0].length);
+			crd1.setLongitudeInDegree(entry.getValue()[0]);
+			crd1.setLatitudeInDegree(entry.getValue()[1]);
+			crd2.setLongitudeInDegree(entry.getValue()[2]);
+			crd2.setLatitudeInDegree(entry.getValue()[3]);
+
+			de.setLoc(de.graphe(crd1, crd2));
+			de.setMaxi(de.getLoc().size());
+			de.setMaxj(de.getLoc().get(0).size());
+			de.setCoord(2);
 
 			test = de.programmationDynamique(10);
 
-			orthoDistanceKm = de.ortho(entry.getValue()[0],
-					entry.getValue()[1], entry.getValue()[2],
-					entry.getValue()[3])
-					* seamileToKm;
+			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;
 
 			System.out.println("OrthoTest " + i + ": " + entry.getKey()
-					+ " distance:" + orthoDistanceKm + " km");
+					+ " distance:" + orthoDistanceKm + " sm");
 
 			if (Math.abs(entry.getValue()[0] - entry.getValue()[2]) > 180) {
 				orthoDistanceKm = 40003.2 - orthoDistanceKm;
@@ -74,12 +85,12 @@ public class DecisionTest {
 						+ " km");
 			}
 			timeOfArrival = test.get(de.getMaxi() - 1).get(de.getMaxj() / 2)
-					.getTimeOfArrival()
-					* seamileToKm;
+					.getTimeOfArrival();
+//					* seamileToKm;
 
-			System.out.println("Time of Arrival: " + timeOfArrival + " km\n");
+			System.out.println("Time of Arrival: " + timeOfArrival + "\n");
 
-			// assertEquals(timeOfArrival, distance, tolerance);
+//			assertEquals(timeOfArrival, orthoDistanceKm, tolerance);
 			i++;
 		}
 

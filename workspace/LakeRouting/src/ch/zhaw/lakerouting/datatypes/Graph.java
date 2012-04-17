@@ -1,4 +1,4 @@
-package ch.zhaw.lakerouting.decisionScheme;
+package ch.zhaw.lakerouting.datatypes;
 
 /**
  * This class represents the elements of the Decision-Matrix with the structure:

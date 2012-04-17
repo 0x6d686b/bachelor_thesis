@@ -63,15 +63,15 @@ public class Windfield {
         return vector;
     }
 
-    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(AbstractList<AbstractList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(ArrayList<ArrayList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
         AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
-        AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
+        AbstractList<WindVector> vectorRow;
         for (int i = 0; i < coordinates.size(); i++) {
+        	vectorRow = new ArrayList<WindVector>();
             for (int j = 0; j < coordinates.get(0).size(); j++) {
                 vectorRow.add(interpolate(coordinates.get(i).get(j), algorithm));
             }
             vectorField.add(vectorRow);
-            vectorRow = new ArrayList<WindVector>();
         }
         return vectorField;
     }

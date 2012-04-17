@@ -79,10 +79,10 @@ public class BoatSpeedDiagramTest {
         //Close the output stream
     }
 
-    @AfterClass
-    public static void after() {
-        new File(testfile.getPath()).delete();
-    }
+//    @AfterClass
+//    public static void after() {
+//        new File(testfile.getPath()).delete();
+//    }
 
     @Test
     public void testInterpolation() throws Exception{

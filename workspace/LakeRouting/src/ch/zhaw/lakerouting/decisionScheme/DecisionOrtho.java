@@ -1,18 +1,10 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Graph;
-import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
-import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
-import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
+
 
 /**
  * This class computes the Decision-Matrix between two locations
@@ -20,15 +12,13 @@ import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
  * @author Fevzi Yuekseldi, Mathias Habluetzel
  * 
  */
-public class Decision {
+public class DecisionOrtho {
 
 	// contains the coordinates of the nodes as [theta, phi]
-	private ArrayList<ArrayList<Coordinate>> loc;
-	private AbstractList<AbstractList<WindVector>> wv;
+	private double[][][] loc;
 	private int maxi;
 	private int maxj;
 	private int coord;
-	private SailingDuration sd = new SailingDuration();
 
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
@@ -64,9 +54,7 @@ public class Decision {
 	}
 
 	/**
-	 * Enables the construction of a grid of nodes with coordinates,
-	 * but without the decision tree
-	 * 
+	 * Enables the construction of a grid of nodes without the decision tree
 	 * 
 	 * @param theta1
 	 *            - longitudes of the 1st location
@@ -78,18 +66,13 @@ public class Decision {
 	 *            - latitudes of the 2nd location
 	 * @return A three dimensional array with the nodes
 	 */
-	public ArrayList<ArrayList<Coordinate>> graphe(Coordinate crd1,
-			Coordinate crd2) {
+	public double[][][] graphe(Coordinate crd1, Coordinate crd2) {
 		/* Convert from degree to radian */
-		ArrayList<ArrayList<Coordinate>> coordList = new ArrayList<ArrayList<Coordinate>>();
-		ArrayList<Coordinate> coordRow = new ArrayList<Coordinate>();
-		Coordinate crd = new Coordinate();
-		
 		double theta1 = crd1.getLongitudeInDegree();
 		double phi1 = crd1.getLatitudeInDegree();
 		double theta2 = crd2.getLongitudeInDegree();
 		double phi2 = crd2.getLatitudeInDegree();
-
+		
 		// local variables
 		double p, e, c, s;
 		int m, n;
@@ -113,31 +96,31 @@ public class Decision {
 		M[1][0] = s;
 		M[1][1] = c;
 
+		// the three dimensional tableMatrix
+		double[][][] tableMatrix = new double[m + 1][2 * n + 1][2];
 		// create the table
 		for (int i = 0; i <= m; i++) {
 			for (int j = -n; j <= n; j++) {
 				// fill the table
-				crd.setLongitudeInDegree(M[0][0] * (e * i / m) + M[0][1]
-						* (p * e * j / (2 * n)) + theta1);
-				crd.setLatitudeInDegree(M[1][0] * (e * i / m) + M[1][1]
-						* (p * e * j / (2 * n)) + phi1);
-				coordRow.add(crd);
-				crd = new Coordinate();
+				tableMatrix[i][j + n][0] = M[0][0] * (e * i / m) + M[0][1]
+						* (p * e * j / (2 * n)) + theta1;
+				tableMatrix[i][j + n][1] = M[1][0] * (e * i / m) + M[1][1]
+						* (p * e * j / (2 * n)) + phi1;
+				// output on the Console for verification
+				// System.out.println("[i;j] "+i+";"+j+": "+tableMatrix[i][j+n][0]
+				// +" , "+ tableMatrix[i][j+n][1]);
 			}
-			coordList.add(coordRow);
-			coordRow = new ArrayList<Coordinate>();
 		}
-		return coordList;
+		return tableMatrix;
 	}
 
 	/**
-	 * This method handles the dynamical programming.
-	 * It fills the graph at first with default-values, 
-	 * after that it calculates the shortest distance.
+	 * In this method starts the dynamical programming it defines the default
+	 * 5-dimensional matrix and the start-point
 	 * 
 	 * @param start
 	 *            - the starting node
-	 * @return A 2-dimensional arrayList with the decision tree
+	 * @return A 5-dimensional Array
 	 */
 	public ArrayList<ArrayList<Graph>> programmationDynamique(int start) {
 		// 5-dimensional Matrix, defined with the generics
@@ -157,8 +140,6 @@ public class Decision {
 			}
 		}
 
-		getInterpolatedWindfield();
-		
 		// fill at point (0,start) the node with values 1 and 0
 		double[] init2 = { 1, 1 };
 		graphList.get(0).get(start).setPreviousNode(init2);
@@ -176,21 +157,6 @@ public class Decision {
 		// }
 		// }
 		return graphList;
-	}
-
-	private void getInterpolatedWindfield() {
-		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
-		InterpolationAlgorithm bil = new Bilinear();
-        WindfieldContainer foo = new WindfieldContainer();
-        try {
-			foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}      
-//		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
-//		setWv(foo.get(0));
-		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 	}
 
 	/**
@@ -211,10 +177,8 @@ public class Decision {
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
-//		Coordinate crd1 = new Coordinate();
-//		Coordinate crd2 = new Coordinate();
-		double distance;
-
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
 		// for iterator for all nodes in the r-column
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
@@ -223,15 +187,11 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-//				loc.get(r - 1).get(j).getLatitudeInDegree();
-//				loc.get(r).get(k).getLongitudeInDegree();
-//				loc.get(r).get(k).getLatitudeInDegree();
-				distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
-				// System.out.println("SD:"+sd.getSailingDuration(crd1, crd2,
-				// wv1, wv2, distance));
-				
-				etabli[j] = sd.getSailingDuration(loc.get(r - 1).get(j), loc
-						.get(r).get(k), getWv().get(r-1).get(j), getWv().get(r).get(k), distance)
+				crd1.setLongitudeInDegree(loc[r - 1][j][0]);
+				crd1.setLatitudeInDegree(loc[r - 1][j][1]);
+				crd2.setLongitudeInDegree(loc[r][k][0]);
+				crd2.setLatitudeInDegree(loc[r][k][1]);
+				etabli[j] = ortho(crd1, crd2)
 						+ graphList.get(r - 1).get(j).getTimeOfArrival();
 
 				// finds the position of a minimum value and saves it into
@@ -273,10 +233,12 @@ public class Decision {
 	public double[] transformCoordToVector(Coordinate crd) {
 		double theta = crd.getLongitudeInRadian();
 		double phi = crd.getLatitudeInRadian();
-
+		
 		double[] sphere = new double[3];
-		sphere[0] = Math.cos(theta) * Math.cos(phi);
-		sphere[1] = Math.sin(theta) * Math.cos(phi);
+		sphere[0] = Math.cos(theta)
+				* Math.cos(phi);
+		sphere[1] = Math.sin(theta)
+				* Math.cos(phi);
 		sphere[2] = Math.sin(phi);
 
 		return sphere;
@@ -284,12 +246,12 @@ public class Decision {
 
 	// Just some default methods to get the value of this variables
 	// A common Java-usage
-	public ArrayList<ArrayList<Coordinate>> getLoc() {
-		return loc;
+	public double[][][] getLoc() {
+		return loc.clone();
 	}
 
-	public void setLoc(ArrayList<ArrayList<Coordinate>> loc) {
-		this.loc = loc;
+	public void setLoc(double[][][] loc) {
+		this.loc = loc.clone();
 	}
 
 	public int getMaxi() {
@@ -315,13 +277,4 @@ public class Decision {
 	public void setCoord(int coord) {
 		this.coord = coord;
 	}
-
-	public AbstractList<AbstractList<WindVector>> getWv() {
-		return wv;
-	}
-
-	public void setWv(AbstractList<AbstractList<WindVector>> wv) {
-		this.wv = wv;
-	}
-	
 }
