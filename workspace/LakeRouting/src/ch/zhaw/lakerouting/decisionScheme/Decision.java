@@ -191,7 +191,10 @@ public class Decision {
 //		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
 //		setWv(foo.get(0));
         
-		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
+        foo = foo.bulkInterpolateOnDecisionNet(loc, bil); 
+        
+		//setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
+        setWv(foo.get(0).getField());
 	}
 
 	/**
