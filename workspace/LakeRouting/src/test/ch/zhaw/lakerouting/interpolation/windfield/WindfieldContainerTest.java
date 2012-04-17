@@ -86,18 +86,21 @@ public class WindfieldContainerTest {
         	ArrayList<Coordinate> row = new ArrayList<Coordinate>();
             for (int j = 0; j < 5; ++j) {
                 Coordinate k = new Coordinate();
-                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.02);
-                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.03);
+                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.05);
+                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.05);
                 row.add(k);
             }
             net.add(row);
         }
+        double i = 0;
         AbstractList<AbstractList<WindVector>> vectorField =  foo.get(22).interpolateOnDecisionNet(net,bil);
         for (AbstractList<WindVector> vectorRow : vectorField) {
+            System.out.print("{{" +i + ",0},");
             for(WindVector vector : vectorRow) {
-                System.out.println(vector.toString());
+//                System.out.print(vector.mathematicaVectorOutput() + ",");
             }
-            System.out.print("\n\n\n\n\n");
+            System.out.print("},");
+            i += 0.1;
         }
     }
 
