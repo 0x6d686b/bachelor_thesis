@@ -95,17 +95,17 @@ public class Windfield {
         /**
          * Don't ask about this voodoo ...
          */
-        int lnglow = new Double(Math.floor((coordinate.getLongitudeInRadian() -
-                metadata.getNorthWestCorner().getLongitudeInRadian())
+        int lnglow = new Double(Math.floor((coordinate.getLongitudeInDegree() -
+                metadata.getNorthWestCorner().getLongitudeInDegree())
                 / metadata.getDeltaLng())).intValue();
-        int lnghigh = new Double(Math.ceil((coordinate.getLongitudeInRadian() -
-                metadata.getNorthWestCorner().getLongitudeInRadian())
+        int lnghigh = new Double(Math.ceil((coordinate.getLongitudeInDegree() -
+                metadata.getNorthWestCorner().getLongitudeInDegree())
                 / metadata.getDeltaLng())).intValue();
-        int latlow = new Double(Math.floor((coordinate.getLatitudeInRadian() -
-                metadata.getNorthWestCorner().getLatitudeInRadian())
+        int latlow = new Double(Math.floor((coordinate.getLatitudeInDegree() -
+                metadata.getNorthWestCorner().getLatitudeInDegree())
                 / metadata.getDeltaLat())).intValue();
-        int lathigh = new Double(Math.ceil((coordinate.getLatitudeInRadian() -
-                metadata.getNorthWestCorner().getLatitudeInRadian())
+        int lathigh = new Double(Math.ceil((coordinate.getLatitudeInDegree() -
+                metadata.getNorthWestCorner().getLatitudeInDegree())
                / metadata.getDeltaLat())).intValue();
         
         return new WindVector[][] {{field[latlow][lnglow],field[latlow][lnghigh]},
@@ -124,9 +124,9 @@ public class Windfield {
         /**
          * First Latitude then Longitude... BECAUSE IT'S SO!!
          */
-        double lng = ((c.getLongitudeInRadian() - metadata.getNorthWestCorner().getLongitudeInRadian()) /
+        double lng = ((c.getLongitudeInDegree() - metadata.getNorthWestCorner().getLongitudeInDegree()) /
                 metadata.getDeltaLng()) % 1;
-        double lat = ((c.getLatitudeInRadian() - metadata.getNorthWestCorner().getLatitudeInRadian()) /
+        double lat = ((c.getLatitudeInDegree() - metadata.getNorthWestCorner().getLatitudeInDegree()) /
                 metadata.getDeltaLat()) % 1;
         return new Double[] {lat,lng};
     }

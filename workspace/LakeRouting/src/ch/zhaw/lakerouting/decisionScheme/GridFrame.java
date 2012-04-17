@@ -55,7 +55,7 @@ public class GridFrame extends JFrame{
 		ArrayList<ArrayList<Coordinate>> loc = de.getLoc();
 		
 		// The position-values for the nodes in integer, these values will be used to draw the graph
-		int[][][] positionLoLa = new int[de.getMaxi()][de.getMaxj()][2];
+		int[][][] positionLongLat = new int[de.getMaxi()][de.getMaxj()][2];
 		
 		// Determine the smallest/biggest longitude and latitude
 		double longMin = loc.get(0).get(0).getLongitudeInDegree();
@@ -89,38 +89,38 @@ public class GridFrame extends JFrame{
 			for (int j = 1; j <= de.getMaxj(); j++) {
 				// We have now to multiply the value with the step to normalize the graph to the screen
 				// 50 is the padding to left and top
-				positionLoLa[i - 1][j - 1][0] = (int) ((loc.get(i - 1).get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
-				positionLoLa[i - 1][j - 1][1] = 360 - (int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
+				positionLongLat[i - 1][j - 1][0] = (int) ((loc.get(i - 1).get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
+				positionLongLat[i - 1][j - 1][1] = 360 - (int) ((loc.get(i - 1).get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
 
 				// Draw the points which are TimeOfArrival>=100000 black
 				// otherwise blue.
 				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
-					g.fillOval(positionLoLa[i - 1][j - 1][0], positionLoLa[i - 1][j - 1][1], 4, 4);
+					g.fillOval(positionLongLat[i - 1][j - 1][0], positionLongLat[i - 1][j - 1][1], 4, 4);
 				} else {
 					g.setColor(Color.BLUE);
-					g.fillOval(positionLoLa[i - 1][j - 1][0],
-							positionLoLa[i - 1][j - 1][1], 4, 4);
+					g.fillOval(positionLongLat[i - 1][j - 1][0],
+							positionLongLat[i - 1][j - 1][1], 4, 4);
 					g.setColor(Color.BLACK);
 				}
 				
 				// Draw the WindVectors with a factor 0.005
 //				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
 				g.setColor(Color.orange);
-				double calcV = positionLoLa[i - 1][j - 1][0] + (de.getWv().get(i-1).get(j-1).getV() * step * 0.005);
-				double calcU = positionLoLa[i - 1][j - 1][1] - (de.getWv().get(i-1).get(j-1).getU() * step * 0.005);
-				g.drawLine(positionLoLa[i - 1][j - 1][0], positionLoLa[i - 1][j - 1][1], (int)calcV, (int)calcU);
+				double calcV = positionLongLat[i - 1][j - 1][0] + (de.getWv().get(i-1).get(j-1).getV() * step * 0.005);
+				double calcU = positionLongLat[i - 1][j - 1][1] - (de.getWv().get(i-1).get(j-1).getU() * step * 0.005);
+				g.drawLine(positionLongLat[i - 1][j - 1][0], positionLongLat[i - 1][j - 1][1], (int)calcV, (int)calcU);
 				g.setColor(Color.BLACK);
 			}
 		}
 		
 		// Get the minimum timeOfArrival Node of every column x and save it to position
 		int x;
-		double[][] position = new double[de.getMaxi()][2];
+		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
 		for (int i = 1; i <= de.getMaxi(); i++) {
 			x = i - 1;
 			Graph obj = (Graph) Collections.min(graphList.get(x));
-			position[x][0] = obj.getPreviousNode()[1];
-			position[x][1] = graphList.get(x).indexOf(obj);
+			positionOfMinArrival[x][0] = obj.getPreviousNode()[1];
+			positionOfMinArrival[x][1] = graphList.get(x).indexOf(obj);
 		}
 
 		// Now we have the last minimum timeOfArrival Node of the last column.
@@ -130,8 +130,8 @@ public class GridFrame extends JFrame{
 		for (int i = 1; i <= de.getMaxi(); i++) {
 			w = de.getMaxi() - i;
 			if (w >= 1) {
-				position[w - 1][1] = position[w][0];
-				position[w - 1][0] = graphList.get(w).get((int) position[w][0])
+				positionOfMinArrival[w - 1][1] = positionOfMinArrival[w][0];
+				positionOfMinArrival[w - 1][0] = graphList.get(w).get((int) positionOfMinArrival[w][0])
 						.getPreviousNode()[1];
 			}
 		}
@@ -140,10 +140,10 @@ public class GridFrame extends JFrame{
 		g.setColor(Color.RED);
 		int z = 0;
 		for (int i = 1; i < de.getMaxi(); i++) {
-			g.drawLine(positionLoLa[i - 1][(int) position[z][0]][0],
-					positionLoLa[i - 1][(int) position[z][0]][1],
-					positionLoLa[i][(int) position[z][1]][0],
-					positionLoLa[i][(int) position[z][1]][1]);
+			g.drawLine(positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][0],
+					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][1],
+					positionLongLat[i][(int) positionOfMinArrival[z][1]][0],
+					positionLongLat[i][(int) positionOfMinArrival[z][1]][1]);
 			z++;
 		}
 
@@ -159,14 +159,12 @@ public class GridFrame extends JFrame{
 		boolean atFirstTime = true;
 		for (int i = 0; i < de.getMaxi(); i++) {
 			x = de.getMaxi() - i - 1;
+			if (x <= 0)
+				break;
 			z = de.getMaxi() - i;
 			for (int j = 0; j < de.getMaxi(); j++) {
-				if (x <= 0)
-					break;
-				// Disallow to draw the shortest path again and ignore the nodes
-				// with TOA <1000000
-				if (j != (int) position[x - 1][1]
-						&& graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
+				// Iignore the nodes with TOA <1000000
+				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
 					// save the previous and the current node
 					pos = graphList.get(x).get(j).getPreviousNode()[1];
 					posx = graphList.get(x).get(j).getNode()[1];
@@ -177,11 +175,14 @@ public class GridFrame extends JFrame{
 						atFirstTime = false;
 					} else {
 						g.setColor(Color.GRAY);
+						// Disallow to draw the shortest path again
+						if (j == (int) positionOfMinArrival[x - 1][1])
+							continue;
 					}
-					g.drawLine(positionLoLa[x][(int) posx][0],
-							positionLoLa[x][(int) posx][1],
-							positionLoLa[x - 1][(int) pos][0],
-							positionLoLa[x - 1][(int) pos][1]);
+					g.drawLine(positionLongLat[x][(int) posx][0],
+							positionLongLat[x][(int) posx][1],
+							positionLongLat[x - 1][(int) pos][0],
+							positionLongLat[x - 1][(int) pos][1]);
 				}
 			}
 			atFirstTime = true;

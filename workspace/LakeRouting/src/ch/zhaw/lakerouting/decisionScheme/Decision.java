@@ -190,6 +190,7 @@ public class Decision {
 		}      
 //		foo = foo.bulkInterpolateOnDecisionNet(loc, bil);
 //		setWv(foo.get(0));
+        
 		setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 	}
 
@@ -223,9 +224,6 @@ public class Decision {
 			// compares the node in the r-column with all the previous nodes
 			for (int j = 0; j < getMaxj(); j++) {
 				// loc[r-1][j] the previous node, loc[r][k] the current node
-//				loc.get(r - 1).get(j).getLatitudeInDegree();
-//				loc.get(r).get(k).getLongitudeInDegree();
-//				loc.get(r).get(k).getLatitudeInDegree();
 				distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
 				// System.out.println("SD:"+sd.getSailingDuration(crd1, crd2,
 				// wv1, wv2, distance));
