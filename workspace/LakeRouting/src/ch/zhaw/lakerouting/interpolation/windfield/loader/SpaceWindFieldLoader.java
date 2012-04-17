@@ -31,12 +31,10 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
-import com.sun.xml.internal.ws.api.addressing.WSEndpointReference;
 import org.joda.time.DateTime;
 
 import java.io.*;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -69,7 +67,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
 
-    private final WindVector[][] convertToArray() {
+    private final AbstractList<AbstractList<WindVector>> convertToAbstractList() {
 
         /**
          * KNOWN FLAWS:
@@ -77,11 +75,14 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          * longitude row (first row in each block), up to now 25.03.2012 it is
          * not known if this is intended or a mistake!
          */
-        WindVector[][] arr = new WindVector[field.size()-1][field.get(0).size()-2];
-        for (int i = 1; i < field.size(); i++) {
-            for (int j = 1; j < field.get(0).size()-1; j++) {
-                arr[i-1][j-1] = (WindVector) field.get(i).get(j);
+        AbstractList<AbstractList<WindVector>> arr = new ArrayList<AbstractList<WindVector>>();
+        AbstractList<WindVector> row = new ArrayList<WindVector>();
+	for (int i = 1; i < field.size(); i++) { 
+	    for (int j = 1; j < field.get(0).size()-1; j++) {
+                row.add((WindVector) field.get(i).get(j));
             }
+            arr.add(row);
+            row = new ArrayList<WindVector>();
         }
         return arr;
     }
@@ -191,7 +192,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 Matcher header = HEADER_START_PATTERN.matcher(s);
                 if (header.find()) {
                     if (field != null)
-                        windfieldArray.add(Windfield.getInstance().setField(getMetadata(),convertToArray()));
+                        windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToAbstractList()));
                     field = new ArrayList<AbstractList<Object>>();
                     field.add(processHeader(s));
                     continue;
@@ -210,7 +211,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToArray()));
+            windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToAbstractList()));
         }
     }
 
