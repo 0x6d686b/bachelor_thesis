@@ -17,14 +17,14 @@ import ch.zhaw.lakerouting.datatypes.Graph;
  * @author Fevzi Yuekseldi, Mathias Habluetzel
  * 
  */
-public class GridFrame extends JFrame{
+public class GridFrameWindfield extends JFrame{
 
-	public GridFrame(String newTitel) {
+	public GridFrameWindfield(String newTitel) {
 		super.setTitle(newTitel);
 	}
 
 	public static void main(String str[]) {
-		GridFrame fenster = new GridFrame("Optimalste Route zeichnen");
+		GridFrameWindfield fenster = new GridFrameWindfield("Windfield zeichnen");
 		fenster.setSize(940, 740);
 		fenster.setVisible(true);
 		fenster.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -80,7 +80,7 @@ public class GridFrame extends JFrame{
 		double stepWidth = 840 / (longMax - longMin);
 		double stepHeight = 630 / (latMax - latMin);
 		double step = (stepWidth<stepHeight)? stepWidth : stepHeight;
-//		System.out.println("Step:" + stepWidth + " " + stepHeight);
+		System.out.println("Step:" + stepWidth + " " + stepHeight);
 		
 		// Draw the points related to longitudes and latitudes
 		for (int i = 1; i <= de.getMaxi(); i++) {
@@ -102,9 +102,8 @@ public class GridFrame extends JFrame{
 				}
 				
 				// Draw the WindVectors with a factor 0.005
-//				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
+				System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
 				g.setColor(Color.orange);
-				// TODO Draw the different wf's
 				double calcV = positionLongLat[i - 1][j - 1][0] + (de.getWv().get(i-1).get(j-1).getV() * step * 0.005);
 				double calcU = positionLongLat[i - 1][j - 1][1] - (de.getWv().get(i-1).get(j-1).getU() * step * 0.005);
 				g.drawLine(positionLongLat[i - 1][j - 1][0], positionLongLat[i - 1][j - 1][1], (int)calcV, (int)calcU);
@@ -112,79 +111,79 @@ public class GridFrame extends JFrame{
 			}
 		}
 		
-		// Get the minimum timeOfArrival Node of every column x and save it to position
-		int x;
-		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			x = i - 1;
-			Graph obj = (Graph) Collections.min(graphList.get(x));
-			positionOfMinArrival[x][0] = obj.getPreviousNode()[1];
-			positionOfMinArrival[x][1] = graphList.get(x).indexOf(obj);
-		}
-
-		// Now we have the last minimum timeOfArrival Node of the last column.
-		// We have now to go backwards started at the last minimum Node and save
-		// the path
-		int w;
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			w = de.getMaxi() - i;
-			if (w >= 1) {
-				positionOfMinArrival[w - 1][1] = positionOfMinArrival[w][0];
-				positionOfMinArrival[w - 1][0] = graphList.get(w).get((int) positionOfMinArrival[w][0])
-						.getPreviousNode()[1];
-			}
-		}
-
-		// Draw the shortest path in red
-		g.setColor(Color.RED);
-		int z = 0;
-		for (int i = 1; i < de.getMaxi(); i++) {
-			g.drawLine(positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][0],
-					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][1],
-					positionLongLat[i][(int) positionOfMinArrival[z][1]][0],
-					positionLongLat[i][(int) positionOfMinArrival[z][1]][1]);
-			z++;
-		}
-
-		// Start at the last column and draw all shortest connections of every
-		// nodes
-		g.setColor(Color.GRAY);
-		z = 0;
-		double pos;
-		double posx;
-		// The destination point is in our algorithm exactly in the middle of
-		// the last column
-		int shortestPoint = de.getMaxi() / 2;
-		boolean atFirstTime = true;
-		for (int i = 0; i < de.getMaxi(); i++) {
-			x = de.getMaxi() - i - 1;
-			if (x <= 0)
-				break;
-			z = de.getMaxi() - i;
-			for (int j = 0; j < de.getMaxi(); j++) {
-				// Iignore the nodes with TOA <1000000
-				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
-					// save the previous and the current node
-					pos = graphList.get(x).get(j).getPreviousNode()[1];
-					posx = graphList.get(x).get(j).getNode()[1];
-					// the path from the destination node will be drawn green
-					if (j == shortestPoint && atFirstTime) {
-						g.setColor(Color.GREEN);
-						shortestPoint = (int) pos;
-						atFirstTime = false;
-					} else {
-						g.setColor(Color.GRAY);
-						// Disallow to draw the shortest path again
-						if (j == (int) positionOfMinArrival[x - 1][1])
-							continue;
-					}
-					g.drawLine(positionLongLat[x][(int) posx][0],
-							positionLongLat[x][(int) posx][1],
-							positionLongLat[x - 1][(int) pos][0],
-							positionLongLat[x - 1][(int) pos][1]);
-				}
-			}
-			atFirstTime = true;
-		}
+//		// Get the minimum timeOfArrival Node of every column x and save it to position
+//		int x;
+//		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
+//		for (int i = 1; i <= de.getMaxi(); i++) {
+//			x = i - 1;
+//			Graph obj = (Graph) Collections.min(graphList.get(x));
+//			positionOfMinArrival[x][0] = obj.getPreviousNode()[1];
+//			positionOfMinArrival[x][1] = graphList.get(x).indexOf(obj);
+//		}
+//
+//		// Now we have the last minimum timeOfArrival Node of the last column.
+//		// We have now to go backwards started at the last minimum Node and save
+//		// the path
+//		int w;
+//		for (int i = 1; i <= de.getMaxi(); i++) {
+//			w = de.getMaxi() - i;
+//			if (w >= 1) {
+//				positionOfMinArrival[w - 1][1] = positionOfMinArrival[w][0];
+//				positionOfMinArrival[w - 1][0] = graphList.get(w).get((int) positionOfMinArrival[w][0])
+//						.getPreviousNode()[1];
+//			}
+//		}
+//
+//		// Draw the shortest path in red
+//		g.setColor(Color.RED);
+//		int z = 0;
+//		for (int i = 1; i < de.getMaxi(); i++) {
+//			g.drawLine(positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][0],
+//					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][1],
+//					positionLongLat[i][(int) positionOfMinArrival[z][1]][0],
+//					positionLongLat[i][(int) positionOfMinArrival[z][1]][1]);
+//			z++;
+//		}
+//
+//		// Start at the last column and draw all shortest connections of every
+//		// nodes
+//		g.setColor(Color.GRAY);
+//		z = 0;
+//		double pos;
+//		double posx;
+//		// The destination point is in our algorithm exactly in the middle of
+//		// the last column
+//		int shortestPoint = de.getMaxi() / 2;
+//		boolean atFirstTime = true;
+//		for (int i = 0; i < de.getMaxi(); i++) {
+//			x = de.getMaxi() - i - 1;
+//			if (x <= 0)
+//				break;
+//			z = de.getMaxi() - i;
+//			for (int j = 0; j < de.getMaxi(); j++) {
+//				// Iignore the nodes with TOA <1000000
+//				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
+//					// save the previous and the current node
+//					pos = graphList.get(x).get(j).getPreviousNode()[1];
+//					posx = graphList.get(x).get(j).getNode()[1];
+//					// the path from the destination node will be drawn green
+//					if (j == shortestPoint && atFirstTime) {
+//						g.setColor(Color.GREEN);
+//						shortestPoint = (int) pos;
+//						atFirstTime = false;
+//					} else {
+//						g.setColor(Color.GRAY);
+//						// Disallow to draw the shortest path again
+//						if (j == (int) positionOfMinArrival[x - 1][1])
+//							continue;
+//					}
+//					g.drawLine(positionLongLat[x][(int) posx][0],
+//							positionLongLat[x][(int) posx][1],
+//							positionLongLat[x - 1][(int) pos][0],
+//							positionLongLat[x - 1][(int) pos][1]);
+//				}
+//			}
+//			atFirstTime = true;
+//		}
 	}
 }

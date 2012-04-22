@@ -66,12 +66,9 @@ public class DecisionTest {
 			crd2.setLongitudeInDegree(entry.getValue()[2]);
 			crd2.setLatitudeInDegree(entry.getValue()[3]);
 
-			de.setLoc(de.graphe(crd1, crd2));
-			de.setMaxi(de.getLoc().size());
-			de.setMaxj(de.getLoc().get(0).size());
-			de.setCoord(2);
-
-			test = de.programmationDynamique(10);
+			de.graphe(crd1, crd2);
+			de.programmationDynamique(10);
+			test = de.getGraphList();
 
 			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;
 
