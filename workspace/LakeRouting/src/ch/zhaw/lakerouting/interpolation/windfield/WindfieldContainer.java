@@ -91,4 +91,8 @@ public class WindfieldContainer {
         return this.delta;
     }
 
+    public int size() {
+        return fields.size();
+    }
+
 }
