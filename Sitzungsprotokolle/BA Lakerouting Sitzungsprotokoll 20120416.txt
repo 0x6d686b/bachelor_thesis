@@ -1,0 +1,41 @@
+﻿Anwesende: Amb, Furu, Hab, Yuk Ort: MeteoSchweiz Zürich
+
+
+1. Hab hat eine 30-minütige Präsentation gehalten. Was er alles bis jetzt
+gemacht hat, auf welche Probleme er gestossen ist und wie er sie gelöst
+hat wurden von ihm erläutert. 
+
+1.1 Jetzt liefern die Interpolationsverfahren einigermassen gültige Werte,
+die sinnvoll aussehen. Diese müssen nur noch verifiziert werden, wobei
+wir nicht wissen, mit welchen Daten wir sie messen und vergleichen
+sollen.
+
+1.2 Parallelisierung des Interpolations ist eine Nice-to-have Funktion.
+Aber es ist zurzeit nicht essentiell, man sollte zuerst den Engpass 
+überwinden. Es gibt wichtigere Arbeiten, die noch fertig implementiert 
+werden müssen. Es reicht eigentlich, das man am Schluss zeigen kann, dass
+unser Codestück erweiterbar und optimierbar ist. 
+
+2. Yuk hat nun die grafische Darstellung angepasst und die kürzeste Route
+mit WindVektoren neu zeichnen lassen. Somit sind die Windvektoren zu den 
+einzelnen Knoten sichtbar. 
+
+2.1 Die zeitliche Anpassung der Windfelder fehlen noch und müssen 
+implementiert werden. Falls der TimeOfArrival Wert grösser als 30 ist, 
+wird das nächste Feld mit den entsprechenden Windvektoren in die 
+Berechnung miteinbezogen. 
+
+3. Weiteres Vorgehen:
+
+3.1 Hab wird die normalen Windfelder mit den interpolierten zusammen 
+grafisch darstellen.
+
+3.2 Mit dem Bericht sollte so schnell wie möglich angefangen werden. 
+Der Bericht sollte 2 Wochen vor Abschluss fertig sein. 
+
+3.3 Vor der eigentlichen Präsentation wird auch eine Test-Präsentation 
+durchgeführt. Amb wird sich dafür kümmern. 
+
+
+4. Die nächste Sitzung wird mit allen Projektteilnehmern am 23.04 um 
+1130CET in Winterthur mit Herrn Peter Früh stattfinden.

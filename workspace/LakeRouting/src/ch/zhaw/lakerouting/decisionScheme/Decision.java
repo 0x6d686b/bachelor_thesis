@@ -250,10 +250,10 @@ public class Decision {
 	 */
 	private void progrDyn(int r) {
 		int spread = 10;
-		 int wf = getWindFieldIndex();
+//		 int wf = getWindFieldIndex();
 //		 System.out.println("WF "+wf);
 		// wf = 4, 12, 13, 14
-//		int wf = 24;
+		int wf = 3;
 
 		// table of arrival times
 		double[] etabli;
@@ -301,14 +301,14 @@ public class Decision {
 			 */
 			// computes the spread and updates the matrix graphList
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
-				if (position[k][1] >= 30d) {
-					int w_calculated = (int) position[k][1] / 30;
-					System.out.print("Position1: " + position[k][1]);
-					int wf_neu = wf + w_calculated;
-					if(wf_neu>24) wf_neu = 24;
-					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
-					System.out.println(" Position2: " + position[k][1]);
-				}
+//				if (position[k][1] >= 30d) {
+//					int w_calculated = (int) position[k][1] / 30;
+//					System.out.print("Position1: " + position[k][1]);
+//					int wf_neu = wf + w_calculated;
+//					if(wf_neu>24) wf_neu = 24;
+//					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
+//					System.out.println(" Position2: " + position[k][1]);
+//				}
 				node = new double[2];
 				node[0] = r - 1;
 				node[1] = position[k][0];
