@@ -72,28 +72,28 @@ public class WindfieldContainerTest {
         InterpolationAlgorithm bil = new Bilinear();
 
         WindfieldContainer foo = new WindfieldContainer();
-        foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
+        foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
 
         System.out.print("Single point interpolation: ");
         c.setLongitudeInDegree(09.34);
-        c.setLatitudeInDegree(47.62);
+        c.setLatitudeInDegree(47.48);
         WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
 
         System.out.println("\n\nInterpolation on decision net: ");
         ArrayList<ArrayList<Coordinate>> net = new ArrayList<ArrayList<Coordinate>>();
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 8; ++i) {
         	ArrayList<Coordinate> row = new ArrayList<Coordinate>();
-            for (int j = 0; j < 5; ++j) {
+            for (int j = 0; j < 10; ++j) {
                 Coordinate k = new Coordinate();
-                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.05);
-                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.05);
+                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.01);
+                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.01);
                 row.add(k);
             }
             net.add(row);
         }
-        double i = 0;
-        AbstractList<AbstractList<WindVector>> vectorField =  foo.get(22).interpolateOnDecisionNet(net,bil);
+        /*double i = 0;
+        AbstractList<AbstractList<WindVector>> vectorField =  foo.get(14).interpolateOnDecisionNet(net,bil);
         for (AbstractList<WindVector> vectorRow : vectorField) {
             System.out.print("{{" +i + ",0},");
             for(WindVector vector : vectorRow) {
@@ -101,7 +101,11 @@ public class WindfieldContainerTest {
             }
             System.out.print("},");
             i += 0.1;
-        }
+        }*/
+        foo = foo.bulkInterpolateOnDecisionNet(net,bil);
+        Windfield a = foo.get(0);
+        Windfield b = foo.get(4);
+        System.out.println();
     }
 
 
