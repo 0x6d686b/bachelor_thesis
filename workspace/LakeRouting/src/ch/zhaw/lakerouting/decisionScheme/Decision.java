@@ -249,7 +249,7 @@ public class Decision {
 	 * @return The calculated 5-dimensional Array
 	 */
 	private void progrDyn(int r) {
-		int spread = 10;
+		int spread = 4;
 //		 int wf = getWindFieldIndex();
 //		 System.out.println("WF "+wf);
 		// wf = 4, 12, 13, 14
@@ -269,19 +269,26 @@ public class Decision {
 			etabli = new double[getMaxj()];
 			// idx = new Integer[getMaxj()];
 			// compares the node in the r-column with all the previous nodes
+			// loc[r-1][j] the previous node, loc[r][k] the current node
 			for (int j = 0; j < getMaxj(); j++) {
-				// loc[r-1][j] the previous node, loc[r][k] the current node
-				etabli[j] = getEtabli(r, j, k, wf, graphList);
-				// idx[j]=j;
-				// finds the position of a minimum value and saves it into
-				// position
-				if (etabli[j] < min) {
-					min = etabli[j];
-					position[k][0] = j;
-					position[k][1] = etabli[j];
-				}
+				// NEW
+				
+					etabli[j] = getEtabli(r, j, k, wf, graphList);
+					// idx[j]=j;
+					// finds the position of a minimum value and saves it into
+					// position
+					if (etabli[j] < min) {
+						if (Math.abs(k - j) <= spread) {
+							min = etabli[j];
+							position[k][0] = j;
+							position[k][1] = etabli[j];
+						}else{
+							position[k][0] = j;
+							position[k][1] = 1000000;
+						}
+					}
 			}
-			/**
+			/*
 			 * Sort the minimum-values So we have the other shortest values if
 			 * it doesnt match with spread
 			 */
@@ -291,24 +298,18 @@ public class Decision {
 			// return Double.compare(etabli2[o1], etabli2[o2]);
 			// }
 			// });
-
-			System.out.println("P0: " + position[k][0] + " P1: "
-					+ position[k][1] + " " + k + " " + r);
-
-			/**
-			 * PROBLEM -> AT FIRST THE MINIMUM DISTANCE IS COMPUTED AND SAVED
-			 * AND THE SPREAD IS COMPARED AFTER THAT!!!
-			 */
+			
 			// computes the spread and updates the matrix graphList
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
-//				if (position[k][1] >= 30d) {
-//					int w_calculated = (int) position[k][1] / 30;
-//					System.out.print("Position1: " + position[k][1]);
-//					int wf_neu = wf + w_calculated;
-//					if(wf_neu>24) wf_neu = 24;
-//					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
-//					System.out.println(" Position2: " + position[k][1]);
-//				}
+				if (position[k][1] >= 30d) {
+					int w_calculated = (int) position[k][1] / 30;
+					System.out.print("Position1: " + position[k][1]);
+					//int wf_neu = wf + w_calculated;
+					int wf_neu = 9;
+					if(wf_neu>24) wf_neu = 24;
+					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
+					System.out.println(" Position2: " + position[k][1]);
+				}
 				node = new double[2];
 				node[0] = r - 1;
 				node[1] = position[k][0];
@@ -348,6 +349,7 @@ public class Decision {
 
 	private double getEtabli(int r, int j, int k, int wf,
 			ArrayList<ArrayList<Graph>> graphList) {
+		
 		setWv(windFieldContainer.get(wf).getField());
 		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
 		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
