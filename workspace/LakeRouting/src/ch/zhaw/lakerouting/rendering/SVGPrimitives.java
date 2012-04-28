@@ -83,20 +83,18 @@ public class SVGPrimitives {
 
     public static String Infobox(DateTime starttime, DateTime arrivaltime, Coordinate start, Coordinate end, String boattype, DateTime fieldFiletime, String netresolution) {
         String s = new String();
-        s += "<svg>" +
-                "<g>\n" +
-                "  <rect x=\"5\" y=\"5\" width=\"500\" height=\"100\"\n" +
-                "    fill=\"white\" stroke=\"black\" stroke-width=\"2\" />\n" +
-                "  <text x=\"20\" y=\"20\">Starttime: <tspan font-weight=\"bold\">"+ starttime.toString("HH:mmz") +"</tspan></text>\n" +
-                "  <text x=\"20\" y=\"40\">Endtime: <tspan font-weight=\"bold\">"+ arrivaltime.toString("HH:mmz") +"</tspan> </text>\n" +
-                "  <text x=\"20\" y=\"78\">Start coordinate: <tspan font-weight=\"bold\">"+ start.toString() +"</tspan></text>\n" +
-                "  <text x=\"20\" y=\"98\">End coordinate: <tspan font-weight=\"bold\">"+ end.toString() +"</tspan> </text>\n" +
-                "  <text x=\"250\" y=\"20\">Boat type: "+ boattype +"</text>\n" +
-                "  <text x=\"250\" y=\"40\">Windfield file time: "+ fieldFiletime.toString("HH:mmz") +"</text>\n" +
-                "  <text x=\"250\" y=\"60\">Decision net resolution: "+ netresolution +"</text>\n" +
-                "</g>\n" +
-                "</svg>";
 
+        s += "  <svg x=\"5\" y=\"90\" width=\"100mm\" height=\"10\" viewbox=\"0 0 500 200\">\n" +
+                "  <rect x=\"1\" y=\"1\" width=\"50\" height=\"8\"\n" +
+                "    fill=\"white\" stroke=\"black\" stroke-width=\"0.1\" />\n" +
+                "  <text x=\"1\" y=\"2.5\" font-size=\"1.4\">Starttime: <tspan font-weight=\"bold\">"+ starttime.toString("HH:mmz") +"</tspan></text>\n" +
+                "  <text x=\"1\" y=\"4\" font-size=\"1.4\">Endtime: <tspan font-weight=\"bold\">"+ arrivaltime.toString("HH:mmz") +"</tspan> </text>\n" +
+                "  <text x=\"1\" y=\"6.5\" font-size=\"1.4\">Start coordinate: <tspan font-weight=\"bold\">"+ start.toString() +"</tspan></text>\n" +
+                "  <text x=\"1\" y=\"8\" font-size=\"1.4\">End coordinate: <tspan font-weight=\"bold\">"+ end.toString() +"</tspan> </text>\n" +
+                "  <text x=\"32\" y=\"2.5\" font-size=\"1.4\">Boat type: "+ boattype +"</text>\n" +
+                "  <text x=\"32\" y=\"4\" font-size=\"1.4\">Windfield file time: "+ fieldFiletime.toString("HH:mmz") +"</text>\n" +
+                "  <text x=\"32\" y=\"6.5\" font-size=\"1.4\">Decision net resolution: "+ netresolution +"</text>\n" +
+                "  </svg>";
         return s;
     }
 

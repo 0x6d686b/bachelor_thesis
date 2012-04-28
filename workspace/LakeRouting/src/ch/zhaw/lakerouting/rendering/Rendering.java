@@ -33,6 +33,8 @@ import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import java.util.AbstractList;
 
 public class Rendering {
+    private static int OFFSET = 1;
+
     public String renderWindfield(Windfield f) {
         String s = new String();
         s += SVGPrimitives.Initialization();
@@ -44,10 +46,17 @@ public class Rendering {
                 double u = wv.get(i).get(j).getU();
                 double v = wv.get(i).get(j).getV();
 
-                s += SVGPrimitives.Windarrow(step_x * j, step_y * i, u, v, "Black");
+                s += SVGPrimitives.Windarrow(step_x * j + OFFSET, step_y * i + OFFSET, u, v, "Black");
             }
         }
 
+        s += SVGPrimitives.Infobox(f.getMetadata().getDate(),
+                                    f.getMetadata().getDate(),
+                                    f.getMetadata().getNorthWestCorner(),
+                                    f.getMetadata().getSouthEastCorner(),
+                                    "Blackpearl",
+                                    f.getMetadata().getDate(),
+                                    "10x20");
         s += SVGPrimitives.ClosingCanvas();
 
         return s;
