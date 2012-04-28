@@ -53,7 +53,7 @@ public class SVGPrimitives {
     public static String Canvas() {
         String s = new String();
         s += "<svg width=\"297mm\" height=\"210mm\" \n" +
-                "     viewBox=\"0 0 10000 10000\" version=\"1.1\"\n" +
+                "     viewBox=\"0 0 100 100\" version=\"1.1\"\n" +
                 "     xmlns=\"http://www.w3.org/2000/svg\">";
         return s;
     }
@@ -72,7 +72,7 @@ public class SVGPrimitives {
                 "    <marker id=\"Arrowtip\"\n" +
                 "      viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" \n" +
                 "      markerUnits=\"strokeWidth\"\n" +
-                "      markerWidth=\"4\" markerHeight=\"3\"\n" +
+                "      markerWidth=\"10\" markerHeight=\"10\"\n" +
                 "      orient=\"auto\">\n" +
                 "      <path d=\"M 0 0 L 10 5 L 0 10 z\" />\n" +
                 "    </marker>\n" +
@@ -90,7 +90,7 @@ public class SVGPrimitives {
                 "  <text x=\"20\" y=\"20\">Starttime: <tspan font-weight=\"bold\">"+ starttime.toString("HH:mmz") +"</tspan></text>\n" +
                 "  <text x=\"20\" y=\"40\">Endtime: <tspan font-weight=\"bold\">"+ arrivaltime.toString("HH:mmz") +"</tspan> </text>\n" +
                 "  <text x=\"20\" y=\"78\">Start coordinate: <tspan font-weight=\"bold\">"+ start.toString() +"</tspan></text>\n" +
-                "  <text x=\"20\" y=\"98\">End coordinate: <tspan font-weight=\"bold\">"+ end   .toString() +"</tspan> </text>\n" +
+                "  <text x=\"20\" y=\"98\">End coordinate: <tspan font-weight=\"bold\">"+ end.toString() +"</tspan> </text>\n" +
                 "  <text x=\"250\" y=\"20\">Boat type: "+ boattype +"</text>\n" +
                 "  <text x=\"250\" y=\"40\">Windfield file time: "+ fieldFiletime.toString("HH:mmz") +"</text>\n" +
                 "  <text x=\"250\" y=\"60\">Decision net resolution: "+ netresolution +"</text>\n" +
@@ -100,7 +100,7 @@ public class SVGPrimitives {
         return s;
     }
 
-    public static String Windarrow(int x, int y, int u, int v, String color) {
-        return "<path d=\"M " + x + " " + y + " L " + (x+u) + " " + (y+v) + "\" stroke=\"" + color + "\" marker-end=\"url(#Arrowtip)\" />";
+    public static String Windarrow(double x, double y, double u, double v, String color) {
+        return "<path d=\"M " + x + " " + y + " L " + (x+u) + " " + (y+v) + "\" stroke-width=\"0.1\" stroke=\"" + color + "\" marker-end=\"url(#Arrowtip)\" />";
     }
 }
