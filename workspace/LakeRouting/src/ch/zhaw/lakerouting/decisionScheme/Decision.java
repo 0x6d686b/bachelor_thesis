@@ -352,8 +352,14 @@ public class Decision {
 		
 		setWv(windFieldContainer.get(wf).getField());
 		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
+//		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
+//				getWv().get(r - 1).get(j), getWv().get(r).get(k), distance);
+//		WindVector t1 = windFieldContainer.get(3).getField().get(r - 1).get(j);
+//		WindVector t2 = windFieldContainer.get(3).getField().get(r).get(k);
+		WindVector v1 = windFieldContainer.get(wf).getField().get(r - 1).get(j);
+		WindVector v2 = windFieldContainer.get(wf).getField().get(r).get(k);
 		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
-				getWv().get(r - 1).get(j), getWv().get(r).get(k), distance);
+				v1, v2, distance);
 		double etabli = sailingDuration + graphList
 				.get(r - 1).get(j).getTimeOfArrival();
 		return etabli;

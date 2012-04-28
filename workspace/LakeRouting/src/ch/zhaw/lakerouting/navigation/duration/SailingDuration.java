@@ -23,6 +23,5 @@ public class SailingDuration {
 			return 0.0;
 		
 		return (2 * distance) / checkOfInfinity;
-			// System.out.println("Dur: "+duration);
 	}
 }
