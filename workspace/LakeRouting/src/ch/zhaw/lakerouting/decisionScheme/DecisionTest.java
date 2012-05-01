@@ -2,8 +2,7 @@ package ch.zhaw.lakerouting.decisionScheme;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ public class DecisionTest {
 	private static double seamileToKm = 1.852;
 	private static double tolerance = 300;
 	private Map<String, double[]> punkteCoord;
-	private ArrayList<ArrayList<Graph>> test;
+	private List<List<Graph>> test;
 
 	@Before
 	public void setUp() {
@@ -66,8 +65,12 @@ public class DecisionTest {
 			crd2.setLongitudeInDegree(entry.getValue()[2]);
 			crd2.setLatitudeInDegree(entry.getValue()[3]);
 
-			de.graphe(crd1, crd2);
-			de.programmationDynamique(10);
+			int m, n,spread;
+			m = 20;
+			n = 10;
+			spread = 4;
+			de.graphe(crd1, crd2,m,n);
+			de.programmationDynamique(10,spread);
 			test = de.getGraphList();
 
 			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;

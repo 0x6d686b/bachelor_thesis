@@ -31,17 +31,15 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
 import java.net.URI;
-import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * WindfieldContainer Tester.
@@ -81,9 +79,9 @@ public class WindfieldContainerTest {
         System.out.println(result.toString());
 
         System.out.println("\n\nInterpolation on decision net: ");
-        ArrayList<ArrayList<Coordinate>> net = new ArrayList<ArrayList<Coordinate>>();
+        List<List<Coordinate>> net = new ArrayList<List<Coordinate>>();
         for (int i = 0; i < 4; ++i) {
-        	ArrayList<Coordinate> row = new ArrayList<Coordinate>();
+        	List<Coordinate> row = new ArrayList<Coordinate>();
             for (int j = 0; j < 5; ++j) {
                 Coordinate k = new Coordinate();
                 k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.05);
@@ -93,8 +91,8 @@ public class WindfieldContainerTest {
             net.add(row);
         }
         double i = 0;
-        AbstractList<AbstractList<WindVector>> vectorField =  foo.get(22).interpolateOnDecisionNet(net,bil);
-        for (AbstractList<WindVector> vectorRow : vectorField) {
+        List<List<WindVector>> vectorField =  foo.get(22).interpolateOnDecisionNet(net,bil);
+        for (List<WindVector> vectorRow : vectorField) {
             System.out.print("{{" +i + ",0},");
             for(WindVector vector : vectorRow) {
 //                System.out.print(vector.mathematicaVectorOutput() + ",");

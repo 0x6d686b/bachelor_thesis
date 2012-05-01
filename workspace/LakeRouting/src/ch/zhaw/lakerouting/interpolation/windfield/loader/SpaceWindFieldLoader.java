@@ -50,11 +50,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}", Pattern.MULTILINE);
     private static final Pattern WINDFIELD_BLOCK_DELIMITER =  Pattern.compile("\\n{2}");
 
-    private AbstractList<AbstractList<Object>> field;
-    private AbstractList<Windfield> windfieldArray;
+    private List<List<Object>> field;
+    private List<Windfield> windfieldArray;
 
     @Override
-    public final AbstractList<Windfield> loadRessource(URI identifier) {
+    public final List<Windfield> loadRessource(URI identifier) {
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
@@ -72,7 +72,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
     }
 
 
-    private final AbstractList<AbstractList<WindVector>> convertToAbstractList() {
+    private final List<List<WindVector>> convertToAbstractList() {
 
         /**
          * KNOWN FLAWS:
@@ -80,8 +80,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          * longitude row (first row in each block), up to now 25.03.2012 it is
          * not known if this is intended or a mistake!
          */
-        AbstractList<AbstractList<WindVector>> arr = new ArrayList<AbstractList<WindVector>>();
-        AbstractList<WindVector> row = new ArrayList<WindVector>();
+    	List<List<WindVector>> arr = new ArrayList<List<WindVector>>();
+    	List<WindVector> row = new ArrayList<WindVector>();
 	for (int i = 1; i < field.size(); i++) { 
 	    for (int j = 1; j < field.get(0).size()-1; j++) {
                 row.add((WindVector) field.get(i).get(j));
@@ -188,7 +188,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 if (header.find()) {
                     if (field != null)
                         windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToAbstractList()));
-                    field = new ArrayList<AbstractList<Object>>();
+                    field = new ArrayList<List<Object>>();
                     field.add(processHeader(s));
                     continue;
                 }
@@ -210,9 +210,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         }
     }
 
-    private AbstractList<Object> processLine(String input) {
+    private List<Object> processLine(String input) {
         int i = 0;
-        AbstractList<Object> arr = new ArrayList<Object>();
+        List<Object> arr = new ArrayList<Object>();
 
         Scanner scanner = new Scanner(input).useLocale(Locale.ENGLISH);
         scanner.useDelimiter(" ");
@@ -245,9 +245,9 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return arr;
     }
     
-    private AbstractList<Object> processHeader(String input) {
+    private List<Object> processHeader(String input) {
         int i = 0;
-        AbstractList<Object> arr = new ArrayList<Object>();
+        List<Object> arr = new ArrayList<Object>();
 
         Scanner scanner = new Scanner(input).useLocale(Locale.ENGLISH);
         scanner.useDelimiter(" ");

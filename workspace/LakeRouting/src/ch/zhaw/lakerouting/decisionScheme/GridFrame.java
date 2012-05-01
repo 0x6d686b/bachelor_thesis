@@ -2,13 +2,19 @@ package ch.zhaw.lakerouting.decisionScheme;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
@@ -20,24 +26,68 @@ import ch.zhaw.lakerouting.datatypes.Graph;
  * @author Fevzi Yuekseldi, Mathias Habluetzel
  * 
  */
-public class GridFrame extends JFrame {
+public class GridFrame extends JFrame implements ActionListener {
 
 	/** default variable, nothing special */
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<ArrayList<Graph>> graphList;
-	private ArrayList<ArrayList<Coordinate>> loc;
+	protected JTextField txtFieldStart;
+	protected JTextField txtFieldLength;
+	protected JTextField txtFieldWidth;
+	protected JTextField txtFieldSpread;
+	protected JLabel txtFieldStartLabel;
+	protected JLabel txtFieldLengthLabel;
+	protected JLabel txtFieldWidthLabel;
+	protected JLabel txtFieldSpreadLabel;
+
+	private List<List<Graph>> graphList;
+	private List<List<Coordinate>> loc;
 	private double longMin;
 	private double latMin;
 	private double longMax;
 	private double latMax;
+	private int start = 10;
+	private int m = 20;
+	private int n = 10;
+	private int spread = 10;
 
-	public GridFrame(String newTitel) {
-		super.setTitle(newTitel);
+	private int[][][] positionLongLats;
+
+	private Decision de;
+
+	public GridFrame() {
+		initializeVariables(start,m,n,spread);
+		
+		Container container = getContentPane();
+		container.setLayout(new FlowLayout());
+		
+		txtFieldStart = new JTextField(10);
+		txtFieldStart.addActionListener(this);
+		txtFieldLength = new JTextField(10);
+		txtFieldLength.addActionListener(this);
+		txtFieldWidth = new JTextField(10);
+		txtFieldWidth.addActionListener(this);
+		txtFieldSpread = new JTextField(10);
+		txtFieldSpread.addActionListener(this);
+		txtFieldStartLabel = new JLabel("Start: ");
+		txtFieldLengthLabel = new JLabel("Length: ");
+		txtFieldWidthLabel = new JLabel("Width: ");
+		txtFieldSpreadLabel = new JLabel("Spread: ");
+		
+		
+		container.add(txtFieldStartLabel);
+		container.add(txtFieldStart);
+		container.add(txtFieldLengthLabel);
+		container.add(txtFieldLength);
+		container.add(txtFieldWidthLabel);
+		container.add(txtFieldWidth);
+		container.add(txtFieldSpreadLabel);
+		container.add(txtFieldSpread);
 	}
 
 	public static void main(String str[]) {
-		GridFrame fenster = new GridFrame("Optimalste Route zeichnen");
+		GridFrame fenster = new GridFrame();
+		fenster.setTitle("Optimalste Route zeichnen");
 		fenster.setSize(940, 740);
 		fenster.setVisible(true);
 		fenster.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,32 +97,6 @@ public class GridFrame extends JFrame {
 		super.paint(g);
 		g.setColor(Color.BLACK);
 
-		Decision de = new Decision();
-
-		/* Define start and destination node */
-		Coordinate crd1 = new Coordinate();
-		Coordinate crd2 = new Coordinate();
-		crd1.setLongitudeInDegree(9.40);
-		crd1.setLatitudeInDegree(47.6);
-		crd2.setLongitudeInDegree(9.6);
-		crd2.setLatitudeInDegree(47.58);
-
-		/*
-		 * Set the graph with long/lat nodes and Get the graph with decision
-		 * tree
-		 */
-		de.graphe(crd1, crd2);
-		de.programmationDynamique(10);
-		graphList = de.getGraphList();// 15
-		loc = de.getLoc();
-
-		/*
-		 * The position-values for the nodes in integer, these values will be
-		 * used to draw the graph
-		 */
-		int[][][] positionLongLat = new int[de.getMaxi()][de.getMaxj()][2];
-		calculateMinMax(de);
-
 		/*
 		 * These are needed to normalize the distance between the nodes
 		 * Therefore it is now possible to draw all graphs
@@ -80,7 +104,7 @@ public class GridFrame extends JFrame {
 		double stepWidth = 840 / (longMax - longMin);
 		double stepHeight = 630 / (latMax - latMin);
 		double step = (stepWidth < stepHeight) ? stepWidth : stepHeight;
-		drawPointAndWindVector(g, de, positionLongLat, step);
+		drawPointAndWindVector(g, de, positionLongLats, step);
 
 		/*
 		 * Get the minimum timeOfArrival Node of every column x and save it to
@@ -111,11 +135,40 @@ public class GridFrame extends JFrame {
 			}
 		}
 
-		drawShortestPath(g, de, positionLongLat, positionOfMinArrival);
+		drawShortestPath(g, de, positionLongLats, positionOfMinArrival);
 
-		drawAllShortestPathOfNodes(g, de, positionLongLat, positionOfMinArrival);
+		drawAllShortestPathOfNodes(g, de, positionLongLats, positionOfMinArrival);
+		
 	}
 
+	/**
+	 * Initialize Variables, which we need to draw the graph.
+	 * This method is called in the constructor to not recalculate the 
+	 * graph, when swing calls the repaint method.
+	 */
+	private void initializeVariables(int start, int m, int n, int spread) {
+		de = new Decision();
+
+		/* Define start and destination node */
+		Coordinate crd1 = new Coordinate();
+		Coordinate crd2 = new Coordinate();
+		crd1.setLongitudeInDegree(9.40);
+		crd1.setLatitudeInDegree(47.6);
+		crd2.setLongitudeInDegree(9.6);
+		crd2.setLatitudeInDegree(47.58);
+
+		/*
+		 * Set the graph with long/lat nodes and Get the graph with decision
+		 * tree
+		 */
+		de.graphe(crd1, crd2,m,n);
+		de.programmationDynamique(start, spread);
+		graphList = de.getGraphList();// 15
+		loc = de.getLoc();
+		
+		positionLongLats = new int[de.getMaxi()][de.getMaxj()][2];
+		calculateMinMax(de);
+	}
 	/**
 	 * Determine the smallest/highest longitude and latitude of the hole
 	 * decision net. This will be used to normalize the graphic.
@@ -222,9 +275,11 @@ public class GridFrame extends JFrame {
 		double f = 0.05;
 		double factor = 0.005;
 
-		double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
-		double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
-
+//		double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
+//		double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
+		double v = de.getWvAdjusted().get(i - 1).get(j - 1).getV() * step * factor;
+		double u = -de.getWvAdjusted().get(i - 1).get(j - 1).getU() * step * factor;
+		
 		double x1 = positionLongLat[i - 1][j - 1][0];
 		double y1 = positionLongLat[i - 1][j - 1][1];
 		double x2 = x1 + l * v;
@@ -263,6 +318,8 @@ public class GridFrame extends JFrame {
 			int[][][] positionLongLat, double[][] positionOfMinArrival) {
 		g.setColor(Color.RED);
 		int z = 0;
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(3));
 		for (int i = 1; i < de.getMaxi(); i++) {
 			g.drawLine(
 					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][0],
@@ -296,20 +353,21 @@ public class GridFrame extends JFrame {
 		int x;
 		double pos;
 		double posx;
-		int shortestPoint = de.getMaxi() / 2;
+		int shortestPoint = de.getMaxj() / 2;
 		boolean atFirstTime = true;
+		Graphics2D g2 = (Graphics2D) g;
 		for (int i = 0; i < de.getMaxi(); i++) {
 			x = de.getMaxi() - i - 1;
 			if (x <= 0)
 				break;
-			for (int j = 0; j < de.getMaxi(); j++) {
+			for (int j = 0; j < de.getMaxj(); j++) {
 				/* Ignore the nodes with TOA <1000000 */
 				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
 					/* Save the previous and the current node */
 					pos = graphList.get(x).get(j).getPreviousNode()[1];
 					posx = graphList.get(x).get(j).getNode()[1];
 					/* The path from the destination node will be drawn green */
-					Graphics2D g2 = (Graphics2D) g;
+					
 					if (j == shortestPoint && atFirstTime) {
 						g2.setStroke(new BasicStroke(3));
 						g.setColor(Color.BLACK);
@@ -340,5 +398,24 @@ public class GridFrame extends JFrame {
 			}
 			atFirstTime = true;
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {		
+		if(txtFieldStart.getText()!=null && !txtFieldStart.getText().equals("")){
+			start = Integer.parseInt(txtFieldStart.getText());
+		}
+		if(txtFieldLength.getText()!=null && !txtFieldLength.getText().equals("")){
+			m = Integer.parseInt(txtFieldLength.getText());
+		}
+		if(txtFieldWidth.getText()!=null && !txtFieldWidth.getText().equals("")){
+			n = Integer.parseInt(txtFieldWidth.getText());
+		}
+		if(txtFieldSpread.getText()!=null && !txtFieldSpread.getText().equals("")){
+			spread = Integer.parseInt(txtFieldSpread.getText());
+		}
+		
+		initializeVariables(start,m, n,spread);
+		repaint();
 	}
 }

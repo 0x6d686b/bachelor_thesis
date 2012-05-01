@@ -38,12 +38,12 @@ public class SpeedComputation {
 	public double speedBoat(Coordinate crd1, Coordinate crd2, WindVector v) {
 
 		double wSpeed = v.getWindspeed();
-		System.out.println("wspeed: " + wSpeed);
+//		System.out.println("wspeed: " + wSpeed);
 		Track track = new TrackComputation().computeScalar(crd1, crd2);
 //		System.out.println(track.toString());
 		
 		double angle = computeAngle(track, v);
-		System.out.println("Angle: " + angle);
+//		System.out.println("Angle: " + angle);
 		return yacht(wSpeed, angle);
 	}
 
@@ -62,7 +62,7 @@ public class SpeedComputation {
 		// Abfrage machen
 //		double test = interpoler.interpolate(angle, wSpeed, field, bil);
 		double test = field.interpolate(angle, wSpeed, bil);
-		System.out.println("Interpoler:"+test);
+//		System.out.println("Interpoler:"+test);
 		return test;
 	}
 

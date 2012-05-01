@@ -2,12 +2,8 @@ package ch.zhaw.lakerouting.decisionScheme;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -29,14 +25,16 @@ import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
 public class Decision {
 
 	// contains the coordinates of the nodes as [theta, phi]
-	private ArrayList<ArrayList<Coordinate>> loc;
-	private AbstractList<AbstractList<WindVector>> wv;
+	private List<List<Coordinate>> loc;
+	private List<List<WindVector>> wv;
+	private List<List<WindVector>> wvAdjusted;
 	private int maxi;
 	private int maxj;
 	private int coord;
 	private SailingDuration sd = new SailingDuration();
 	private WindfieldContainer windFieldContainer;
-	private ArrayList<ArrayList<Graph>> graphList;
+	private List<List<Graph>> graphList;
+	private int spread;
 
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
@@ -86,10 +84,10 @@ public class Decision {
 	 *            - latitudes of the 2nd location
 	 * @return A three dimensional array with the nodes
 	 */
-	public void graphe(Coordinate crd1, Coordinate crd2) {
+	public void graphe(Coordinate crd1, Coordinate crd2, int m, int n) {
 		/* Convert from degree to radian */
-		ArrayList<ArrayList<Coordinate>> coordList = new ArrayList<ArrayList<Coordinate>>();
-		ArrayList<Coordinate> coordRow = new ArrayList<Coordinate>();
+		List<List<Coordinate>> coordList = new ArrayList<List<Coordinate>>();
+		List<Coordinate> coordRow = new ArrayList<Coordinate>();
 		Coordinate crd = new Coordinate();
 
 		double theta1 = crd1.getLongitudeInDegree();
@@ -99,10 +97,8 @@ public class Decision {
 
 		// local variables
 		double p, e, c, s;
-		int m, n;
 		p = 0.3;
-		m = 20;
-		n = 10;
+		
 
 		// the euclidian distance
 		e = Math.sqrt(Math.pow((theta2 - theta1), 2.0)
@@ -138,7 +134,7 @@ public class Decision {
 		setParameters(coordList);
 	}
 
-	private void setParameters(ArrayList<ArrayList<Coordinate>> coordList) {
+	private void setParameters(List<List<Coordinate>> coordList) {
 		setLoc(coordList);
 		setMaxi(coordList.size());
 		setMaxj(coordList.get(0).size());
@@ -154,14 +150,21 @@ public class Decision {
 	 *            - the starting node
 	 * @return A 2-dimensional arrayList with the decision tree
 	 */
-	public void programmationDynamique(int start) {
+	public void programmationDynamique(int start, int spread) {
+		
+		this.spread = spread;
 		// 5-dimensional Matrix, defined with the generics
-		graphList = new ArrayList<ArrayList<Graph>>();
-
+		graphList = new ArrayList<List<Graph>>();
+		
 		// Fill the Graph with default-values
 		initializeGraph();
 
 		getInterpolatedWindfield();
+		
+		// Clone the ArrayList to make possible, that we can change the object
+		// wvAdjusted, and not the object of the windfieldContainer
+		// TODO Replace 4 with getWindFieldIndex()
+		wvAdjusted = new ArrayList<List<WindVector>>(windFieldContainer.get(4).getField());
 
 		// fill at point (0,start) the node with values 1 and 0
 		setStartPoint(start);
@@ -170,12 +173,6 @@ public class Decision {
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i);
 		}
-		// for (ArrayList<Graph> d : graphList) {
-		// for(int i=0;i<d.size();i++)
-		// {
-		// System.out.println("PN: "+d.get(i).getPreviousNode()[0]+" "+d.get(i).getPreviousNode()[1]+" N: "+d.get(i).getNode()[0]+" "+d.get(i).getNode()[1]+" TA: "+d.get(i).getTimeOfArrival());
-		// }
-		// }
 	}
 
 	/**
@@ -228,7 +225,6 @@ public class Decision {
 									"C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat",
 									""), loader);
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -249,11 +245,11 @@ public class Decision {
 	 * @return The calculated 5-dimensional Array
 	 */
 	private void progrDyn(int r) {
-		int spread = 4;
 //		 int wf = getWindFieldIndex();
 //		 System.out.println("WF "+wf);
 		// wf = 4, 12, 13, 14
-		int wf = 3;
+		// TODO Replace 4 with getWindFieldIndex()
+		int wf = 4;
 
 		// table of arrival times
 		double[] etabli;
@@ -304,8 +300,7 @@ public class Decision {
 				if (position[k][1] >= 30d) {
 					int w_calculated = (int) position[k][1] / 30;
 					System.out.print("Position1: " + position[k][1]);
-					//int wf_neu = wf + w_calculated;
-					int wf_neu = 9;
+					int wf_neu = wf + w_calculated;
 					if(wf_neu>24) wf_neu = 24;
 					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
 					System.out.println(" Position2: " + position[k][1]);
@@ -321,6 +316,7 @@ public class Decision {
 				graphList.get(r).get(k).setTimeOfArrival(position[k][1]);
 			}
 		}
+		setWv(windFieldContainer.get(wf).getField());
 	}
 
 	private int getWindFieldIndex() {
@@ -348,21 +344,18 @@ public class Decision {
 	}
 
 	private double getEtabli(int r, int j, int k, int wf,
-			ArrayList<ArrayList<Graph>> graphList) {
+			List<List<Graph>> graphList) {
 		
 		setWv(windFieldContainer.get(wf).getField());
 		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
-//		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
-//				getWv().get(r - 1).get(j), getWv().get(r).get(k), distance);
-//		WindVector t1 = windFieldContainer.get(3).getField().get(r - 1).get(j);
-//		WindVector t2 = windFieldContainer.get(3).getField().get(r).get(k);
 		WindVector v1 = windFieldContainer.get(wf).getField().get(r - 1).get(j);
 		WindVector v2 = windFieldContainer.get(wf).getField().get(r).get(k);
 		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
 				v1, v2, distance);
-		double etabli = sailingDuration + graphList
+		sailingDuration = sailingDuration + graphList
 				.get(r - 1).get(j).getTimeOfArrival();
-		return etabli;
+		wvAdjusted.get(r).set(k, v2);
+		return sailingDuration;
 	}
 
 	/**
@@ -384,17 +377,17 @@ public class Decision {
 		return sphere;
 	}
 
-	public ArrayList<ArrayList<Graph>> getGraphList() {
+	public List<List<Graph>> getGraphList() {
 		return graphList;
 	}
 
 	// Just some default methods to get the value of this variables
 	// A common Java-usage
-	public ArrayList<ArrayList<Coordinate>> getLoc() {
+	public List<List<Coordinate>> getLoc() {
 		return loc;
 	}
 
-	public void setLoc(ArrayList<ArrayList<Coordinate>> loc) {
+	public void setLoc(List<List<Coordinate>> loc) {
 		this.loc = loc;
 	}
 
@@ -422,12 +415,19 @@ public class Decision {
 		this.coord = coord;
 	}
 
-	public AbstractList<AbstractList<WindVector>> getWv() {
+	public List<List<WindVector>> getWv() {
 		return wv;
 	}
 
-	public void setWv(AbstractList<AbstractList<WindVector>> wv) {
+	public void setWv(List<List<WindVector>> wv) {
 		this.wv = wv;
 	}
 
+	public List<List<WindVector>> getWvAdjusted() {
+		return wvAdjusted;
+	}
+
+	public void setWvAdjusted(List<List<WindVector>> wvAdjusted) {
+		this.wvAdjusted = wvAdjusted;
+	}
 }

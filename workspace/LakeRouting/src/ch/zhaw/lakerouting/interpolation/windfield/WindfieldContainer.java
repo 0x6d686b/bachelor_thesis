@@ -28,25 +28,20 @@
 package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
-import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URI;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 public class WindfieldContainer {
     private DateTime starttime;
     private DateTime endtime;
     private Interval delta;
-    private AbstractList<Windfield> fields;
+    private List<Windfield> fields;
 
     public final boolean bulkLoadWindfield (URI identifier, WindFieldLoader loader) {
         try {
@@ -62,7 +57,7 @@ public class WindfieldContainer {
         return true;
     }
 
-    public final WindfieldContainer bulkInterpolateOnDecisionNet (ArrayList<ArrayList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    public final WindfieldContainer bulkInterpolateOnDecisionNet (List<List<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
         WindfieldContainer container = new WindfieldContainer();
         container.fields = new ArrayList<Windfield>();
         container.starttime = this.starttime;

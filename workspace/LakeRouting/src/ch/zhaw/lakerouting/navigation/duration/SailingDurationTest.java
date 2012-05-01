@@ -7,8 +7,6 @@ import static org.hamcrest.CoreMatchers.*;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.decisionScheme.Decision;
-import ch.zhaw.lakerouting.navigation.speed.SpeedComputation;
 
 public class SailingDurationTest {
 
