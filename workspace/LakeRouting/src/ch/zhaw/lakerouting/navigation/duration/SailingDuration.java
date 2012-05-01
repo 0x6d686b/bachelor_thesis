@@ -2,13 +2,11 @@ package ch.zhaw.lakerouting.navigation.duration;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
-import ch.zhaw.lakerouting.decisionScheme.Decision;
 import ch.zhaw.lakerouting.navigation.speed.SpeedComputation;
 
 public class SailingDuration {
 
 	private SpeedComputation sp;
-	private double duration;
 
 	public SailingDuration() {
 		sp = new SpeedComputation();
@@ -23,6 +21,5 @@ public class SailingDuration {
 			return 0.0;
 		
 		return (2 * distance) / checkOfInfinity;
-			// System.out.println("Dur: "+duration);
 	}
 }

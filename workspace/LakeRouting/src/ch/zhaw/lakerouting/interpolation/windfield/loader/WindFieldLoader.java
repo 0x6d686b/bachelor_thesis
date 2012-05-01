@@ -30,9 +30,8 @@ package ch.zhaw.lakerouting.interpolation.windfield.loader;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 
 import java.net.URI;
-import java.util.AbstractList;
-import java.util.Calendar;
+import java.util.List;
 
 public interface WindFieldLoader {
-    AbstractList<Windfield> loadRessource(URI identifier);
+	List<Windfield> loadRessource(URI identifier);
 }

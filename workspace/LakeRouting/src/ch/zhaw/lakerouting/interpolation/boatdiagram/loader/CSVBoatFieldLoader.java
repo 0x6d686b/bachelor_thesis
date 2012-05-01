@@ -34,8 +34,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Loads the values for a boat speed diagram from a CSV file
@@ -45,7 +45,7 @@ import java.util.ArrayList;
  * @since 1.0
  */
 public class CSVBoatFieldLoader implements BoatFieldLoader {
-    private AbstractList<AbstractList<Double>> field;
+    private List<List<Double>> field;
 
     /**
      * Loads the indicated ressource
@@ -70,11 +70,11 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         }
 
         try {
-            field = new ArrayList<AbstractList<Double>>();
+            field = new ArrayList<List<Double>>();
             filereader.readHeaders();
             String[] headers = filereader.getHeaders();
             columns = filereader.getHeaderCount();
-            AbstractList<Double> header = new ArrayList<Double>();
+            ArrayList<Double> header = new ArrayList<Double>();
             header.add(0.0);
             for (int k = 1; k < columns; k++) {
                 header.add(Double.parseDouble(headers[k]));
@@ -82,7 +82,7 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
             field.add(header);
 
             while (filereader.readRecord()) {
-                AbstractList<Double> line = new ArrayList<Double>();
+            	ArrayList<Double> line = new ArrayList<Double>();
                 for (int k = 0; k < columns; k++) {
                     line.add(Double.parseDouble(filereader.get(k)));
                 }

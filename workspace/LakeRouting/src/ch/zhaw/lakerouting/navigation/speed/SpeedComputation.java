@@ -40,7 +40,8 @@ public class SpeedComputation {
 		double wSpeed = v.getWindspeed();
 //		System.out.println("wspeed: " + wSpeed);
 		Track track = new TrackComputation().computeScalar(crd1, crd2);
-
+//		System.out.println(track.toString());
+		
 		double angle = computeAngle(track, v);
 //		System.out.println("Angle: " + angle);
 		return yacht(wSpeed, angle);

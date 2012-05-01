@@ -32,4 +32,8 @@ public class Track {
 	public double getTrackLength(){
 		return Math.sqrt(Math.pow(getTrackLong(),2) + Math.pow(getTrackLat(),2));
 	}
+	
+	public String toString(){
+		return "Track - Length: "+getTrackLength()+" TrackLatitude: "+getTrackLat()+ " TrackLongitude: " + getTrackLong();
+	}
 }

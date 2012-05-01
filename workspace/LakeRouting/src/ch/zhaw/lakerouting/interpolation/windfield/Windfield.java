@@ -30,21 +30,16 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
-import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
-import org.junit.Test;
 
-import java.net.URI;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.AbstractList;
+import java.util.List;
 
 public class Windfield {
     private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
     private WindfieldMetadata metadata;
-    private AbstractList<AbstractList<WindVector>> field;
+    private List<List<WindVector>> field;
 
     public static Windfield getInstance() {
         return new Windfield();
@@ -63,9 +58,9 @@ public class Windfield {
         return vector;
     }
 
-    public AbstractList<AbstractList<WindVector>> interpolateOnDecisionNet(ArrayList<ArrayList<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
-        AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
-        AbstractList<WindVector> vectorRow;
+    public List<List<WindVector>> interpolateOnDecisionNet(List<List<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    	List<List<WindVector>> vectorField = new ArrayList<List<WindVector>>();
+    	List<WindVector> vectorRow;
         for (int i = 0; i < coordinates.size(); i++) {
         	vectorRow = new ArrayList<WindVector>();
             for (int j = 0; j < coordinates.get(0).size(); j++) {
@@ -76,9 +71,9 @@ public class Windfield {
         return vectorField;
     }
 
-    public final Windfield setField (WindfieldMetadata m, AbstractList<AbstractList<WindVector>> f) {
-        AbstractList<AbstractList<WindVector>> vectorField = new ArrayList<AbstractList<WindVector>>();
-        AbstractList<WindVector> vectorRow = new ArrayList<WindVector>();
+    public final Windfield setField (WindfieldMetadata m, List<List<WindVector>> f) {
+    	List<List<WindVector>> vectorField = new ArrayList<List<WindVector>>();
+    	List<WindVector> vectorRow = new ArrayList<WindVector>();
         for (int i = 0; i < f.size(); i++) {
             for (int j = 0; j < f.get(0).size(); j++) {
                 vectorRow.add(f.get(i).get(j));
@@ -99,7 +94,7 @@ public class Windfield {
         return field.get(x).get(y);
     }
 
-    public AbstractList<AbstractList<WindVector>> getField() {
+    public List<List<WindVector>> getField() {
         return field;
     }
 

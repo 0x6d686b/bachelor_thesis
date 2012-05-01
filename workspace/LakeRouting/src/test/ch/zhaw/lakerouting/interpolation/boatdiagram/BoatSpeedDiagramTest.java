@@ -32,7 +32,6 @@ import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagram;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.CSVBoatFieldLoader;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -41,7 +40,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
 

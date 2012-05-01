@@ -30,7 +30,6 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import org.joda.time.DateTime;
 
-import java.util.Calendar;
 
 public class WindfieldMetadata {
     private DateTime date;
