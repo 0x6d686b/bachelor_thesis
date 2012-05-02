@@ -31,6 +31,7 @@ import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 
 import java.util.AbstractList;
+import java.util.List;
 
 public class Rendering {
     private static int OFFSET = 1;
@@ -40,7 +41,7 @@ public class Rendering {
         s += SVGPrimitives.Initialization();
         double step_x = 98 / f.getMetadata().getCountLatVectors();
         double step_y = 98 / f.getMetadata().getCountLngVectors();
-        AbstractList<AbstractList<WindVector>> wv = f.getField();
+        List<List<WindVector>> wv = f.getField();
         for(int i = 0; i < wv.size(); ++i) {
             for (int j = 0; j < wv.get(0).size(); ++j) {
                 double u = wv.get(i).get(j).getU();
