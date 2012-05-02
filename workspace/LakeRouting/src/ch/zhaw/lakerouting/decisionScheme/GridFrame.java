@@ -28,6 +28,11 @@ import ch.zhaw.lakerouting.datatypes.Graph;
  */
 public class GridFrame extends JFrame implements ActionListener {
 
+	private static final int DEFAULT_START = 10;
+	private static final int DEFAULT_M = 20;
+	private static final int DEFAULT_N = 10;
+	private static final int DEFAULT_SPREAD = 10;
+
 	/** default variable, nothing special */
 	private static final long serialVersionUID = 1L;
 
@@ -46,21 +51,21 @@ public class GridFrame extends JFrame implements ActionListener {
 	private double latMin;
 	private double longMax;
 	private double latMax;
-	private int start = 10;
-	private int m = 20;
-	private int n = 10;
-	private int spread = 10;
+	private int startNode = DEFAULT_START;
+	private int m_Width = DEFAULT_M;
+	private int n_Height = DEFAULT_N;
+	private int spread = DEFAULT_SPREAD;
 
 	private int[][][] positionLongLats;
 
 	private Decision de;
 
 	public GridFrame() {
-		initializeVariables(start,m,n,spread);
-		
+		initializeVariables();
+
 		Container container = getContentPane();
 		container.setLayout(new FlowLayout());
-		
+
 		txtFieldStart = new JTextField(10);
 		txtFieldStart.addActionListener(this);
 		txtFieldLength = new JTextField(10);
@@ -73,8 +78,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		txtFieldLengthLabel = new JLabel("Length: ");
 		txtFieldWidthLabel = new JLabel("Width: ");
 		txtFieldSpreadLabel = new JLabel("Spread: ");
-		
-		
+
 		container.add(txtFieldStartLabel);
 		container.add(txtFieldStart);
 		container.add(txtFieldLengthLabel);
@@ -93,6 +97,9 @@ public class GridFrame extends JFrame implements ActionListener {
 		fenster.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Paint-Method This method is at first called when it starts to draw
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.setColor(Color.BLACK);
@@ -107,8 +114,8 @@ public class GridFrame extends JFrame implements ActionListener {
 		drawPointAndWindVector(g, de, positionLongLats, step);
 
 		/*
-		 * Get the minimum timeOfArrival Node of every column x and save it to
-		 * position
+		 * Get the minimum TimeOfArrival(TOA)-Node of every column x and save it
+		 * to position
 		 */
 		int x;
 		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
@@ -120,9 +127,8 @@ public class GridFrame extends JFrame implements ActionListener {
 		}
 
 		/*
-		 * Now we have the last minimum timeOfArrival Node of the last column.
-		 * We have now to go backwards started at the last minimum Node and save
-		 * the path
+		 * Now we have the last minimum TOA-Node of the last column. We have now
+		 * to go backwards started at the last minimum Node and save the path
 		 */
 		int w;
 		for (int i = 1; i <= de.getMaxi(); i++) {
@@ -137,16 +143,16 @@ public class GridFrame extends JFrame implements ActionListener {
 
 		drawShortestPath(g, de, positionLongLats, positionOfMinArrival);
 
-		drawAllShortestPathOfNodes(g, de, positionLongLats, positionOfMinArrival);
-		
+		drawAllShortestPathOfNodes(g, de, positionLongLats,
+				positionOfMinArrival);
+
 	}
 
 	/**
-	 * Initialize Variables, which we need to draw the graph.
-	 * This method is called in the constructor to not recalculate the 
-	 * graph, when swing calls the repaint method.
+	 * Initializes Variables, which we need to draw the graph. This method is
+	 * only called when it needs to recalculate the graph.
 	 */
-	private void initializeVariables(int start, int m, int n, int spread) {
+	private void initializeVariables() {
 		de = new Decision();
 
 		/* Define start and destination node */
@@ -159,19 +165,20 @@ public class GridFrame extends JFrame implements ActionListener {
 
 		/*
 		 * Set the graph with long/lat nodes and Get the graph with decision
-		 * tree
+		 * tree.
 		 */
-		de.graphe(crd1, crd2,m,n);
-		de.programmationDynamique(start, spread);
+		de.graphe(crd1, crd2, getM_Width(), getN_Height());
+		de.programmationDynamique(getStartNode(), getSpread());
 		graphList = de.getGraphList();// 15
 		loc = de.getLoc();
-		
+
 		positionLongLats = new int[de.getMaxi()][de.getMaxj()][2];
 		calculateMinMax(de);
 	}
+
 	/**
-	 * Determine the smallest/highest longitude and latitude of the hole
-	 * decision net. This will be used to normalize the graphic.
+	 * Determines the smallest/highest longitude and latitude of the hole
+	 * decision net. This is used to normalize the graphic.
 	 * 
 	 * @param de
 	 *            - object of the class Decision
@@ -203,9 +210,9 @@ public class GridFrame extends JFrame implements ActionListener {
 	/**
 	 * Draws the points on the decision-net related to longitudes and latitudes
 	 * values. Draws also on every node the interpolated windvector. If the
-	 * point has a connection to the column before, it will be BLUE. Otherwise
-	 * if it hasn't any connection, it will be DARK_GRAY. The windvectors with
-	 * the arrows will be ORANGE.
+	 * point has a connection to the column before, it is BLUE. Otherwise if it
+	 * hasn't any connection, it is DARK_GRAY. The windvectors with the arrows
+	 * are ORANGE.
 	 * 
 	 * @param g
 	 *            - graphics (to draw)
@@ -219,11 +226,13 @@ public class GridFrame extends JFrame implements ActionListener {
 	 */
 	private void drawPointAndWindVector(Graphics g, Decision de,
 			int[][][] positionLongLat, double step) {
+		/* Iterate over all Nodes. */
 		for (int i = 1; i <= de.getMaxi(); i++) {
 			for (int j = 1; j <= de.getMaxj(); j++) {
 				/*
-				 * We have now to multiply the value with the step to normalize
-				 * the graph to the screen 50 is the padding to left and top
+				 * We have now to multiply the value with the 'step' to
+				 * normalize the graph to the screen. 50 is the padding to left
+				 * and top
 				 */
 				positionLongLat[i - 1][j - 1][0] = (int) ((loc.get(i - 1)
 						.get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
@@ -231,8 +240,7 @@ public class GridFrame extends JFrame implements ActionListener {
 						.get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
 
 				/*
-				 * Draw the points which are TimeOfArrival>=100000 black
-				 * otherwise blue.
+				 * Draw the points black which are TOA >= 100000 otherwise blue.
 				 */
 				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
 					g.fillOval(positionLongLat[i - 1][j - 1][0],
@@ -243,9 +251,8 @@ public class GridFrame extends JFrame implements ActionListener {
 							positionLongLat[i - 1][j - 1][1], 4, 4);
 				}
 
-				// System.out.println("WV "+i+j+":"+de.getWv().get(i-1).get(j-1).toString());
+				/* Draws the windvectors */
 				g.setColor(Color.orange);
-				// TODO Draw the different wf's
 				drawLineWithArrow(g, de, positionLongLat, step, i, j);
 				g.setColor(Color.DARK_GRAY);
 			}
@@ -275,11 +282,14 @@ public class GridFrame extends JFrame implements ActionListener {
 		double f = 0.05;
 		double factor = 0.005;
 
-//		double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
-//		double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
-		double v = de.getWvAdjusted().get(i - 1).get(j - 1).getV() * step * factor;
-		double u = -de.getWvAdjusted().get(i - 1).get(j - 1).getU() * step * factor;
-		
+		// double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
+		// double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
+		/* Uses the variable WindField */
+		double v = de.getWvAdjusted().get(i - 1).get(j - 1).getV() * step
+				* factor;
+		double u = -de.getWvAdjusted().get(i - 1).get(j - 1).getU() * step
+				* factor;
+
 		double x1 = positionLongLat[i - 1][j - 1][0];
 		double y1 = positionLongLat[i - 1][j - 1][1];
 		double x2 = x1 + l * v;
@@ -292,6 +302,9 @@ public class GridFrame extends JFrame implements ActionListener {
 		double calcV = positionLongLat[i - 1][j - 1][0] + v;
 		double calcU = positionLongLat[i - 1][j - 1][1] + u;
 
+		/* Structure, to draw the arrow at the end of the line. */
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(2));
 		g.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
 		g.drawLine((int) x2, (int) y2, (int) x3, (int) y3);
 		g.drawLine((int) x3, (int) y3, (int) calcV, (int) calcU);
@@ -300,9 +313,9 @@ public class GridFrame extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Draws the shortest path in red, this is shortest route from the start node up
-	 * to the last column. The arrival-node may not be the same as the destination-node.
-	 * Hence it isn't the most optimal route.
+	 * Draws the shortest path in red. This is shortest route from the start
+	 * node up to the last column. The arrival-node may not be the same as the
+	 * destination-node. Hence it isn't the most optimal route.
 	 * 
 	 * @param g
 	 *            - graphics (to draw)
@@ -332,9 +345,9 @@ public class GridFrame extends JFrame implements ActionListener {
 
 	/**
 	 * Beginning from the last column, it draws for every node the shortest path
-	 * to the column before, always one path for one node. 
-	 * The destination point is in our algorithm exactly in the middle of the last 
-	 * column. So it also draws started there the most optimal route in green.
+	 * to the column before, always one path for one node. The destination point
+	 * is in our algorithm exactly in the middle of the last column. So it also
+	 * draws started there the most optimal route in green.
 	 * 
 	 * @param g
 	 *            - graphics (to draw)
@@ -356,36 +369,43 @@ public class GridFrame extends JFrame implements ActionListener {
 		int shortestPoint = de.getMaxj() / 2;
 		boolean atFirstTime = true;
 		Graphics2D g2 = (Graphics2D) g;
+		/* Iterate over all Nodes */
 		for (int i = 0; i < de.getMaxi(); i++) {
 			x = de.getMaxi() - i - 1;
 			if (x <= 0)
 				break;
 			for (int j = 0; j < de.getMaxj(); j++) {
-				/* Ignore the nodes with TOA <1000000 */
+				/* Ignore the nodes with TOA < 1000000 */
 				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
 					/* Save the previous and the current node */
 					pos = graphList.get(x).get(j).getPreviousNode()[1];
 					posx = graphList.get(x).get(j).getNode()[1];
-					/* The path from the destination node will be drawn green */
-					
-					if (j == shortestPoint && atFirstTime) {
-						g2.setStroke(new BasicStroke(3));
+
+					/* The path from the destination-Node will be drawn green */
+					if (j == shortestPoint && atFirstTime){
+						/*
+						 * On every Node from the destination-Node is TOA
+						 * written.
+						 */
 						g.setColor(Color.BLACK);
 						DecimalFormat f = new DecimalFormat("#0.00");
 						g.drawString(
-								""
-										+ f.format(graphList.get(x).get(j)
-												.getTimeOfArrival()),
+								f.format(graphList.get(x).get(j)
+										.getTimeOfArrival())
+										+ "",
 								positionLongLat[x][(int) posx][0],
 								positionLongLat[x][(int) posx][1]);
+						
+						/* Set the color to green and make it bold */
+						g2.setStroke(new BasicStroke(3));
 						g.setColor(Color.GREEN);
 						shortestPoint = (int) pos;
 						atFirstTime = false;
 
 					} else {
 						g.setColor(Color.lightGray);
-
 						g2.setStroke(new BasicStroke(1));
+						
 						/* Disallow to draw the shortest path again */
 						if (j == (int) positionOfMinArrival[x - 1][1])
 							continue;
@@ -400,22 +420,62 @@ public class GridFrame extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * This method will be called, when a value is submitted in the TextFields.
+	 */
 	@Override
-	public void actionPerformed(ActionEvent arg0) {		
-		if(txtFieldStart.getText()!=null && !txtFieldStart.getText().equals("")){
-			start = Integer.parseInt(txtFieldStart.getText());
+	public void actionPerformed(ActionEvent arg0) {
+		if (txtFieldStart.getText() != null
+				&& !txtFieldStart.getText().equals("")) {
+			setStartNode(Integer.parseInt(txtFieldStart.getText()));
 		}
-		if(txtFieldLength.getText()!=null && !txtFieldLength.getText().equals("")){
-			m = Integer.parseInt(txtFieldLength.getText());
+		if (txtFieldLength.getText() != null
+				&& !txtFieldLength.getText().equals("")) {
+			setM_Width(Integer.parseInt(txtFieldLength.getText()));
 		}
-		if(txtFieldWidth.getText()!=null && !txtFieldWidth.getText().equals("")){
-			n = Integer.parseInt(txtFieldWidth.getText());
+		if (txtFieldWidth.getText() != null
+				&& !txtFieldWidth.getText().equals("")) {
+			setN_Height(Integer.parseInt(txtFieldWidth.getText()));
 		}
-		if(txtFieldSpread.getText()!=null && !txtFieldSpread.getText().equals("")){
-			spread = Integer.parseInt(txtFieldSpread.getText());
+		if (txtFieldSpread.getText() != null
+				&& !txtFieldSpread.getText().equals("")) {
+			setSpread(Integer.parseInt(txtFieldSpread.getText()));
 		}
-		
-		initializeVariables(start,m, n,spread);
+
+		initializeVariables();
 		repaint();
+	}
+
+	/* Some getter & setter Methods */
+	public int getStartNode() {
+		return startNode;
+	}
+
+	private void setStartNode(int startNode) {
+		this.startNode = startNode;
+	}
+
+	public int getM_Width() {
+		return m_Width;
+	}
+
+	private void setM_Width(int m_Width) {
+		this.m_Width = m_Width;
+	}
+
+	public int getN_Height() {
+		return n_Height;
+	}
+
+	private void setN_Height(int n_Height) {
+		this.n_Height = n_Height;
+	}
+
+	public int getSpread() {
+		return spread;
+	}
+
+	private void setSpread(int spread) {
+		this.spread = spread;
 	}
 }
