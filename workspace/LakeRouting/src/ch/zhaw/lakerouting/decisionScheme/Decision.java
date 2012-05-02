@@ -24,14 +24,14 @@ import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
  */
 public class Decision {
 
-	// contains the coordinates of the nodes as [theta, phi]
+	/* Contains the coordinates of the nodes */
 	private List<List<Coordinate>> loc;
 	private List<List<WindVector>> wv;
 	private List<List<WindVector>> wvAdjusted;
 	private int maxi;
 	private int maxj;
 	private int coord;
-	private SailingDuration sd = new SailingDuration();
+	private SailingDuration sd;
 	private WindfieldContainer windFieldContainer;
 	private List<List<Graph>> graphList;
 	private int spread;
@@ -39,10 +39,10 @@ public class Decision {
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
 	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
+	 * @param crd1
+	 *            - Coordinates of the first location
+	 * @param crd2
+	 *            - Coordinates of the second location
 	 * @return The distance
 	 */
 	public double ortho(Coordinate crd1, Coordinate crd2) {
@@ -64,15 +64,12 @@ public class Decision {
 				* Math.acos(Math.cos(theta1 - theta2) * Math.cos(phi1)
 						* Math.cos(phi2) + Math.sin(phi1) * Math.sin(phi2))
 				/ (2 * Math.PI);
-		// System.out.println("DISTANCE: "+distance);
-		// System.out.println("DISTANCE: "+distance*1.852);
 		return distance;
 	}
 
 	/**
 	 * Enables the construction of a grid of nodes with coordinates, but without
 	 * the decision tree
-	 * 
 	 * 
 	 * @param theta1
 	 *            - longitudes of the 1st location
@@ -85,7 +82,7 @@ public class Decision {
 	 * @return A three dimensional array with the nodes
 	 */
 	public void graphe(Coordinate crd1, Coordinate crd2, int m, int n) {
-		/* Convert from degree to radian */
+		/* The new graph with coordinates of the nodes */
 		List<List<Coordinate>> coordList = new ArrayList<List<Coordinate>>();
 		List<Coordinate> coordRow = new ArrayList<Coordinate>();
 		Coordinate crd = new Coordinate();
@@ -95,31 +92,30 @@ public class Decision {
 		double theta2 = crd2.getLongitudeInDegree();
 		double phi2 = crd2.getLatitudeInDegree();
 
-		// local variables
+		/* local variables */
 		double p, e, c, s;
 		p = 0.3;
-		
 
-		// the euclidian distance
+		/* the euclidian distance */
 		e = Math.sqrt(Math.pow((theta2 - theta1), 2.0)
 				+ Math.pow((phi2 - phi1), 2.0));
 		// System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
-		// cosinus value
+		/* Cosinus value */
 		c = (theta2 - theta1) / e;
-		// sinus value
+		/* Sinus value */
 		s = (phi2 - phi1) / e;
 
-		// rotation Matrix
+		/* Rotation Matrix */
 		double[][] M = new double[2][2];
 		M[0][0] = c;
 		M[0][1] = -s;
 		M[1][0] = s;
 		M[1][1] = c;
 
-		// create the table
+		/* Create the table */
 		for (int i = 0; i <= m; i++) {
 			for (int j = -n; j <= n; j++) {
-				// fill the table
+				/* Fill the table */
 				crd.setLongitudeInDegree(M[0][0] * (e * i / m) + M[0][1]
 						* (p * e * j / (2 * n)) + theta1);
 				crd.setLatitudeInDegree(M[1][0] * (e * i / m) + M[1][1]
@@ -134,6 +130,12 @@ public class Decision {
 		setParameters(coordList);
 	}
 
+	/**
+	 * Setting the global attributes
+	 * 
+	 * @param coordList
+	 *            - The graph with coordinates
+	 */
 	private void setParameters(List<List<Coordinate>> coordList) {
 		setLoc(coordList);
 		setMaxi(coordList.size());
@@ -151,33 +153,36 @@ public class Decision {
 	 * @return A 2-dimensional arrayList with the decision tree
 	 */
 	public void programmationDynamique(int start, int spread) {
-		
+
 		this.spread = spread;
-		// 5-dimensional Matrix, defined with the generics
+		/* 5-dimensional Matrix, defined with a generic */
 		graphList = new ArrayList<List<Graph>>();
-		
-		// Fill the Graph with default-values
+
 		initializeGraph();
 
 		getInterpolatedWindfield();
-		
-		// Clone the ArrayList to make possible, that we can change the object
-		// wvAdjusted, and not the object of the windfieldContainer
-		// TODO Replace 4 with getWindFieldIndex()
-		wvAdjusted = new ArrayList<List<WindVector>>(windFieldContainer.get(4).getField());
 
-		// fill at point (0,start) the node with values 1 and 0
+		/*
+		 * Clone the ArrayList to make possible, that we can change the object
+		 * wvAdjusted, and not the object of the windfieldContainer.
+		 */
+		// TODO Replace 3 with getWindFieldIndex()
+		setWvAdjusted(new ArrayList<List<WindVector>>(windFieldContainer.get(3)
+				.getField()));
+		sd = new SailingDuration();
+
+		/* Fill at point (0,start) the node with values 1 and 0 */
 		setStartPoint(start);
 
-		// call the method progrDyn to calculate the times
+		/* Call the method progrDyn to calculate the times */
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i);
 		}
 	}
 
 	/**
-	 * Fills the graph at the beginning with default values 0 for Nodes 1000000
-	 * for TimeOfArrival
+	 * Fills the graph at the beginning with default values, 0 for Nodes and
+	 * 1000000 for TimeOfArrival
 	 */
 	private void initializeGraph() {
 		Graph graph;
@@ -211,9 +216,10 @@ public class Decision {
 
 	/**
 	 * Gets the windFields from the File listed and returns the interpolated
-	 * windVectors for the nodes over all Fields
+	 * windVectors for the nodes over all windFields
 	 */
 	private void getInterpolatedWindfield() {
+		/* Load the file */
 		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
 		InterpolationAlgorithm bil = new Bilinear();
 		windFieldContainer = new WindfieldContainer();
@@ -228,11 +234,10 @@ public class Decision {
 			e.printStackTrace();
 		}
 
+		/* Interpolate all windFields at once */
 		windFieldContainer = windFieldContainer.bulkInterpolateOnDecisionNet(
-				loc, bil);
+				getLoc(), bil);
 		System.out.println("WF " + windFieldContainer.getDelta().toString());
-
-		// setWv(foo.get(0).interpolateOnDecisionNet(loc, bil));
 	}
 
 	/**
@@ -245,48 +250,53 @@ public class Decision {
 	 * @return The calculated 5-dimensional Array
 	 */
 	private void progrDyn(int r) {
-//		 int wf = getWindFieldIndex();
-//		 System.out.println("WF "+wf);
+		// int wf = getWindFieldIndex();
+		// System.out.println("WF "+wf);
 		// wf = 4, 12, 13, 14
-		// TODO Replace 4 with getWindFieldIndex()
-		int wf = 4;
+		// TODO Replace 3 with getWindFieldIndex()
+		int wf = 3;
 
-		// table of arrival times
+		/* Table of arrival times */
 		double[] etabli;
 		// Integer[] idx;
 		double min;
 		double[][] position = new double[getMaxj()][2];
 		double[] node;
 
-		// for iterator for all nodes in the r-column
+		/* For-iterator over all nodes in the column r. k - the current node */
 		for (int k = 0; k < getMaxj(); k++) {
 			min = 1000000;
 
 			etabli = new double[getMaxj()];
 			// idx = new Integer[getMaxj()];
-			// compares the node in the r-column with all the previous nodes
-			// loc[r-1][j] the previous node, loc[r][k] the current node
+
+			/*
+			 * Compares the current node (k) of the column r with all previous
+			 * nodes (j)
+			 */
 			for (int j = 0; j < getMaxj(); j++) {
-				// NEW
-				
-					etabli[j] = getEtabli(r, j, k, wf, graphList);
-					// idx[j]=j;
-					// finds the position of a minimum value and saves it into
-					// position
-					if (etabli[j] < min) {
-						if (Math.abs(k - j) <= spread) {
-							min = etabli[j];
-							position[k][0] = j;
-							position[k][1] = etabli[j];
-						}else{
-							position[k][0] = j;
-							position[k][1] = 1000000;
-						}
+
+				etabli[j] = getEtabli(r, j, k, wf);
+				// idx[j]=j;
+
+				/*
+				 * Saves the minimum distance and makes sure that the node is in
+				 * the spread.
+				 */
+				if (etabli[j] < min) {
+					if (Math.abs(k - j) <= spread) {
+						min = etabli[j];
+						position[k][0] = j;
+						position[k][1] = etabli[j];
+					} else {
+						position[k][0] = j;
+						position[k][1] = 1000000;
 					}
+				}
 			}
 			/*
-			 * Sort the minimum-values So we have the other shortest values if
-			 * it doesnt match with spread
+			 * Sort the minimum-values. So we have the other shortest values if
+			 * it doesn't match with spread (Not necessary yet).
 			 */
 			// final double[] etabli2 = etabli;
 			// Arrays.sort(idx, new Comparator<Integer>() {
@@ -294,17 +304,27 @@ public class Decision {
 			// return Double.compare(etabli2[o1], etabli2[o2]);
 			// }
 			// });
-			
-			// computes the spread and updates the matrix graphList
+
+			/* Computes the spread and updates the matrix graphList */
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
+				/*
+				 * If the time is greater than 30, it will choose another
+				 * windField and compute the distance again.
+				 */
 				if (position[k][1] >= 30d) {
 					int w_calculated = (int) position[k][1] / 30;
 					System.out.print("Position1: " + position[k][1]);
 					int wf_neu = wf + w_calculated;
-					if(wf_neu>24) wf_neu = 24;
-					position[k][1] = getEtabli(r, (int) position[k][0], k, wf_neu, graphList);
+					if (wf_neu > 24)
+						wf_neu = 24;
+					position[k][1] = getEtabli(r, (int) position[k][0], k,
+							wf_neu);
 					System.out.println(" Position2: " + position[k][1]);
 				}
+				/*
+				 * Setting the graphList with current position and shortest
+				 * distance.
+				 */
 				node = new double[2];
 				node[0] = r - 1;
 				node[1] = position[k][0];
@@ -319,13 +339,18 @@ public class Decision {
 		setWv(windFieldContainer.get(wf).getField());
 	}
 
+	/**
+	 * Computes the index of the windField by the current time.
+	 * 
+	 * @return the index of the windField
+	 */
 	private int getWindFieldIndex() {
 
 		DateTime dt = new DateTime();
 		int dayOfMonthWF = windFieldContainer.get(0).getMetadata().getDate()
 				.dayOfMonth().get();
 		int dayOfMonth = dt.getDayOfMonth();
-		
+
 		// TODO To check, if the day of the windfield is the same like the
 		// current day
 
@@ -343,24 +368,36 @@ public class Decision {
 		return difference;
 	}
 
-	private double getEtabli(int r, int j, int k, int wf,
-			List<List<Graph>> graphList) {
-		
+	/**
+	 * Computes the distance between two locations considering the windvectors.
+	 * 
+	 * @param r
+	 *            - column index
+	 * @param j
+	 *            - index of the node in the column before
+	 * @param k
+	 *            - index of the current-Node
+	 * @param wf
+	 *            - index of the windField
+	 * @return the distance
+	 */
+	private double getEtabli(int r, int j, int k, int wf) {
+
 		setWv(windFieldContainer.get(wf).getField());
 		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
 		WindVector v1 = windFieldContainer.get(wf).getField().get(r - 1).get(j);
 		WindVector v2 = windFieldContainer.get(wf).getField().get(r).get(k);
-		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j), loc.get(r).get(k),
-				v1, v2, distance);
-		sailingDuration = sailingDuration + graphList
-				.get(r - 1).get(j).getTimeOfArrival();
-		wvAdjusted.get(r).set(k, v2);
+		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j),
+				loc.get(r).get(k), v1, v2, distance);
+		sailingDuration = sailingDuration
+				+ graphList.get(r - 1).get(j).getTimeOfArrival();
+		getWvAdjusted().get(r).set(k, v2);
 		return sailingDuration;
 	}
 
 	/**
 	 * Computes the coordinates of the sphere to a vector in 3d, which we yet
-	 * don't use now
+	 * don't use now.
 	 * 
 	 * @param theta
 	 * @param phi
@@ -377,12 +414,15 @@ public class Decision {
 		return sphere;
 	}
 
+	/*
+	 * Just some default methods to get the value of this variables A common
+	 * Java-usage
+	 */
+
 	public List<List<Graph>> getGraphList() {
 		return graphList;
 	}
 
-	// Just some default methods to get the value of this variables
-	// A common Java-usage
 	public List<List<Coordinate>> getLoc() {
 		return loc;
 	}
