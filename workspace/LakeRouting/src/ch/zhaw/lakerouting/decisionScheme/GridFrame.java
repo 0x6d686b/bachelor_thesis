@@ -227,28 +227,28 @@ public class GridFrame extends JFrame implements ActionListener {
 	private void drawPointAndWindVector(Graphics g, Decision de,
 			int[][][] positionLongLat, double step) {
 		/* Iterate over all Nodes. */
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			for (int j = 1; j <= de.getMaxj(); j++) {
+		for (int i = 0; i < de.getMaxi(); i++) {
+			for (int j = 0; j < de.getMaxj(); j++) {
 				/*
 				 * We have now to multiply the value with the 'step' to
 				 * normalize the graph to the screen. 50 is the padding to left
 				 * and top
 				 */
-				positionLongLat[i - 1][j - 1][0] = (int) ((loc.get(i - 1)
-						.get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
-				positionLongLat[i - 1][j - 1][1] = 360 - (int) ((loc.get(i - 1)
-						.get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
+				positionLongLat[i][j][0] = (int) ((loc.get(i)
+						.get(j).getLongitudeInDegree() - longMin) * step) + 50;
+				positionLongLat[i][j][1] = 360 - (int) ((loc.get(i)
+						.get(j).getLatitudeInDegree() - latMin) * step) + 50;
 
 				/*
 				 * Draw the points black which are TOA >= 100000 otherwise blue.
 				 */
-				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
-					g.fillOval(positionLongLat[i - 1][j - 1][0],
-							positionLongLat[i - 1][j - 1][1], 4, 4);
+				if (graphList.get(i).get(j).getTimeOfArrival() >= 1000000d) {
+					g.fillOval(positionLongLat[i][j][0],
+							positionLongLat[i][j][1], 4, 4);
 				} else {
 					g.setColor(Color.BLUE);
-					g.fillOval(positionLongLat[i - 1][j - 1][0],
-							positionLongLat[i - 1][j - 1][1], 4, 4);
+					g.fillOval(positionLongLat[i][j][0],
+							positionLongLat[i][j][1], 4, 4);
 				}
 
 				/* Draws the windvectors */
@@ -285,13 +285,13 @@ public class GridFrame extends JFrame implements ActionListener {
 		// double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
 		// double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
 		/* Uses the variable WindField */
-		double v = de.getWvAdjusted().get(i - 1).get(j - 1).getV() * step
+		double v = de.getWvAdjusted().get(i).get(j).getV() * step
 				* factor;
-		double u = -de.getWvAdjusted().get(i - 1).get(j - 1).getU() * step
+		double u = -de.getWvAdjusted().get(i).get(j).getU() * step
 				* factor;
 
-		double x1 = positionLongLat[i - 1][j - 1][0];
-		double y1 = positionLongLat[i - 1][j - 1][1];
+		double x1 = positionLongLat[i][j][0];
+		double y1 = positionLongLat[i][j][1];
 		double x2 = x1 + l * v;
 		double y2 = y1 + l * u;
 		double x3 = x1 + l * v - f * u;
@@ -299,8 +299,8 @@ public class GridFrame extends JFrame implements ActionListener {
 		double x4 = x1 + l * v + f * u;
 		double y4 = y1 + l * u - f * v;
 
-		double calcV = positionLongLat[i - 1][j - 1][0] + v;
-		double calcU = positionLongLat[i - 1][j - 1][1] + u;
+		double calcV = positionLongLat[i][j][0] + v;
+		double calcU = positionLongLat[i][j][1] + u;
 
 		/* Structure, to draw the arrow at the end of the line. */
 		Graphics2D g2 = (Graphics2D) g;
