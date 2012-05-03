@@ -117,12 +117,8 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Get the minimum TimeOfArrival(TOA)-Node of every column x and save it
 		 * to position
 		 */
-		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
-		for (int i = 0; i < de.getMaxi(); i++) {
-			Graph obj = (Graph) Collections.min(graphList.get(i));
-			positionOfMinArrival[i][0] = obj.getPreviousNode()[1];
-			positionOfMinArrival[i][1] = graphList.get(i).indexOf(obj);
-		}
+        double [][] positionOfMinArrival = new double[de.getMaxi()][2];
+        positionOfMinArrival[de.getMaxi() - 1][0] = Collections.min(graphList.get(de.getMaxi() - 1)).getPreviousNode()[1];
 
 		/*
 		 * Now we have the last minimum TOA-Node of the last column. We have now
@@ -133,9 +129,7 @@ public class GridFrame extends JFrame implements ActionListener {
 			w = de.getMaxi() - i;
 			if (w >= 1) {
 				positionOfMinArrival[w - 1][1] = positionOfMinArrival[w][0];
-				positionOfMinArrival[w - 1][0] = graphList.get(w)
-						.get((int) positionOfMinArrival[w][0])
-						.getPreviousNode()[1];
+				positionOfMinArrival[w - 1][0] = graphList.get(w).get((int) positionOfMinArrival[w][0]).getPreviousNode()[1];
 			}
 		}
 
