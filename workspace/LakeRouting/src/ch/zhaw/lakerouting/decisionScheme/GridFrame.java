@@ -124,14 +124,10 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Now we have the last minimum TOA-Node of the last column. We have now
 		 * to go backwards started at the last minimum Node and save the path
 		 */
-		int w;
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			w = de.getMaxi() - i;
-			if (w >= 1) {
-				positionOfMinArrival[w - 1][1] = positionOfMinArrival[w][0];
-				positionOfMinArrival[w - 1][0] = graphList.get(w).get((int) positionOfMinArrival[w][0]).getPreviousNode()[1];
-			}
-		}
+        for (int i = de.getMaxi() - 1; i > 0; i--) {
+            positionOfMinArrival[i - 1][1] = positionOfMinArrival[i][0];
+            positionOfMinArrival[i - 1][0] = graphList.get(i).get((int) positionOfMinArrival[i][0]).getPreviousNode()[1];
+        }
 
 		drawShortestPath(g, de, positionLongLats, positionOfMinArrival);
 
