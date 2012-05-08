@@ -27,6 +27,7 @@
 
 package ch.zhaw.lakerouting.rendering;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 
@@ -34,24 +35,32 @@ import java.util.AbstractList;
 import java.util.List;
 
 public class Rendering {
-    private static int OFFSET = 1;
+    private static int OFFSET = 2;
 
     public String renderWindfield(Windfield f) {
         String s = new String();
         s += SVGPrimitives.Initialization();
-        double step_x = 98 / f.getMetadata().getCountLatVectors();
-        double step_y = 98 / f.getMetadata().getCountLngVectors();
+        /**
+         * A word of warning:
+         * This only works if the delta_lat and delta_lng are of the same
+         * value meaning we have a squarish windfield grid. If not, this
+         * has to be reworked and you have to differ between step_x and
+         * step_y since they will be different when you want to scale
+         * proportionally.
+         */
+        double step = Math.min(96 / f.getMetadata().getCountLatVectors() , 96 / f.getMetadata().getCountLngVectors());
         List<List<WindVector>> wv = f.getField();
         for(int i = 0; i < wv.size(); ++i) {
             for (int j = 0; j < wv.get(0).size(); ++j) {
                 double u = wv.get(i).get(j).getU();
                 double v = wv.get(i).get(j).getV();
 
-                s += SVGPrimitives.Windarrow(step_x * j + OFFSET, step_y * i + OFFSET, u, v, "Black");
+                s += SVGPrimitives.Windarrow(step * j + OFFSET, step * i + OFFSET, u, v, "Black");
             }
         }
 
-        s += SVGPrimitives.Infobox(f.getMetadata().getDate(),
+        s += SVGPrimitives.Infobox( (4 * OFFSET + wv.get(0).size()),
+                                    f.getMetadata().getDate(),
                                     f.getMetadata().getDate(),
                                     f.getMetadata().getNorthWestCorner(),
                                     f.getMetadata().getSouthEastCorner(),
@@ -62,4 +71,5 @@ public class Rendering {
 
         return s;
     }
+
 }

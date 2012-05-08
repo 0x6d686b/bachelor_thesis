@@ -93,7 +93,7 @@ public void testInfobox() throws Exception {
     String boattype = "Black Pearl";
     DateTime fieldtime = new DateTime(2012, 04, 13, 13, 00, DateTimeZone.UTC);
     String resolution = "20x14";
-    System.out.println(SVGPrimitives.Infobox(starttime,arrivaltime,start,end,boattype,fieldtime,resolution));
+    System.out.println(SVGPrimitives.Infobox(20d, starttime,arrivaltime,start,end,boattype,fieldtime,resolution));
 } 
 
 /** 

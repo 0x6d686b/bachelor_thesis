@@ -38,6 +38,8 @@ import org.junit.Test;
 import org.junit.Before; 
 import org.junit.After;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.net.URI;
 
 /** 
@@ -71,7 +73,17 @@ public void testRenderWindfield() throws Exception {
 
     foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
     Rendering rendering = new Rendering();
-    System.out.println(rendering.renderWindfield(foo.get(0)));
+    // System.out.println(rendering.renderWindfield(foo.get(0)));
+    try{
+        // Create file
+        FileWriter fstream = new FileWriter("/Users/mhk/Desktop/foo.svg");
+        BufferedWriter out = new BufferedWriter(fstream);
+        out.write(rendering.renderWindfield(foo.get(0)));
+        //Close the output stream
+        out.close();
+    }catch (Exception e){//Catch exception if any
+        System.err.println("Error: " + e.getMessage());
+    }
 } 
 
 

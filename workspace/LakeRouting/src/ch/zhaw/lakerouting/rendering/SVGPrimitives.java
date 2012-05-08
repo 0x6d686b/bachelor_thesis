@@ -81,10 +81,10 @@ public class SVGPrimitives {
         return s;
     }
 
-    public static String Infobox(DateTime starttime, DateTime arrivaltime, Coordinate start, Coordinate end, String boattype, DateTime fieldFiletime, String netresolution) {
+    public static String Infobox(double verticalOffset, DateTime starttime, DateTime arrivaltime, Coordinate start, Coordinate end, String boattype, DateTime fieldFiletime, String netresolution) {
         String s = new String();
 
-        s += "  <svg x=\"5\" y=\"90\" width=\"100mm\" height=\"10\" viewbox=\"0 0 500 200\">\n" +
+        s += "  <svg x=\"5\" y=\"" + verticalOffset + "\" width=\"100mm\" height=\"10\" viewbox=\"0 0 500 200\">\n" +
                 "  <rect x=\"1\" y=\"1\" width=\"50\" height=\"8\"\n" +
                 "    fill=\"white\" stroke=\"black\" stroke-width=\"0.1\" />\n" +
                 "  <text x=\"1\" y=\"2.5\" font-size=\"1.4\">Starttime: <tspan font-weight=\"bold\">"+ starttime.toString("HH:mmz") +"</tspan></text>\n" +
