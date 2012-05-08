@@ -117,13 +117,11 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Get the minimum TimeOfArrival(TOA)-Node of every column x and save it
 		 * to position
 		 */
-		int x;
 		double[][] positionOfMinArrival = new double[de.getMaxi()][2];
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			x = i - 1;
-			Graph obj = (Graph) Collections.min(graphList.get(x));
-			positionOfMinArrival[x][0] = obj.getPreviousNode()[1];
-			positionOfMinArrival[x][1] = graphList.get(x).indexOf(obj);
+		for (int i = 0; i < de.getMaxi(); i++) {
+			Graph obj = (Graph) Collections.min(graphList.get(i));
+			positionOfMinArrival[i][0] = obj.getPreviousNode()[1];
+			positionOfMinArrival[i][1] = graphList.get(i).indexOf(obj);
 		}
 
 		/*
@@ -227,28 +225,28 @@ public class GridFrame extends JFrame implements ActionListener {
 	private void drawPointAndWindVector(Graphics g, Decision de,
 			int[][][] positionLongLat, double step) {
 		/* Iterate over all Nodes. */
-		for (int i = 1; i <= de.getMaxi(); i++) {
-			for (int j = 1; j <= de.getMaxj(); j++) {
+		for (int i = 0; i < de.getMaxi(); i++) {
+			for (int j = 0; j < de.getMaxj(); j++) {
 				/*
 				 * We have now to multiply the value with the 'step' to
 				 * normalize the graph to the screen. 50 is the padding to left
 				 * and top
 				 */
-				positionLongLat[i - 1][j - 1][0] = (int) ((loc.get(i - 1)
-						.get(j - 1).getLongitudeInDegree() - longMin) * step) + 50;
-				positionLongLat[i - 1][j - 1][1] = 360 - (int) ((loc.get(i - 1)
-						.get(j - 1).getLatitudeInDegree() - latMin) * step) + 50;
+				positionLongLat[i][j][0] = (int) ((loc.get(i)
+						.get(j).getLongitudeInDegree() - longMin) * step) + 50;
+				positionLongLat[i][j][1] = 360 - (int) ((loc.get(i)
+						.get(j).getLatitudeInDegree() - latMin) * step) + 50;
 
 				/*
 				 * Draw the points black which are TOA >= 100000 otherwise blue.
 				 */
-				if (graphList.get(i - 1).get(j - 1).getTimeOfArrival() >= 1000000d) {
-					g.fillOval(positionLongLat[i - 1][j - 1][0],
-							positionLongLat[i - 1][j - 1][1], 4, 4);
+				if (graphList.get(i).get(j).getTimeOfArrival() >= 1000000d) {
+					g.fillOval(positionLongLat[i][j][0],
+							positionLongLat[i][j][1], 4, 4);
 				} else {
 					g.setColor(Color.BLUE);
-					g.fillOval(positionLongLat[i - 1][j - 1][0],
-							positionLongLat[i - 1][j - 1][1], 4, 4);
+					g.fillOval(positionLongLat[i][j][0],
+							positionLongLat[i][j][1], 4, 4);
 				}
 
 				/* Draws the windvectors */
@@ -285,13 +283,13 @@ public class GridFrame extends JFrame implements ActionListener {
 		// double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
 		// double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
 		/* Uses the variable WindField */
-		double v = de.getWvAdjusted().get(i - 1).get(j - 1).getV() * step
+		double v = de.getWvAdjusted().get(i).get(j).getV() * step
 				* factor;
-		double u = -de.getWvAdjusted().get(i - 1).get(j - 1).getU() * step
+		double u = -de.getWvAdjusted().get(i).get(j).getU() * step
 				* factor;
 
-		double x1 = positionLongLat[i - 1][j - 1][0];
-		double y1 = positionLongLat[i - 1][j - 1][1];
+		double x1 = positionLongLat[i][j][0];
+		double y1 = positionLongLat[i][j][1];
 		double x2 = x1 + l * v;
 		double y2 = y1 + l * u;
 		double x3 = x1 + l * v - f * u;
@@ -299,8 +297,8 @@ public class GridFrame extends JFrame implements ActionListener {
 		double x4 = x1 + l * v + f * u;
 		double y4 = y1 + l * u - f * v;
 
-		double calcV = positionLongLat[i - 1][j - 1][0] + v;
-		double calcU = positionLongLat[i - 1][j - 1][1] + u;
+		double calcV = positionLongLat[i][j][0] + v;
+		double calcU = positionLongLat[i][j][1] + u;
 
 		/* Structure, to draw the arrow at the end of the line. */
 		Graphics2D g2 = (Graphics2D) g;
@@ -363,23 +361,20 @@ public class GridFrame extends JFrame implements ActionListener {
 	 */
 	private void drawAllShortestPathOfNodes(Graphics g, Decision de,
 			int[][][] positionLongLat, double[][] positionOfMinArrival) {
-		int x;
+//		int x;
 		double pos;
 		double posx;
 		int shortestPoint = de.getMaxj() / 2;
 		boolean atFirstTime = true;
 		Graphics2D g2 = (Graphics2D) g;
 		/* Iterate over all Nodes */
-		for (int i = 0; i < de.getMaxi(); i++) {
-			x = de.getMaxi() - i - 1;
-			if (x <= 0)
-				break;
+		for (int i = de.getMaxi()-1; i > 0; i--) {
 			for (int j = 0; j < de.getMaxj(); j++) {
 				/* Ignore the nodes with TOA < 1000000 */
-				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
+				if (graphList.get(i).get(j).getTimeOfArrival() < 1000000) {
 					/* Save the previous and the current node */
-					pos = graphList.get(x).get(j).getPreviousNode()[1];
-					posx = graphList.get(x).get(j).getNode()[1];
+					pos = graphList.get(i).get(j).getPreviousNode()[1];
+					posx = graphList.get(i).get(j).getNode()[1];
 
 					/* The path from the destination-Node will be drawn green */
 					if (j == shortestPoint && atFirstTime){
@@ -390,11 +385,11 @@ public class GridFrame extends JFrame implements ActionListener {
 						g.setColor(Color.BLACK);
 						DecimalFormat f = new DecimalFormat("#0.00");
 						g.drawString(
-								f.format(graphList.get(x).get(j)
+								f.format(graphList.get(i).get(j)
 										.getTimeOfArrival())
 										+ "",
-								positionLongLat[x][(int) posx][0],
-								positionLongLat[x][(int) posx][1]);
+								positionLongLat[i][(int) posx][0],
+								positionLongLat[i][(int) posx][1]);
 						
 						/* Set the color to green and make it bold */
 						g2.setStroke(new BasicStroke(3));
@@ -407,13 +402,13 @@ public class GridFrame extends JFrame implements ActionListener {
 						g2.setStroke(new BasicStroke(1));
 						
 						/* Disallow to draw the shortest path again */
-						if (j == (int) positionOfMinArrival[x - 1][1])
+						if (j == (int) positionOfMinArrival[i - 1][1])
 							continue;
 					}
-					g.drawLine(positionLongLat[x][(int) posx][0],
-							positionLongLat[x][(int) posx][1],
-							positionLongLat[x - 1][(int) pos][0],
-							positionLongLat[x - 1][(int) pos][1]);
+					g.drawLine(positionLongLat[i][(int) posx][0],
+							positionLongLat[i][(int) posx][1],
+							positionLongLat[i - 1][(int) pos][0],
+							positionLongLat[i - 1][(int) pos][1]);
 				}
 			}
 			atFirstTime = true;
