@@ -23,7 +23,7 @@ public class SpeedComputation {
 		try {
 			testfile = new URI(
 					"file",
-					"C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv",
+					"/var/tmp/Polaire.csv",
 					"");
 			BoatFieldLoader loader = new CSVBoatFieldLoader();
 			field = new BoatSpeedDiagram();

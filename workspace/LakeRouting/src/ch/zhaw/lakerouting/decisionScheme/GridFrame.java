@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Graph;
+import ch.zhaw.lakerouting.datatypes.Node;
 
 /**
  * This class demonstrates the Decision-Matrix in a graphical way.
@@ -45,7 +46,7 @@ public class GridFrame extends JFrame implements ActionListener {
 	protected JLabel txtFieldWidthLabel;
 	protected JLabel txtFieldSpreadLabel;
 
-	private List<List<Graph>> graphList;
+	private List<List<Node>> graphList;
 	private List<List<Coordinate>> loc;
 	private double longMin;
 	private double latMin;
@@ -118,15 +119,18 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * to position
 		 */
         double [][] positionOfMinArrival = new double[de.getMaxi()][2];
-        positionOfMinArrival[de.getMaxi() - 1][0] = Collections.min(graphList.get(de.getMaxi() - 1)).getPreviousNode()[1];
+        Node obj = (Node) Collections.min(graphList.get(de.getMaxi() - 1));
+        positionOfMinArrival[de.getMaxi() - 1][0] = obj.previous().getTimeOfArrival();
+        positionOfMinArrival[de.getMaxi() - 1][1] = graphList.get(de.getMaxi() - 1 ).indexOf(obj);
 
-		/*
-		 * Now we have the last minimum TOA-Node of the last column. We have now
-		 * to go backwards started at the last minimum Node and save the path
-		 */
+
+        /*
+           * Now we have the last minimum TOA-Node of the last column. We have now
+           * to go backwards started at the last minimum Node and save the path
+           */
         for (int i = de.getMaxi() - 1; i > 0; i--) {
             positionOfMinArrival[i - 1][1] = positionOfMinArrival[i][0];
-            positionOfMinArrival[i - 1][0] = graphList.get(i).get((int) positionOfMinArrival[i][0]).getPreviousNode()[1];
+            positionOfMinArrival[i - 1][0] = graphList.get(i).get((int) positionOfMinArrival[i][0]).previous().getTimeOfArrival();
         }
 
 		drawShortestPath(g, de, positionLongLats, positionOfMinArrival);
@@ -155,7 +159,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Set the graph with long/lat nodes and Get the graph with decision
 		 * tree.
 		 */
-		de.graphe(crd1, crd2, getM_Width(), getN_Height());
+		de.createDecisionGraph(crd1, crd2, getM_Width(), getN_Height());
 		de.programmationDynamique(getStartNode(), getSpread());
 		graphList = de.getGraphList();// 15
 		loc = de.getLoc();
@@ -167,12 +171,7 @@ public class GridFrame extends JFrame implements ActionListener {
 	/**
 	 * Determines the smallest/highest longitude and latitude of the hole
 	 * decision net. This is used to normalize the graphic.
-	 * 
-	 * @param de
-	 *            - object of the class Decision
-	 * @param loc
-	 *            - Contains long & lat information of the nodes
-	 */
+     */
 	private void calculateMinMax(Decision de) {
 
 		longMin = loc.get(0).get(0).getLongitudeInDegree();
@@ -201,17 +200,7 @@ public class GridFrame extends JFrame implements ActionListener {
 	 * point has a connection to the column before, it is BLUE. Otherwise if it
 	 * hasn't any connection, it is DARK_GRAY. The windvectors with the arrows
 	 * are ORANGE.
-	 * 
-	 * @param g
-	 *            - graphics (to draw)
-	 * @param de
-	 *            - object of the class Decision
-	 * @param positionLongLat
-	 *            - Contains long & lat information to draw (Not the same as
-	 *            loc)
-	 * @param longMin
-	 *            - The min value of longitude -> Needed to normalize the graph
-	 */
+     */
 	private void drawPointAndWindVector(Graphics g, Decision de,
 			int[][][] positionLongLat, double step) {
 		/* Iterate over all Nodes. */
@@ -336,18 +325,6 @@ public class GridFrame extends JFrame implements ActionListener {
 	 * to the column before, always one path for one node. The destination point
 	 * is in our algorithm exactly in the middle of the last column. So it also
 	 * draws started there the most optimal route in green.
-	 * 
-	 * @param g
-	 *            - graphics (to draw)
-	 * @param de
-	 *            - object of the class Decision
-	 * @param graphList
-	 *            - Contains some information of the nodes
-	 * @param positionLongLat
-	 *            - Contains long & lat information to draw (Not the same as
-	 *            loc)
-	 * @param positionOfMinArrival
-	 *            - Contains all connections of the shortest Path
 	 */
 	private void drawAllShortestPathOfNodes(Graphics g, Decision de,
 			int[][][] positionLongLat, double[][] positionOfMinArrival) {
@@ -358,16 +335,13 @@ public class GridFrame extends JFrame implements ActionListener {
 		boolean atFirstTime = true;
 		Graphics2D g2 = (Graphics2D) g;
 		/* Iterate over all Nodes */
-		for (int i = 0; i < de.getMaxi(); i++) {
-			x = de.getMaxi() - i - 1;
-			if (x <= 0)
-				break;
+        for (int i = de.getMaxi()-1; i > 0; i--) {
 			for (int j = 0; j < de.getMaxj(); j++) {
 				/* Ignore the nodes with TOA < 1000000 */
-				if (graphList.get(x).get(j).getTimeOfArrival() < 1000000) {
+				if (graphList.get(i).get(j).getTimeOfArrival() < 1000000) {
 					/* Save the previous and the current node */
-					pos = graphList.get(x).get(j).getPreviousNode()[1];
-					posx = graphList.get(x).get(j).getNode()[1];
+					pos = graphList.get(i).get(j).previous().getTimeOfArrival();
+					posx = graphList.get(i).get(j).getTimeOfArrival();
 
 					/* The path from the destination-Node will be drawn green */
 					if (j == shortestPoint && atFirstTime){
@@ -378,11 +352,11 @@ public class GridFrame extends JFrame implements ActionListener {
 						g.setColor(Color.BLACK);
 						DecimalFormat f = new DecimalFormat("#0.00");
 						g.drawString(
-								f.format(graphList.get(x).get(j)
+								f.format(graphList.get(i).get(j)
 										.getTimeOfArrival())
 										+ "",
-								positionLongLat[x][(int) posx][0],
-								positionLongLat[x][(int) posx][1]);
+								positionLongLat[i][(int) posx][0],
+								positionLongLat[i][(int) posx][1]);
 						
 						/* Set the color to green and make it bold */
 						g2.setStroke(new BasicStroke(3));
@@ -395,13 +369,13 @@ public class GridFrame extends JFrame implements ActionListener {
 						g2.setStroke(new BasicStroke(1));
 						
 						/* Disallow to draw the shortest path again */
-						if (j == (int) positionOfMinArrival[x - 1][1])
+						if (j == (int) positionOfMinArrival[i - 1][1])
 							continue;
 					}
-					g.drawLine(positionLongLat[x][(int) posx][0],
-							positionLongLat[x][(int) posx][1],
-							positionLongLat[x - 1][(int) pos][0],
-							positionLongLat[x - 1][(int) pos][1]);
+					g.drawLine(positionLongLat[i][(int) posx][0],
+							positionLongLat[i][(int) posx][1],
+							positionLongLat[i - 1][(int) pos][0],
+							positionLongLat[i - 1][(int) pos][1]);
 				}
 			}
 			atFirstTime = true;
