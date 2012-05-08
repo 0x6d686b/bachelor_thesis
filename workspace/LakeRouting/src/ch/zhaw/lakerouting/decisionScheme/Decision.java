@@ -83,8 +83,9 @@ public class Decision {
 
 		/* local variables */
 		double p, e, c, s;
-		p = 0.3; // Does anyone remember what this 'p' is good for? Well I do,
-					// do you too?
+		// This specifies the ratio of the distances between two steps and two
+		// options
+		p = 0.3;
 
 		/* the euclidian distance */
 		e = Math.sqrt(Math.pow((theta2 - theta1), 2.0)
@@ -151,9 +152,9 @@ public class Decision {
 	}
 
 	private void progrDyn(int r) {
-		/**
+		/*
 		 * Magic numbers no one knows why exactly they must be exactly this
-		 * value
+		 * value ---> THEY'RE COMMENTED!!! NOT NECESSARY!
 		 */
 		// wf = 4, 12, 13, 14
 		// TODO Replace 3 with getWindFieldIndex()
@@ -162,21 +163,21 @@ public class Decision {
 
 		double[] travelDistance;
 
-		/** Let's make this easier to read than with pure digits */
+		/* Let's make this easier to read than with pure digits */
 		double[][] position = new double[getMaxj()][2];
 		final int __ROW__ = 0;
 		final int __TRAVELTIME__ = 1;
 
 		Node node;
 
-		/** For-iterator over all nodes in the column r. k - the current node */
+		/* For-iterator over all nodes in the column r. k - the current node */
 		for (int k = 0; k < getMaxj(); k++) {
-			/** reset the minimum for each row */
+			/* reset the minimum for each row */
 			min = 1000000;
 
 			travelDistance = new double[getMaxj()];
 
-			/**
+			/*
 			 * Compares the current node (k) of the column r with all previous
 			 * nodes (j)
 			 */
@@ -184,7 +185,7 @@ public class Decision {
 
 				travelDistance[j] = calcTravelDistance(r, j, k, wf);
 
-				/**
+				/*
 				 * Saves the minimum distance and makes sure that the node is in
 				 * the spread.
 				 */
@@ -199,7 +200,7 @@ public class Decision {
 					}
 				}
 			}
-			/**
+			/*
 			 * Sort the minimum-values. So we have the other shortest values if
 			 * it doesn't match with spread (Not necessary yet).
 			 */
@@ -210,40 +211,44 @@ public class Decision {
 			// }
 			// });
 
-			/** Computes the spread and updates the matrix graphList */
-			/**
-			 * Now this is just plain dangerous (and therefore bullshit) If we
-			 * are gone past the spread, the node will not receive an ancestor
-			 * there but with a travel time meaning the node could(!) under bad
-			 * circumstances become an ancestor which would create a path with a
-			 * null pointer when calculating a potential back-path ...
-			 * 
-			 * You must know that such conceptual mistakes are pure time- bombs
-			 * waiting to kill you. And I will blame you for not thoroughly
-			 * thinking this through!
+			/* Computes the spread and updates the matrix graphList */
+			/*
+			 * Now this is just plain dangerous. If we are gone past the spread,
+			 * the node will not receive an ancestor there but with a travel
+			 * time meaning the node could(!) under bad circumstances become an
+			 * ancestor which would create a path with a null pointer when
+			 * calculating a potential back-path ...
 			 */
 			if (Math.abs(k - (int) position[k][__ROW__]) <= spread) {
-				/**
+				/*
 				 * If the time is greater than 30, it will choose another
 				 * windField and compute the distance again.
 				 */
 				if (position[k][__TRAVELTIME__] >= 30d) {
 					int w_calculated = (int) position[k][__TRAVELTIME__] / 30;
-					System.out.print("Position1: "
-							+ position[k][__TRAVELTIME__]);
+					// System.out.print("Position1: "
+					// + position[k][__TRAVELTIME__]);
+
 					int wf_neu = wf + w_calculated;
 
-					/** Things everyone loooooves ... m( */
+					/*
+					 * This should never happen. But if it does, then we say
+					 * STOP, that's your limit man...
+					 */
 					if (wf_neu > 24)
 						wf_neu = 24;
 
+					if (w_calculated > 1)
+						System.out
+								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
+
 					position[k][__TRAVELTIME__] = calcTravelDistance(r,
 							(int) position[k][__ROW__], k, wf_neu);
-					System.out.println(" Position2: "
-							+ position[k][__TRAVELTIME__]);
+					// System.out.println(" Position2: "
+					// + position[k][__TRAVELTIME__]);
 				}
 
-				/**
+				/*
 				 * Setting the graphList with current position and shortest
 				 * distance.
 				 */
@@ -373,7 +378,7 @@ public class Decision {
 	}
 
 	/*
-	 * Just some default methods to get the value of this variables A common
+	 * Just some default methods to get the value of this variables. A common
 	 * Java-usage
 	 */
 
