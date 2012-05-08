@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Windfield {
-    private static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
+    public static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
     private static final int MAX_WINDFIELD_SIZE = 0xff;
     
     private WindfieldMetadata metadata;

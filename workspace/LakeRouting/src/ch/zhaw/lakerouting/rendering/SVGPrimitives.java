@@ -28,6 +28,7 @@
 package ch.zhaw.lakerouting.rendering;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import org.joda.time.DateTime;
 
 public class SVGPrimitives {
@@ -99,6 +100,8 @@ public class SVGPrimitives {
     }
 
     public static String Windarrow(double x, double y, double u, double v, String color) {
+        if (u <= Windfield.LOWER_WINDSPEED_BOUNDARY && v <= Windfield.LOWER_WINDSPEED_BOUNDARY)
+            return "<circle cx=\"" + x + "\" cy=\"" + y + "\" r=\"0.1\" fill=\"grey\"/>";
         return "<path d=\"M " + x + " " + y + " L " + (x+u) + " " + (y+v) + "\" stroke-width=\"0.1\" stroke=\"" + color + "\" marker-end=\"url(#Arrowtip)\" />";
     }
 }
