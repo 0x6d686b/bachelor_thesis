@@ -1,14 +1,10 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import ch.zhaw.lakerouting.datatypes.Node;
 import org.joda.time.DateTime;
@@ -17,6 +13,7 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
@@ -32,8 +29,8 @@ public class Decision {
 
 	/* Contains the coordinates of the nodes */
 	private List<List<Coordinate>> loc;
-	private List<List<WindVector>> wv;
-	private List<List<WindVector>> wvAdjusted;
+	private Windfield wv;
+	private Windfield wvAdjusted;
 	private int maxi;
 	private int maxj;
 	private SailingDuration sd;
@@ -120,6 +117,13 @@ public class Decision {
 			coordRow = new ArrayList<Coordinate>();
 		}
 
+		for (Coordinate ds : coordList.get(0)) {
+			System.out.println(ds.toString());
+		}
+		System.out.println("Next");
+		for (Coordinate ds : coordList.get(m)) {
+			System.out.println(ds.toString());
+		}
 		setLoc(coordList);
 	}
 
@@ -135,12 +139,10 @@ public class Decision {
 		getInterpolatedWindfield();
 
 		/*
-		 * Clone the ArrayList to make possible, that we can change the object
-		 * wvAdjusted, and not the object of the windfieldContainer.
+		 * The adjusted windfield with the interpolated windvectors.
 		 */
 		// TODO Replace 3 with getWindFieldIndex()
-		setWvAdjusted(new ArrayList<List<WindVector>>(windFieldContainer.get(3)
-				.getField()));
+		setWvAdjusted(windFieldContainer.get(3));
 
 		/* Call the method progrDyn to calculate the times */
 		for (int i = 1; i < getMaxi(); i++) {
@@ -253,7 +255,7 @@ public class Decision {
 				System.out.println("Shit!");
 			}
 		}
-		setWv(windFieldContainer.get(wf).getField());
+		setWv(windFieldContainer.get(wf));
 	}
 
 	/**
@@ -343,17 +345,17 @@ public class Decision {
 	 * @return the distance
 	 */
 	private double calcTravelDistance(int r, int j, int k, int wf) {
-		setWv(windFieldContainer.get(wf).getField());
+		setWv(windFieldContainer.get(wf));
 		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
-		WindVector v1 = windFieldContainer.get(wf).getField().get(r - 1).get(j);
-		WindVector v2 = windFieldContainer.get(wf).getField().get(r).get(k);
+		WindVector v1 = getWv().getField().get(r - 1).get(j);
+		WindVector v2 = getWv().getField().get(r).get(k);
 
 		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j),
 				loc.get(r).get(k), v1, v2, distance);
 
 		sailingDuration = sailingDuration
 				+ graphList.get(r - 1).get(j).getTimeOfArrival();
-		getWvAdjusted().get(r).set(k, v2);
+		getWvAdjusted().getField().get(r).set(k, v2);
 
 		return sailingDuration;
 	}
@@ -405,19 +407,19 @@ public class Decision {
 		this.maxj = maxj;
 	}
 
-	public List<List<WindVector>> getWv() {
+	public Windfield getWv() {
 		return wv;
 	}
 
-	public void setWv(List<List<WindVector>> wv) {
+	public void setWv(Windfield wv) {
 		this.wv = wv;
 	}
 
-	public List<List<WindVector>> getWvAdjusted() {
+	public Windfield getWvAdjusted() {
 		return wvAdjusted;
 	}
 
-	public void setWvAdjusted(List<List<WindVector>> wvAdjusted) {
+	public void setWvAdjusted(Windfield wvAdjusted) {
 		this.wvAdjusted = wvAdjusted;
 	}
 }

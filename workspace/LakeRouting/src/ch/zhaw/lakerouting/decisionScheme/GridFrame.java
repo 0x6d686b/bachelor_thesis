@@ -1,6 +1,7 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -37,13 +39,15 @@ public class GridFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	protected JTextField txtFieldStart;
-	protected JTextField txtFieldLength;
 	protected JTextField txtFieldWidth;
+	protected JTextField txtFieldHeight;
 	protected JTextField txtFieldSpread;
 	protected JLabel txtFieldStartLabel;
 	protected JLabel txtFieldLengthLabel;
 	protected JLabel txtFieldWidthLabel;
 	protected JLabel txtFieldSpreadLabel;
+	protected JLabel txtFieldInformation;
+	private String informationText="";
 
 	private List<List<Node>> graphList;
 	private List<List<Coordinate>> loc;
@@ -64,29 +68,35 @@ public class GridFrame extends JFrame implements ActionListener {
 		initializeVariables();
 
 		Container container = getContentPane();
-		container.setLayout(new FlowLayout());
+		container.setLayout(new BorderLayout());
+		JPanel panel1 = new JPanel(new FlowLayout()); 
+		JPanel panel2 = new JPanel(new FlowLayout()); 
 
 		txtFieldStart = new JTextField(10);
 		txtFieldStart.addActionListener(this);
-		txtFieldLength = new JTextField(10);
-		txtFieldLength.addActionListener(this);
 		txtFieldWidth = new JTextField(10);
 		txtFieldWidth.addActionListener(this);
+		txtFieldHeight = new JTextField(10);
+		txtFieldHeight.addActionListener(this);
 		txtFieldSpread = new JTextField(10);
 		txtFieldSpread.addActionListener(this);
 		txtFieldStartLabel = new JLabel("Start: ");
-		txtFieldLengthLabel = new JLabel("Length: ");
-		txtFieldWidthLabel = new JLabel("Width: ");
+		txtFieldLengthLabel = new JLabel("Length (+1): ");
+		txtFieldWidthLabel = new JLabel("Width (n*2+1): ");
 		txtFieldSpreadLabel = new JLabel("Spread: ");
+		txtFieldInformation = new JLabel("");
 
-		container.add(txtFieldStartLabel);
-		container.add(txtFieldStart);
-		container.add(txtFieldLengthLabel);
-		container.add(txtFieldLength);
-		container.add(txtFieldWidthLabel);
-		container.add(txtFieldWidth);
-		container.add(txtFieldSpreadLabel);
-		container.add(txtFieldSpread);
+		panel1.add(txtFieldStartLabel);
+		panel1.add(txtFieldStart);
+		panel1.add(txtFieldLengthLabel);
+		panel1.add(txtFieldWidth);
+		panel1.add(txtFieldWidthLabel);
+		panel1.add(txtFieldHeight);
+		panel1.add(txtFieldSpreadLabel);
+		panel1.add(txtFieldSpread);
+		panel2.add(txtFieldInformation);
+		container.add(panel1, BorderLayout.PAGE_START);
+		container.add(panel2, BorderLayout.CENTER);
 	}
 
 	public static void main(String str[]) {
@@ -104,6 +114,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		super.paint(g);
 		g.setColor(Color.BLACK);
 
+		txtFieldInformation.setText(informationText);
 		/*
 		 * These are needed to normalize the distance between the nodes
 		 * Therefore it is now possible to draw all graphs
@@ -114,12 +125,11 @@ public class GridFrame extends JFrame implements ActionListener {
 		drawPointAndWindVector(g, de, positionLongLats, step);
 
 		/*
-		 * Get the minimum TimeOfArrival(TOA)-Node of every column x and save it
+		 * Get the minimum TimeOfArrival(TOA)-Node of the last column and save it
 		 * to position
 		 */
         int [][] positionOfMinArrival = new int[de.getMaxi()][2];
         Node obj = (Node) Collections.min(graphList.get(de.getMaxi() - 1));
-        //positionOfMinArrival[de.getMaxi() - 1][0] = obj.previous().getTimeOfArrival();
         positionOfMinArrival[de.getMaxi() - 1][0] = graphList.get(de.getMaxi() - 2).indexOf(obj.previous());
         positionOfMinArrival[de.getMaxi() - 1][1] = graphList.get(de.getMaxi() - 1 ).indexOf(obj);
 
@@ -131,8 +141,7 @@ public class GridFrame extends JFrame implements ActionListener {
         Node n;
         for (int i = de.getMaxi() - 1; i > 0; i--) {
             positionOfMinArrival[i - 1][1] = positionOfMinArrival[i][0];
-            n= graphList.get(i).get((int) positionOfMinArrival[i][0]).previous();
-            //positionOfMinArrival[i - 1][0] = graphList.get(i).get((int) positionOfMinArrival[i][0]).previous().getTimeOfArrival();
+            n= graphList.get(i).get(positionOfMinArrival[i][0]).previous();
             positionOfMinArrival[i - 1][0] = graphList.get(i - 1).indexOf(n);
         }
 
@@ -155,9 +164,9 @@ public class GridFrame extends JFrame implements ActionListener {
 		Coordinate crd2 = new Coordinate();
 		crd1.setLongitudeInDegree(9.40);
 		crd1.setLatitudeInDegree(47.6);
-		crd2.setLongitudeInDegree(9.6);
+		crd2.setLongitudeInDegree(9.64);
 		crd2.setLatitudeInDegree(47.58);
-
+		
 		/*
 		 * Set the graph with long/lat nodes and Get the graph with decision
 		 * tree.
@@ -169,6 +178,14 @@ public class GridFrame extends JFrame implements ActionListener {
 
 		positionLongLats = new int[de.getMaxi()][de.getMaxj()][2];
 		calculateMinMax(de);
+		
+		informationText = "Start: "+ getStartNode()+
+				",     Width: "+getM_Width()+
+				",     Height: "+getN_Height()+
+				",     Spread: "+getSpread()+
+				",     Crd1: "+crd1.getLongitudeInDegree()+" / "+crd1.getLatitudeInDegree()+
+				",     Crd2: "+crd2.getLongitudeInDegree()+" / "+crd2.getLatitudeInDegree()+
+				",     WF: "+de.getWv().getMetadata().getDate();
 	}
 
 	/**
@@ -217,7 +234,7 @@ public class GridFrame extends JFrame implements ActionListener {
 				positionLongLat[i][j][0] = (int) ((loc.get(i)
 						.get(j).getLongitudeInDegree() - longMin) * step) + 50;
 				positionLongLat[i][j][1] = 360 - (int) ((loc.get(i)
-						.get(j).getLatitudeInDegree() - latMin) * step) + 50;
+						.get(j).getLatitudeInDegree() - latMin) * step) + 150;
 
 				/*
 				 * Draw the points black which are TOA >= 100000 otherwise blue.
@@ -265,13 +282,13 @@ public class GridFrame extends JFrame implements ActionListener {
 		// double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
 		// double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
 		/* Uses the variable WindField */
-		double v = de.getWvAdjusted().get(i).get(j).getV() * step
+		double v = de.getWvAdjusted().getField().get(i).get(j).getV() * step
 				* factor;
-		double u = -de.getWvAdjusted().get(i).get(j).getU() * step
+		double u = -de.getWvAdjusted().getField().get(i).get(j).getU() * step
 				* factor;
 
-		double x1 = positionLongLat[i][j][0];
-		double y1 = positionLongLat[i][j][1];
+		int x1 = positionLongLat[i][j][0];
+		int y1 = positionLongLat[i][j][1];
 		double x2 = x1 + l * v;
 		double y2 = y1 + l * u;
 		double x3 = x1 + l * v - f * u;
@@ -285,7 +302,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		/* Structure, to draw the arrow at the end of the line. */
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(2));
-		g.drawLine((int) x1, (int) y1, (int) x2, (int) y2);
+		g.drawLine(x1, y1, (int) x2, (int) y2);
 		g.drawLine((int) x2, (int) y2, (int) x3, (int) y3);
 		g.drawLine((int) x3, (int) y3, (int) calcV, (int) calcU);
 		g.drawLine((int) calcV, (int) calcU, (int) x4, (int) y4);
@@ -315,10 +332,10 @@ public class GridFrame extends JFrame implements ActionListener {
 		g2.setStroke(new BasicStroke(3));
 		for (int i = 1; i < de.getMaxi(); i++) {
 			g.drawLine(
-					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][0],
-					positionLongLat[i - 1][(int) positionOfMinArrival[z][0]][1],
-					positionLongLat[i][(int) positionOfMinArrival[z][1]][0],
-					positionLongLat[i][(int) positionOfMinArrival[z][1]][1]);
+					positionLongLat[i - 1][positionOfMinArrival[z][0]][0],
+					positionLongLat[i - 1][positionOfMinArrival[z][0]][1],
+					positionLongLat[i][positionOfMinArrival[z][1]][0],
+					positionLongLat[i][positionOfMinArrival[z][1]][1]);
 			z++;
 		}
 	}
@@ -334,7 +351,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		Node obj;
 		int pos;
 		int posx;
-		int shortestPoint = de.getMaxj() / 2 - 1;
+		int shortestPoint = de.getMaxj() / 2;
 		boolean atFirstTime = true;
 		Graphics2D g2 = (Graphics2D) g;
 		/* Iterate over all Nodes */
@@ -396,19 +413,19 @@ public class GridFrame extends JFrame implements ActionListener {
 				&& !txtFieldStart.getText().equals("")) {
 			setStartNode(Integer.parseInt(txtFieldStart.getText()));
 		}
-		if (txtFieldLength.getText() != null
-				&& !txtFieldLength.getText().equals("")) {
-			setM_Width(Integer.parseInt(txtFieldLength.getText()));
-		}
 		if (txtFieldWidth.getText() != null
 				&& !txtFieldWidth.getText().equals("")) {
-			setN_Height(Integer.parseInt(txtFieldWidth.getText()));
+			setM_Width(Integer.parseInt(txtFieldWidth.getText()));
+		}
+		if (txtFieldHeight.getText() != null
+				&& !txtFieldHeight.getText().equals("")) {
+			setN_Height(Integer.parseInt(txtFieldHeight.getText()));
 		}
 		if (txtFieldSpread.getText() != null
 				&& !txtFieldSpread.getText().equals("")) {
 			setSpread(Integer.parseInt(txtFieldSpread.getText()));
 		}
-
+			
 		initializeVariables();
 		repaint();
 	}
