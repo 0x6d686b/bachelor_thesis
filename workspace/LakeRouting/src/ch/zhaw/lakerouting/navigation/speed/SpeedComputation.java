@@ -1,7 +1,6 @@
 package ch.zhaw.lakerouting.navigation.speed;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Track;
@@ -18,21 +17,13 @@ public class SpeedComputation {
 	private BoatSpeedDiagram field;
 	private InterpolationAlgorithm bil;
 
-	public SpeedComputation() {
-		URI testfile;
-		try {
-			testfile = new URI(
-					"file",
-					"C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/interpolationtest.csv",
-					"");
-			BoatFieldLoader loader = new CSVBoatFieldLoader();
-			field = new BoatSpeedDiagram();
-			field.loadDiagram(loader, testfile);
-			bil = new Bilinear();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public SpeedComputation(URI identifier) {
+		
+		BoatFieldLoader loader = new CSVBoatFieldLoader();
+		field = new BoatSpeedDiagram();
+		field.loadDiagram(loader, identifier);
+		bil = new Bilinear();
+	
 	}
 
 	public double speedBoat(Coordinate crd1, Coordinate crd2, WindVector v) {

@@ -64,7 +64,7 @@ public class WindfieldContainer {
         container.endtime = this.endtime;
         container.delta = this.delta;
         // WTF?
-        for (int i = 0; i < this.fields.size(); ++i) {
+        for (int i = 0; i < this.fields.size(); i++) {
             container.fields.add(new Windfield().setField(this.get(i).getMetadata(),this.get(i).interpolateOnDecisionNet(coordinates,algorithm)));
         }
         return container;

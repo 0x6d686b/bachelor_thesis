@@ -31,6 +31,7 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
+import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
 import org.junit.Test;
@@ -70,11 +71,11 @@ public class WindfieldContainerTest {
         InterpolationAlgorithm bil = new Bilinear();
 
         WindfieldContainer foo = new WindfieldContainer();
-        foo.bulkLoadWindfield(new URI("file", "C:/Users/fevzi/Desktop/ZHAW/BA(furu)/git/lakerouting/workspace/LakeRouting/11072915_905.dat", ""), loader);
+        foo.bulkLoadWindfield(new URI("file", "/var/tmp/11072915_905.dat", ""), loader);
 
         System.out.print("Single point interpolation: ");
         c.setLongitudeInDegree(09.34);
-        c.setLatitudeInDegree(47.62);
+        c.setLatitudeInDegree(47.48);
         WindVector result = foo.get(0).interpolate(c, bil);
         System.out.println(result.toString());
 
@@ -84,8 +85,8 @@ public class WindfieldContainerTest {
         	List<Coordinate> row = new ArrayList<Coordinate>();
             for (int j = 0; j < 5; ++j) {
                 Coordinate k = new Coordinate();
-                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.05);
-                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.05);
+                k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.01);
+                k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.01);
                 row.add(k);
             }
             net.add(row);
@@ -100,6 +101,10 @@ public class WindfieldContainerTest {
             System.out.print("},");
             i += 0.1;
         }
+        foo = foo.bulkInterpolateOnDecisionNet(net,bil);
+        Windfield a = foo.get(0);
+        Windfield b = foo.get(4);
+        System.out.println();
     }
 
 

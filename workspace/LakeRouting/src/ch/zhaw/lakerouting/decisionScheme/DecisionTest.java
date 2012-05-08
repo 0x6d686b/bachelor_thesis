@@ -1,11 +1,10 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.zhaw.lakerouting.datatypes.Node;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ public class DecisionTest {
 	private static double seamileToKm = 1.852;
 	private static double tolerance = 300;
 	private Map<String, double[]> punkteCoord;
-	private List<List<Graph>> test;
+	private List<List<Node>> test;
 
 	@Before
 	public void setUp() {
@@ -69,7 +68,7 @@ public class DecisionTest {
 			m = 20;
 			n = 10;
 			spread = 4;
-			de.graphe(crd1, crd2,m,n);
+			de.createDecisionGraph(crd1, crd2, m, n);
 			de.programmationDynamique(10,spread);
 			test = de.getGraphList();
 
