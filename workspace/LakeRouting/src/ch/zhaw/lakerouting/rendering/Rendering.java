@@ -64,9 +64,10 @@ public class Rendering {
                                     f.getMetadata().getDate(),
                                     f.getMetadata().getNorthWestCorner(),
                                     f.getMetadata().getSouthEastCorner(),
-                                    "Blackpearl",
+                                    "-NONE-",
                                     f.getMetadata().getDate(),
-                                    "10x20");
+                                    wv.size() + "x" + wv.get(0).size());
+
         s += SVGPrimitives.ClosingCanvas();
 
         return s;
