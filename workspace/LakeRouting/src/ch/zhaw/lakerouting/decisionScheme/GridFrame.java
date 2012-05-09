@@ -50,21 +50,25 @@ public class GridFrame extends JFrame implements ActionListener {
 	private String informationText="";
 
 	private List<List<Node>> graphList;
-	private List<List<Coordinate>> loc;
 	private double longMin;
 	private double latMin;
 	private double longMax;
 	private double latMax;
-	private int startNode = DEFAULT_START;
-	private int m_Width = DEFAULT_M;
-	private int n_Height = DEFAULT_N;
-	private int spread = DEFAULT_SPREAD;
+	private int startNode;
+	private int m_Width;
+	private int n_Height;
+	private int spread;
 
 	private int[][][] positionLongLats;
 
 	private Decision de;
 
 	public GridFrame() {
+		startNode = DEFAULT_START;
+		m_Width = DEFAULT_M;
+		n_Height = DEFAULT_N;
+		spread = DEFAULT_SPREAD;
+		
 		initializeVariables();
 
 		Container container = getContentPane();
@@ -101,7 +105,7 @@ public class GridFrame extends JFrame implements ActionListener {
 
 	public static void main(String str[]) {
 		GridFrame fenster = new GridFrame();
-		fenster.setTitle("Optimalste Route zeichnen");
+		fenster.setTitle("Optimale Route zeichnen");
 		fenster.setSize(940, 740);
 		fenster.setVisible(true);
 		fenster.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -157,8 +161,9 @@ public class GridFrame extends JFrame implements ActionListener {
 	 * only called when it needs to recalculate the graph.
 	 */
 	private void initializeVariables() {
-		de = new Decision();
 
+		de = new Decision();
+		
 		/* Define start and destination node */
 		Coordinate crd1 = new Coordinate();
 		Coordinate crd2 = new Coordinate();
@@ -171,10 +176,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Set the graph with long/lat nodes and Get the graph with decision
 		 * tree.
 		 */
-		de.createDecisionGraph(crd1, crd2, getM_Width(), getN_Height());
-		de.programmationDynamique(getStartNode(), getSpread());
-		graphList = de.getGraphList();// 15
-		loc = de.getLoc();
+		graphList = de.createDecisionGraph(crd1, crd2, getM_Width(), getN_Height(), getStartNode(), getSpread());
 
 		positionLongLats = new int[de.getMaxi()][de.getMaxj()][2];
 		calculateMinMax(de);
@@ -194,21 +196,21 @@ public class GridFrame extends JFrame implements ActionListener {
      */
 	private void calculateMinMax(Decision de) {
 
-		longMin = loc.get(0).get(0).getLongitudeInDegree();
-		latMin = loc.get(0).get(0).getLatitudeInDegree();
-		longMax = loc.get(0).get(0).getLongitudeInDegree();
-		latMax = loc.get(0).get(0).getLatitudeInDegree();
+		longMin = graphList.get(0).get(0).getCrd().getLongitudeInDegree();
+		latMin = graphList.get(0).get(0).getCrd().getLatitudeInDegree();
+		longMax = graphList.get(0).get(0).getCrd().getLongitudeInDegree();
+		latMax = graphList.get(0).get(0).getCrd().getLatitudeInDegree();
 		for (int i = 0; i < de.getMaxi(); i++) {
 			for (int j = 0; j < de.getMaxj(); j++) {
-				if (loc.get(i).get(j).getLongitudeInDegree() < longMin) {
-					longMin = loc.get(i).get(j).getLongitudeInDegree();
-				} else if (loc.get(i).get(j).getLongitudeInDegree() > longMax) {
-					longMax = loc.get(i).get(j).getLongitudeInDegree();
+				if (graphList.get(i).get(j).getCrd().getLongitudeInDegree() < longMin) {
+					longMin = graphList.get(i).get(j).getCrd().getLongitudeInDegree();
+				} else if (graphList.get(i).get(j).getCrd().getLongitudeInDegree() > longMax) {
+					longMax = graphList.get(i).get(j).getCrd().getLongitudeInDegree();
 				}
-				if (loc.get(i).get(j).getLatitudeInDegree() < latMin) {
-					latMin = loc.get(i).get(j).getLatitudeInDegree();
-				} else if (loc.get(i).get(j).getLatitudeInDegree() > latMax) {
-					latMax = loc.get(i).get(j).getLatitudeInDegree();
+				if (graphList.get(i).get(j).getCrd().getLatitudeInDegree() < latMin) {
+					latMin = graphList.get(i).get(j).getCrd().getLatitudeInDegree();
+				} else if (graphList.get(i).get(j).getCrd().getLatitudeInDegree() > latMax) {
+					latMax = graphList.get(i).get(j).getCrd().getLatitudeInDegree();
 				}
 			}
 		}
@@ -231,10 +233,10 @@ public class GridFrame extends JFrame implements ActionListener {
 				 * normalize the graph to the screen. 50 is the padding to left
 				 * and top
 				 */
-				positionLongLat[i][j][0] = (int) ((loc.get(i)
-						.get(j).getLongitudeInDegree() - longMin) * step) + 50;
-				positionLongLat[i][j][1] = 360 - (int) ((loc.get(i)
-						.get(j).getLatitudeInDegree() - latMin) * step) + 150;
+				positionLongLat[i][j][0] = (int) ((graphList.get(i)
+						.get(j).getCrd().getLongitudeInDegree() - longMin) * step) + 50;
+				positionLongLat[i][j][1] = 360 - (int) ((graphList.get(i)
+						.get(j).getCrd().getLatitudeInDegree() - latMin) * step) + 150;
 
 				/*
 				 * Draw the points black which are TOA >= 100000 otherwise blue.

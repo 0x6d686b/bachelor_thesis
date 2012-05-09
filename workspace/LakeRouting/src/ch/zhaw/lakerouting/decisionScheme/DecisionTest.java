@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
-import ch.zhaw.lakerouting.datatypes.Graph;
 
 public class DecisionTest {
 
@@ -68,9 +67,7 @@ public class DecisionTest {
 			m = 20;
 			n = 10;
 			spread = 4;
-			de.createDecisionGraph(crd1, crd2, m, n);
-			de.programmationDynamique(10,spread);
-			test = de.getGraphList();
+			test = de.createDecisionGraph(crd1, crd2, m, n, 10, spread);
 
 			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;
 

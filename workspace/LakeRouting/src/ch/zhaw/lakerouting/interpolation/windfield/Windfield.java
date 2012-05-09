@@ -28,6 +28,7 @@
 package ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Node;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 
@@ -58,13 +59,13 @@ public class Windfield {
         return vector;
     }
 
-    public List<List<WindVector>> interpolateOnDecisionNet(List<List<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    public List<List<WindVector>> interpolateOnDecisionNet(List<List<Node>> coordinates, InterpolationAlgorithm algorithm) {
     	List<List<WindVector>> vectorField = new ArrayList<List<WindVector>>();
     	List<WindVector> vectorRow;
         for (int i = 0; i < coordinates.size(); i++) {
         	vectorRow = new ArrayList<WindVector>();
             for (int j = 0; j < coordinates.get(0).size(); j++) {
-                vectorRow.add(interpolate(coordinates.get(i).get(j), algorithm));
+                vectorRow.add(interpolate(coordinates.get(i).get(j).getCrd(), algorithm));
             }
             vectorField.add(vectorRow);
         }

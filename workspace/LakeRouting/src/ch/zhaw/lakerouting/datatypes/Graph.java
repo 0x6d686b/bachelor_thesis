@@ -9,8 +9,8 @@ package ch.zhaw.lakerouting.datatypes;
  */
 public class Graph implements Comparable<Graph> {
 
-	private double[] previousNode;
-	private double[] node;
+	private int[] previousNode;
+	private int[] node;
 	private double timeOfArrival;
 
 	/**
@@ -20,7 +20,7 @@ public class Graph implements Comparable<Graph> {
 	 * @param node
 	 * @param timeOfArrival
 	 */
-	public Graph(double[] previousNode, double[] node, double timeOfArrival) {
+	public Graph(int[] previousNode, int[] node, double timeOfArrival) {
 		this.previousNode = previousNode;
 		this.node = node;
 		this.timeOfArrival = timeOfArrival;
@@ -29,19 +29,19 @@ public class Graph implements Comparable<Graph> {
 	public Graph() {
 	}
 
-	public double[] getPreviousNode() {
+	public int[] getPreviousNode() {
 		return previousNode;
 	}
 
-	public void setPreviousNode(double[] previousNode) {
+	public void setPreviousNode(int[] previousNode) {
 		this.previousNode = previousNode;
 	}
 
-	public double[] getNode() {
+	public int[] getNode() {
 		return node;
 	}
 
-	public void setNode(double[] node) {
+	public void setNode(int[] node) {
 		this.node = node;
 	}
 

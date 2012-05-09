@@ -28,15 +28,20 @@ import ch.zhaw.properties.PropertyLoad;
 public class Decision {
 
 	/* Contains the coordinates of the nodes */
-	private List<List<Coordinate>> loc;
+	private List<List<Node>> graphList;
 	private Windfield wv;
 	private Windfield wvAdjusted;
 	private int maxi;
 	private int maxj;
 	private SailingDuration sd;
 	private WindfieldContainer windFieldContainer;
-	private List<List<Node>> graphList;
+	
 	private int spread;
+
+	public Decision(){
+		sd = new SailingDuration();
+		graphList = new ArrayList<List<Node>>();
+	}
 
 	/**
 	 * Calculates the orthodromy between two locations L1(x1,y1) and L2(x2,y2)
@@ -69,13 +74,9 @@ public class Decision {
 		return distance;
 	}
 
-	public void createDecisionGraph(Coordinate crd1, Coordinate crd2, int m,
-			int n) {
-		/* The new graph with coordinates of the nodes */
-		List<List<Coordinate>> coordList = new ArrayList<List<Coordinate>>();
-		List<Coordinate> coordRow = new ArrayList<Coordinate>();
-		Coordinate crd = new Coordinate();
-
+	public List<List<Node>> createDecisionGraph(Coordinate crd1, Coordinate crd2, int maxi,
+			int maxj, int start, int spread) {
+		
 		double theta1 = crd1.getLongitudeInDegree();
 		double phi1 = crd1.getLatitudeInDegree();
 		double theta2 = crd2.getLongitudeInDegree();
@@ -83,7 +84,7 @@ public class Decision {
 
 		/* local variables */
 		double p, e, c, s;
-		// This specifies the ratio of the distances between two steps and two
+		// P - This specifies the ratio of the distances between two steps and two
 		// options
 		p = 0.3;
 
@@ -103,62 +104,51 @@ public class Decision {
 		M[1][0] = s;
 		M[1][1] = c;
 
+		Coordinate crd = new Coordinate();
+		setMaxi(maxi+1);
+		setMaxj(maxj*2+1);
+		initializeGraph(graphList);
+		
 		/* Create the table */
-		for (int i = 0; i <= m; i++) {
-			for (int j = -n; j <= n; j++) {
+		for (int i = 0; i <= maxi; i++) {
+			for (int j = -maxj; j <= maxj; j++) {
 				/* Fill the table */
-				crd.setLongitudeInDegree(M[0][0] * (e * i / m) + M[0][1]
-						* (p * e * j / (2 * n)) + theta1);
-				crd.setLatitudeInDegree(M[1][0] * (e * i / m) + M[1][1]
-						* (p * e * j / (2 * n)) + phi1);
-				coordRow.add(crd);
+				crd.setLongitudeInDegree(M[0][0] * (e * i / maxi) + M[0][1]
+						* (p * e * j / (2 * maxj)) + theta1);
+				crd.setLatitudeInDegree(M[1][0] * (e * i / maxi) + M[1][1]
+						* (p * e * j / (2 * maxj)) + phi1);
+				graphList.get(i).get(j+maxj).setCrd(crd);
 				crd = new Coordinate();
 			}
-			coordList.add(coordRow);
-			coordRow = new ArrayList<Coordinate>();
 		}
-
-		for (Coordinate ds : coordList.get(0)) {
-			System.out.println(ds.toString());
-		}
-		System.out.println("Next");
-		for (Coordinate ds : coordList.get(m)) {
-			System.out.println(ds.toString());
-		}
-		setLoc(coordList);
+		
+		programmationDynamique(start, spread);
+		
+		return graphList;
 	}
 
-	public void programmationDynamique(int start, int spread) {
-		this.spread = spread;
+	private void programmationDynamique(int start, int spread) {
+		setSpread(spread);
 
-		graphList = new ArrayList<List<Node>>();
-		sd = new SailingDuration();
-
-		initializeGraph(graphList);
 		graphList.get(0).get(start).thisAsStartNode();
 
 		getInterpolatedWindfield();
-
 		/*
 		 * The adjusted windfield with the interpolated windvectors.
 		 */
+		// wf = 4, 12, 13, 14
 		// TODO Replace 3 with getWindFieldIndex()
-		setWvAdjusted(windFieldContainer.get(3));
+		int windfieldNo = 3;
+		setWvAdjusted(windFieldContainer.get(windfieldNo));
 
 		/* Call the method progrDyn to calculate the times */
 		for (int i = 1; i < getMaxi(); i++) {
-			progrDyn(i);
+			progrDyn(i, windfieldNo);
 		}
 	}
 
-	private void progrDyn(int r) {
-		/*
-		 * Magic numbers no one knows why exactly they must be exactly this
-		 * value ---> THEY'RE COMMENTED!!! NOT NECESSARY!
-		 */
-		// wf = 4, 12, 13, 14
-		// TODO Replace 3 with getWindFieldIndex()
-		int wf = 3;
+	private void progrDyn(int r, int windfieldNo) {
+		
 		double min;
 
 		double[] travelDistance;
@@ -183,7 +173,7 @@ public class Decision {
 			 */
 			for (int j = 0; j < getMaxj(); j++) {
 
-				travelDistance[j] = calcTravelDistance(r, j, k, wf);
+				travelDistance[j] = calcTravelDistance(r, j, k, windfieldNo);
 
 				/*
 				 * Saves the minimum distance and makes sure that the node is in
@@ -225,25 +215,25 @@ public class Decision {
 				 * windField and compute the distance again.
 				 */
 				if (position[k][__TRAVELTIME__] >= 30d) {
-					int w_calculated = (int) position[k][__TRAVELTIME__] / 30;
+					int windField_raise = (int) position[k][__TRAVELTIME__] / 30;
 					// System.out.print("Position1: "
 					// + position[k][__TRAVELTIME__]);
 
-					int wf_neu = wf + w_calculated;
+					int windFieldNo_new = windfieldNo + windField_raise;
 
 					/*
 					 * This should never happen. But if it does, then we say
 					 * STOP, that's your limit man...
 					 */
-					if (wf_neu > 24)
-						wf_neu = 24;
+					if (windFieldNo_new > 24)
+						windFieldNo_new = 24;
 
-					if (w_calculated > 1)
+					if (windField_raise > 1)
 						System.out
 								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
 
 					position[k][__TRAVELTIME__] = calcTravelDistance(r,
-							(int) position[k][__ROW__], k, wf_neu);
+							(int) position[k][__ROW__], k, windFieldNo_new);
 					// System.out.println(" Position2: "
 					// + position[k][__TRAVELTIME__]);
 				}
@@ -255,12 +245,13 @@ public class Decision {
 				node = new Node(position[k][__TRAVELTIME__]);
 				node.setPrevious(graphList.get(r - 1).get(
 						(int) position[k][__ROW__]));
+				node.setCrd(graphList.get(r).get(k).getCrd());
 				graphList.get(r).set(k, node);
 			} else {
 				System.out.println("Shit!");
 			}
 		}
-		setWv(windFieldContainer.get(wf));
+		setWv(windFieldContainer.get(windfieldNo));
 	}
 
 	/**
@@ -303,7 +294,7 @@ public class Decision {
 
 		/* Interpolate all windFields at once */
 		windFieldContainer = windFieldContainer.bulkInterpolateOnDecisionNet(
-				getLoc(), bil);
+				graphList, bil);
 		System.out.println("WF " + windFieldContainer.getDelta().toString());
 	}
 
@@ -351,12 +342,12 @@ public class Decision {
 	 */
 	private double calcTravelDistance(int r, int j, int k, int wf) {
 		setWv(windFieldContainer.get(wf));
-		double distance = ortho(loc.get(r - 1).get(j), loc.get(r).get(k));
+		double distance = ortho(graphList.get(r - 1).get(j).getCrd(), graphList.get(r).get(k).getCrd());
 		WindVector v1 = getWv().getField().get(r - 1).get(j);
 		WindVector v2 = getWv().getField().get(r).get(k);
 
-		double sailingDuration = sd.getSailingDuration(loc.get(r - 1).get(j),
-				loc.get(r).get(k), v1, v2, distance);
+		double sailingDuration = sd.getSailingDuration(graphList.get(r - 1).get(j).getCrd(),
+				graphList.get(r).get(k).getCrd(), v1, v2, distance);
 
 		sailingDuration = sailingDuration
 				+ graphList.get(r - 1).get(j).getTimeOfArrival();
@@ -385,22 +376,12 @@ public class Decision {
 	public List<List<Node>> getGraphList() {
 		return graphList;
 	}
-
-	public List<List<Coordinate>> getLoc() {
-		return loc;
-	}
-
-	public void setLoc(List<List<Coordinate>> loc) {
-		this.loc = loc;
-		setMaxi(loc.size());
-		setMaxj(loc.get(0).size());
-	}
-
+	
 	public int getMaxi() {
 		return maxi;
 	}
 
-	public void setMaxi(int maxi) {
+	private void setMaxi(int maxi) {
 		this.maxi = maxi;
 	}
 
@@ -408,7 +389,7 @@ public class Decision {
 		return maxj;
 	}
 
-	public void setMaxj(int maxj) {
+	private void setMaxj(int maxj) {
 		this.maxj = maxj;
 	}
 
@@ -416,7 +397,7 @@ public class Decision {
 		return wv;
 	}
 
-	public void setWv(Windfield wv) {
+	private void setWv(Windfield wv) {
 		this.wv = wv;
 	}
 
@@ -424,7 +405,15 @@ public class Decision {
 		return wvAdjusted;
 	}
 
-	public void setWvAdjusted(Windfield wvAdjusted) {
+	private void setWvAdjusted(Windfield wvAdjusted) {
 		this.wvAdjusted = wvAdjusted;
+	}
+
+	public int getSpread() {
+		return spread;
+	}
+
+	private void setSpread(int spread) {
+		this.spread = spread;
 	}
 }

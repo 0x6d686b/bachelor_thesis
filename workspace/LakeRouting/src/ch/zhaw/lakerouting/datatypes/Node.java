@@ -30,9 +30,12 @@ package ch.zhaw.lakerouting.datatypes;
 public class Node implements Comparable<Node> {
     private double timeOfArrival;
     private Node previous = null;
+    private Coordinate crd;
 
     public Node(double timeOfArrival) {
         this.timeOfArrival = timeOfArrival;
+    }
+    public Node() {
     }
 
     @Override
@@ -78,5 +81,17 @@ public class Node implements Comparable<Node> {
 
     public void setPrevious(Node previous) {
         this.previous = previous;
+    }
+
+	public Coordinate getCrd() {
+		return crd;
+	}
+
+	public void setCrd(Coordinate crd) {
+		this.crd = crd;
+	}
+	
+	public final String toString() {
+        return "Node: TOA: "+timeOfArrival+", Longitude: " + crd.getLongitudeInDegree() + "°, Latitude: " + crd.getLatitudeInDegree();
     }
 }

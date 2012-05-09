@@ -128,7 +128,7 @@ public class DecisionOrtho {
 		Graph graph;
 
 		// fill the graph with default values 0 and 1000000
-		double[] init = { 0, 0 };
+		int[] init = { 0, 0 };
 		for (int i = 0; i < getMaxi(); i++) {
 			graphList.add(new ArrayList<Graph>());
 			for (int j = 0; j < getMaxj(); j++) {
@@ -141,7 +141,7 @@ public class DecisionOrtho {
 		}
 
 		// fill at point (0,start) the node with values 1 and 0
-		double[] init2 = { 1, 1 };
+		int[] init2 = { 1, 1 };
 		graphList.get(0).get(start).setPreviousNode(init2);
 		graphList.get(0).get(start).setNode(init2);
 		graphList.get(0).get(start).setTimeOfArrival(0);
@@ -176,7 +176,7 @@ public class DecisionOrtho {
 		double[] etabli;
 		double min;
 		double[][] position = new double[getMaxj()][2];
-		double[] node;
+		int[] node;
 		Coordinate crd1 = new Coordinate();
 		Coordinate crd2 = new Coordinate();
 		// for iterator for all nodes in the r-column
@@ -209,11 +209,11 @@ public class DecisionOrtho {
 
 			// computes the spread and updates the matrix graphList
 			if (Math.abs(k - (int) position[k][0]) <= spread) {
-				node = new double[2];
+				node = new int[2];
 				node[0] = r - 1;
-				node[1] = position[k][0];
+				node[1] = (int)position[k][0];
 				graphList.get(r).get(k).setPreviousNode(node);
-				node = new double[2];
+				node = new int[2];
 				node[0] = r;
 				node[1] = k;
 				graphList.get(r).get(k).setNode(node);
