@@ -27,6 +27,7 @@ import ch.zhaw.properties.PropertyLoad;
  */
 public class Decision {
 
+	private static final int MAX_TOA = 1000000;
 	/* Contains the coordinates of the nodes */
 	private List<List<Node>> graphList;
 	private Windfield wv;
@@ -35,10 +36,10 @@ public class Decision {
 	private int maxj;
 	private SailingDuration sd;
 	private WindfieldContainer windFieldContainer;
-	
+
 	private int spread;
 
-	public Decision(){
+	public Decision() {
 		sd = new SailingDuration();
 		graphList = new ArrayList<List<Node>>();
 	}
@@ -52,7 +53,7 @@ public class Decision {
 	 *            - Coordinates of the second location
 	 * @return The distance
 	 */
-	public double ortho(Coordinate crd1, Coordinate crd2) {
+	private double ortho(Coordinate crd1, Coordinate crd2) {
 
 		/* Convert from degree to radian */
 		double theta1 = crd1.getLongitudeInRadian();
@@ -74,9 +75,34 @@ public class Decision {
 		return distance;
 	}
 
-	public List<List<Node>> createDecisionGraph(Coordinate crd1, Coordinate crd2, int maxi,
-			int maxj, int start, int spread) {
-		
+	/**
+	 * The only method, which is public and can be called from the outside. This
+	 * is the "entrance" of the program. This method fills the graphList with
+	 * the values of the Coordinates. And after that it calls the method
+	 * programmationDynamique, from where the distances are calculated.
+	 * 
+	 * @param crd1
+	 *            - Coordinates of the starting-location
+	 * @param crd2
+	 *            - Coordinates of the destination-location
+	 * @param maxi
+	 *            - the length of columns
+	 * @param maxj
+	 *            - the length of rows (maxj*2+1)
+	 * @param start
+	 *            - the position of the starting node
+	 * @param spread
+	 *            - the number of connections of a node, which should be
+	 *            considered
+	 * @return The list with the nodes and its calculated distances
+	 */
+	public List<List<Node>> createDecisionGraph(Coordinate crd1,
+			Coordinate crd2, int maxi, int maxj, int start, int spread) {
+
+		/*
+		 * For a better understanding of the formula, we save the values theta's
+		 * and phi's
+		 */
 		double theta1 = crd1.getLongitudeInDegree();
 		double phi1 = crd1.getLatitudeInDegree();
 		double theta2 = crd2.getLongitudeInDegree();
@@ -84,14 +110,15 @@ public class Decision {
 
 		/* local variables */
 		double p, e, c, s;
-		// P - This specifies the ratio of the distances between two steps and two
-		// options
+		/*
+		 * P - This specifies the ratio of the distances between two steps and
+		 * two options
+		 */
 		p = 0.3;
 
-		/* the euclidian distance */
+		/* the euclidian distance calculation */
 		e = Math.sqrt(Math.pow((theta2 - theta1), 2.0)
 				+ Math.pow((phi2 - phi1), 2.0));
-		// System.out.println("Euclidian Distance: "+e+" Grad, "+e*60*1.852+" km");
 		/* Cosinus value */
 		c = (theta2 - theta1) / e;
 		/* Sinus value */
@@ -104,56 +131,86 @@ public class Decision {
 		M[1][0] = s;
 		M[1][1] = c;
 
-		Coordinate crd = new Coordinate();
-		setMaxi(maxi+1);
-		setMaxj(maxj*2+1);
+		/* Setting the maximal values of rows and columns */
+		setMaxi(maxi + 1);
+		setMaxj(maxj * 2 + 1);
+
 		initializeGraph(graphList);
-		
+		Coordinate crd = new Coordinate();
+
 		/* Create the table */
 		for (int i = 0; i <= maxi; i++) {
 			for (int j = -maxj; j <= maxj; j++) {
-				/* Fill the table */
+				/* Calculate the coordinate values and save it to the list */
 				crd.setLongitudeInDegree(M[0][0] * (e * i / maxi) + M[0][1]
 						* (p * e * j / (2 * maxj)) + theta1);
 				crd.setLatitudeInDegree(M[1][0] * (e * i / maxi) + M[1][1]
 						* (p * e * j / (2 * maxj)) + phi1);
-				graphList.get(i).get(j+maxj).setCrd(crd);
+				graphList.get(i).get(j + maxj).setCrd(crd);
 				crd = new Coordinate();
 			}
 		}
-		
-		programmationDynamique(start, spread);
-		
+
+		dynamicalProgramming(start, spread);
+
 		return graphList;
 	}
 
-	private void programmationDynamique(int start, int spread) {
+	/**
+	 * This method initializes some variables and calls for every column the
+	 * method progrdyn(). It's the beginning of the dynamical programming.
+	 * 
+	 * @param start
+	 *            - the position of the starting node
+	 * @param spread
+	 *            - the number of connections of a node, which should be
+	 *            considered
+	 */
+	private void dynamicalProgramming(int start, int spread) {
 		setSpread(spread);
 
+		/* Setting the Node with index start as the starting-point */
 		graphList.get(0).get(start).thisAsStartNode();
 
 		getInterpolatedWindfield();
-		/*
-		 * The adjusted windfield with the interpolated windvectors.
-		 */
-		// wf = 4, 12, 13, 14
+
+		/* The default windField number */
+		// wf = 4, 12, 13, 14 <-- some examples for experiments
 		// TODO Replace 3 with getWindFieldIndex()
 		int windfieldNo = 3;
+		/*
+		 * The second windField, which contains the adjusted windvectors. A
+		 * composed windField.
+		 */
 		setWvAdjusted(windFieldContainer.get(windfieldNo));
 
-		/* Call the method progrDyn to calculate the times */
+		/* Call the method progrDyn to calculate the distances in TOA */
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i, windfieldNo);
 		}
 	}
 
+	/**
+	 * This method calculates step-by-step for every column the distances
+	 * between two neighbor columns and saves the shortest distance considering
+	 * the spread.
+	 * 
+	 * @param r
+	 *            - the index of a column
+	 * @param windfieldNo
+	 *            - the default windField number
+	 */
 	private void progrDyn(int r, int windfieldNo) {
-		
-		double min;
 
+		double maxTimeOfArrival;
+
+		/* the distances of a node to all his neighbor nodes (left column) */
 		double[] travelDistance;
 
-		/* Let's make this easier to read than with pure digits */
+		/*
+		 * The position and the row-index of the node, which has the shortest
+		 * distance to the current node.
+		 */
 		double[][] position = new double[getMaxj()][2];
 		final int __ROW__ = 0;
 		final int __TRAVELTIME__ = 1;
@@ -163,13 +220,13 @@ public class Decision {
 		/* For-iterator over all nodes in the column r. k - the current node */
 		for (int k = 0; k < getMaxj(); k++) {
 			/* reset the minimum for each row */
-			min = 1000000;
+			maxTimeOfArrival = MAX_TOA;
 
 			travelDistance = new double[getMaxj()];
 
 			/*
 			 * Compares the current node (k) of the column r with all previous
-			 * nodes (j)
+			 * nodes (j) in column r-1.
 			 */
 			for (int j = 0; j < getMaxj(); j++) {
 
@@ -179,14 +236,18 @@ public class Decision {
 				 * Saves the minimum distance and makes sure that the node is in
 				 * the spread.
 				 */
-				if (travelDistance[j] < min) {
+				if (travelDistance[j] < maxTimeOfArrival) {
+					/*
+					 * Checks, if the position of the shortest distance is legal
+					 * based on spread. If not, it sets the default distance.
+					 */
 					if (Math.abs(k - j) <= spread) {
-						min = travelDistance[j];
+						maxTimeOfArrival = travelDistance[j];
 						position[k][__ROW__] = j;
 						position[k][__TRAVELTIME__] = travelDistance[j];
 					} else {
 						position[k][__ROW__] = j;
-						position[k][__TRAVELTIME__] = 1000000;
+						position[k][__TRAVELTIME__] = MAX_TOA;
 					}
 				}
 			}
@@ -202,23 +263,22 @@ public class Decision {
 			// });
 
 			/* Computes the spread and updates the matrix graphList */
-			/*
-			 * Now this is just plain dangerous. If we are gone past the spread,
-			 * the node will not receive an ancestor there but with a travel
-			 * time meaning the node could(!) under bad circumstances become an
-			 * ancestor which would create a path with a null pointer when
-			 * calculating a potential back-path ...
-			 */
 			if (Math.abs(k - (int) position[k][__ROW__]) <= spread) {
 				/*
 				 * If the time is greater than 30, it will choose another
 				 * windField and compute the distance again.
 				 */
 				if (position[k][__TRAVELTIME__] >= 30d) {
+					/* this calculates how much we have to raise the index of WF */
 					int windField_raise = (int) position[k][__TRAVELTIME__] / 30;
+					if (windField_raise > 1)
+						System.out
+								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
+
 					// System.out.print("Position1: "
 					// + position[k][__TRAVELTIME__]);
 
+					/* The new windField number */
 					int windFieldNo_new = windfieldNo + windField_raise;
 
 					/*
@@ -228,12 +288,10 @@ public class Decision {
 					if (windFieldNo_new > 24)
 						windFieldNo_new = 24;
 
-					if (windField_raise > 1)
-						System.out
-								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
-
+					/* Recalculate the distance with the new windField */
 					position[k][__TRAVELTIME__] = calcTravelDistance(r,
 							(int) position[k][__ROW__], k, windFieldNo_new);
+
 					// System.out.println(" Position2: "
 					// + position[k][__TRAVELTIME__]);
 				}
@@ -251,6 +309,7 @@ public class Decision {
 				System.out.println("Shit!");
 			}
 		}
+		/* Reset the WindField with the default index */
 		setWv(windFieldContainer.get(windfieldNo));
 	}
 
@@ -264,7 +323,7 @@ public class Decision {
 		for (int i = 0; i < getMaxi(); i++) {
 			graphRow = new ArrayList<Node>();
 			for (int j = 0; j < getMaxj(); j++) {
-				node = new Node(1000000);
+				node = new Node(MAX_TOA);
 				graphRow.add(node);
 			}
 			g.add(graphRow);
@@ -276,15 +335,17 @@ public class Decision {
 	 * windVectors for the nodes over all windFields
 	 */
 	private void getInterpolatedWindfield() {
-		/* Load the file */
+		/* Load the file. But at first, we need a container */
 		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
 		InterpolationAlgorithm bil = new Bilinear();
 		windFieldContainer = new WindfieldContainer();
 
 		try {
+			/* Load the path of the windField-File from a config file */
 			URI identifier = new PropertyLoad().getURIOfProperty(
 					"file.path.windFieldContainer", "file");
 
+			/* Load the File and read and save the windFields to the container */
 			windFieldContainer.bulkLoadWindfield(identifier, loader);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
@@ -299,20 +360,24 @@ public class Decision {
 	}
 
 	/**
-	 * Computes the index of the windField by the current time.
+	 * Computes the index of the windField by current time.
 	 * 
 	 * @return the index of the windField
 	 */
 	private int getWindFieldIndex() {
 
 		DateTime dt = new DateTime();
+		/*
+		 * To make sure, that the date of the windField is the same as the
+		 * current date
+		 */
 		int dayOfMonthWF = windFieldContainer.get(0).getMetadata().getDate()
 				.dayOfMonth().get();
 		int dayOfMonth = dt.getDayOfMonth();
 
-		// TODO To check, if the day of the windfield is the same like the
-		// current day
+		// TODO check, day of the windfield = current day
 
+		/* Check the hour of the day, and get the index for the windField */
 		int hourOfDayWF = windFieldContainer.get(0).getMetadata().getDate()
 				.getHourOfDay();
 		int hourOfDay = dt.getHourOfDay();
@@ -342,13 +407,18 @@ public class Decision {
 	 */
 	private double calcTravelDistance(int r, int j, int k, int wf) {
 		setWv(windFieldContainer.get(wf));
-		double distance = ortho(graphList.get(r - 1).get(j).getCrd(), graphList.get(r).get(k).getCrd());
+		/* Get the ortho-distance between two locations */
+		double distance = ortho(graphList.get(r - 1).get(j).getCrd(), graphList
+				.get(r).get(k).getCrd());
 		WindVector v1 = getWv().getField().get(r - 1).get(j);
 		WindVector v2 = getWv().getField().get(r).get(k);
 
-		double sailingDuration = sd.getSailingDuration(graphList.get(r - 1).get(j).getCrd(),
-				graphList.get(r).get(k).getCrd(), v1, v2, distance);
-
+		/* Get the sailingduration */
+		double sailingDuration = sd.getSailingDuration(graphList.get(r - 1)
+				.get(j).getCrd(), graphList.get(r).get(k).getCrd(), v1, v2,
+				distance);
+		
+		/* Add the new duration to the last TOA */
 		sailingDuration = sailingDuration
 				+ graphList.get(r - 1).get(j).getTimeOfArrival();
 		getWvAdjusted().getField().get(r).set(k, v2);
@@ -356,6 +426,13 @@ public class Decision {
 		return sailingDuration;
 	}
 
+	/**
+	 * A method, which isn't used yet.
+	 * It converts a coordinate to a vector.
+	 * 
+	 * @param crd
+	 * @return A three-dimensional array.
+	 */
 	public double[] transformCoordToVector(Coordinate crd) {
 		double theta = crd.getLongitudeInRadian();
 		double phi = crd.getLatitudeInRadian();
@@ -376,7 +453,7 @@ public class Decision {
 	public List<List<Node>> getGraphList() {
 		return graphList;
 	}
-	
+
 	public int getMaxi() {
 		return maxi;
 	}

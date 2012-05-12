@@ -69,7 +69,7 @@ public class DecisionTest {
 			spread = 4;
 			test = de.createDecisionGraph(crd1, crd2, m, n, 10, spread);
 
-			orthoDistanceKm = de.ortho(crd1, crd2);// * seamileToKm;
+			orthoDistanceKm = 0;//de.ortho(crd1, crd2);// * seamileToKm;
 
 			System.out.println("OrthoTest " + i + ": " + entry.getKey()
 					+ " distance:" + orthoDistanceKm + " sm");
