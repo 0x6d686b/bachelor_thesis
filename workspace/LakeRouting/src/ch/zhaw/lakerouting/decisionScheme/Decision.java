@@ -27,11 +27,11 @@ import ch.zhaw.properties.PropertyLoad;
  */
 public class Decision {
 
+	private static final double TIME_LIMIT_OF_WF = 30d;
 	private static final int MAX_TOA = 1000000;
 	/* Contains the coordinates of the nodes */
 	private List<List<Node>> graphList;
 	private Windfield wv;
-	private Windfield wvAdjusted;
 	private int maxi;
 	private int maxj;
 	private SailingDuration sd;
@@ -97,7 +97,7 @@ public class Decision {
 	 * @return The list with the nodes and its calculated distances
 	 */
 	public List<List<Node>> createDecisionGraph(Coordinate crd1,
-			Coordinate crd2, int maxi, int maxj, int start, int spread) {
+			Coordinate crd2, int maxi, int maxj, int spread) {
 
 		/*
 		 * For a better understanding of the formula, we save the values theta's
@@ -151,9 +151,26 @@ public class Decision {
 			}
 		}
 
-		dynamicalProgramming(start, spread);
+		dynamicalProgramming(spread);
 
 		return graphList;
+	}
+
+	/**
+	 * Fills the graph at the beginning with default values, 0 for Nodes and
+	 * 1000000 for TimeOfArrival
+	 */
+	private void initializeGraph(List<List<Node>> g) {
+		Node node;
+		ArrayList<Node> graphRow;
+		for (int i = 0; i < getMaxi(); i++) {
+			graphRow = new ArrayList<Node>();
+			for (int j = 0; j < getMaxj(); j++) {
+				node = new Node(MAX_TOA);
+				graphRow.add(node);
+			}
+			g.add(graphRow);
+		}
 	}
 
 	/**
@@ -166,27 +183,108 @@ public class Decision {
 	 *            - the number of connections of a node, which should be
 	 *            considered
 	 */
-	private void dynamicalProgramming(int start, int spread) {
+	private void dynamicalProgramming(int spread) {
 		setSpread(spread);
 
 		/* Setting the Node with index start as the starting-point */
-		graphList.get(0).get(start).thisAsStartNode();
-
-		getInterpolatedWindfield();
+		graphList.get(0).get(getMaxj() / 2).thisAsStartNode();
 
 		/* The default windField number */
-		// wf = 4, 12, 13, 14 <-- some examples for experiments
-		// TODO Replace 3 with getWindFieldIndex()
-		int windfieldNo = 3;
+		// wf = 3, 4, 12, 13, 14 <-- some samples for experiments
+		getInterpolatedWindfield();
+		int windfieldNo = getWindFieldIndex();
+		setWindFieldToGraphList(windfieldNo);
+
 		/*
-		 * The second windField, which contains the adjusted windvectors. A
-		 * composed windField.
+		 * The windField, which contains the current windField, which is needed.
 		 */
-		setWvAdjusted(windFieldContainer.get(windfieldNo));
+		setWv(windFieldContainer.get(windfieldNo));
 
 		/* Call the method progrDyn to calculate the distances in TOA */
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i, windfieldNo);
+		}
+		/* That we have access after the calculation to the default windField-Metadata */
+		setWv(windFieldContainer.get(windfieldNo));
+	}
+
+	/**
+	 * Gets the windFields from the File listed and returns the interpolated
+	 * windVectors for the nodes over all windFields
+	 */
+	private void getInterpolatedWindfield() {
+		/* Load the file. But at first, we need a container */
+		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
+		InterpolationAlgorithm bil = new Bilinear();
+		windFieldContainer = new WindfieldContainer();
+
+		try {
+			/* Load the path of the windField-File from a config file */
+			URI identifier = new PropertyLoad().getURIOfProperty(
+					"file.path.windFieldContainer", "file");
+
+			/* Load the File and read and save the windFields to the container */
+			windFieldContainer.bulkLoadWindfield(identifier, loader);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		/* Interpolate all windFields at once */
+		windFieldContainer = windFieldContainer.bulkInterpolateOnDecisionNet(
+				graphList, bil);
+		System.out.println("WF " + windFieldContainer.getDelta().toString());
+	}
+
+	/**
+	 * Computes the index of the windField by current time.
+	 * 
+	 * @return the index of the windField
+	 */
+	private int getWindFieldIndex() {
+
+		DateTime dt = new DateTime();
+		/*
+		 * To make sure, that the date of the windField is the same as the
+		 * current date. TODO check, day of the windfield = current day
+		 */
+		int dayOfMonthWF = windFieldContainer.get(0).getMetadata().getDate()
+				.dayOfMonth().get();
+		int dayOfMonth = dt.getDayOfMonth();
+
+		/* Check the hour of the day, and get the index for the windField */
+		int hourOfDayWF = windFieldContainer.get(0).getMetadata().getDate()
+				.getHourOfDay();
+		int hourOfDay = dt.getHourOfDay();
+		int minutesOfDay = dt.getMinuteOfHour();
+
+		hourOfDay += (minutesOfDay < 30) ? 0 : 1;
+
+		int difference = hourOfDay - hourOfDayWF;
+		if (difference < 0) {
+			difference = 24 + difference;
+		}
+		return difference;
+	}
+
+	/**
+	 * Sets the default windField to the graphList.
+	 * 
+	 * @param windfieldNo
+	 */
+	private void setWindFieldToGraphList(int windfieldNo) {
+		for (int i = 0; i < windFieldContainer.get(windfieldNo).getField()
+				.size(); i++) {
+			for (int j = 0; j < windFieldContainer.get(windfieldNo).getField()
+					.get(0).size(); j++) {
+				graphList
+						.get(i)
+						.get(j)
+						.setWindVector(
+								windFieldContainer.get(windfieldNo).getField()
+										.get(i).get(j));
+			}
 		}
 	}
 
@@ -214,8 +312,6 @@ public class Decision {
 		double[][] position = new double[getMaxj()][2];
 		final int __ROW__ = 0;
 		final int __TRAVELTIME__ = 1;
-
-		Node node;
 
 		/* For-iterator over all nodes in the column r. k - the current node */
 		for (int k = 0; k < getMaxj(); k++) {
@@ -268,15 +364,15 @@ public class Decision {
 				 * If the time is greater than 30, it will choose another
 				 * windField and compute the distance again.
 				 */
-				if (position[k][__TRAVELTIME__] >= 30d) {
+				if (position[k][__TRAVELTIME__] >= TIME_LIMIT_OF_WF) {
 					/* this calculates how much we have to raise the index of WF */
-					int windField_raise = (int) position[k][__TRAVELTIME__] / 30;
+					int windField_raise = (int) (position[k][__TRAVELTIME__] / TIME_LIMIT_OF_WF);
 					if (windField_raise > 1)
 						System.out
 								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
 
-					// System.out.print("Position1: "
-					// + position[k][__TRAVELTIME__]);
+					System.out.print("Position1: "
+							+ position[k][__TRAVELTIME__]);
 
 					/* The new windField number */
 					int windFieldNo_new = windfieldNo + windField_raise;
@@ -292,104 +388,27 @@ public class Decision {
 					position[k][__TRAVELTIME__] = calcTravelDistance(r,
 							(int) position[k][__ROW__], k, windFieldNo_new);
 
-					// System.out.println(" Position2: "
-					// + position[k][__TRAVELTIME__]);
+					System.out.println(" Position2: "
+							+ position[k][__TRAVELTIME__]);
 				}
 
 				/*
 				 * Setting the graphList with current position and shortest
 				 * distance.
 				 */
-				node = new Node(position[k][__TRAVELTIME__]);
-				node.setPrevious(graphList.get(r - 1).get(
-						(int) position[k][__ROW__]));
-				node.setCrd(graphList.get(r).get(k).getCrd());
-				graphList.get(r).set(k, node);
+				graphList.get(r).get(k)
+						.setTimeOfArrival(position[k][__TRAVELTIME__]);
+				graphList
+						.get(r)
+						.get(k)
+						.setPrevious(
+								graphList.get(r - 1).get(
+										(int) position[k][__ROW__]));
 			} else {
 				System.out.println("Shit!");
 			}
 		}
-		/* Reset the WindField with the default index */
-		setWv(windFieldContainer.get(windfieldNo));
-	}
 
-	/**
-	 * Fills the graph at the beginning with default values, 0 for Nodes and
-	 * 1000000 for TimeOfArrival
-	 */
-	private void initializeGraph(List<List<Node>> g) {
-		Node node;
-		ArrayList<Node> graphRow;
-		for (int i = 0; i < getMaxi(); i++) {
-			graphRow = new ArrayList<Node>();
-			for (int j = 0; j < getMaxj(); j++) {
-				node = new Node(MAX_TOA);
-				graphRow.add(node);
-			}
-			g.add(graphRow);
-		}
-	}
-
-	/**
-	 * Gets the windFields from the File listed and returns the interpolated
-	 * windVectors for the nodes over all windFields
-	 */
-	private void getInterpolatedWindfield() {
-		/* Load the file. But at first, we need a container */
-		SpaceWindFieldLoader loader = new SpaceWindFieldLoader();
-		InterpolationAlgorithm bil = new Bilinear();
-		windFieldContainer = new WindfieldContainer();
-
-		try {
-			/* Load the path of the windField-File from a config file */
-			URI identifier = new PropertyLoad().getURIOfProperty(
-					"file.path.windFieldContainer", "file");
-
-			/* Load the File and read and save the windFields to the container */
-			windFieldContainer.bulkLoadWindfield(identifier, loader);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		/* Interpolate all windFields at once */
-		windFieldContainer = windFieldContainer.bulkInterpolateOnDecisionNet(
-				graphList, bil);
-		System.out.println("WF " + windFieldContainer.getDelta().toString());
-	}
-
-	/**
-	 * Computes the index of the windField by current time.
-	 * 
-	 * @return the index of the windField
-	 */
-	private int getWindFieldIndex() {
-
-		DateTime dt = new DateTime();
-		/*
-		 * To make sure, that the date of the windField is the same as the
-		 * current date
-		 */
-		int dayOfMonthWF = windFieldContainer.get(0).getMetadata().getDate()
-				.dayOfMonth().get();
-		int dayOfMonth = dt.getDayOfMonth();
-
-		// TODO check, day of the windfield = current day
-
-		/* Check the hour of the day, and get the index for the windField */
-		int hourOfDayWF = windFieldContainer.get(0).getMetadata().getDate()
-				.getHourOfDay();
-		int hourOfDay = dt.getHourOfDay();
-		int minutesOfDay = dt.getMinuteOfHour();
-
-		hourOfDay += (minutesOfDay < 30) ? 0 : 1;
-
-		int difference = hourOfDay - hourOfDayWF;
-		if (difference < 0) {
-			difference = 24 + difference;
-		}
-		return difference;
 	}
 
 	/**
@@ -410,25 +429,25 @@ public class Decision {
 		/* Get the ortho-distance between two locations */
 		double distance = ortho(graphList.get(r - 1).get(j).getCrd(), graphList
 				.get(r).get(k).getCrd());
-		WindVector v1 = getWv().getField().get(r - 1).get(j);
+		WindVector v1 = graphList.get(r - 1).get(j).getWindVector();
+		// WindVector v1 = getWv().getField().get(r - 1).get(j);
 		WindVector v2 = getWv().getField().get(r).get(k);
 
 		/* Get the sailingduration */
 		double sailingDuration = sd.getSailingDuration(graphList.get(r - 1)
 				.get(j).getCrd(), graphList.get(r).get(k).getCrd(), v1, v2,
 				distance);
-		
+
 		/* Add the new duration to the last TOA */
 		sailingDuration = sailingDuration
 				+ graphList.get(r - 1).get(j).getTimeOfArrival();
-		getWvAdjusted().getField().get(r).set(k, v2);
+		graphList.get(r).get(k).setWindVector(v2);
 
 		return sailingDuration;
 	}
 
 	/**
-	 * A method, which isn't used yet.
-	 * It converts a coordinate to a vector.
+	 * A method, which isn't used yet. It converts a coordinate to a vector.
 	 * 
 	 * @param crd
 	 * @return A three-dimensional array.
@@ -476,14 +495,6 @@ public class Decision {
 
 	private void setWv(Windfield wv) {
 		this.wv = wv;
-	}
-
-	public Windfield getWvAdjusted() {
-		return wvAdjusted;
-	}
-
-	private void setWvAdjusted(Windfield wvAdjusted) {
-		this.wvAdjusted = wvAdjusted;
 	}
 
 	public int getSpread() {

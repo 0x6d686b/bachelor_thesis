@@ -30,7 +30,6 @@ import ch.zhaw.lakerouting.datatypes.Node;
  */
 public class GridFrame extends JFrame implements ActionListener {
 
-	private static final int DEFAULT_START = 10;
 	private static final int DEFAULT_M = 20;
 	private static final int DEFAULT_N = 10;
 	private static final int DEFAULT_SPREAD = 10;
@@ -38,13 +37,12 @@ public class GridFrame extends JFrame implements ActionListener {
 	/** default variable, nothing special */
 	private static final long serialVersionUID = 1L;
 
-	protected JTextField txtFieldStart;
 	protected JTextField txtFieldWidth;
 	protected JTextField txtFieldHeight;
 	protected JTextField txtFieldSpread;
 	protected JLabel txtFieldStartLabel;
-	protected JLabel txtFieldLengthLabel;
 	protected JLabel txtFieldWidthLabel;
+	protected JLabel txtFieldHeightLabel;
 	protected JLabel txtFieldSpreadLabel;
 	protected JLabel txtFieldInformation;
 	private String informationText="";
@@ -54,7 +52,6 @@ public class GridFrame extends JFrame implements ActionListener {
 	private double latMin;
 	private double longMax;
 	private double latMax;
-	private int startNode;
 	private int m_Width;
 	private int n_Height;
 	private int spread;
@@ -64,7 +61,6 @@ public class GridFrame extends JFrame implements ActionListener {
 	private Decision de;
 
 	public GridFrame() {
-		startNode = DEFAULT_START;
 		m_Width = DEFAULT_M;
 		n_Height = DEFAULT_N;
 		spread = DEFAULT_SPREAD;
@@ -76,8 +72,6 @@ public class GridFrame extends JFrame implements ActionListener {
 		JPanel panel1 = new JPanel(new FlowLayout()); 
 		JPanel panel2 = new JPanel(new FlowLayout()); 
 
-		txtFieldStart = new JTextField(10);
-		txtFieldStart.addActionListener(this);
 		txtFieldWidth = new JTextField(10);
 		txtFieldWidth.addActionListener(this);
 		txtFieldHeight = new JTextField(10);
@@ -85,16 +79,14 @@ public class GridFrame extends JFrame implements ActionListener {
 		txtFieldSpread = new JTextField(10);
 		txtFieldSpread.addActionListener(this);
 		txtFieldStartLabel = new JLabel("Start: ");
-		txtFieldLengthLabel = new JLabel("Length (+1): ");
-		txtFieldWidthLabel = new JLabel("Width (n*2+1): ");
+		txtFieldWidthLabel = new JLabel("Width (+1): ");
+		txtFieldHeightLabel = new JLabel("Height (n*2+1): ");
 		txtFieldSpreadLabel = new JLabel("Spread: ");
 		txtFieldInformation = new JLabel("");
 
-		panel1.add(txtFieldStartLabel);
-		panel1.add(txtFieldStart);
-		panel1.add(txtFieldLengthLabel);
-		panel1.add(txtFieldWidth);
 		panel1.add(txtFieldWidthLabel);
+		panel1.add(txtFieldWidth);
+		panel1.add(txtFieldHeightLabel);
 		panel1.add(txtFieldHeight);
 		panel1.add(txtFieldSpreadLabel);
 		panel1.add(txtFieldSpread);
@@ -176,14 +168,14 @@ public class GridFrame extends JFrame implements ActionListener {
 		 * Set the graph with long/lat nodes and Get the graph with decision
 		 * tree.
 		 */
-		graphList = de.createDecisionGraph(crd1, crd2, getM_Width(), getN_Height(), getStartNode(), getSpread());
+		graphList = de.createDecisionGraph(crd1, crd2, getM_Width(), getN_Height(), getSpread());
 
 		positionLongLats = new int[de.getMaxi()][de.getMaxj()][2];
 		calculateMinMax(de);
 		
-		informationText = "Start: "+ getStartNode()+
-				",     Width: "+getM_Width()+
-				",     Height: "+getN_Height()+
+		informationText = "Start: "+ getN_Height()+
+				",     Width: "+(getM_Width()+1)+
+				",     Height: "+(getN_Height()*2+1)+
 				",     Spread: "+getSpread()+
 				",     Crd1: "+crd1.getLongitudeInDegree()+" / "+crd1.getLatitudeInDegree()+
 				",     Crd2: "+crd2.getLongitudeInDegree()+" / "+crd2.getLatitudeInDegree()+
@@ -253,6 +245,7 @@ public class GridFrame extends JFrame implements ActionListener {
 				/* Draws the windvectors */
 				g.setColor(Color.orange);
 				drawLineWithArrow(g, de, positionLongLat, step, i, j);
+				
 				g.setColor(Color.DARK_GRAY);
 			}
 		}
@@ -284,9 +277,9 @@ public class GridFrame extends JFrame implements ActionListener {
 		// double v = de.getWv().get(i - 1).get(j - 1).getV() * step * factor;
 		// double u = -de.getWv().get(i - 1).get(j - 1).getU() * step * factor;
 		/* Uses the variable WindField */
-		double v = de.getWvAdjusted().getField().get(i).get(j).getV() * step
+		double v = graphList.get(i).get(j).getWindVector().getV() * step
 				* factor;
-		double u = -de.getWvAdjusted().getField().get(i).get(j).getU() * step
+		double u = -graphList.get(i).get(j).getWindVector().getU() * step
 				* factor;
 
 		int x1 = positionLongLat[i][j][0];
@@ -310,6 +303,7 @@ public class GridFrame extends JFrame implements ActionListener {
 		g.drawLine((int) calcV, (int) calcU, (int) x4, (int) y4);
 		g.drawLine((int) x4, (int) y4, (int) x2, (int) y2);
 	}
+	
 
 	/**
 	 * Draws the shortest path in red. This is shortest route from the start
@@ -411,10 +405,6 @@ public class GridFrame extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (txtFieldStart.getText() != null
-				&& !txtFieldStart.getText().equals("")) {
-			setStartNode(Integer.parseInt(txtFieldStart.getText()));
-		}
 		if (txtFieldWidth.getText() != null
 				&& !txtFieldWidth.getText().equals("")) {
 			setM_Width(Integer.parseInt(txtFieldWidth.getText()));
@@ -433,13 +423,6 @@ public class GridFrame extends JFrame implements ActionListener {
 	}
 
 	/* Some getter & setter Methods */
-	public int getStartNode() {
-		return startNode;
-	}
-
-	private void setStartNode(int startNode) {
-		this.startNode = startNode;
-	}
 
 	public int getM_Width() {
 		return m_Width;

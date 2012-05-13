@@ -31,12 +31,24 @@ public class Node implements Comparable<Node> {
     private double timeOfArrival;
     private Node previous = null;
     private Coordinate crd;
-
+    private WindVector windVector;
+    
+    public Node() {
+    	timeOfArrival = 0;
+        windVector = new WindVector(0, 0);
+    }
+    
     public Node(double timeOfArrival) {
         this.timeOfArrival = timeOfArrival;
+        windVector = new WindVector(0, 0);
     }
-    public Node() {
+    
+    public Node(double timeOfArrival, WindVector wv) {
+        this.timeOfArrival = timeOfArrival;
+        windVector = wv;
     }
+    
+
 
     @Override
     public int compareTo(Node o) {
@@ -94,4 +106,10 @@ public class Node implements Comparable<Node> {
 	public final String toString() {
         return "Node: TOA: "+timeOfArrival+", Longitude: " + crd.getLongitudeInDegree() + "°, Latitude: " + crd.getLatitudeInDegree();
     }
+	public WindVector getWindVector() {
+		return windVector;
+	}
+	public void setWindVector(WindVector windVector) {
+		this.windVector = windVector;
+	}
 }

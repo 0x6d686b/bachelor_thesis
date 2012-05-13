@@ -67,7 +67,7 @@ public class DecisionTest {
 			m = 20;
 			n = 10;
 			spread = 4;
-			test = de.createDecisionGraph(crd1, crd2, m, n, 10, spread);
+			test = de.createDecisionGraph(crd1, crd2, m, n, spread);
 
 			orthoDistanceKm = 0;//de.ortho(crd1, crd2);// * seamileToKm;
 
