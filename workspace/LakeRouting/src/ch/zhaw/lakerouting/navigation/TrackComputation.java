@@ -3,26 +3,51 @@ package ch.zhaw.lakerouting.navigation;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Track;
 
+/**
+ * This class computes the Track and the Heading.
+ * 
+ * @author Fevzi Yükseldi, Mathias Habluetzel
+ * 
+ */
 public class TrackComputation {
 
+	/**
+	 * Computes the heading-angle at location crd1 of a mobile sailing from
+	 * there to location crd2.
+	 * 
+	 * @param crd1
+	 *            - Coordinates of the first location
+	 * @param crd2
+	 *            - Coordinates of the second location
+	 * @return the heading-angle
+	 */
 	public double computeHeading(Coordinate crd1, Coordinate crd2) {
 
 		Track t = computeScalar(crd1, crd2);
-		double nTrack1=180*arcTangente(t)/Math.PI;
-		
-		if(nTrack1>90){
+		/* Convert the value in degree */
+		double nTrack1 = 180 * arcTangente(t) / Math.PI;
+
+		if (nTrack1 > 90) {
 			return 450d - nTrack1;
-		}else
-		{
+		} else {
 			return 90d - nTrack1;
 		}
 	}
 
+	/**
+	 * Computes an arctan of the track. A classical arctan computation delivers
+	 * the heading.
+	 * 
+	 * @param t
+	 *            - track
+	 * @return angle in radian
+	 */
 	private double arcTangente(Track t) {
 		double trackLong = t.getTrackLong();
 		double trackLat = t.getTrackLat();
 		double result = 0.0;
 
+		/* Carefully designed in order to catch all possible configurations */
 		if ((trackLong > 0) && (trackLat > 0)) {
 			result = Math.atan(trackLat / trackLong);
 		} else if ((trackLong < 0) && (trackLat > 0)) {
@@ -43,6 +68,16 @@ public class TrackComputation {
 		return result;
 	}
 
+	/**
+	 * Computes the crossprduct of two locations.
+	 * Currently not used.
+	 * 
+	 * @param crd1
+	 *            - Coordinates of the first location
+	 * @param crd2
+	 *            - Coordinates of the second location
+	 * @return a three spatial dimensional vector
+	 */
 	public double[] computeCross(Coordinate crd1, Coordinate crd2) {
 		double[] cross = new double[3];
 
@@ -71,13 +106,29 @@ public class TrackComputation {
 		return cross;
 	}
 
+	/**
+	 * Calculates the square of a value.
+	 * 
+	 * @param x
+	 *            - the value which should be squared.
+	 * @return the squared value
+	 */
 	private double square(double x) {
 		return x * x;
 	}
 
+	/**
+	 * Computes the Long/Lat of a Track.
+	 * 
+	 * @param crd1
+	 *            - Coordinates of the first location
+	 * @param crd2
+	 *            - Coordinates of the second location
+	 * @return the track
+	 */
 	public Track computeScalar(Coordinate crd1, Coordinate crd2) {
 		Track t = new Track(crd1, crd2);
 		return t;
 	}
-	
+
 }

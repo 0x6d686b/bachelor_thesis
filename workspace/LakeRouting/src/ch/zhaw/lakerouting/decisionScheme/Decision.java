@@ -16,28 +16,34 @@ import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.SpaceWindFieldLoader;
-import ch.zhaw.lakerouting.navigation.duration.SailingDuration;
+import ch.zhaw.lakerouting.navigation.SailingDuration;
 import ch.zhaw.properties.PropertyLoad;
 
 /**
- * This class computes the Decision-Matrix between two locations
+ * This class computes the Decision-Matrix between two locations and generates a
+ * list, which contains the distances and windvectors for every Node.
  * 
  * @author Fevzi Yuekseldi, Mathias Habluetzel
  * 
  */
 public class Decision {
 
+	/** Time-limit constant */
 	private static final double TIME_LIMIT_OF_WF = 30d;
+	/** Maximum TimeofArrival, default value */
 	private static final int MAX_TOA = 1000000;
-	/* Contains the coordinates of the nodes */
+	/** Contains the coordinates of the nodes */
 	private List<List<Node>> graphList;
+	/** Contains the current windvectors */
 	private Windfield wv;
+	/** Width of the graphList */
 	private int maxi;
+	/** Height of the graphList */
 	private int maxj;
+	/** Number of connections of a node */
+	private int spread;
 	private SailingDuration sd;
 	private WindfieldContainer windFieldContainer;
-
-	private int spread;
 
 	public Decision() {
 		sd = new SailingDuration();
@@ -89,8 +95,6 @@ public class Decision {
 	 *            - the length of columns
 	 * @param maxj
 	 *            - the length of rows (maxj*2+1)
-	 * @param start
-	 *            - the position of the starting node
 	 * @param spread
 	 *            - the number of connections of a node, which should be
 	 *            considered
@@ -177,8 +181,6 @@ public class Decision {
 	 * This method initializes some variables and calls for every column the
 	 * method progrdyn(). It's the beginning of the dynamical programming.
 	 * 
-	 * @param start
-	 *            - the position of the starting node
 	 * @param spread
 	 *            - the number of connections of a node, which should be
 	 *            considered
@@ -204,7 +206,10 @@ public class Decision {
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i, windfieldNo);
 		}
-		/* That we have access after the calculation to the default windField-Metadata */
+		/*
+		 * That we have access after the calculation to the default
+		 * windField-Metadata
+		 */
 		setWv(windFieldContainer.get(windfieldNo));
 	}
 
