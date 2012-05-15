@@ -1,7 +1,6 @@
 package ch.zhaw.lakerouting.navigation.speed;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Track;
@@ -18,21 +17,13 @@ public class SpeedComputation {
 	private BoatSpeedDiagram field;
 	private InterpolationAlgorithm bil;
 
-	public SpeedComputation() {
-		URI testfile;
-		try {
-			testfile = new URI(
-					"file",
-					"/var/tmp/Polaire.csv",
-					"");
-			BoatFieldLoader loader = new CSVBoatFieldLoader();
-			field = new BoatSpeedDiagram();
-			field.loadDiagram(loader, testfile);
-			bil = new Bilinear();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public SpeedComputation(URI identifier) {
+		
+		BoatFieldLoader loader = new CSVBoatFieldLoader();
+		field = new BoatSpeedDiagram();
+		field.loadDiagram(loader, identifier);
+		bil = new Bilinear();
+	
 	}
 
 	public double speedBoat(Coordinate crd1, Coordinate crd2, WindVector v) {
@@ -44,7 +35,9 @@ public class SpeedComputation {
 		
 		double angle = computeAngle(track, v);
 //		System.out.println("Angle: " + angle);
-		return yacht(wSpeed, angle);
+		
+		/* This line is the hole module yacht in mathematica */
+		return field.interpolate(angle, wSpeed, bil);
 	}
 
 	private double computeAngle(Track tr, WindVector v) {
@@ -56,14 +49,6 @@ public class SpeedComputation {
 			return 180.0;
 
 		return 180 * (1 - Math.acos(scalar / checkOfInfinity) / Math.PI);
-	}
-
-	private double yacht(double wSpeed, double angle) {
-		// Abfrage machen
-//		double test = interpoler.interpolate(angle, wSpeed, field, bil);
-		double test = field.interpolate(angle, wSpeed, bil);
-//		System.out.println("Interpoler:"+test);
-		return test;
 	}
 
 }

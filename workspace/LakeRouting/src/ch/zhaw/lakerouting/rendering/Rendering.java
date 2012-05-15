@@ -31,7 +31,6 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 
-import java.util.AbstractList;
 import java.util.List;
 
 public class Rendering {

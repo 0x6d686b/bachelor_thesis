@@ -37,7 +37,6 @@ public class WindVector {
     private static final int MAXWIND = 180;
     private double u;
     private double v;
-    private Coordinate coordinate;
 
     private void validateInput (double input) {
         if (Math.abs(input) > MAXWIND)
@@ -65,14 +64,6 @@ public class WindVector {
     public final void setV(double input) {
         validateInput(input);
         this.v = input;
-    }
-
-    public final void setCoordinate(Coordinate c) {
-        this.coordinate = c;
-    }
-
-    public final Coordinate getCoordinate() {
-        return this.coordinate;
     }
 
     public final double getWindspeed() {

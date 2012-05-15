@@ -76,7 +76,7 @@ public class TrackComputationTest {
 			crd2.setLongitudeInDegree(entry.getValue()[2]);
 			crd2.setLatitudeInDegree(entry.getValue()[3]);
 			
-			double rslt = trackComp.track12(crd1, crd2);
+			double rslt = trackComp.computeHeading(crd1, crd2);
 
 			System.out.println(entry.getKey() + " Track in Degrees: " + rslt);
 

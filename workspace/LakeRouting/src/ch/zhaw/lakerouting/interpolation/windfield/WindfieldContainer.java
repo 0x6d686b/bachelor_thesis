@@ -27,7 +27,7 @@
 
 package ch.zhaw.lakerouting.interpolation.windfield;
 
-import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Node;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
 import org.joda.time.DateTime;
@@ -57,7 +57,7 @@ public class WindfieldContainer {
         return true;
     }
 
-    public final WindfieldContainer bulkInterpolateOnDecisionNet (List<List<Coordinate>> coordinates, InterpolationAlgorithm algorithm) {
+    public final WindfieldContainer bulkInterpolateOnDecisionNet (List<List<Node>> coordinates, InterpolationAlgorithm algorithm) {
         WindfieldContainer container = new WindfieldContainer();
         container.fields = new ArrayList<Windfield>();
         container.starttime = this.starttime;

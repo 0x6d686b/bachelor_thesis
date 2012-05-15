@@ -5,7 +5,7 @@ import ch.zhaw.lakerouting.datatypes.Track;
 
 public class TrackComputation {
 
-	public double track12(Coordinate crd1, Coordinate crd2) {
+	public double computeHeading(Coordinate crd1, Coordinate crd2) {
 
 		Track t = computeScalar(crd1, crd2);
 		double nTrack1=180*arcTangente(t)/Math.PI;
@@ -51,13 +51,13 @@ public class TrackComputation {
 		double theta2 = crd2.getLongitudeInDegree();
 		double phi2 = crd2.getLatitudeInDegree();
 
-		cross[0] = quadrat(Math.cos(phi1)) * Math.cos(phi2) * Math.sin(theta1)
+		cross[0] = square(Math.cos(phi1)) * Math.cos(phi2) * Math.sin(theta1)
 				* Math.sin(theta1 - theta2) + Math.cos(theta2) * Math.cos(phi2)
-				* quadrat(Math.sin(phi1)) - Math.cos(theta1) * Math.cos(phi1)
+				* square(Math.sin(phi1)) - Math.cos(theta1) * Math.cos(phi1)
 				* Math.sin(phi1) * Math.sin(phi2);
 
 		cross[1] = (-Math.cos(theta1))
-				* quadrat(Math.cos(phi1))
+				* square(Math.cos(phi1))
 				* Math.cos(phi2)
 				* Math.sin(theta1 - theta2)
 				+ Math.sin(phi1)
@@ -71,7 +71,7 @@ public class TrackComputation {
 		return cross;
 	}
 
-	private double quadrat(double x) {
+	private double square(double x) {
 		return x * x;
 	}
 

@@ -28,6 +28,7 @@
 package test.ch.zhaw.lakerouting.interpolation.windfield;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
+import ch.zhaw.lakerouting.datatypes.Node;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.algorithms.Bilinear;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
@@ -80,14 +81,16 @@ public class WindfieldContainerTest {
         System.out.println(result.toString());
 
         System.out.println("\n\nInterpolation on decision net: ");
-        List<List<Coordinate>> net = new ArrayList<List<Coordinate>>();
+        List<List<Node>> net = new ArrayList<List<Node>>();
         for (int i = 0; i < 4; ++i) {
-        	List<Coordinate> row = new ArrayList<Coordinate>();
+        	List<Node> row = new ArrayList<Node>();
             for (int j = 0; j < 5; ++j) {
+            	Node n = new Node();
                 Coordinate k = new Coordinate();
                 k.setLongitudeInDegree(c.getLongitudeInDegree() + j*0.01);
                 k.setLatitudeInDegree(c.getLatitudeInDegree() + i*0.01);
-                row.add(k);
+                n.setCrd(k);
+                row.add(n);
             }
             net.add(row);
         }
