@@ -28,11 +28,11 @@ public class SailingDuration {
 	public double getSailingDuration(Coordinate crd1, Coordinate crd2,
 			WindVector v1, WindVector v2, double distance) {
 
-		double checkOfInfinity = sp.speedBoat(crd1, crd2, v1)
+		double speed = sp.speedBoat(crd1, crd2, v1)
 				+ sp.speedBoat(crd1, crd2, v2);
-		if (checkOfInfinity == 0.0)
+		if (speed == 0.0)
 			return 0.0;
 
-		return (2 * distance) / checkOfInfinity;
+		return (2 * distance) / speed;
 	}
 }

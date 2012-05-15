@@ -35,7 +35,9 @@ public class SpeedComputation {
 		
 		double angle = computeAngle(track, v);
 //		System.out.println("Angle: " + angle);
-		return yacht(wSpeed, angle);
+		
+		/* This line is the hole module yacht in mathematica */
+		return field.interpolate(angle, wSpeed, bil);
 	}
 
 	private double computeAngle(Track tr, WindVector v) {
@@ -47,14 +49,6 @@ public class SpeedComputation {
 			return 180.0;
 
 		return 180 * (1 - Math.acos(scalar / checkOfInfinity) / Math.PI);
-	}
-
-	private double yacht(double wSpeed, double angle) {
-		// Abfrage machen
-//		double test = interpoler.interpolate(angle, wSpeed, field, bil);
-		double test = field.interpolate(angle, wSpeed, bil);
-//		System.out.println("Interpoler:"+test);
-		return test;
 	}
 
 }
