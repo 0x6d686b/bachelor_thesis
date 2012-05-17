@@ -102,10 +102,16 @@
 \end{itemize}
 
 \subsection{Analyse der Problemstellung}
-Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt.  Die aufgespaltete Ebene lässt sich mit dem Vektorprodukt der beiden Punkten $A$ und $B$  berechnen. 
+Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt. Da die zwei Punkte den Kreis in zwei Kreisbogen separieren, wird nur der kürzere Distanz berücksichtigt.
+
+Die Formel dafür lautet:
+% Formel ArcCos(...)
 
 
-Da die Erde eine Kugelform hat, werden die Koordinaten in Längen- und Breitengraden und die Distanz in Seemeilen angegeben. 
+%Die aufgespaltete Ebene lässt sich mit dem Vektorprodukt der beiden Punkten $A$ und $B$  berechnen. 
+
+
+%Da die Erde eine Kugelform hat, werden die Koordinaten in Längen- und Breitengraden und die Distanz in Seemeilen angegeben. 
 
 \begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
 	%% some definitions

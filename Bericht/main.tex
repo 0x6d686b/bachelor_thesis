@@ -105,17 +105,25 @@ Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \newpage
 
 \setcounter{page}{1} 
-\part{Vorwort}
-\section{Einleitung}
+\part{Einleitung}
+\section{Ausgangslage}
 Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter Randbedingungen (physikalischer oder ökonomischer Natur).\\
 ...
-%Unvollständig
+% Geschichtliche Entwicklung
+% Stand der Technik
+% Kurz den Industriepartner nennen.
+
 
 \section{Ziel / Auftrag}
 Die vorgeschlagene Bachelorarbeit schlägt eine Anwendung der DP zur Kursbestimmung eines Segelschiffs vor. Aufgrund der mit einem numerischen Modell vorausgesagten Wetterentwicklung und in Anbetracht der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale Route mittels DP gerechnet. Ähnliche Methoden wurden beim Alinghi Team im Rahmen des Americas Cup verwendet. \\
 Weitere Anwendungen der DP zum Thema "energy trading" für erneuerbare Energiequellen sind denkbar und eine Übertragung der Resultate der BA in diesen Bereich werden von MeteoSchweiz angestrebt. \\
 
 Die Bachelorarbeit läuft unter fachlicher Betreuung der MeteoSchweiz (numerische Meteorologie und angewandte Mathematik). Sie besteht darin, zur Lösung des obigen Problems eine in Java geschriebene Applikation der DP zu entwickeln. Sämtliche zu diesem Zweck nötige Algorithmen sind vorhanden und müssen nicht neu entwickelt werden, hingegen müssen bestehende Algorithmen auf an die spezielle Problemsituation angepasst werden. 
+
+% Anforderungen an das Resultat der Arbeit
+
+\subsection{Terminologie}
+% Definiert die in der Arbeit verwendeten Begriffe
 
 \section{Weitere Informationen sowie Danksagung}
 Für die professionelle und freundliche Kooperation möchten wir uns an dieser Stelle herzlich bedanken!\\
@@ -306,22 +314,17 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
 
 
 \newpage
-\part{Geschichtliche Entwicklung}
-% ganz kurz eine halbe Seite erklären, wie was enstanden ist.
-
-\newpage
-\part{Arbeitsberichte}
-\section{Einheiten}
-% Für was stehen einzelne Einheiten, wie werden sie berechnet usw.
+\part{Vorgehen / Methoden}
+\section{Dynamische Programmierung}
+% Dynamische Programmierung erklären.
 
 \include{bericht_aufgabe1}
 
 \newpage
-\part{Implementation}
-\section{Dynamische Programmierung}
-% Dynamische Programmierung erklären.
+\part{Resultate}
 
-\section{Unsere Impl.}
+
+\section{Implementation}
 % Erwähnung, dass in jeder Zelle alle nötigen Informationen vorhanden sind.
 
 \subsection{Klassendiagramm}
@@ -333,11 +336,13 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
 \subsection{JavaDoc}
 % Wie JavaDoc zu bedienen sei und was alles dort drin steht.
 
-\section{Programmiertechnische Grenzen}
-% (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
-% Im Bericht sollte ein Absatz vorhanden sein, welches die 
-% programmiertechnischen Grenzen oder Genauigkeiten der mathematischen 
-% Funktionen wie Sinus/Cosinus, Datentypen etc. behandelt und diskutiert. 
+\section{Testing}
+\subsection{Beispiele}
+% Mit sinnvollen Beispielen simulieren.
+
+\newpage
+\part{Diskussion und Ausblick}
+% Interpretation und Validierung der Resultate
 
 \section{Erweiterbarkeit}
 % Zeigen, dass es leicht erweiterbar und wiederverwendbar ist.
@@ -348,19 +353,27 @@ Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzei
 \subsection{Website}
 % Wie daraus eine Webseite gemacht werden kann. Apps?
 
+\section{Programmiertechnische Grenzen}
+% (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
+% Im Bericht sollte ein Absatz vorhanden sein, welches die 
+% programmiertechnischen Grenzen oder Genauigkeiten der mathematischen 
+% Funktionen wie Sinus/Cosinus, Datentypen etc. behandelt und diskutiert. 
+
 \section{Optimierungsmöglichkeiten}
 \subsection{Sonderfälle}
 % Das Problem mit Spread ausdiskutieren
+% Grössere Distanzen
+
+\section{Erkenntnisse}
+\subsection{Schlussfolgerung}
+\subsection{Arbeitsrevue}
 
 \newpage
-\part{Testing}
-\section{Beispiele}
-% Mit sinnvollen Beispielen simulieren.
+\part{Anhang}
 
-\newpage
-\part{Erkenntnisse}
-\section{Schlussfolgerung}
-\section{Arbeitsrevue}
+\subsection{Offizielle Aufgabenstellung}
+
+\subsection{Besprechungsprotokolle}
 
 
 \bibliographystyle{ba_zhaw}
