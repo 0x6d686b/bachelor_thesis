@@ -1,0 +1,31 @@
+Anwesende: Amb, Hab, Yuk, Furu; Ort: MétéoSchweiz
+
+1. Stand der Dinge
+1.1 Polardiagram funktioniert soweit. Grenzwerte noch nicht
+implementiert, Aufgabe an Hab. Berechnungen stimmen im konstanten
+Windfeld
+1.2 Windfeld noch nicht fertig, Aufgabe zugewiesen an Hab. Zuerst
+einzelnes Feld sauber testen mit UnitTests und vorgegeben Kontrolldaten
+(werden von Amb geliefert), dann Windfeld mit verschiedenen
+Vorhersage-Zeiten
+1.3 Yuk sorgt sich um die Testszenarien für die Verifikation des
+Implementierung im ganzen, also Wegberechnungen.
+
+2. Diskutierte Punkte
+2.1 Grid soll nur in der Schweiz stattfinden, daher Nordhemisphäre und
+E0-20°. Damit vermeiden wir die Wraparound-Problematik an der
+International Day Line (E180 bzw W180). Wir ignorieren diese Problematik
+aktiv und bewusst.
+2.2 Performance an sich kein Problem, wir gehen von ca 64k Knoten aus à
+je 1kb was ca. 64-80mb Speicherverbrauch entsprechen. Wir arbeiten auf
+einen nicht näher spezifizierten Supercomputer
+
+3. Diverses
+3.1 Vorgeschlagene Präsentationswoche: 25.6-1.7, Furu wird das noch mit
+den Experten abklären.
+3.2 Die erste Draft des Arbeitsbericht und ein Stable-Build sollen am 15.4 bereit sein.
+
+4. Nächste Sitzung
+0800CEST 4.4.2012 in der MétéoSchweiz
+
+Verfasst: Hab

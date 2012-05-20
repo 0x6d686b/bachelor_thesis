@@ -93,19 +93,16 @@
 }
 
 
-\section{Aufgabe 1 \& 2 - Orthodromie}
+\section{Aufgabe 1 - Orthodromie}
 \subsection{Aufgabenstellung}
 \begin{itemize}
   \item Erstellung eines Entscheidungsnetzes auf der Erdkugel
   \item Berechnung einer Orthodromie (Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)
-  \item Erstellung der Koordinatendatei eines Sees
+  \item Erstellung der Koordinatendatei eines Sees (in Koordinaten)
 \end{itemize}
 
 \subsection{Analyse der Problemstellung}
-Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt.  Die aufgespaltete Ebene lässt sich mit dem Vektorprodukt der beiden Punkten $A$ und $B$  berechnen. 
-
-
-Da die Erde eine Kugelform hat, werden die Koordinaten in Längen- und Breitengraden und die Distanz in Seemeilen angegeben. 
+Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden. Dies wird durch das Vektorprodukt der beiden Vektoren vom Kugelursprung zu den beiden Punkten $P$ und $Q$ einfach berechnet: Die durch das Kreuzprodukt von $P \times Q$ gegebene Ebene, geschnitten mit der Sphäre, ist der kürzeste Pfad zwischen $P$ und $Q$.
 
 \begin{tikzpicture}[scale=1,every node/.style={minimum size=1cm}]
 	%% some definitions
@@ -150,5 +147,26 @@ Da die Erde eine Kugelform hat, werden die Koordinaten in Längen- und Breitengr
     \draw (P) arc (-110:-45:\R) (Q);	
 \end{tikzpicture}
 
+Das ist die sogenannte Orthodromie und wird durch die Formel \ref{eq:orthodromie} beschrieben.
+
+\begin{equation} \label{eq:orthodromie}
+    \arccos(\cos(\theta_{1} - \theta_{2}) \cos(\Phi_{1} \cos\Phi_{2} + \sin(\Phi_{1} \sin\Phi_{2}))) 
+\end{equation}
+
+\subsubsection{Nautische Meilen} Damit Berechnungen einfacher werden, werden
+hier nautische Meilen verwendet. Diese sind durch eine Bogenminute am Äquator
+definiert und damit nur vom Radius des Planeten abhängig. Somit können unsere
+Berechnungen genauso für andere Planeten gelten, einzig der
+Umrechnungskoeffizient von Knoten nach $m/s$ muss angepasst werden.
+
+\subsubsection{Aufspannen des Gitters für die Pfadberechnung} Das Gitter für die
+Berechnung des schnellsten Pfades wird zwischen dem Start- und Zielpunkt so
+aufgespannt, dass relativ-nördlich und -südlich des Startpunktes (und
+Zielpunktes) jeweils eine gegebene Anzahl von Gitterpunkten erstellt wird, die
+Gitterbreite. Vom Start- zum Zielpunkt hin werden auch eine gegebene Anzahl
+Punkte verwendet, die Gitterlänge. Dieses Gitter bestehend aus Gitterbreite und
+-länge, also $n\times m$, stellt den Suchbereich dar.
+
+%% TikZ-Grafik mit Matrix
 
 
