@@ -46,13 +46,43 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A Windfield loader class for the file format used in the thesis.
+ * 
+ * <p>This reader or loader will read the specified file and return a List of Windfields.
+ * You can think of a loader as a composite of file reader and parser. This specific loader
+ * was developed against the file format handed out.</p>
+ *
+ * <p>Basically the input is defined as followed:
+ * <pre>$date$ $lng$
+ *$lat$ $u$ $v$
+ *
+ * </pre>
+ *
+ * <b>$date$</b> is built as followed YYYY
+ * </p>
+ * 
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0-stable
+ */
 public class SpaceWindFieldLoader implements WindFieldLoader {
+    /** Regex pattern to recognize the head of a wind field block. */
     private static final Pattern HEADER_START_PATTERN = Pattern.compile("\\d{4}[\\D&&\\S]{3}\\d{4}", Pattern.MULTILINE);
+    /** Regex pattern which defines the delimiter between two wind field blocks. */
     private static final Pattern WINDFIELD_BLOCK_DELIMITER =  Pattern.compile("\\n{2}");
 
     private List<List<Object>> field;
     private List<Windfield> windfieldArray;
 
+    /**
+     * Loads the indicated resource file into a List of Windfields.
+     *
+     * <p>To this version only "file://" handle are supported.</p>
+     * @param identifier a resource indicator
+     * @return a List of Windfields
+     * @throws UnsupportedOperationException
+     */
     @Override
     public final List<Windfield> loadRessource(URI identifier) {
         if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
@@ -60,7 +90,6 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
 
         FileReader fis = null;
         try {
-            //fis = new FileReader(identifier.getPath());
         	fis = new FileReader(identifier.getSchemeSpecificPart());
         } catch (FileNotFoundException f) {
             f.printStackTrace();
@@ -71,8 +100,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return windfieldArray;
     }
 
-
-    private final List<List<WindVector>> convertToAbstractList() {
+    /**
+     *
+     * @return
+     */
+    private final List<List<WindVector>> convertToList() {
 
         /**
          * KNOWN FLAWS:
@@ -82,16 +114,20 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
          */
     	List<List<WindVector>> arr = new ArrayList<List<WindVector>>();
     	List<WindVector> row = new ArrayList<WindVector>();
-	for (int i = 1; i < field.size(); i++) { 
-	    for (int j = 1; j < field.get(0).size()-1; j++) {
-                row.add((WindVector) field.get(i).get(j));
+        for (int i = 1; i < field.size(); i++) {
+            for (int j = 1; j < field.get(0).size()-1; j++) {
+                    row.add((WindVector) field.get(i).get(j));
+                }
+                arr.add(row);
+                row = new ArrayList<WindVector>();
             }
-            arr.add(row);
-            row = new ArrayList<WindVector>();
-        }
         return arr;
     }
 
+    /**
+     *
+     * @return
+     */
     private final WindfieldMetadata getMetadata() {
         WindfieldMetadata m = new WindfieldMetadata();
         m.setNorthWestCorner(this.getNorthWestCorner());
@@ -104,13 +140,11 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return m;
     }
 
+    /**
+     *
+     * @return
+     */
     private DateTime getDate() {
-        /**
-         * This is real FUBAR code. Someone should fix that ...
-         * I propose to change the timestamp in the file to
-         * a proper format requiring less touchy functions and
-         * index. This will one day blow up ...
-         */
         String s = field.get(0).get(0).toString();
         DateTimeParser[] parsers = {
                 DateTimeFormat.forPattern("yyyMMMddHH").getParser()
@@ -119,30 +153,26 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return inputFormatter.withLocale(Locale.US).parseDateTime(s);
     }
 
+    /**
+     *
+     * @return
+     */
     private double getDeltaLng() {
-        /**
-         *  Oh shit ... we can't directly convert an Object into a
-         *  double. Convert: Object -> String -> Double
-         *  Did I mention that in C++ we wouldn't need such clumsy
-         *  conversion?
-         */
-        return Double.parseDouble(field.get(0).get(2).toString())
-             - Double.parseDouble(field.get(0).get(1).toString());
-    	/**
-    	 * Please, don't cry...:)
-    	 * If you have made a better research, you would have found this...!!!
-    	 * return (Double) field.get(0).get(2);
-    	 */
+    	return ((Double) field.get(0).get(2)) -  ((Double) field.get(0).get(1));
     }
 
+    /**
+     *
+     * @return
+     */
     private double getDeltaLat() {
-        /**
-         * Look at getDeltaLng() for why this shit must be ...
-         */
-        return Double.parseDouble(field.get(2).get(0).toString())
-             - Double.parseDouble(field.get(1).get(0).toString());
+        return ((Double) field.get(2).get(0)) -  ((Double) field.get(1).get(0));
     }
 
+    /**
+     *
+     * @return
+     */
     private Coordinate getNorthWestCorner() {
         Coordinate c = new Coordinate();
         c.setLongitudeInDegree(Double.parseDouble(field.get(0).get(1).toString()));
@@ -150,6 +180,10 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return c;
     }
 
+    /**
+     *
+     * @return
+     */
     private Coordinate getSouthEastCorner() {
         int j = field.size();
         int i = field.get(0).size();
@@ -159,20 +193,42 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         return c;
     }
 
+    /**
+     *
+     * @return
+     */
     private int getCountLngVectors() {
         return field.size() - 1;
     }
 
+    /**
+     *
+     * @return
+     */
     private int getCountLatVectors() {
         return field.get(0).size() - 1;
     }
 
+    /**
+     * Reads the FileReader input
+     *
+     * <p>A few words how this works:
+     * <ul>
+     *  <li>read a line</li>
+     *  <li>remove trailing whitespaces</li>
+     *  <li>check if we encounter a header or a start segment of a wind field, pass this line
+     *   to {@link #processHeader(String)}</li>
+     *  <li>if the line is not just empty, we must have a normal line containing the wind vectors,
+     *   pass this line to {@link #processLine(String)}</li>
+     * </ul>
+     * </p>
+     * @param fis input handle
+     */
     private void read(FileReader fis) {
         BufferedReader br = new BufferedReader(fis);
         String s;
         try {
             // Yeah, shit hits the fan ... BufferedReader does not tell when we are at EOF.
-        	// Sure does it, if you have null, you are at the end. So difficult?? Common don't cry...
             while ((s = br.readLine()) != null) {
                 /**
                  * Ok, this is really fucked up.
@@ -187,7 +243,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 Matcher header = HEADER_START_PATTERN.matcher(s);
                 if (header.find()) {
                     if (field != null)
-                        windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToAbstractList()));
+                        windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToList()));
                     field = new ArrayList<List<Object>>();
                     field.add(processHeader(s));
                     continue;
@@ -200,16 +256,20 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
             e.printStackTrace();
         } finally {
             try {
-                // seriously, what could possibly go wrong closing a FUCKING input?!
-            	// Hmmm, -> Google -> "bufferedreader close finally" -> first entry, and you have the answer!
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToAbstractList()));
+            windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToList()));
         }
     }
 
+    /**
+     * Parses the line as a line full of wind vector pairs.
+     * @param input String containing the input line
+     * @return
+     * @throws RuntimeException
+     */
     private List<Object> processLine(String input) {
         int i = 0;
         List<Object> arr = new ArrayList<Object>();
@@ -244,7 +304,12 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
         }
         return arr;
     }
-    
+
+    /**
+     * Parses the header of a wind field block
+     * @param input String containing the input line
+     * @return
+     */
     private List<Object> processHeader(String input) {
         int i = 0;
         List<Object> arr = new ArrayList<Object>();

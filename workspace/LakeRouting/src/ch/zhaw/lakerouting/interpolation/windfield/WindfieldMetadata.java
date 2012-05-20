@@ -30,6 +30,16 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import org.joda.time.DateTime;
 
+/**
+ * Abstract data type containing all required metadata for a wind field.
+ *
+ * <p>If not otherwise stated all the getters and setters are just plain
+ * storing and returning data and do not do any transformation.</p>
+ *
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0-stable
+ */
 
 public class WindfieldMetadata {
     private DateTime date;

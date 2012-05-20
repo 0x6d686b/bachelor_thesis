@@ -37,12 +37,39 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A container for a List of Windfields.
+ *
+ * <p>To handle a List of Windfields easier and provide some helping functionality
+ * the WindfieldContainer provides some useful wrapper methods.</p>
+ *
+ * <p>Each Windfield represents a field of WindVectors at a certain time.</p>
+ *
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0-stable
+ */
+
+/*
+ I'm just wondering if this should not actually implement the List interface ...
+ mhk - 20.05.12
+ */
 public class WindfieldContainer {
+    /** Date and time of the first Windfield */
     private DateTime starttime;
+    /** Date and time of the last Windfield */
     private DateTime endtime;
+    /** Interval between two Windfields */
     private Interval delta;
+    /** List of all the Windfields */
     private List<Windfield> fields;
 
+    /**
+     * Loads all Windfields from an URI with the specified loader class.
+     * @param identifier ressource locator
+     * @param loader class specifing how to read the ressource
+     * @return returns true on success otherwise false
+     */
     public final boolean bulkLoadWindfield (URI identifier, WindFieldLoader loader) {
         try {
             fields = loader.loadRessource(identifier);
@@ -57,6 +84,13 @@ public class WindfieldContainer {
         return true;
     }
 
+    /**
+     * Interpolates all Windfields on a given List of Coordinates with the indicated
+     * InterpolationAlgorithm.
+     * @param coordinates two-dimensional List of Coordinates
+     * @param algorithm interpolation algorithm
+     * @return
+     */
     public final WindfieldContainer bulkInterpolateOnDecisionNet (List<List<Node>> coordinates, InterpolationAlgorithm algorithm) {
         WindfieldContainer container = new WindfieldContainer();
         container.fields = new ArrayList<Windfield>();
@@ -70,22 +104,46 @@ public class WindfieldContainer {
         return container;
     }
 
+    /**
+     * Primitive getter for the Windfield at index.
+     * @param index index of the Windfield
+     * @return Windfield at index
+     */
     public final Windfield get(int index) {
         return fields.get(index);
     }
 
+    /**
+     * Primitive getter for the DateTime of the first Windfield.
+     * @return a DateTime object of the first Windfield
+     */
     public DateTime getStarttime() {
         return this.starttime;
     }
 
+    /**
+     * Primitive getter for the DateTime of the last Windfield.
+     * @return a DateTime object of the last Windfield
+     */
     public DateTime getEndtime() {
         return this.endtime;
     }
 
+    /**
+     * Primitve getter for the Interval between two Windfields.
+     *
+     * <p>However note that for the calculation of the interval only the first two Windfields
+     * will be considered, meaning the first interval will be used for all consequent Windfields.</p>
+     * @return a Interval between two Windfields.
+     */
     public Interval getDelta() {
         return this.delta;
     }
 
+    /**
+     * Size of container.
+     * @return number of stored Windfields
+     */
     public int size() {
         return fields.size();
     }

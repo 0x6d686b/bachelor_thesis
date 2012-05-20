@@ -35,17 +35,61 @@ import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Windfield contains a 2D array of WindVectors.
+ *
+ * This Class eases the handling of WindVectors in an array with a collection of
+ * handy methods to help working on a decision net.
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0-stable
+ */
 public class Windfield {
+    /**
+     * Global lower wind speed.
+     *
+     * This global lower boundary for the wind speed prevents to block
+     * calculations with never terminating paths (when the boat gets stuck in
+     * a calm) and also division by zero.
+     */
     public static final double LOWER_WINDSPEED_BOUNDARY = 0.001;
+    /**
+     * Internal wind field size limitation, also prevents a potential DoS attack
+     * when an attacker tries to state an unreasonably big field and thus producing
+     * immense workload on the CPU.
+     */
     private static final int MAX_WINDFIELD_SIZE = 0xff;
-    
+
+    /** The metadata of the wind field */
     private WindfieldMetadata metadata;
+    /** List containing all WindVector */
     private List<List<WindVector>> field;
 
+    /**
+     * Instance constructor.
+     * @return a new Windfield Object
+     */
     public static Windfield getInstance() {
         return new Windfield();
     }
 
+    /**
+     * Interpolates the WindVector on a given Coordinate.
+     *
+     * <p>The wind field is a grid of known WindVector but in between there is no data
+     * given thus the interpolation gives an approximation of the wind at the given
+     * Coordinate using the indicated InterpolationAlgorithm which for most cases can
+     * be left to the use of {@link ch.zhaw.lakerouting.interpolation.algorithms.Bilinear}</p>
+     *
+     * <h4>Note</h4>
+     * <p>However, the interpolation will not verify if the Coordinate is actually within
+     * the boundaries of the Windfield. If you request an interpolation outside the known
+     * wind field you'll simply encounter an ArrayIndexOutOfBoundsException.</p>
+     * @param c Coordinate of the requested WindVector
+     * @param algorithm Interpolation algorithm used to calculate the WindVector
+     * @return The interpolated WindVector at Coordinate c
+     * @throws ArrayIndexOutOfBoundsException
+     */
     public WindVector interpolate(Coordinate c, InterpolationAlgorithm algorithm) {
         WindVector vector = new WindVector(0,0);
         WindVector[][] r = this.getRange(c);
@@ -59,6 +103,14 @@ public class Windfield {
         return vector;
     }
 
+    /**
+     * Interpolates the wind on a list of coordinates.
+     *
+     * @param coordinates A two-dimensional List of Coordinates.
+     * @param algorithm The used InterpolationAlgorithm.
+     * @return A two-dimensional List of WindVectors
+     * @throws ArrayIndexOutOfBoundsException
+     */
     public List<List<WindVector>> interpolateOnDecisionNet(List<List<Node>> coordinates, InterpolationAlgorithm algorithm) {
     	List<List<WindVector>> vectorField = new ArrayList<List<WindVector>>();
     	List<WindVector> vectorRow;
@@ -72,6 +124,12 @@ public class Windfield {
         return vectorField;
     }
 
+    /**
+     * Imports a two-dimensional List of WindVectors and sets the WindfieldMetadata.
+     * @param m a WindfieldMetadata object.
+     * @param f a two-dimensional WindVector List.
+     * @return Returns itself.
+     */
     public final Windfield setField (WindfieldMetadata m, List<List<WindVector>> f) {
     	List<List<WindVector>> vectorField = new ArrayList<List<WindVector>>();
     	List<WindVector> vectorRow = new ArrayList<WindVector>();
@@ -87,23 +145,37 @@ public class Windfield {
         return this;
     }
 
+    /**
+     * Returns the WindfieldMetadata
+     * @return WindfieldMetadata
+     */
     public WindfieldMetadata getMetadata () {
         return this.metadata;
     }
 
+    /**
+     * Returns the WindVector at the position (x,y).
+     * @param x the x-th row
+     * @param y the y-th column
+     * @return the corresponding WindVector
+     * @throws ArrayIndexOutOfBoundsException
+     */
     public WindVector get(int x, int y) {
         return field.get(x).get(y);
     }
 
+    /**
+     * Returns the whole two-dimensional List of WindVectors.
+     * @return a two-dimensional List of WindVectors
+     */
     public List<List<WindVector>> getField() {
         return field;
     }
 
-
     /**
      * Returns the directly neighbouring WindVectors
-     * @param coordinate
-     * @return
+     * @param coordinate the Coordinate seeking its neighbours
+     * @return a two-dimensional Array containing the direct neighbour of the Coordinate.
      */
     private WindVector[][] getRange(Coordinate coordinate) {
         /**
@@ -126,11 +198,12 @@ public class Windfield {
     }
 
     /**
-     * Returns the normalized value of the Coordinate c,
-     * basically meaning you get a double value between 0 and
+     * Returns the normalized value of the Coordinate c.
+     *
+     * Basically meaning you get a double value between 0 and
      * 1 where 0 is the preceding grid point and the 1 is the
      * next grid point.
-     * @param c
+     * @param c The Coordinate of a grid point
      * @return A Double[] containing the longitude ratio and the latitude ratio
      */
     private Double[] getNormalizedCoordinate(Coordinate c) {

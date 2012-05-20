@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2012, M. Hablützel, F. Yükseldi, J. Ambühl
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the ZHAW, MeteoSchweiz nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL M. Hablützel, F. Yükseldi, J. Ambühl BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package ch.zhaw.lakerouting.navigation.speed;
 
 import java.net.URI;
@@ -15,8 +42,9 @@ import ch.zhaw.lakerouting.navigation.TrackComputation;
 /**
  * Computes the speed of a sailing boat on a given track.
  * 
- * @author Fevzi Yükseldi, Mathias Habluetzel
- * 
+ * @author Fevzi Yükseldi
+ * @version 1.0-stable
+ * @since 1.0
  */
 public class SpeedComputation {
 
@@ -24,7 +52,17 @@ public class SpeedComputation {
 	private InterpolationAlgorithm bil;
 
 	/**
-	 * Loads the polaire-diagram.
+	 * Constructor which loads the polar diagram field of the
+     * boat
+     *
+     * <p>Now think of SpeedComputation as per boat or ship type. You therefore
+     * can use different SpeedComputation for different boats and you would be able
+     * to calculate possibly different best paths for different boat types.</p>
+     *
+     * <p>Also you can use this for calculating the position of other concurrent
+     * ships in a regatta if they are using the optimal track. Using this you could
+     * be able to come up with a strategy how and when you'll be able to steal their
+     * wind.</p>
 	 * 
 	 * @param identifier
 	 *            - The URI of the file
@@ -39,9 +77,11 @@ public class SpeedComputation {
 	}
 
 	/**
-	 * Computes the speed of the sailing boat which depends firstly on the
-	 * intensity of the wind, secondly on the angle of incidence of the
-	 * wind-vector onto the sails.
+	 * Computes the speed of the sailing boat
+     *
+     * <p>The travelling speed of a boat which depends firstly on the
+     * intensity of the wind, secondly on the angle of incidence of the
+     * wind-vector onto the sails.</p>
 	 * 
 	 * @param crd1
 	 *            - Coordinates of the first location
@@ -66,7 +106,7 @@ public class SpeedComputation {
 	}
 
 	/**
-	 * Computes the wind-angle on the track.
+	 * Computes the attack angle of the wind on the track
 	 * 
 	 * @param tr
 	 *            - Track
@@ -75,14 +115,11 @@ public class SpeedComputation {
 	 * @return the wind-angle
 	 */
 	private double computeAngle(Track tr, WindVector v) {
-		double scalar = v.getU() * tr.getTrackLong() + v.getV()
-				* tr.getTrackLat();
-
-		double checkOfInfinity = tr.getTrackLength() * v.getWindspeed();
+		double scalar = v.getU() * tr.getTrackLong() + v.getV() * tr.getTrackLat();
 
 		/* If the angle is zero, then it shouldn't divide */
 		try {
-			return 180 * (1 - Math.acos(scalar / checkOfInfinity) / Math.PI);
+			return 180 * (1 - Math.acos(scalar / (tr.getTrackLength() * v.getWindspeed())) / Math.PI);
 		} catch (ArithmeticException e) {
 			return 180.0;
 		}

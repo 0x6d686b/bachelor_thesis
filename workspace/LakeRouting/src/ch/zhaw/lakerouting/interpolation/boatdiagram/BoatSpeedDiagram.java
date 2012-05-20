@@ -37,7 +37,7 @@ import java.net.URI;
  * Is an abstract data type for the speed the boats reaches under different wind angle of attack.
  *
  * @author Mathias Hablützel
- * @version 1.0
+ * @version 1.0-stable
  * @since 1.0
  */
 public class BoatSpeedDiagram {
@@ -57,7 +57,7 @@ public class BoatSpeedDiagram {
         if (!(fieldplane instanceof BoatFieldLoader)) {
             throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
         }
-        if (!((BoatFieldLoader) fieldplane).loadRessource(uri))
+        if (!((BoatFieldLoader) fieldplane).loadResource(uri))
             return false;
         return this.loadArray((BoatFieldLoader) fieldplane);
     }

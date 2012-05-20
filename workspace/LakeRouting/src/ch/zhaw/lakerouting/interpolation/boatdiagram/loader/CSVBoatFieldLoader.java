@@ -38,23 +38,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Loads the values for a boat speed diagram from a CSV file
+ * Loads the values for a boat speed diagram from a CSV file.
+ *
+ * <p>This file format was used while developing this project as a bachelor
+ * thesis. Also note it would be easily possible to extend this file to use
+ * HTTP as a transport medium instead a file on the filesystem.</p>
  *
  * @author Mathias Hablützel
- * @version 1.0
+ * @version 1.0-stable
  * @since 1.0
  */
 public class CSVBoatFieldLoader implements BoatFieldLoader {
     private List<List<Double>> field;
 
     /**
-     * Loads the indicated ressource
+     * Loads the indicated resource
      *
-     * @param identifier Object containing the URI to the ressource
+     * @param identifier Object containing the URI to the resource
      * @return Returns {@code true} if successful, {@code false} if not
+     * @throws UnsupportedOperationException
      */
     @Override
-    public final boolean loadRessource(URI identifier) {
+    public final boolean loadResource(URI identifier) {
         if (!(identifier.getScheme().equalsIgnoreCase("file")))
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
 
@@ -62,13 +67,15 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         int columns;
 
         try {
-//            filereader = new CsvReader(identifier.getPath(), ',', Charset.forName("UTF-8"));
         	filereader = new CsvReader(identifier.getSchemeSpecificPart(), ',', Charset.forName("UTF-8"));
         } catch (FileNotFoundException f) {
             f.printStackTrace();
             return false;
         }
 
+        /**
+         * Read the header of a boat diagram
+         */
         try {
             field = new ArrayList<List<Double>>();
             filereader.readHeaders();
@@ -81,6 +88,10 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
             }
             field.add(header);
 
+            /**
+             * Read all subsequent lines and interpret them
+             * as regular entries
+             */
             while (filereader.readRecord()) {
             	ArrayList<Double> line = new ArrayList<Double>();
                 for (int k = 0; k < columns; k++) {
@@ -97,7 +108,7 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
     /**
      * Converts the whole input file into an array
      *
-     * @return returns the array
+     * @return the array
      */
     @Override
     public final Double[][] convertToArray() {
@@ -108,6 +119,10 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         return arr;
     }
 
+    /**
+     * Extracts all the metadata from the file
+     * @return diagram metadata
+     */
     @Override
     public BoatSpeedDiagramMetadata getMetadata() {
         BoatSpeedDiagramMetadata m = new BoatSpeedDiagramMetadata();

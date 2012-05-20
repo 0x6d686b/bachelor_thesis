@@ -31,8 +31,15 @@ import ch.zhaw.lakerouting.interpolation.boatdiagram.BoatSpeedDiagramMetadata;
 
 import java.net.URI;
 
+/**
+ * Interface for any loader that feeds BoatSpeedDiagram
+ *
+ * @author Mathias Hablützel
+ * @version 1.0-stable
+ * @since 1.0
+ */
 public interface BoatFieldLoader {
-    boolean loadRessource (URI identifier);
+    boolean loadResource (URI identifier);
     Double[][] convertToArray();
     BoatSpeedDiagramMetadata getMetadata();
 }

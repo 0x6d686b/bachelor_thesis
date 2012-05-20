@@ -32,6 +32,17 @@ import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * Interface for a WindFieldLoader implementation.
+ *
+ * <p>A loader implementation should take care of all the internals and just
+ * return a List of {@link Windfield}. Usually the loader will be called by
+ * {@link ch.zhaw.lakerouting.interpolation.windfield.WindfieldContainer}.</p>
+ *
+ * @author Mathias Hablützel
+ * @since 1.0
+ * @version 1.0-stable
+ */
 public interface WindFieldLoader {
 	List<Windfield> loadRessource(URI identifier);
 }

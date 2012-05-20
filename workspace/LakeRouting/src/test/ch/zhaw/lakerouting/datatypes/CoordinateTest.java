@@ -25,8 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ch.zhaw.lakerouting.datatypes;
+package test.ch.zhaw.lakerouting.datatypes;
 
+import ch.zhaw.lakerouting.datatypes.Coordinate;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
