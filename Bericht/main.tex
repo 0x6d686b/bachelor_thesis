@@ -6,11 +6,18 @@
  \usepackage[utf8]{inputenc}
  \usepackage[ngerman]{babel}
  \usepackage[pdftex]{graphicx}
+ 
+ % TikZ für schöne Grafiken und so.
+ \usepackage{tikz}
+ \usetikzlibrary{positioning,calc,fadings,decorations.pathreplacing,arrows}
+ \usepackage{pgfplots}
+
 % \usepackage{hyperref}
  \usepackage{colortbl}
  \usepackage{tabularx}
  \usepackage{color}
  \usepackage{amsfonts}
+ \usepackage{amsmath}
  \usepackage{listings}
  \usepackage{multirow}
 \usepackage{fancyhdr}
@@ -100,10 +107,19 @@ Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \setcounter{page}{1} 
 \part{Vorwort}
 \section{Einleitung}
+Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter Randbedingungen (physikalischer oder ökonomischer Natur).\\
+...
+%Unvollständig
 
 \section{Ziel / Auftrag}
+Die vorgeschlagene Bachelorarbeit schlägt eine Anwendung der DP zur Kursbestimmung eines Segelschiffs vor. Aufgrund der mit einem numerischen Modell vorausgesagten Wetterentwicklung und in Anbetracht der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale Route mittels DP gerechnet. Ähnliche Methoden wurden beim Alinghi Team im Rahmen des Americas Cup verwendet. \\
+Weitere Anwendungen der DP zum Thema "energy trading" für erneuerbare Energiequellen sind denkbar und eine Übertragung der Resultate der BA in diesen Bereich werden von MeteoSchweiz angestrebt. \\
+
+Die Bachelorarbeit läuft unter fachlicher Betreuung der MeteoSchweiz (numerische Meteorologie und angewandte Mathematik). Sie besteht darin, zur Lösung des obigen Problems eine in Java geschriebene Applikation der DP zu entwickeln. Sämtliche zu diesem Zweck nötige Algorithmen sind vorhanden und müssen nicht neu entwickelt werden, hingegen müssen bestehende Algorithmen auf an die spezielle Problemsituation angepasst werden. 
 
 \section{Weitere Informationen sowie Danksagung}
+Für die professionelle und freundliche Kooperation möchten wir uns an dieser Stelle herzlich bedanken!\\
+...
 
 \newpage
 \part{Projektplanung}
@@ -113,7 +129,7 @@ Dr. Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \subsection{Benötigte Ressourcen}
 \begin{itemize}
 \item Menschliche Ressourcen \\
-Das Projekt wird von 2 Personen für rund 1 Semester mit der Betreuung eines Dozenten gemäss dem Auftrag des Auftraggebers durchgeführt. Auch seitens des Auftraggebers steht ein Betreuer zu Verfügung, den wir bei Unklarheiten ebenfalls kontaktieren können. Es wird davon ausgegangen, dass alle Projektmitglieder durchschnittlich 20 bis 25 Stunden pro Woche am Projekt arbeiten.\\
+Das Projekt wird von 2 Personen für rund 1 Semester mit der Betreuung eines Dozenten gemäss dem Auftrag des Auftraggebers durchgeführt. Auch seitens des Auftraggebers steht ein Betreuer zu Verfügung, den wir bei Unklarheiten ebenfalls kontaktieren können und von dem wir auch die nötigen Unterlagen zugeschickt bekommen. Ausserdem steht auch ein Nebenbetreuer zur Verfügung, der grundsätzlich für IT spezifische Fragen zuständig ist. Es wird davon ausgegangen, dass alle Projektmitglieder durchschnittlich 20 bis 25 Stunden pro Woche am Projekt arbeiten.\\
 \item Räume \\
 Es werden keine speziellen Räume gebraucht. Aber für eine bessere, verstärkte und erfolgreiche Zusammenarbeit wurde das Zimmer TE616 in der ZHAW-Schulgebäude reserviert. Ausserdem werden einmal die Woche, jeweils am Dienstag, zwei Zimmer der Abteilung Wetterdienst in der MeteoSchweiz-Gebäude benutzt. Jedoch wird das Projekt weitgehend als virtuelle Organisation geführt, das heisst, dass der physische Standort der Teilnehmer nicht von Bedeutung ist.
 
@@ -132,33 +148,35 @@ Tel.   +41 44 256 91 11 \\
 Fax   +41 44 256 92 78\\
 
 \section{Vorgehensmodell}
+%Unvollständig
+Für unser Projekt haben wir uns für das V-Modell entschieden, da die Phasen stabile Anforderungen haben und sie wenig Management-Aufwand benötigen. Desweiteren besitzen sie klare Abgrenzungen und der Umfang der Arbeit ist klar abschätzbar. 
 
 \section{Zeitliche Planung}
-
+%Unvollständig
 \subsection{Effektiver Ablauf}
 \begin{table}[h!]
 \centering 
   \begin{tabular}{| c | l | r | >{\color{red}} r |}
-
     \hline
     \rowcolor{hellgrau} 
     \textbf{Arbeitspakete} & \textbf{Tasks} & \textbf{Zeitaufwand} & \textbf{\color{black}Effektiv} \\ \hline \hline
-    \multirow{1}{*}{Nr. 1} & \textbf{Planung} & \textbf{Tage} & \textbf{Tage}  \\ \cline{2-4} \hline \hline
+    \multirow{1}{*}{} & \textbf{Planung} & \textbf{Tage} & \textbf{Tage}  \\ \cline{2-4} \hline \hline
      & \textbf{Implementierung} & \textbf{Tage} & \textbf{Tage}  \\ \hline
-     \multirow{2}{*}{Nr. 2}& Aufgabe 1+2 &  Tage & Tage \\ \cline{2-4}
-     & Aufgabe 3 &  Tage &  Tage \\ \hline
-     \multirow{2}{*}{Nr. 3}& Aufgabe 4 &  Tage &  Tage \\ \cline{2-4}
-     & Aufgabe 5 &  Tage &  Tag \\ \hline
-     Nr. 4& Aufgabe 6 &  Tage &  Tage \\ \hline
-     Nr. 5& Aufgabe 7 &  Tage &  Tage \\ \cline{2-4}\hline \hline
-     Nr. 6& \textbf{Testing / Finetuning} & \textbf{ Tage} & \textbf{ Tage}  \\ \hline \hline
-     \multirow{3}{*}{Nr. 7} & \textbf{Erkenntnis} & \textbf{ Tage} & \textbf{ Tage} \\ \cline{2-4}
+     \multirow{1}{*}{Nr. 1}& Aufgabe 1+2 & 12 Tage & 12 Tage \\ \hline
+     Nr. 2 & Aufgabe 3 & 8 Tage & 8 Tage \\ \hline
+     Nr. 3& Aufgabe 4 & 8 Tage & 25 Tage \\ \hline
+     Nr. 4& Aufgabe 5 & 13 Tage & 10 Tage \\ \hline
+     Nr. 5& Aufgabe 6 & 15 Tage &  Tage \\ \hline
+     Nr. 6& Aufgabe 7 & 22 Tage &  Tage \\ \cline{2-4}\hline \hline
+     Nr. 7& \textbf{Testing / Finetuning} & \textbf{ Tage} & \textbf{ Tage}  \\ \hline \hline
+     \multirow{3}{*}{Nr. 8} & \textbf{Erkenntnis} & \textbf{ Tage} & \textbf{ Tage} \\ \cline{2-4}
      & Schlussfolgerung &  Tage &  Tage  \\ \cline{2-4}
      & Arbeitsrevue &  Tage &   Tage \\ \cline{2-4} \hline \hline
      & \textbf{Reserve} & \textbf{10 Tage} & \textbf{ Tage} \\ \hline \hline \hline
      & \textbf{Zeitaufwand insgesamt} & \textbf{ Tage}  & \textbf{ Tage} \\ \hline \hline
   \end{tabular}
   \caption{Projektplan Ablauf}
+  \label{EffektivPlan}
 \end{table}
 
 \subsubsection{Definition}
@@ -167,17 +185,184 @@ Fax   +41 44 256 92 78\\
 \subsection{Gantt-Diagramm}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\linewidth]{img/projektplanung.png}
+\includegraphics[width=0.8\linewidth]{img/projektplanung.png}
 \caption{Projektplan}
 \label{prplan}
 \end{figure}
 
 \subsection{Arbeitspakete}
+Im Folgenden wird das Projekt in Arbeitspakete und ihre Abhängigkeiten eingeteilt, wie es auch in der Tabelle \ref{EffektivPlan} ersichtlich ist. Die Pakete wurden so gewählt, dass sie genau eine geschlossene Aufgabenstellung beschreiben und die Abhängigkeiten definieren, welche Arbeitspakete abgeschlossen sein müssen, damit ein bestimmtes Arbeitspaket begonnen werden kann. Desweiteren wurden auch die geplanten Dauer der Arbeitspakete angegeben. \\
+
+Es ist festgelegt, dass beide Projektmitglieder auch gleichzeitig die Projektleiter für die gesamte Projektlaufzeit sind. Es wird aber im Verlauf des Projektes in jeder einzelnen Phase jeweils ein Projektmitglied die eigentliche Projektleitung übernehmen.
+Der Projektleiter der jeweiligen Phase ist hauptverantwortlich für die rechtzeitige Fertigstellung und die Qualität des Produkts der jeweiligen Phase.
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{1}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 1 \& 2} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungsnetzes auf der Erdkugel}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Berechnung einer Orthodromie} \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{(Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung der Koordinatendatei eines Sees (in Koordinaten)}  \\ \cline{2-4}
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungskernes in Dynamische Programmierung}  \\ 
+     \multirow{-6}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Berechnung von Orthodromien auf der Erdoberfläche mit Testdaten} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 06.03.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Fevzi Yükseldi\\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 1}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{2}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 3} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Polardiagramms eines Segelschiffes}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolationsverfahren} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Schiffgeschwindigkeiten berechnen} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 06.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 13.03.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Mathias Hablützel\\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 2}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{3}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 4} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erfassung des Windfeldes. Quelle: stündliche Vorhersagedaten des COSMO-2 Modells}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Interpolation auf das Entscheidungsnetzes (zwei mögliche Methoden)} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Darstellung des Windfeldes auf dem Entscheidungsnetz für eine Vorhersagefrist.} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 13.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 20.03.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine&  \cellcolor{hellgrau}\textbf{Verantwortung} & Mathias Hablützel \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 3}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{4}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 5} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Wechselwirkung Windfeld – Segelschiff}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Geometrie um das Schiff, Ableitung dessen Geschwindigkeit} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Test: Berechnung der Schiffgeschwindigkeit im Windfeld} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 20.03.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 03.04.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 2 \& 3 &  \cellcolor{hellgrau}\textbf{Verantwortung} & Fevzi Yükseldi\\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 4}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{5}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 6} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erweiterung des geometrischen Entscheidungskerns}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{~~~~~o	Zeitmanagement} \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{~~~~~o	Rekursion} \\ 
+     \multirow{-4}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Erstellung eines Entscheidungsbaums und Test} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 03.04.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 17.04.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 1 \& 4 &  \cellcolor{hellgrau}\textbf{Verantwortung} & Fevzi Yükseldi\\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 5}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{6}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Aufgabe 7} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Im Entscheidungsbaum Rückberechnung der optimalen Route}  \\ 
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Erstellung eines Logbuchs} \\ 
+     \multirow{-3}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Graphische Darstellung  See, Windfeld, Entscheidungsbaum, optimale Route} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 17.04.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 08.05.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Arbeitspakete 1 \& 3 \& 5 &  \cellcolor{hellgrau}\textbf{Verantwortung} & \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 6}
+\end{table}
+
+\begin{table}[h!]
+\centering 
+  \begin{tabularx}{\textwidth}{| l | X | l| X | }
+    \hline
+    \cellcolor{hellgrau}\textbf{Nummer} & \multicolumn{3}{l |}{7}  \\ \hline
+    \cellcolor{hellgrau}\textbf{Bezeichnung} & \multicolumn{3}{l |}{Testing / Finetuning} \\ \hline       
+    \cellcolor{hellgrau} & \multicolumn{3}{l |}{•	Die Tests werden laufend durchgeführt.}  \\ 
+     \multirow{-2}{*}{\textbf{\cellcolor{hellgrau}Beschreibung}} & \multicolumn{3}{l |}{•	Am Ende jedes Pakets wird die Arbeit mit realen Daten getestet} \\ \hline
+    \cellcolor{hellgrau}\textbf{Start} & 24.02.2012 &  \cellcolor{hellgrau}\textbf{Ende} & 08.05.2012\\ \hline
+    \cellcolor{hellgrau}\textbf{Abhängigkeiten} & Keine &  \cellcolor{hellgrau}\textbf{Verantwortung} & Alle \\ \hline
+  \end{tabularx}
+  \caption{Arbeitspaket 7}
+\end{table}
+
 
 \newpage
+\part{Geschichtliche Entwicklung}
+% ganz kurz eine halbe Seite erklären, wie was enstanden ist.
 
+\newpage
 \part{Arbeitsberichte}
+\section{Einheiten}
+% Für was stehen einzelne Einheiten, wie werden sie berechnet usw.
+
 \include{bericht_aufgabe1}
+
+\newpage
+\part{Implementation}
+\section{Dynamische Programmierung}
+% Dynamische Programmierung erklären.
+
+\section{Unsere Impl.}
+% Erwähnung, dass in jeder Zelle alle nötigen Informationen vorhanden sind.
+
+\subsection{Klassendiagramm}
+% Klassen mit Beziehungen zueinander aufzeigen.
+
+\subsection{Logging}
+% Kurz Logging erklären. (ggf. PA anschauen :))
+
+\subsection{JavaDoc}
+% Wie JavaDoc zu bedienen sei und was alles dort drin steht.
+
+\section{Programmiertechnische Grenzen}
+% (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
+% Im Bericht sollte ein Absatz vorhanden sein, welches die 
+% programmiertechnischen Grenzen oder Genauigkeiten der mathematischen 
+% Funktionen wie Sinus/Cosinus, Datentypen etc. behandelt und diskutiert. 
+
+\section{Erweiterbarkeit}
+% Zeigen, dass es leicht erweiterbar und wiederverwendbar ist.
+\subsection{Parallelisierung}
+% Aufzeigen, dass Paralellisierung möglich ist.
+\subsection{Weitere Datenquellen}
+% Wie weitere Datenquellen eingesetzt werden können (z.B. HTTP anstatt Datei)
+\subsection{Website}
+% Wie daraus eine Webseite gemacht werden kann. Apps?
+
+\section{Optimierungsmöglichkeiten}
+\subsection{Sonderfälle}
+% Das Problem mit Spread ausdiskutieren
+
+\newpage
+\part{Testing}
+\section{Beispiele}
+% Mit sinnvollen Beispielen simulieren.
+
+\newpage
+\part{Erkenntnisse}
+\section{Schlussfolgerung}
+\section{Arbeitsrevue}
+
+
 \bibliographystyle{ba_zhaw}
 \bibliography{hablumat_biblio,yuksefev_biblio}
  \end{document}
