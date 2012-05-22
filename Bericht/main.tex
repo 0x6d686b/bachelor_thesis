@@ -137,7 +137,9 @@ Für die professionelle und freundliche Kooperation möchten wir uns an dieser S
 \part{Vorgehen / Methoden}
 \section{Dynamische Programmierung}
 % Dynamische Programmierung erklären.
+Der Begriff dynamische Programmierung wurde erstmals in den 1940er Jahren von Richard Bellman benutzt und umfasst eine Reihe von Methoden mit dem Ziel, Optimierungsprobleme zu lösen. Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren gelöst, wenn sie in mehrere gleichartige Teilprobleme aufgeteilt werden kann. Eine optimale Lösung setzt sich somit aus den optimalen Lösungen der Teilproblemen zusammen. Aus diesem Grund ist eine Strategie dann optimal, wenn alle Unterstrategien optimal sind. Die Zwischenergebnisse der Teilprobleme werden aber nicht rekursiv, sondern iterativ berechnet und in einer Tabelle gespeichert, so dass, wenn sie wieder benötigt werden, nicht nochmals berechnet werden müssen. 
 
+In unserer Anwendung ist das Ziel klar: den Kurs des Segelschiffes bestimmen indem man die kürzeste Route vom Start- bis zum Endpunkt berechnet. Dies erfolgt indem man die Strecke in Teilstrecken aufteilt Zu diesem Zweck werden die Windvektoren auf dem Gewässer und ihre Interaktion mit dem Segelschiff in die Berechnung miteinbezogen. 
 \include{bericht_aufgabe1}
 
 \newpage

@@ -175,7 +175,20 @@ e = \sqrt{ (\theta_2 - \theta_1)^2 + (\phi_2-\phi_1)^2}
 Somit sind die Spaltenlänge durch e/m und die Zeilenhöhe durch e/n definiert. Da der Graph auch rotiert werden kann, braucht es eine Rotations-Matrix, welches sich wie folgt zusammensetzt.
 \begin{equation}
 \label{eq:3}
-M = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & \frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix}
+M = \begin{pmatrix} \cos(\alpha) & -\sin(\alpha) \\ \sin(\alpha) & \cos(\alpha) \end{pmatrix} = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & -\frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix}
  \end{equation}
- 
+Am Ende erfolgt die Zusammenstellung des Koordinatennetzes für alle Knoten (i, j) mit dieser Formel \eqref{eq:4}:
+\begin{equation}
+\label{eq:4}
+Koordinatennetz = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & -\frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix} * \begin{pmatrix}  \frac{e*i}{m} \\ \frac{\rho*e*j}{n} \end{pmatrix} + \begin{pmatrix}  \theta_1 \\ \phi_1 \end{pmatrix}
+ \end{equation}
+Mit dieser Berechnung wird gewährleistet, dass die Zwischenknoten ein Rechteck mit einem Gitternetz bilden, wobei die Start- und Endknoten genau in der Mitte der gegenüberliegenden Seiten liegen.
+
+In der Abbildung \ref{gridnet} wird gezeigt, wie so ein erstelltes Koordinatennetz mit dem Startknoten (9.40 / 47.6) und dem Endknoten (9.64 / 47.58) aussieht. 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{img/gridNet}
+\caption{Koordinatennetz}
+\label{gridnet}
+\end{figure}
 
