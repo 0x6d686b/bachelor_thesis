@@ -708,6 +708,7 @@ DOT2TEX		?= dot2tex	# dot2tex - add options (not -o) as needed
 FIG2DEV		?= fig2dev	# XFig
 GNUPLOT		?= gnuplot	# GNUplot
 INKSCAPE	?= inkscape	# Inkscape (svg support)
+SVG2PDF         ?= svg2pdf
 XMGRACE		?= xmgrace	# XMgrace
 PNGTOPNM	?= pngtopnm	# From NetPBM - step 1 for png -> eps
 PPMTOPGM	?= ppmtopgm	# From NetPBM - (gray) step 2 for png -> eps
@@ -2353,7 +2354,8 @@ convert-dot-tex		= $(DOT2TEX) '$1' > '$2'
 # Converts svg files into .eps files
 #
 # $(call convert-svg,<svg file>,<eps/pdf file>,[gray])
-convert-svg	= $(INKSCAPE) --without-gui $(if $(filter %.pdf,$2),--export-pdf,--export-eps)='$2' '$1'
+# convert-svg	= $(INKSCAPE) --without-gui $(if $(filter %.pdf,$2),--export-pdf,--export-eps)='$2' '$1'
+convert-svg             = $(SVG2PDF) '$1' '$2'
 
 # Converts xvg files into .eps files
 #
