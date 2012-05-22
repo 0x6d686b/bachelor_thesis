@@ -94,18 +94,26 @@
 
 
 \section{Aufgabe 1 \& 2 - Orthodromie}
-\subsection{Aufgabenstellung}
-\begin{itemize}
-  \item Erstellung eines Entscheidungsnetzes auf der Erdkugel
-  \item Berechnung einer Orthodromie (Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)
-  \item Erstellung der Koordinatendatei eines Sees
-\end{itemize}
+%\subsection{Aufgabenstellung}
+%\begin{itemize}
+  %\item Erstellung eines Entscheidungsnetzes auf der Erdkugel
+  %\item Berechnung einer Orthodromie (Distanz in Meilen zwischen zwei Punkten auf der Erdkugel)
+  %\item Erstellung der Koordinatendatei eines Sees
+%\end{itemize}
 
 \subsection{Analyse der Problemstellung}
+\subsubsection{Berechnung einer Orthodromie}
 Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt. Da die zwei Punkte den Kreis in zwei Kreisbogen separieren, wird nur der kürzere Distanz berücksichtigt.
 
-Die Formel dafür lautet:
+
+Auf der Erdoberfläche werden die zwei Punkten in geographische Koordinaten, Längen- und Breitengrad, angegeben. Die Erde wird dabei in 360 Längengrade und 180 Breitengrade aufgeteilt. Somit haben die beiden Punkte die folgende Struktur: $A$ (\(\theta_1 , \phi_1\)) und $B$ (\(\theta_2 , \phi_2\)).
+
+Für die Berechnung der Distanz benötigen wir die Längen- und Breitengrade der zwei Punkte in Radian, welche dann in die Formel \eqref{eq:1} wie folgt eingesetzt werden: \\
 % Formel ArcCos(...)
+\begin{equation}
+\label{eq:1}
+ \frac{360*60}{2 \pi} \arccos[\cos(\theta_1 - \theta_2) \cos(\phi_1) \cos(\phi_2)+\sin(\phi_1) \sin(\phi_2)]
+ \end{equation}
 
 
 %Die aufgespaltete Ebene lässt sich mit dem Vektorprodukt der beiden Punkten $A$ und $B$  berechnen. 
@@ -156,5 +164,18 @@ Die Formel dafür lautet:
     \draw (P) arc (-110:-45:\R) (Q);	
 \end{tikzpicture}
 
+\subsubsection{Erstellung eines Entscheidungsnetzes auf der Erdkugel}
+Es soll ein Koordinatennetz mit den Knoten erstellt werden, auf welches dann später die Berechnungen durchgeführt werden. Für die Erstellung des Netzes benötigt man den Start- und Endpunkt als Eingabe. Die Anzahl der Knoten im Netz werden von den weiteren zwei Eingaben m und n definiert, wobei m für die Anzahl der Spalten und n für die Anzahl der Zeilen steht. Alle Punkte in diesem Netz beinhalten ihre eigene Informationen über das Längen- und Breitengrad.
 
+Der Abstand zwischen dem Start- und Endpunkt wird mittels der Euklidischen-Abstand Verfahren ermittelt. Die Formel dafür lautet:
+\begin{equation}
+\label{eq:2}
+e = \sqrt{ (\theta_2 - \theta_1)^2 + (\phi_2-\phi_1)^2}
+ \end{equation}
+Somit sind die Spaltenlänge durch e/m und die Zeilenhöhe durch e/n definiert. Da der Graph auch rotiert werden kann, braucht es eine Rotations-Matrix, welches sich wie folgt zusammensetzt.
+\begin{equation}
+\label{eq:3}
+M = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & \frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix}
+ \end{equation}
+ 
 
