@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<svg width="1314" height="1352" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <polygon points="1203,3 1163,3 1163,43 1203,43 1203,3" stroke="#006400" fill="#FFFFFF"/>
+ <polyline points="1175,3 1163,15" stroke="#006400" fill="none"/>
+ <polyline points="1163,31 1175,43" stroke="#006400" fill="none"/>
+ <polyline points="1191,43 1203,31" stroke="#006400" fill="none"/>
+ <polyline points="1203,15 1191,3" stroke="#006400" fill="none"/>
+ <text x="1171" y="28" fill="#000000" font-family="Arial" font-size="12">start</text>
+ <polygon points="1310,81 1056,81 1056,159 1310,159 1310,81" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="1056" y="97" fill="#000000" font-family="Arial" font-size="12">double maxTimeOfArrival</text>
+ <text x="1056" y="111" fill="#000000" font-family="Arial" font-size="12">double[] travelDistance</text>
+ <text x="1056" y="125" fill="#000000" font-family="Arial" font-size="12">double[][] position = new double[getMaxj()][2]</text>
+ <text x="1056" y="139" fill="#000000" font-family="Arial" font-size="12">final int __ROW__ = 0</text>
+ <text x="1056" y="153" fill="#000000" font-family="Arial" font-size="12">final int __TRAVELTIME__ = 1</text>
+ <polyline points="1183,43 1183,45 1183,48 1183,51 1183,53 1183,56 1183,59 1183,62 1183,65 1183,68 1183,71" stroke="#000000" fill="none"/>
+ <polygon points="1187,71 1183,81 1180,71 1187,71" stroke="#000000" fill="#000000"/>
+ <ellipse cx="1183" cy="215" rx="107" ry="18" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="1106" y="220" fill="#000000" font-family="Arial" font-size="12">(int k = 0; k &lt; getMaxj(); k++)</text>
+ <polyline points="1183,159 1183,162 1183,165 1183,167 1183,170 1183,173 1183,176 1183,179 1183,181 1183,184 1183,187" stroke="#000000" fill="none"/>
+ <polygon points="1187,187 1183,197 1180,187 1187,187" stroke="#000000" fill="#000000"/>
+ <polygon points="846,284 622,284 622,320 846,320 846,284" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="622" y="300" fill="#000000" font-family="Arial" font-size="12">maxTimeOfArrival = MAX_TOA</text>
+ <text x="622" y="314" fill="#000000" font-family="Arial" font-size="12">travelDistance = new double[getMaxj()]</text>
+ <polyline points="1113,229 1090,233 1064,238 1037,244 1008,249 979,255 949,260 920,266 891,272 863,277 837,282" stroke="#00FF00" fill="none"/>
+ <polygon points="838,286 827,284 836,279 838,286" stroke="#00FF00" fill="#00FF00"/>
+ <text x="986" y="263" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="1178,284 1142,284 1142,321 1178,321 1178,284" stroke="#A52A2A" fill="#FFFFFF"/>
+ <polyline points="1154,284 1142,296" stroke="#A52A2A" fill="none"/>
+ <polyline points="1142,309 1154,321" stroke="#A52A2A" fill="none"/>
+ <polyline points="1166,321 1178,309" stroke="#A52A2A" fill="none"/>
+ <polyline points="1178,296 1166,284" stroke="#A52A2A" fill="none"/>
+ <text x="1149" y="307" fill="#000000" font-family="Arial" font-size="12">end</text>
+ <polyline points="1178,233 1177,237 1176,241 1175,245 1174,249 1173,253 1172,257 1171,261 1169,266 1168,270 1167,274" stroke="#FF0000" fill="none"/>
+ <polygon points="1171,275 1165,283 1164,273 1171,275" stroke="#FF0000" fill="#FF0000"/>
+ <text x="1173" y="263" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <ellipse cx="491" cy="377" rx="101" ry="18" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="419" y="382" fill="#000000" font-family="Arial" font-size="12">(int j = 0; j &lt; getMaxj(); j++)</text>
+ <polyline points="675,320 664,324 652,328 639,331 626,335 613,339 600,343 588,347 575,351 563,355 551,358" stroke="#000000" fill="none"/>
+ <polygon points="552,362 542,361 550,355 552,362" stroke="#000000" fill="#000000"/>
+ <polygon points="434,445 116,445 116,481 434,481 434,445" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="116" y="468" fill="#000000" font-family="Arial" font-size="12">travelDistance[j] = calcTravelDistance(r, j, k, windfieldNo)</text>
+ <polyline points="450,393 439,397 428,402 416,407 404,412 391,417 378,422 366,427 353,432 341,436 330,441" stroke="#00FF00" fill="none"/>
+ <polygon points="331,444 320,445 328,438 331,444" stroke="#00FF00" fill="#00FF00"/>
+ <text x="396" y="425" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="826,445 562,463 826,481 1090,463 826,445" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="686" y="468" fill="#000000" font-family="Arial" font-size="12">(Math.abs(k - (int) position[k][__ROW__]) &lt;= spread)</text>
+ <polyline points="549,392 568,397 588,402 609,407 631,413 654,419 676,424 699,430 720,436 741,441 760,446" stroke="#FF0000" fill="none"/>
+ <polygon points="762,443 770,449 760,450 762,443" stroke="#FF0000" fill="#FF0000"/>
+ <text x="679" y="425" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polygon points="289,531 94,549 289,567 484,549 289,531" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="187" y="554" fill="#000000" font-family="Arial" font-size="12">(travelDistance[j] &lt; maxTimeOfArrival)</text>
+ <polyline points="278,481 279,485 279,489 280,492 280,497 281,501 282,505 282,509 283,513 283,517 284,521" stroke="#000000" fill="none"/>
+ <polygon points="288,521 286,531 281,522 288,521" stroke="#000000" fill="#000000"/>
+ <polyline points="342,536 352,533 362,529 373,525 384,520 394,515 405,509 415,503 425,496 434,489 443,481 449,474 455,467 460,460 464,452 469,444 473,436 476,428 479,420 482,412 484,405" stroke="#FF0000" fill="none"/>
+ <polygon points="481,404 487,395 488,406 481,404" stroke="#FF0000" fill="#FF0000"/>
+ <text x="468" y="468" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polygon points="289,617 148,635 289,653 430,635 289,617" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="218" y="640" fill="#000000" font-family="Arial" font-size="12">(Math.abs(k - j) &lt;= spread)</text>
+ <polyline points="289,567 289,571 289,575 289,578 289,583 289,587 289,591 289,595 289,599 289,603 289,607" stroke="#00FF00" fill="none"/>
+ <polygon points="293,607 289,617 286,607 293,607" stroke="#00FF00" fill="#00FF00"/>
+ <text x="289" y="597" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="280,703 4,703 4,753 280,753 280,703" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="4" y="719" fill="#000000" font-family="Arial" font-size="12">maxTimeOfArrival = travelDistance[j]</text>
+ <text x="4" y="733" fill="#000000" font-family="Arial" font-size="12">position[k][__ROW__] = j</text>
+ <text x="4" y="747" fill="#000000" font-family="Arial" font-size="12">position[k][__TRAVELTIME__] = travelDistance[j]</text>
+ <polyline points="265,650 259,654 252,658 245,663 237,668 229,673 221,678 213,683 205,688 198,692 190,697" stroke="#00FF00" fill="none"/>
+ <polygon points="192,700 182,703 188,695 192,700" stroke="#00FF00" fill="#00FF00"/>
+ <text x="229" y="683" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="622,710 374,710 374,746 622,746 622,710" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="374" y="726" fill="#000000" font-family="Arial" font-size="12">position[k][__ROW__] = j</text>
+ <text x="374" y="740" fill="#000000" font-family="Arial" font-size="12">position[k][__TRAVELTIME__] = MAX_TOA</text>
+ <polyline points="321,649 332,654 344,659 356,665 369,670 383,676 396,682 410,689 423,695 436,700 448,706" stroke="#FF0000" fill="none"/>
+ <polygon points="450,703 457,710 447,709 450,703" stroke="#FF0000" fill="#FF0000"/>
+ <text x="400" y="683" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polyline points="105,703 99,698 94,692 88,686 83,679 78,673 74,666 71,658 68,651 67,643 66,635 66,588 66,551 66,522 66,500 66,485 66,474 66,468 66,464 66,463 66,463 72,453 88,444 113,435 145,426 183,418 224,410 267,403 311,397 353,392 393,387" stroke="#000000" fill="none"/>
+ <polygon points="393,384 403,386 394,391 393,384" stroke="#000000" fill="#000000"/>
+ <polyline points="502,710 503,704 505,697 506,690 507,683 509,675 510,667 511,659 511,651 512,643 512,635 512,588 512,551 512,522 512,500 512,485 512,474 512,468 512,464 512,463 512,463 512,457 511,451 511,445 510,439 509,433 507,427 506,421 504,415 503,410 501,405" stroke="#000000" fill="none"/>
+ <polygon points="498,406 498,395 505,404 498,406" stroke="#000000" fill="#000000"/>
+ <polygon points="826,531 540,549 826,567 1112,549 826,531" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="674" y="554" fill="#000000" font-family="Arial" font-size="12">(position[k][__TRAVELTIME__] &gt;= TIME_LIMIT_OF_WF)</text>
+ <polyline points="826,481 826,485 826,489 826,492 826,497 826,501 826,505 826,509 826,513 826,517 826,521" stroke="#00FF00" fill="none"/>
+ <polygon points="830,521 826,531 823,521 830,521" stroke="#00FF00" fill="#00FF00"/>
+ <text x="826" y="511" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="1282,531 1130,531 1130,567 1282,567 1282,531" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="1130" y="554" fill="#000000" font-family="Arial" font-size="12">System.out.println(&quot;Shit!&quot;)</text>
+ <polyline points="887,477 907,481 929,486 952,492 976,497 1001,503 1026,508 1050,514 1075,520 1098,525 1120,530" stroke="#FF0000" fill="none"/>
+ <polygon points="1121,526 1130,532 1119,533 1121,526" stroke="#FF0000" fill="#FF0000"/>
+ <text x="1039" y="511" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polygon points="1049,617 603,617 603,653 1049,653 1049,617" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="603" y="640" fill="#000000" font-family="Arial" font-size="12">int windField_raise = (int) (position[k][__TRAVELTIME__] / TIME_LIMIT_OF_WF)</text>
+ <polyline points="826,567 826,571 826,575 826,578 826,583 826,587 826,591 826,595 826,599 826,603 826,607" stroke="#00FF00" fill="none"/>
+ <polygon points="830,607 826,617 823,607 830,607" stroke="#00FF00" fill="#00FF00"/>
+ <text x="826" y="597" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="1238,1227 958,1227 958,1347 1238,1347 1238,1227" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="1040" y="1243" fill="#000000" font-family="Arial" font-size="12">graphList.get(r).get(k)</text>
+ <text x="958" y="1257" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> .setTimeOfArrival(position[k][__TRAVELTIME__])</text>
+ <text x="1073" y="1271" fill="#000000" font-family="Arial" font-size="12">graphList</text>
+ <text x="1080" y="1285" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> .get(r)</text>
+ <text x="1079" y="1299" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> .get(k)</text>
+ <text x="1061" y="1313" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> .setPrevious(</text>
+ <text x="1035" y="1327" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> graphList.get(r - 1).get(</text>
+ <text x="958" y="1341" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> (int) position[k][__ROW__]))</text>
+ <polyline points="922,561 946,565 970,570 994,576 1018,582 1039,589 1059,596 1075,605 1087,614 1095,624 1098,635 1098,636 1098,639 1098,649 1098,668 1098,700 1098,748 1098,814 1098,902 1098,1016 1098,1157 1098,1163 1098,1169 1098,1175 1098,1181 1098,1187 1098,1193 1098,1199 1098,1205 1098,1211 1098,1217" stroke="#FF0000" fill="none"/>
+ <polygon points="1102,1217 1098,1227 1095,1217 1102,1217" stroke="#FF0000" fill="#FF0000"/>
+ <text x="1098" y="907" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polygon points="826,710 712,728 826,746 940,728 826,710" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="770" y="733" fill="#000000" font-family="Arial" font-size="12">(windField_raise &gt; 1)</text>
+ <polyline points="826,653 826,657 826,662 826,666 826,671 826,676 826,681 826,686 826,691 826,695 826,700" stroke="#000000" fill="none"/>
+ <polygon points="830,700 826,710 823,700 830,700" stroke="#000000" fill="#000000"/>
+ <polygon points="845,803 509,803 509,839 845,839 845,803" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="647" y="819" fill="#000000" font-family="Arial" font-size="12">System.out</text>
+ <text x="517" y="833" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> .println(&quot;STOOOP MAN!! Choose denser PARAMETERS!!&quot;)</text>
+ <polyline points="803,743 795,747 787,752 779,758 769,763 760,769 751,775 741,781 732,787 723,792 715,798" stroke="#00FF00" fill="none"/>
+ <polygon points="716,801 706,803 713,795 716,801" stroke="#00FF00" fill="#00FF00"/>
+ <text x="756" y="783" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="1010,877 710,877 710,927 1010,927 1010,877" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="782" y="893" fill="#000000" font-family="Arial" font-size="12">System.out.print(&quot;Position1: &quot;</text>
+ <text x="710" y="907" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> + position[k][__TRAVELTIME__])</text>
+ <text x="710" y="921" fill="#000000" font-family="Arial" font-size="12">int windFieldNo_new = windfieldNo + windField_raise</text>
+ <polyline points="834,745 836,750 838,755 841,760 843,766 845,772 847,778 849,784 851,790 853,797 854,803 855,809 856,816 857,822 858,829 859,836 859,842 859,849 860,855 860,861 860,867" stroke="#FF0000" fill="none"/>
+ <polygon points="864,867 861,877 857,867 864,867" stroke="#FF0000" fill="#FF0000"/>
+ <text x="859" y="826" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polyline points="718,839 725,842 732,845 739,849 747,852 755,856 763,859 771,863 779,866 786,870 794,873" stroke="#000000" fill="none"/>
+ <polygon points="796,870 803,877 793,876 796,870" stroke="#000000" fill="#000000"/>
+ <polygon points="860,965 730,983 860,1001 990,983 860,965" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="795" y="988" fill="#000000" font-family="Arial" font-size="12">(windFieldNo_new &gt; 24)</text>
+ <polyline points="860,927 860,930 860,933 860,935 860,938 860,941 860,944 860,947 860,949 860,952 860,955" stroke="#000000" fill="none"/>
+ <polygon points="864,955 860,965 857,955 864,955" stroke="#000000" fill="#000000"/>
+ <polygon points="914,1051 776,1051 776,1087 914,1087 914,1051" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="784" y="1074" fill="#000000" font-family="Arial" font-size="12">windFieldNo_new = 24</text>
+ <polyline points="857,1001 856,1004 856,1008 855,1012 854,1016 854,1020 853,1024 852,1029 851,1033 851,1037 850,1041" stroke="#00FF00" fill="none"/>
+ <polygon points="853,1042 848,1051 846,1040 853,1042" stroke="#00FF00" fill="#00FF00"/>
+ <text x="854" y="1031" fill="#000000" font-family="Arial" font-size="12">yes</text>
+ <polygon points="1070,1125 768,1125 768,1189 1070,1189 1070,1125" stroke="#0000FF" fill="#FFFFFF"/>
+ <text x="776" y="1141" fill="#000000" font-family="Arial" font-size="12">position[k][__TRAVELTIME__] = calcTravelDistance(r,</text>
+ <text x="768" y="1155" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> (int) position[k][__ROW__], k, windFieldNo_new)</text>
+ <text x="835" y="1169" fill="#000000" font-family="Arial" font-size="12">System.out.println(&quot; Position2: &quot;</text>
+ <text x="768" y="1183" fill="#000000" font-family="Arial" font-size="12" xml:space='preserve'> + position[k][__TRAVELTIME__])</text>
+ <polyline points="881,998 886,1002 890,1006 895,1011 900,1016 905,1021 909,1027 913,1032 917,1038 920,1045 923,1051 925,1057 927,1063 928,1070 929,1076 930,1083 930,1090 930,1096 929,1103 929,1109 928,1115" stroke="#FF0000" fill="none"/>
+ <polygon points="932,1115 927,1125 925,1114 932,1115" stroke="#FF0000" fill="#FF0000"/>
+ <text x="930" y="1074" fill="#000000" font-family="Arial" font-size="12">no</text>
+ <polyline points="860,1087 862,1090 865,1093 867,1096 870,1099 873,1102 875,1105 878,1108 880,1111 883,1114 885,1117" stroke="#000000" fill="none"/>
+ <polygon points="888,1115 892,1125 883,1120 888,1115" stroke="#000000" fill="#000000"/>
+ <polyline points="963,1189 967,1192 972,1195 976,1198 980,1201 985,1205 989,1208 994,1211 998,1214 1003,1218 1007,1221" stroke="#000000" fill="none"/>
+ <polygon points="1009,1218 1015,1227 1005,1224 1009,1218" stroke="#000000" fill="#000000"/>
+ <polyline points="1238,1249 1250,1243 1261,1236 1271,1228 1281,1220 1289,1212 1296,1202 1302,1192 1306,1181 1309,1169 1310,1157 1310,925 1310,740 1310,595 1310,487 1310,409 1310,357 1310,325 1310,309 1310,303 1310,302 1309,292 1307,284 1303,275 1298,268 1291,261 1284,254 1276,249 1268,243 1259,238 1250,234" stroke="#000000" fill="none"/>
+ <polygon points="1248,237 1240,230 1251,231 1248,237" stroke="#000000" fill="#000000"/>
+ <polyline points="1206,531 1206,525 1206,519 1206,513 1206,506 1206,499 1206,492 1206,484 1206,477 1206,470 1206,463 1206,419 1206,384 1206,357 1206,337 1206,322 1206,312 1206,306 1206,303 1206,302 1206,302 1206,296 1205,290 1205,284 1204,277 1202,271 1201,265 1199,259 1198,254 1196,248 1194,243" stroke="#000000" fill="none"/>
+ <polygon points="1191,244 1191,233 1197,241 1191,244" stroke="#000000" fill="#000000"/>
+</svg>
