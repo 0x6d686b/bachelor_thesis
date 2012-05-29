@@ -29,6 +29,10 @@ package ch.zhaw.lakerouting.datatypes;
 
 import java.math.BigDecimal;
 
+import org.apache.log4j.Logger;
+
+import ch.zhaw.lakerouting.decisionScheme.Decision;
+
 /**
  * Data type for storing a coordinate and retrieving it
  * in different units.
@@ -62,6 +66,8 @@ public class Coordinate {
     /** Restricting range of latitude */
     private static final double MAX_LATITUDE = 90.0;
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * We use BigDecimal here to provide a maximum of accuracy
      * this implicates that we transform this into double values
@@ -99,8 +105,10 @@ public class Coordinate {
      * @throws IllegalArgumentException
      */
     public final void setLongitudeInDegree(double l) {
-        if (l > MAX_LONGITUDE || l <= MIN_LONGITUDE)
+        if (l > MAX_LONGITUDE || l <= MIN_LONGITUDE){
+        	logger.error("Longitude is out of range.");
             throw new IllegalArgumentException("Longitude is out of range.");
+        }
         this.longitude = BigDecimal.valueOf(l);
     }
 
@@ -120,8 +128,10 @@ public class Coordinate {
      * @throws IllegalArgumentException
      */
     public final void setLatitudeInDegree(double l) {
-        if (l > MAX_LATITUDE || l < MIN_LATITUDE)
-            throw new IllegalArgumentException("Latitude is out of range.");
+        if (l > MAX_LATITUDE || l < MIN_LATITUDE){
+        	logger.error("Latitude is out of range.");
+        	throw new IllegalArgumentException("Latitude is out of range.");
+        }
         this.latitude = BigDecimal.valueOf(l);
     }
 

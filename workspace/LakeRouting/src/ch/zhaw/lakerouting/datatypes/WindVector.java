@@ -27,6 +27,10 @@
 
 package ch.zhaw.lakerouting.datatypes;
 
+import org.apache.log4j.Logger;
+
+import ch.zhaw.lakerouting.decisionScheme.Decision;
+
 /**
  * Primitive wind vector with helpful calculations
  *
@@ -56,14 +60,18 @@ public class WindVector {
     /** v is the unit vector with value (0,1) pointing to the east */
     private double v;
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * Basic input validator which could be extended at any later moment.
      * @param input input of unit value
      * @throws IllegalArgumentException
      */
     private void validateInput (double input) {
-        if (Math.abs(input) > MAXWIND)
+        if (Math.abs(input) > MAXWIND){
+        	logger.error("Input value too high: max " + MAXWIND + "kts.");
             throw new IllegalArgumentException("Input value too high: max " + MAXWIND + "kts.");
+        }
     }
 
     /**

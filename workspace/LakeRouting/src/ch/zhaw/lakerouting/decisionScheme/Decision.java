@@ -1,12 +1,17 @@
 package ch.zhaw.lakerouting.decisionScheme;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import ch.zhaw.lakerouting.datatypes.Node;
+
+//import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.*;
 import org.joda.time.DateTime;
 
 import ch.zhaw.lakerouting.datatypes.Coordinate;
@@ -45,9 +50,29 @@ public class Decision {
 	private SailingDuration sd;
 	private WindfieldContainer windFieldContainer;
 
+	private static Logger logger = Logger.getLogger(Decision.class.getClass());
+
 	public Decision() {
 		sd = new SailingDuration();
 		graphList = new ArrayList<List<Node>>();
+	}
+
+	/**
+	 * static-Block, is only called once, when the first instance of this class
+	 * is generated. So it loads the file-config only once.
+	 */
+	static {
+		// Read Logging-Properties
+		try {
+			Properties prop = new Properties();
+			prop.load(new FileInputStream("config/log4j.properties"));
+			PropertyConfigurator.configure(prop);
+		} catch (IOException e) {
+			// If an Exception is throwed, use StandardOutput
+			BasicConfigurator.configure();
+			logger.error("Loading log4j.properties failed, use Console-Output as Standard-Output \n\n"
+					+ e);
+		}
 	}
 
 	/**
@@ -146,15 +171,22 @@ public class Decision {
 		for (int i = 0; i <= maxi; i++) {
 			for (int j = -maxj; j <= maxj; j++) {
 				/* Calculate the coordinate values and save it to the list */
+				// crd.setLongitudeInDegree(M[0][0] * (e * i / maxi) + M[0][1]
+				// * (p * e * j / (maxi)) + theta1);
+				// crd.setLatitudeInDegree(M[1][0] * (e * i / maxi) + M[1][1]
+				// * (p * e * j / (maxi)) + phi1);
 				crd.setLongitudeInDegree(M[0][0] * (e * i / maxi) + M[0][1]
 						* (p * e * j / (2 * maxj)) + theta1);
 				crd.setLatitudeInDegree(M[1][0] * (e * i / maxi) + M[1][1]
 						* (p * e * j / (2 * maxj)) + phi1);
+				// logger.info("Coordinate i="+i+" j="+(j+maxj)+" : " +
+				// crd.toString());
 				graphList.get(i).get(j + maxj).setCrd(crd);
 				crd = new Coordinate();
 			}
 		}
 
+		logger.info("Graph-Nodes with the calculated coordinates are created.");
 		dynamicalProgramming(spread);
 
 		return graphList;
@@ -202,10 +234,12 @@ public class Decision {
 		 */
 		setWv(windFieldContainer.get(windfieldNo));
 
+		logger.info("Dynamical Programming started.");
 		/* Call the method progrDyn to calculate the distances in TOA */
 		for (int i = 1; i < getMaxi(); i++) {
 			progrDyn(i, windfieldNo);
 		}
+		logger.info("Dynamical Programming finished.");
 		/*
 		 * That we have access after the calculation to the default
 		 * windField-Metadata
@@ -231,15 +265,17 @@ public class Decision {
 			/* Load the File and read and save the windFields to the container */
 			windFieldContainer.bulkLoadWindfield(identifier, loader);
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			logger.error("Couldn't find the property-name\n\n" + e);
+//			e.printStackTrace();
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			logger.error("Failed to load the Property-File\n\n" + e1);
+//			e1.printStackTrace();
 		}
 
 		/* Interpolate all windFields at once */
 		windFieldContainer = windFieldContainer.bulkInterpolateOnDecisionNet(
 				graphList, bil);
-		System.out.println("WF " + windFieldContainer.getDelta().toString());
+		logger.info("All windFields interpolated! \nWindFieldContainer Starting-Interval: "+windFieldContainer.getDelta().toString()+"\n");
 	}
 
 	/**
@@ -270,6 +306,7 @@ public class Decision {
 		if (difference < 0) {
 			difference = 24 + difference;
 		}
+		logger.info("Default WindField: "+windFieldContainer.get(difference).getMetadata().getDate());
 		return difference;
 	}
 
@@ -373,11 +410,11 @@ public class Decision {
 					/* this calculates how much we have to raise the index of WF */
 					int windField_raise = (int) (position[k][__TRAVELTIME__] / TIME_LIMIT_OF_WF);
 					if (windField_raise > 1)
-						System.out
-								.println("STOOOP MAN!! Choose denser PARAMETERS!!");
+						logger.warn("Stop, the raise of the windField index is higher than 1. You should try" +
+								" again with denser PARAMETERS!");
 
-					System.out.print("Position1: "
-							+ position[k][__TRAVELTIME__]);
+//					System.out.print("Position1: "
+//							+ position[k][__TRAVELTIME__]);
 
 					/* The new windField number */
 					int windFieldNo_new = windfieldNo + windField_raise;
@@ -393,8 +430,8 @@ public class Decision {
 					position[k][__TRAVELTIME__] = calcTravelDistance(r,
 							(int) position[k][__ROW__], k, windFieldNo_new);
 
-					System.out.println(" Position2: "
-							+ position[k][__TRAVELTIME__]);
+//					System.out.println(" Position2: "
+//							+ position[k][__TRAVELTIME__]);
 				}
 
 				/*
@@ -410,7 +447,7 @@ public class Decision {
 								graphList.get(r - 1).get(
 										(int) position[k][__ROW__]));
 			} else {
-				System.out.println("Shit!");
+				logger.warn("Ooops! The nearest Node is not in the Spread!");
 			}
 		}
 

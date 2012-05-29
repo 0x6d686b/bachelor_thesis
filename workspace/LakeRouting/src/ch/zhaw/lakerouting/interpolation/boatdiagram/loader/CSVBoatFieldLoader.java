@@ -37,6 +37,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * Loads the values for a boat speed diagram from a CSV file.
  *
@@ -51,6 +53,8 @@ import java.util.List;
 public class CSVBoatFieldLoader implements BoatFieldLoader {
     private List<List<Double>> field;
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * Loads the indicated resource
      *
@@ -60,8 +64,10 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
      */
     @Override
     public final boolean loadResource(URI identifier) {
-        if (!(identifier.getScheme().equalsIgnoreCase("file")))
+        if (!(identifier.getScheme().equalsIgnoreCase("file"))){
+        	logger.error("Sorry, we support only file://-handler so far!");
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
+        }
 
         CsvReader filereader;
         int columns;
@@ -69,10 +75,10 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
         try {
         	filereader = new CsvReader(identifier.getSchemeSpecificPart(), ',', Charset.forName("UTF-8"));
         } catch (FileNotFoundException f) {
+        	logger.error("File not found.\n"+f);
             f.printStackTrace();
             return false;
         }
-
         /**
          * Read the header of a boat diagram
          */
@@ -100,6 +106,7 @@ public class CSVBoatFieldLoader implements BoatFieldLoader {
                 field.add(line);
             }
         } catch (IOException e) {
+        	logger.error("IO Exception\n"+e);
             e.printStackTrace();
         }
         return true;

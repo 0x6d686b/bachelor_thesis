@@ -29,6 +29,8 @@ package ch.zhaw.lakerouting.navigation.speed;
 
 import java.net.URI;
 
+import org.apache.log4j.Logger;
+
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.Track;
 import ch.zhaw.lakerouting.datatypes.WindVector;
@@ -50,6 +52,8 @@ public class SpeedComputation {
 
 	private BoatSpeedDiagram field;
 	private InterpolationAlgorithm bil;
+	
+	private Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * Constructor which loads the polar diagram field of the
@@ -121,6 +125,7 @@ public class SpeedComputation {
 		try {
 			return 180 * (1 - Math.acos(scalar / (tr.getTrackLength() * v.getWindspeed())) / Math.PI);
 		} catch (ArithmeticException e) {
+			logger.error("Tried to divide by zero. So it returned 180.0.");
 			return 180.0;
 		}
 

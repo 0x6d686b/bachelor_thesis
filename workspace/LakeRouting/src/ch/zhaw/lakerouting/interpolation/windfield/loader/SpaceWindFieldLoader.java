@@ -31,6 +31,8 @@ import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.interpolation.windfield.Windfield;
 import ch.zhaw.lakerouting.interpolation.windfield.WindfieldMetadata;
+
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -74,6 +76,8 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
 
     private List<List<Object>> field;
     private List<Windfield> windfieldArray;
+    
+    private Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Loads the indicated resource file into a List of Windfields.
@@ -85,13 +89,16 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
      */
     @Override
     public final List<Windfield> loadRessource(URI identifier) {
-        if ( !(identifier.getScheme().equalsIgnoreCase("file")) )
+        if ( !(identifier.getScheme().equalsIgnoreCase("file")) ){
+        	logger.error("Sorry, we support only file://-handler so far!");
             throw new UnsupportedOperationException("Sorry, we support only file://-handler so far!");
+        }
 
         FileReader fis = null;
         try {
         	fis = new FileReader(identifier.getSchemeSpecificPart());
         } catch (FileNotFoundException f) {
+        	logger.error("File not found.\n"+f);
             f.printStackTrace();
         }
         windfieldArray = new ArrayList<Windfield>();
@@ -253,11 +260,13 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 }
             }
         } catch (IOException e) {
+        	logger.error("IOException occured\n"+e);
             e.printStackTrace();
         } finally {
             try {
                 br.close();
             } catch (IOException e) {
+            	logger.error("Exception occured at closing of the BufferedReader\n"+e);
                 e.printStackTrace();
             }
             windfieldArray.add(Windfield.getInstance().setField(getMetadata(), convertToList()));
@@ -291,6 +300,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 try {
                     v = new WindVector(scanner.nextDouble(), scanner.nextDouble());
                 } catch (NoSuchElementException e) {
+                	logger.error("FATAL! Input file contains a incomplete value pair!");
                     e.printStackTrace();
                     throw new RuntimeException("FATAL! Input file contains a incomplete value pair!");
                 }
@@ -299,6 +309,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 i++;
             }
         } catch (RuntimeException e) {
+        	logger.error("Runtime exception occured!");
             e.printStackTrace();
             scanner.close();
         }
@@ -328,6 +339,7 @@ public class SpaceWindFieldLoader implements WindFieldLoader {
                 i++;
             }
         } catch (RuntimeException e) {
+        	logger.error("RuntimeException occured"+e);
             e.printStackTrace();
             scanner.close();
         }

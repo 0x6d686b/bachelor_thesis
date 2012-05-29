@@ -30,6 +30,8 @@ package ch.zhaw.lakerouting.interpolation.windfield;
 import ch.zhaw.lakerouting.datatypes.Node;
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.windfield.loader.WindFieldLoader;
+
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
@@ -64,6 +66,8 @@ public class WindfieldContainer {
     /** List of all the Windfields */
     private List<Windfield> fields;
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * Loads all Windfields from an URI with the specified loader class.
      * @param identifier ressource locator
@@ -74,6 +78,7 @@ public class WindfieldContainer {
         try {
             fields = loader.loadRessource(identifier);
         } catch (Exception e) {
+        	logger.error("Loading the URI failed.\n"+e);
             e.printStackTrace();
             return false;
         }
