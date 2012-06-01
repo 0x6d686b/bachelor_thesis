@@ -206,6 +206,15 @@ Gitterbreite. Vom Start- zum Zielpunkt hin werden auch eine gegebene Anzahl
 Punkte verwendet, die Gitterlänge. Dieses Gitter bestehend aus Gitterbreite und
 -länge, also $n\times m$, stellt den Suchbereich dar.
 
+\subsubsection{Erstellung eines Entscheidungskernes in der dynamischen Programmierung}
+Nach der Erstellung des Koordinatennetzes können die Orthodromie-Berechnungen auf die einzelnen Knoten durchgeführt werden. Wie auch oben in der dynamischen Programmierung beschrieben wurde, wird für jeden Knoten die Berechnung durchgeführt und mit der Knoten in der vorherigen Schicht eine Verbindung aufgebaut. \\
+Grafisch dargestellt würde es ungefähr so aussehen:
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{img/gridNet_connections}
+\caption{Koordinatennetz mit Verbindungen}
+\label{gridnetConn}
+\end{figure}
 %% TikZ-Grafik mit Matrix
 
 
