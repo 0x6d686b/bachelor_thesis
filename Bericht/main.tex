@@ -124,7 +124,7 @@ der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale
 Route mittels DP gerechnet. Ähnliche Methoden wurden beim Alinghi Team
 im Rahmen des Americas Cup verwendet.
 
-Weitere Anwendungen der DP zum Thema "energy trading" für erneuerbare
+Weitere Anwendungen der DP zum Thema ''energy trading'' für erneuerbare
 Energiequellen sind denkbar und eine Übertragung der Resultate der BA in
 diesen Bereich werden von MeteoSchweiz angestrebt.
 
@@ -132,7 +132,7 @@ diesen Bereich werden von MeteoSchweiz angestrebt.
 
 \subsection{Terminologie}
 % Definiert die in der Arbeit verwendeten Begriffe
-\paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit, die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen dient. Sie entspricht der Länge einer Winkelminute des Erdumfangs und beträgt 1852 m.
+\paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit, die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen dient. Sie entspricht der Länge einer Winkelminute auf einer Sphäre und auf der Erde beträgt diese Distanz 1852 m.
 \paragraph{Winkelminute}ist der sechzigste Teil eines Winkelgrades, welches wiederum der dreihundertsechzigste Teil einer Umdrehung ist. Somit wäre eine Winkelminute \\ \( W=\frac{1 Grad}{60} = 0.0\overline{16}^\circ \)
 \paragraph{Knoten}ist ein Geschwindigkeitsmass in der Meteorologie, das auf der Längeneinheit Seemeile beruht. Somit ist ein Knoten 1852 m/h = 0.514 m/s.
 
@@ -145,20 +145,44 @@ dieser Stelle herzlich bedanken!\\
 \newpage
 \part{Vorgehen / Methoden}
 \section{Dynamische Programmierung}
-Der Begriff dynamische Programmierung wurde erstmals in den 1940er Jahren von Richard Bellman benutzt und umfasst eine Reihe von Methoden mit dem Ziel, Optimierungsprobleme zu lösen. 
+Der Begriff dynamische Programmierung wurde erstmals in den 1940er Jahren von
+Richard Bellman benutzt und umfasst eine Reihe von Methoden mit dem Ziel,
+Optimierungsprobleme zu lösen. 
 
-Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren gelöst, wenn sie in mehrere gleichartige Teilprobleme aufgeteilt werden kann. Eine optimale Lösung setzt sich somit aus den optimalen Lösungen der Teilproblemen zusammen. Aus diesem Grund ist eine Strategie dann optimal, wenn alle Unterstrategien optimal sind. Die Zwischenergebnisse der Teilprobleme werden aber nicht rekursiv, sondern iterativ berechnet und in einer Tabelle gespeichert, so dass, wenn sie wieder benötigt werden, nicht nochmals berechnet werden müssen. \\
+Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren gelöst, wenn
+sie in mehrere gleichartige Teilprobleme aufgeteilt werden kann. Eine optimale
+Lösung setzt sich somit aus den optimalen Lösungen der Teilproblemen zusammen.
+Aus diesem Grund ist eine Strategie dann optimal, wenn alle Unterstrategien
+optimal sind. Die Zwischenergebnisse der Teilprobleme werden aber nicht
+rekursiv, sondern iterativ berechnet und in einer Tabelle gespeichert, so dass,
+wenn sie wieder benötigt werden, nicht nochmals berechnet werden müssen.
 
-In unserer Anwendung ist das Ziel klar: den Kurs des Segelschiffes bestimmen indem man die kürzeste Route vom Start- bis zum Endpunkt berechnet. Dies erfolgt indem man die Strecke in Teilstrecken aufteilt und die Dauer der Fahrt für diese Strecken berechnet. Danach wird der Pfad mit der kleinsten Dauer bestimmt. Zu diesem Zweck werden die Windvektoren auf der Wasseoberfläche und ihre Interaktion mit dem Segelschiff in die Berechnung miteinbezogen. 
+In unserer Anwendung ist das Ziel klar: Den Kurs des Segelschiffes bestimmen
+indem man die kürzeste Route vom Start- bis zum Endpunkt berechnet. Dies
+erfolgt indem man die Strecke in Teilstrecken aufteilt und die Dauer der Fahrt
+für diese Strecken berechnet. Danach wird der Pfad mit der kleinsten Dauer
+bestimmt. Zu diesem Zweck werden die Windvektoren auf der Wasseroberfläche und
+ihre Interaktion mit dem Segelschiff in die Berechnung miteinbezogen. 
 
 \subsection{Die ersten Schritte}
-Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit einer konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses Fahrzeug von einem Anfangspunkt bis zu einem Ankunftspunkt reisen möchte. Die Sequenzierung, also die Zerstückelung der Strecke wird mit der Aufspannung eines Gitternetzes zwischen diesen beiden Punkten bereitgestellt. \\
-Beginnend mit einer sehr einfachen Formulierung, die schrittweise verfeinert werden soll, definiert man:
+Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit einer
+konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses Fahrzeug von
+einem Anfangspunkt bis zu einem Ankunftspunkt reisen möchte. Die Sequenzierung,
+also die Zerstückelung der Strecke wird mit der Aufspannung eines Gitternetzes
+zwischen diesen beiden Punkten bereitgestellt.
 
-\( \Delta t_i\;,  i=0...m\), ist die benötigte Zeit von der \( (i-1)\)-ten Schicht bis zur \(i\)-ten Shicht, wobei \(i=0\) der ersten Schicht entspricht, wo sich der Anfangspunkt befindet und \(i=m\) der letzten Schicht entspricht, wo sich der Ankunftspunkt befindet.
+Beginnend mit einer sehr einfachen Formulierung, die schrittweise verfeinert
+werden soll, definiert man:
 
-\( D_i\;,  i=0...m\), bis zu der \(i\)-ten Schicht benötigte Zeit.\\
-Unser optimales Programm kann somit wie folgt definiert werden: "Minimierung der Reisedauer \(D_m\) von der Schicht \(0\) bis \(m\)". 
+\( \Delta t_i\;,  i=0...m\), ist die benötigte Zeit von der \( (i-1)\)-ten
+Schicht bis zur \(i\)-ten Shicht, wobei \(i=0\) der ersten Schicht entspricht,
+wo sich der Anfangspunkt befindet und \(i=m\) der letzten Schicht entspricht,
+wo sich der Ankunftspunkt befindet.
+
+\( D_i\;,  i=0...m\), bis zu der \(i\)-ten Schicht benötigte Zeit.
+
+Unser optimales Programm kann somit wie folgt definiert werden: "Minimierung
+der Reisedauer \(D_m\) von der Schicht \(0\) bis \(m\)". 
 
 \begin{equation}
 \label{eq_dyn:1}
@@ -167,16 +191,24 @@ D_m = \overset{m}{\underset{i=1}{\min}} [\; \sum_{i=1}^m \Delta t_i\;]
 Wenn wir eine Zwischenstufe \(I\) berechnen lassen, erhalten wir die folgende, umgeschriebene Formel:
 \begin{equation}
 \label{eq_dyn:2}
-D_I = \overset{I}{\underset{i=1}{\min}} [\; \Delta t_I + \sum_{i=1}^{I-1} \Delta t_i\;] = \overset{I}{\min} [\; \Delta t_I + \overset{I-1}{\underset{i=1}{\min}} [\; \sum_{i=1}^{I-1} \Delta t_i\;]\;] = \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;]
+D_I = \overset{I}{\underset{i=1}{\min}} [\; \Delta t_I + \sum_{i=1}^{I-1}
+\Delta t_i\;] = \overset{I}{\min} [\; \Delta t_I +
+\overset{I-1}{\underset{i=1}{\min}} [\; \sum_{i=1}^{I-1} \Delta t_i\;]\;] =
+\overset{I}{\min} [\; \Delta t_I + D_{I-1} \;]
  \end{equation}
-Somit liefert die Gleichsetzung der ersten und letzten Ausdrücke eine rekursive Formulierung des Problems. Desweiteren muss ein Anfangswert angegeben werden, vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
+Somit liefert die Gleichsetzung der ersten und letzten Ausdrücke eine rekursive
+Formulierung des Problems. Desweiteren muss ein Anfangswert angegeben werden,
+vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
  
  \begin{equation}
 \label{eq_dyn:3}
 D_I =  \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;];\;\;\;\;\;\; D_0: Abfahrtszeit.
  \end{equation}
  
-Diese Ableitung ergibt sich aus einer tiefgründigen Optimierungsprinzip, dass eine Strategie nur dann optimal ist, wenn alle ihre Unterstrategien optimal sind. Und somit birgt eine solche pauschale Formulierung den Entscheidungsprozess. 
+Diese Ableitung ergibt sich aus einer tiefgründigen Optimierungsprinzip, dass
+eine Strategie nur dann optimal ist, wenn alle ihre Unterstrategien optimal
+sind. Und somit birgt eine solche pauschale Formulierung den
+Entscheidungsprozess. 
  
 Folglich gibt es zwei Entscheidungsverfahren:\\ \\
 - Bei jedem Knoten j in der Schicht I-1 soll eine Abfrage durchgeführt werden, zu welchem Knoten k in der nächsten Schicht I das Segelschiff segeln soll.\\

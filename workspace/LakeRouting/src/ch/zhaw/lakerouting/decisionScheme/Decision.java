@@ -427,7 +427,7 @@ public class Decision {
 						windFieldNo_new = 24;
 
 					/* Recalculate the distance with the new windField */
-					position[k][__TRAVELTIME__] = calcTravelDistance(r,
+                        position[k][__TRAVELTIME__] = calcTravelDistance(r,
 							(int) position[k][__ROW__], k, windFieldNo_new);
 
 //					System.out.println(" Position2: "
