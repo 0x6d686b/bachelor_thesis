@@ -27,6 +27,7 @@
 
 package ch.zhaw.lakerouting.interpolation.algorithms;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 /**
@@ -37,6 +38,9 @@ import org.junit.Test;
  * @since 1.0
  */
 public class Bilinear implements InterpolationAlgorithm {
+	
+	private Logger logger = Logger.getLogger(this.getClass());
+	
     /**
      * Interpolates at the position (x,y) on the matrix.
      * @param x Must be between (0,1)
@@ -46,11 +50,16 @@ public class Bilinear implements InterpolationAlgorithm {
      */
     @Override @Test
     public final double interpolate(double x, double y, Double[][] matrix) {
-        if (x > 1 || x < 0 || y > 1 || y < 0)
+        if (x > 1 || x < 0 || y > 1 || y < 0){
+        	logger.error("Params not in required range, got x: " + x + " and y: " + y);
             throw new IllegalArgumentException("Params not in required range, got x: " + x + " and y: " + y);
+        }
 
-        if (!(matrix.length == 2 && matrix[0].length == 2 && matrix[1].length == 2))
-            throw new IllegalArgumentException("Passed matrix array has not the required size.");
+        if (!(matrix.length == 2 && matrix[0].length == 2 && matrix[1].length == 2)){
+        	logger.error("Passed matrix array has not the required size.");
+        	throw new IllegalArgumentException("Passed matrix array has not the required size.");
+        }
+            
 
         return x * (matrix[1][0] - matrix[0][0])
                 + x * y * (matrix[0][0] - matrix[0][1] + matrix[1][1] - matrix[1][0])

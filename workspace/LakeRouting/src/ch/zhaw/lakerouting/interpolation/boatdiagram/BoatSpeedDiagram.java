@@ -29,6 +29,8 @@ package ch.zhaw.lakerouting.interpolation.boatdiagram;
 
 import ch.zhaw.lakerouting.interpolation.algorithms.InterpolationAlgorithm;
 import ch.zhaw.lakerouting.interpolation.boatdiagram.loader.BoatFieldLoader;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.net.URI;
@@ -45,6 +47,8 @@ public class BoatSpeedDiagram {
     private Double[][] field;
     private BoatSpeedDiagramMetadata metadata;
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
     /**
      * Loads the data from {@link BoatFieldLoader}
      *
@@ -55,6 +59,7 @@ public class BoatSpeedDiagram {
     @Test
     public final <T> boolean loadDiagram(T fieldplane, URI uri) {
         if (!(fieldplane instanceof BoatFieldLoader)) {
+        	logger.error("You need to pass me BoatFieldLoader!");
             throw new IllegalArgumentException("You need to pass me BoatFieldLoader!");
         }
         if (!((BoatFieldLoader) fieldplane).loadResource(uri))

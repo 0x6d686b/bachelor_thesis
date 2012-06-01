@@ -16,6 +16,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -391,6 +393,7 @@ public class GridFrame extends JFrame implements ActionListener {
 						g.setColor(Color.GREEN);
 						shortestPoint = pos;
 						atFirstTime = false;
+						System.out.println("i: "+i+" j: "+j+" "+graphList.get(i).get(j));
 
 					} else {
 						g.setColor(Color.lightGray);

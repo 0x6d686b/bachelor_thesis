@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.apache.log4j.Logger;
+
 import ch.zhaw.lakerouting.datatypes.Coordinate;
 import ch.zhaw.lakerouting.datatypes.WindVector;
 import ch.zhaw.lakerouting.navigation.speed.SpeedComputation;
@@ -19,6 +21,8 @@ public class SailingDuration {
 
 	private SpeedComputation sp;
 
+	private Logger logger = Logger.getLogger(this.getClass());
+	
 	/**
 	 * Ascertains the file and its path and generates an instance of
 	 * SpeedComputation.
@@ -30,8 +34,10 @@ public class SailingDuration {
 					"file.path.polaire", "file");
 			sp = new SpeedComputation(identfier);
 		} catch (URISyntaxException e) {
+			logger.error("URI Exception occured.\n"+e);
 			e.printStackTrace();
 		} catch (IOException e1) {
+			logger.error("IOException occured.\n"+e1);
 			e1.printStackTrace();
 		}
 	}
@@ -65,6 +71,7 @@ public class SailingDuration {
 		try {
 			return (2 * distance) / speed;
 		} catch (ArithmeticException e) {
+			logger.error("Tried to divide by zero. So it returned zero.");
 			return 0.0;
 		}
 	}
