@@ -59,7 +59,7 @@
 \begin{document} 
  % Here I use the up-to-date font encoding T1 and the font familly Computer Modern
  % Sans Serif (since I don't like the standard font) medium and normal (non-italic or so).
- \usefont{T1}{cmss}{m}{n}
+\usefont{T1}{cmss}{m}{n}
 
 \pagestyle{fancy} %eigener Seitenstil
 \fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
@@ -67,18 +67,30 @@
 \renewcommand{\headrulewidth}{0.4pt} 
 \fancyfoot[C]{\thepage}
 
- \title{\begin{flushleft}\vspace*{-3cm}\includegraphics[keepaspectratio,width=7cm]{img/de-zhaw-cmyk}\end{flushleft} \vspace*{4cm} LakeRouting - Optimale Wegfindung anhand von Wettermodellen }
- \date{\today}
- \author{Fevzi Yükseldi (yuksefev@students.zhaw.ch)\\
+\title{
+ \begin{flushleft}
+  \vspace*{-3cm}
+  \includegraphics[keepaspectratio,width=7cm]{img/de-zhaw-cmyk}
+ \end{flushleft}
+ \vspace*{4cm}
+ LakeRouting - Optimale Wegfindung anhand von Wettermodellen
+}
+
+\date{\today}
+\author{Fevzi Yükseldi (yuksefev@students.zhaw.ch)\\
  Mathias Hablützel (hablumat@students.zhaw.ch)\\
  \\
-Dr. Rudolf M. Füchslin (furu@zhaw.ch)\\
-Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
+ Dr. Rudolf M. Füchslin (furu@zhaw.ch)\\
+ Prof. Dr. Peter T. Früh (frup@zhaw.ch)\\
+ Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)
+}
  
- \maketitle
+\maketitle
+
 \thispagestyle{empty}
- \newpage
+\newpage
 \thispagestyle{empty}
+
 \part*{Management Summary}
 
 \vspace*{2cm}
@@ -109,7 +121,11 @@ Jacques Ambühl (jacques.ambuehl@meteoschweiz.ch)}
 \setcounter{page}{1} 
 \part{Einleitung}
 \section{Ausgangslage}
-Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter Randbedingungen (physikalischer oder ökonomischer Natur).\\
+Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört
+die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung
+einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter
+Randbedingungen (physikalischer oder ökonomischer Natur).
+
 ...
 % Geschichtliche Entwicklung
 % Stand der Technik
@@ -117,7 +133,7 @@ Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört
 
 
 \section{Ziel / Auftrag}
-Die vorgeschlagene Bachelorarbeit schlägt eine Anwendung der DP zur
+Die Bachelorarbeit schlägt eine Anwendung der DP zur
 Kursbestimmung eines Segelschiffs vor. Aufgrund der mit einem
 numerischen Modell vorausgesagten Wetterentwicklung und in Anbetracht
 der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale
@@ -132,9 +148,17 @@ diesen Bereich werden von MeteoSchweiz angestrebt.
 
 \subsection{Terminologie}
 % Definiert die in der Arbeit verwendeten Begriffe
-\paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit, die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen dient. Sie entspricht der Länge einer Winkelminute auf einer Sphäre und auf der Erde beträgt diese Distanz 1852 m.
-\paragraph{Winkelminute}ist der sechzigste Teil eines Winkelgrades, welches wiederum der dreihundertsechzigste Teil einer Umdrehung ist. Somit wäre eine Winkelminute \\ \( W=\frac{1 Grad}{60} = 0.0\overline{16}^\circ \)
-\paragraph{Knoten}ist ein Geschwindigkeitsmass in der Meteorologie, das auf der Längeneinheit Seemeile beruht. Somit ist ein Knoten 1852 m/h = 0.514 m/s.
+\paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit,
+die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen
+dient. Sie entspricht der Länge einer Winkelminute eines Grosskreis und auf der
+Erde beträgt diese Distanz 1852 m.
+
+\paragraph{Winkelminute}ist der sechzigste Teil eines Winkelgrades, welches
+wiederum der dreihundertsechzigste Teil einer Umdrehung ist. Somit wäre eine
+Winkelminute \\ \( W=\frac{1 Grad}{60} = 0.0\overline{16}^\circ \)
+
+\paragraph{Knoten}ist ein Geschwindigkeitsmass in der Meteorologie, das auf der
+Längeneinheit Seemeile beruht. Somit ist ein Knoten 1852 m/h = 0.514 m/s.
 
 
 \section{Weitere Informationen sowie Danksagung}
@@ -149,53 +173,63 @@ Der Begriff dynamische Programmierung wurde erstmals in den 1940er Jahren von
 Richard Bellman benutzt und umfasst eine Reihe von Methoden mit dem Ziel,
 Optimierungsprobleme zu lösen. 
 
-Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren gelöst, wenn
-sie in mehrere gleichartige Teilprobleme aufgeteilt werden kann. Eine optimale
-Lösung setzt sich somit aus den optimalen Lösungen der Teilproblemen zusammen.
-Aus diesem Grund ist eine Strategie dann optimal, wenn alle Unterstrategien
-optimal sind. Die Zwischenergebnisse der Teilprobleme werden aber nicht
-rekursiv, sondern iterativ berechnet und in einer Tabelle gespeichert, so dass,
-wenn sie wieder benötigt werden, nicht nochmals berechnet werden müssen.
+Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren
+gelöst, wenn sie in mehrere gleichartige Teilprobleme aufgeteilt werden
+kann. Eine optimale Lösung setzt sich somit aus den optimalen Lösungen
+der Teilproblemen zusammen, wobei die Randbedingungen der Teilproblemen
+voneinander abhängen können.  Aus diesem Grund ist eine Strategie dann
+optimal, wenn alle Unterstrategien optimal sind. Die Zwischenergebnisse
+der Teilprobleme werden aber nicht rekursiv, sondern iterativ berechnet
+und in einer Tabelle gespeichert, so dass, wenn sie wieder benötigt
+werden, nicht nochmals berechnet werden müssen.
 
-In unserer Anwendung ist das Ziel klar: Den Kurs des Segelschiffes bestimmen
-indem man die kürzeste Route vom Start- bis zum Endpunkt berechnet. Dies
-erfolgt indem man die Strecke in Teilstrecken aufteilt und die Dauer der Fahrt
-für diese Strecken berechnet. Danach wird der Pfad mit der kleinsten Dauer
-bestimmt. Zu diesem Zweck werden die Windvektoren auf der Wasseroberfläche und
-ihre Interaktion mit dem Segelschiff in die Berechnung miteinbezogen. 
+In unserer Anwendung ist das Ziel klar: Den Kurs des Segelschiffes zu
+bestimmen indem man die zeitlich kürzeste Route vom Start- bis zum
+Endpunkt berechnet. Dies erfolgt indem man die Strecke in Teilstrecken
+aufteilt und die Dauer der Fahrt für diese Strecken berechnet. Danach
+wird der Pfad mit der kleinsten Dauer bestimmt. Zu diesem Zweck werden
+die Windvektoren auf der Wasseroberfläche und ihre Interaktion mit dem
+Segelschiff in die Berechnung miteinbezogen. 
 
 \subsection{Die ersten Schritte}
-Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit einer
-konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses Fahrzeug von
-einem Anfangspunkt bis zu einem Ankunftspunkt reisen möchte. Die Sequenzierung,
-also die Zerstückelung der Strecke wird mit der Aufspannung eines Gitternetzes
-zwischen diesen beiden Punkten bereitgestellt.
+Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit
+einer konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses
+Fahrzeug von einem Anfangspunkt bis zu einem Ankunftspunkt reisen
+möchte. Die Unterteilung, also die Zerstückelung der Strecke wird mit
+der Aufspannung eines Gitternetzes zwischen diesen beiden Punkten
+bereitgestellt.
 
 Beginnend mit einer sehr einfachen Formulierung, die schrittweise verfeinert
 werden soll, definiert man:
 
 \( \Delta t_i\;,  i=0...m\), ist die benötigte Zeit von der \( (i-1)\)-ten
-Schicht bis zur \(i\)-ten Shicht, wobei \(i=0\) der ersten Schicht entspricht,
-wo sich der Anfangspunkt befindet und \(i=m\) der letzten Schicht entspricht,
+Spalte bis zur \(i\)-ten Spalte, wobei \(i=0\) der ersten Spalte entspricht,
+wo sich der Anfangspunkt befindet und \(i=m\) der letzten Spalte entspricht,
 wo sich der Ankunftspunkt befindet.
 
-\( D_i\;,  i=0...m\), bis zu der \(i\)-ten Schicht benötigte Zeit.
+% TODO: Skizze vom Gitternetz mit delta_t und Spalten-Indizes hinzufügen
+
+\( D_i\;,  i=0...m\), bis zu der \(i\)-ten Spalte benötigte Zeit.
 
 Unser optimales Programm kann somit wie folgt definiert werden: "Minimierung
-der Reisedauer \(D_m\) von der Schicht \(0\) bis \(m\)". 
+der Reisedauer \(D_m\) von der Spalte \(0\) bis \(m\)". 
 
 \begin{equation}
 \label{eq_dyn:1}
-D_m = \overset{m}{\underset{i=1}{\min}} [\; \sum_{i=1}^m \Delta t_i\;]
+D_m = \min [\; \sum_{i=1}^m \Delta t_i\;]
  \end{equation}
-Wenn wir eine Zwischenstufe \(I\) berechnen lassen, erhalten wir die folgende, umgeschriebene Formel:
+
+Wenn wir eine Zwischenstufe \(I\) berechnen lassen, erhalten wir die
+folgende, umgeschriebene Formel:
+
 \begin{equation}
 \label{eq_dyn:2}
 D_I = \overset{I}{\underset{i=1}{\min}} [\; \Delta t_I + \sum_{i=1}^{I-1}
 \Delta t_i\;] = \overset{I}{\min} [\; \Delta t_I +
 \overset{I-1}{\underset{i=1}{\min}} [\; \sum_{i=1}^{I-1} \Delta t_i\;]\;] =
 \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;]
- \end{equation}
+\end{equation}
+
 Somit liefert die Gleichsetzung der ersten und letzten Ausdrücke eine rekursive
 Formulierung des Problems. Desweiteren muss ein Anfangswert angegeben werden,
 vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
@@ -205,46 +239,78 @@ vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
 D_I =  \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;];\;\;\;\;\;\; D_0: Abfahrtszeit.
  \end{equation}
  
-Diese Ableitung ergibt sich aus einer tiefgründigen Optimierungsprinzip, dass
-eine Strategie nur dann optimal ist, wenn alle ihre Unterstrategien optimal
+Diese Ableitung ergibt sich aus einer Optimierungsprinzip, dass eine
+Strategie nur dann optimal ist, wenn alle ihre Unterstrategien optimal
 sind. Und somit birgt eine solche pauschale Formulierung den
 Entscheidungsprozess. 
  
-Folglich gibt es zwei Entscheidungsverfahren:\\ \\
-- Bei jedem Knoten j in der Schicht I-1 soll eine Abfrage durchgeführt werden, zu welchem Knoten k in der nächsten Schicht I das Segelschiff segeln soll.\\
-oder\\
-- Bei jedem Knoten k in der Schicht I soll eine Abfrage durchgeführt werden, von welchem Knoten j in der vorherigen Schicht I-1 das Segelschiff gesegelt haben soll.\\
+Folglich gibt es zwei Entscheidungsverfahren:
 
-Die Einführung in die letzte Bedingung im vorherigen Ausdruck für \(D_I\)  ergibt (mit Standard-Typografie \{i,j\}  für die Darstellung von Knoten in der Graphentheorie):
+\begin{itemize}
+\item Bei jedem Knoten j in der Spalte I-1 soll eine Abfrage durchgeführt
+werden, zu welchem Knoten k in der nächsten Spalte I das Segelschiff segeln
+soll.
+\item Bei jedem Knoten k in der Spalte I soll eine Abfrage durchgeführt werden,
+von welchem Knoten j in der vorherigen Spalte I-1 das Segelschiff gesegelt
+haben soll.
+\end{itemize}
+
+Die Einführung in die letzte Bedingung im vorherigen Ausdruck für \(D_I\)
+ergibt (mit Standard-Typografie \{i,j\}  für die Darstellung von Knoten in der
+Graphentheorie) wobei $n$ die Anzahl Knoten im Grafen auf jede Seite vom
+Startpunkt als Mittelpunkt betrachtet ist:
+
 \begin{equation}
 \label{eq_dyn:4}
 D_{(I,k)} = \overset{j=n}{\underset{j=-n}{\min}} [\; \Delta t_{\{I-1,j\}}^{\{I,k\}} + D_{(I-1.j)} \;];\;\;\;\;\;\; D_0: Abfahrtszeit.
- \end{equation}%Eng
- The node j * belonging to the slice I-1 and satisfying the above minimum is the decision taken in the slice I for the node k. It is expressed as:%Eng
- \begin{equation}
+\end{equation}
+
+Der Knoten $j^*$ gehört zur Spalte $I-1$ und genügt dem oben geforderten
+Minimum und wird somit als Lösung verwendet für den Knoten $k$ in Spalte $I$.
+
+\begin{equation}
 \label{eq_dyn:5}
-D_{(I,k)} \to j^* \in Schicht\; I-1
- \end{equation}
+D_{(I,k)} \to j^* \in Spalte\; I-1
+\end{equation}
  
-Es ist ersichtlich, dass der Ausdruck \(D\) - für die Dauer - auch sehr leicht für Decision (dt. Entscheidung) gehandelt werden kann. Mit dieser Annahme, beinhaltet der Ausdruck \(D_I\) in der Formel \eqref{eq_dyn:3} alle gewählten Entscheidungen der Schicht I, und dies für jeden Knoten k einzeln in dieser Schicht.
+Es ist ersichtlich, dass der Ausdruck \(D\) - für die Dauer - auch sehr leicht
+für Decision (dt. Entscheidung) gehandelt werden kann. Mit dieser Annahme,
+beinhaltet der Ausdruck \(D_I\) in der Formel \eqref{eq_dyn:3} alle gewählten
+Entscheidungen der Spalte I, und dies für jeden Knoten k einzeln in dieser
+Spalte.
 
-  \begin{equation}
+\begin{equation}
 \label{eq_dyn:6}
-D_I \to \{\;j_{-n}^*\; ... \;j_{k}^* \;...\; j_{n}^*\;\} \subset Schicht\; I-1
- \end{equation}
-Die Anzahl der Schritte vom Anfangspunkt bis zum Ankunftspunkt ist als \(m\) und die Anzahl der Zeilen (Optionen) als n definiert, welche auch später näher erläutert werden.
- 
-Eine weitere Verfeinerung muss eingeführt werden. Nehmen wir an, wir hätten ein Knoten mit dem Index \{i,-n\} ausgewählt. Somit ist es laut unserem Algorithmus möglich, dass der Vorgänger dieser Knotens den Index \{i-1,+n\} haben kann, was einer seitlichen Kreuzung entspricht und eher Unwahrscheinlich ist. \\
-Deshalb braucht es ein Steuermechanismus, der die Anzahl der möglichen Adressierungen von einem Knoten \{i, k\} mit den Knoten der vorherigen Spalte \{i-1, k\} begrenzt. Dies wird mit dem Spread-Parameter erreicht und sieht dann wie folgt aus:
+D_I \to \{\;j_{-n}^*\; ... \;j_{k}^* \;...\; j_{n}^*\;\} \subset Spalte\; I-1
+\end{equation}
 
-   \begin{equation}
+Die Anzahl der Schritte vom Anfangspunkt bis zum Ankunftspunkt ist als \(m\)
+und die Anzahl der Zeilen (Optionen) als n definiert, welche auch später näher
+erläutert werden.
+ 
+Eine weitere Verfeinerung muss eingeführt werden. Nehmen wir an, wir hätten ein
+Knoten mit dem Index \{i,-n\} ausgewählt. Somit ist es laut unserem Algorithmus
+möglich, dass der Vorgänger dieser Knotens den Index \{i-1,+n\} haben kann, was
+einer seitlichen Kreuzung entspricht und eher unwahrscheinlich ist.
+
+Deshalb braucht es einen Steuermechanismus, der die Anzahl der möglichen
+Adressierungen von einem Knoten \{i, k\} mit den Knoten der vorherigen Spalte
+\{i-1, k\} begrenzt. Dies wird mit dem Spread-Parameter erreicht und sieht dann
+wie folgt aus:
+
+\begin{equation}
 \label{eq_dyn:7}
-D_{I,k} \to j^*\; mit\; |\;j^*\;-\;k\;| \;\le\; Spread;\; j^*\; \in Schicht\; I-1
- \end{equation}
+D_{I,k} \to j^*\; mit\; |\;j^*\;-\;k\;| \;\le\; Spread;\; j^*\; \in Spalte\; I-1
+\end{equation}
  
-Somit werden nur die Knoten in der Schicht \(i\) als Nachbarn für die Knoten in der Schicht \(i-1\) gelten, welche auch diese Bedingung erfüllen. Die restlichen Knoten der Schicht \(i\), die diese Bedingung nicht erfüllen, werden einfach bei der Auswahl nicht berücksichtigt.
+Somit werden nur die Knoten in der Spalte \(i\) als Nachbarn für die Knoten in
+der Spalte \(i-1\) gelten, welche auch diese Bedingung erfüllen. Die restlichen
+Knoten der Spalte \(i\), die diese Bedingung nicht erfüllen, werden einfach bei
+der Auswahl nicht berücksichtigt.
 
-Der Spread-Parameter wird uns später auch einen weiteren Vorteil bringen, und zwar wird es uns helfen die Problematik mit der Küste zu bewältigen, so dass unsere Route nicht das Gewässer verlässt.
+Der Spread-Parameter wird uns später auch einen weiteren Vorteil bringen. Er
+wird uns helfen die Problematik mit der Küste zu bewältigen, so dass
+unsere Route nicht das Gewässer verlässt.
 
 \include{bericht_aufgabe1}
 \include{bericht_aufgabe3}

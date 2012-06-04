@@ -58,12 +58,24 @@
 
 \subsection{Analyse der Problemstellung}
 \subsubsection{Berechnung einer Orthodromie}
-Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome ist immer ein Teilstück eines grossen Kreises. Um die kürzeste Verbindung zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der Kugeloberfläche (Sphäre) die Orthodrome darstellt. Da die zwei Punkte den Kreis in zwei Kreisbogen separieren, wird nur der kürzere Distanz berücksichtigt.
+Auf einer Kugel soll zwischen zwei Punkten die kürzeste Route bzw. die kürzeste
+Verbindung gewählt werden, welche auch Orthodrome genannt wird. Die Orthodrome
+ist immer ein Teilstück eines Grosskreises. Um die kürzeste Verbindung
+zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden
+Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren
+spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der
+Kugeloberfläche (Sphäre) die Orthodrome darstellt. Da die zwei Punkte den Kreis
+in zwei Kreisbogen separieren, wird nur der kürzere Distanz berücksichtigt.
 
 
-Auf der Erdoberfläche werden die zwei Punkten in geographische Koordinaten, Längen- und Breitengrad, angegeben. Die Erde wird dabei in 360 Längengrade und 180 Breitengrade aufgeteilt. Somit haben die beiden Punkte die folgende Struktur: $A$ (\(\theta_1 , \phi_1\)) und $B$ (\(\theta_2 , \phi_2\)).
+Auf der Erdoberfläche werden die zwei Punkten in geographische Koordinaten,
+Längen- und Breitengrad, angegeben. Die Erde wird dabei in 360 Längengrade und
+180 Breitengrade aufgeteilt. Somit haben die beiden Punkte die folgende
+Struktur: $A$ (\(\theta_1 , \phi_1\)) und $B$ (\(\theta_2 , \phi_2\)).
 
-Für die Berechnung der Distanz benötigen wir die Längen- und Breitengrade der zwei Punkte in Radian, welche dann in die Formel \eqref{eq:1} wie folgt eingesetzt werden: \\
+Für die Berechnung der Distanz benötigen wir die Längen- und Breitengrade der
+zwei Punkte in Radian, welche dann in die Formel \eqref{eq:1} wie folgt
+eingesetzt werden: \\
 % Formel ArcCos(...)
 \begin{equation}
 \label{eq:1}
@@ -103,7 +115,7 @@ Für die Berechnung der Distanz benötigen wir die Längen- und Breitengrade der
   %setup coordinates P and Q
   \path[ALongitudePlane] (0:\R) coordinate (A);
   \path[ALongitudePlane] (32.5:\R) coordinate (A'); 
-   \path[ALongitudePlane] (122.5:\R) coordinate (N');  
+  \path[ALongitudePlane] (122.5:\R) coordinate (N');  
   \path[PLongitudePlane] (0:\R) coordinate (P);
   \draw[dashed,add= 1 and 0] (O) to  (P); 
   \path[QLongitudePlane] (\angleLatitudeQ:\R) coordinate (Q);
@@ -126,26 +138,50 @@ Für die Berechnung der Distanz benötigen wir die Längen- und Breitengrade der
 \end{tikzpicture}   
 
 \subsubsection{Erstellung eines Entscheidungsnetzes auf der Erdkugel}
-Es soll ein Koordinatennetz mit den Knoten erstellt werden, auf welches dann später die Berechnungen durchgeführt werden. Für die Erstellung des Netzes benötigt man den Start- und Endpunkt als Eingabe. Die Anzahl der Knoten im Netz werden von den weiteren zwei Eingaben m und n definiert, wobei m für die Anzahl der Spalten und n für die Anzahl der Zeilen steht. Alle Punkte in diesem Netz beinhalten ihre eigene Informationen über das Längen- und Breitengrad.
+Es soll ein Koordinatennetz mit den Knoten erstellt werden, auf welches dann
+später die Berechnungen durchgeführt werden. Für die Erstellung des Netzes
+benötigt man den Start- und Endpunkt als Eingabe. Die Anzahl der Knoten im Netz
+werden von den weiteren zwei Eingaben m und n definiert, wobei m für die Anzahl
+der Spalten und n für die Anzahl der Zeilen steht. Alle Punkte in diesem Netz
+beinhalten ihre eigene Informationen über das Längen- und Breitengrad.
 
-Der Abstand zwischen dem Start- und Endpunkt wird mittels der Euklidischen-Abstand Verfahren ermittelt. Die Formel dafür lautet:
+Der Abstand zwischen dem Start- und Endpunkt wird mittels der
+Euklidischen-Abstand Verfahren ermittelt. Die Formel dafür lautet:
+
 \begin{equation}
 \label{eq:2}
 e = \sqrt{ (\theta_2 - \theta_1)^2 + (\phi_2-\phi_1)^2}
- \end{equation}
-Somit sind die Spaltenlänge durch e/m und die Zeilenhöhe durch e/n definiert. Da der Graph auch rotiert werden kann, braucht es eine Rotations-Matrix, welches sich wie folgt zusammensetzt.
+\end{equation}
+
+Somit sind die Spaltenlänge durch e/m und die Zeilenhöhe durch e/n definiert.
+Da der Graph auch rotiert werden kann, braucht es eine Rotations-Matrix,
+welches sich wie folgt zusammensetzt wobei $\alpha$ den Rotationswinkel im
+Uhrzeigersinn darstellt.
+
 \begin{equation}
 \label{eq:3}
-M = \begin{pmatrix} \cos(\alpha) & -\sin(\alpha) \\ \sin(\alpha) & \cos(\alpha) \end{pmatrix} = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & -\frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix}
- \end{equation}
-Am Ende erfolgt die Zusammenstellung des Koordinatennetzes für alle Knoten (i, j) mit dieser Formel \eqref{eq:4}:
+ M = \begin{pmatrix} \cos(\alpha) & -\sin(\alpha) \\ \sin(\alpha) &
+ \cos(\alpha) \end{pmatrix} = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} &
+ -\frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 -
+ \theta_1}{e} \end{pmatrix}
+\end{equation}
+
+Am Ende erfolgt die Zusammenstellung des Koordinatennetzes für alle Knoten (i,
+j) mit dieser Formel \eqref{eq:4}:
+
 \begin{equation}
 \label{eq:4}
 Koordinatennetz = \begin{pmatrix} \frac{\theta_2 - \theta_1}{e} & -\frac{\phi_2 - \phi_1}{e} \\ \frac{\phi_2 - \phi_1}{e} & \frac{\theta_2 - \theta_1}{e} \end{pmatrix} * \begin{pmatrix}  \frac{e*i}{m} \\ \frac{\rho*e*j}{n} \end{pmatrix} + \begin{pmatrix}  \theta_1 \\ \phi_1 \end{pmatrix}
- \end{equation}
-Mit dieser Berechnung wird gewährleistet, dass die Zwischenknoten ein Rechteck mit einem Gitternetz bilden, wobei die Start- und Endknoten genau in der Mitte der gegenüberliegenden Seiten liegen.
+\end{equation}
 
-In der Abbildung \ref{gridnet} wird gezeigt, wie so ein erstelltes Koordinatennetz mit dem Startknoten (9.40 / 47.6) und dem Endknoten (9.64 / 47.58) aussieht. 
+Mit dieser Berechnung wird gewährleistet, dass die Zwischenknoten ein Rechteck
+mit einem Gitternetz bilden, wobei die Start- und Endknoten genau in der Mitte
+der gegenüberliegenden Seiten liegen.
+
+In der Abbildung \ref{gridnet} wird gezeigt, wie so ein erstelltes
+Koordinatennetz mit dem Startknoten (9.40 / 47.6) und dem Endknoten (9.64 /
+47.58) aussieht.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\linewidth]{img/gridNet}
@@ -153,7 +189,7 @@ In der Abbildung \ref{gridnet} wird gezeigt, wie so ein erstelltes Koordinatenne
 \label{gridnet}
 \end{figure}
 
-\subsubsection{Nautische Meilen} Damit Berechnungen einfacher werden, werden
+\subsubsection{Seemeilen/Nautische Meilen} Damit Berechnungen einfacher werden, werden
 hier nautische Meilen verwendet. Diese sind durch eine Bogenminute am Äquator
 definiert und damit nur vom Radius des Planeten abhängig. Somit können unsere
 Berechnungen genauso für andere Planeten gelten, einzig der
