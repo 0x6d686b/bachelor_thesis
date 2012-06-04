@@ -8,14 +8,13 @@ nach $B$, die Segelrichtung ist damit auch bekannt.
 
 % TODO: Skizze zeichnen mit Punkt A -> B, Segelboot, Windvektoren
  
-\subsection{Problemanalyse}
-\subsubsection{Geschwindigkeit am Ausgangspunkt}
+\subsection{Geschwindigkeit am Ausgangspunkt}
 Da es bekannt ist zu welcher Zeit man am Ausgangspunkt $A$ ist, weiss
 man auch welcher Windvektor existiert (der sich ja mit der Zeit
 verändert). Somit lässt sich die Geschwindigkeit des Bootes am
 Ausgangspunkt berechnen.
 
-\subsubsection{Geschwindigkeit am Zielpunkt}
+\subsection{Geschwindigkeit am Zielpunkt}
 Hier besteht das Problem, dass es nicht bekannt ist, wann das Boot am
 Punkt $B$ ankommt, die Ankunftszeit hängt vom Windvektor $v_{1}$ in
 Punkt $A$ zur Zeit $t_{1}$ und vom Windvektor $v_{2}$ in Punkt $B$ zur
@@ -29,7 +28,7 @@ und über eine unterschiedlich lange Laufzeit verfügt. Daher erschien ein
 zweischrittiges Verfahren für eine Teilapproximation vernünftig, dass in
 linearer Zeit ausgeführt werden kann.
 
-\subsubsection{Berechnung der Ankunftszeit}
+\subsection{Berechnung der Ankunftszeit}
 Vom Startpunkt $A$ ist die Uhrzeit, die Position und somit der
 Windvektor bekannt. Daraus kann die Geschwindigkeit des Segelbootes
 bestimmt werden ausgehend von Punkt $A$. Diese Geschwindigkeit wird nun
@@ -45,11 +44,13 @@ vernünftig.
 In der Implementation haben wir einen noch einfacheren Ansatz verfolgt:
 
 \begin{align}
-t = \frac{1}{2} (\frac{2d}{|\mathbf{\overrightarrow{v_{1}}} + \mathbf{\overrightarrow{v_{2}}}|}) \\
+t = \frac{1}{2} (\frac{2d}{|\mathbf{\overrightarrow{v_{1}}} + \mathbf{\overrightarrow{v_{2}}}|})
 \end{align}
 
 t Reisezeit, d Distanz zwischen zwei Punkten, $v_{1}$ bzw. $v_{2}$
 Windvektoren an den respektiven Koordinaten.
+
+\vspace{0.5cm}
 
 Würde der Windvektor $v_{2}$ aufgrund von der absoluten Zeit, also in
 Bezug zur Uhrzeit, auf das Windfeld des nächsten Zeitabschnitts fallen,

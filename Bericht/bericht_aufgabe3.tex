@@ -2,8 +2,7 @@
 
 \section{Erfassung Schiffsgeschwindigkeiten}
 
-\subsection{Problemanalyse}
-\subsubsection{Windangriffswinkel und Windgeschwindigkeit}
+\subsection{Windangriffswinkel und Windgeschwindigkeit}
 
 \begin{wrapfigure}{r}{6cm} 
 \centering
@@ -33,7 +32,7 @@ Windgeschwindigkeit darstellt.
 Da aber der Datensatz nicht durchgehend ist, muss zwischen den bekannten
 und ermittelten Punkten interpoliert werden.
 
-\subsubsection{Interpolationsverfahren}
+\subsection{Interpolationsverfahren}
 Um diese Daten zu interpolieren eignet sich die bilineare Interpolation
 am besten, da sie sehr einfach zu implementieren ist, über eine für
 unsere Zwecke genügend hohe Genauigkeit verfügt, in linearer Zeit
@@ -47,40 +46,3 @@ ressourcen konsumierend, langsam oder sogar instabil. Daher wurde diese
 nicht in Betracht gezogen. Ausserdem verwendet dieses Verfahren nur die
 unmittelbaren Nachbarwerte und kommt damit mit weniger Informationen
 zurecht.
-
-\subsection{Implementation}
-\subsubsection{Eingabedaten-Parser}
-Die Schiffsdaten sind als CSV\footnote{Comma Separated Values}-Datei
-gegeben und werden von einem selbst\-geschriebenen Parser in ein
-passendes Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin,
-dass die Daten nicht-dekoriert sind und daher nur durch ihre Position
-von anderen Typen zu unterscheiden sind. Das bedeutet allerdings auch,
-dass der Parser sich auf diese Datenstruktur verlässt und keine
-Abweichungen duldet und sonst abstürzt.
-
-Dieses Problem ist allerdings vertretbar, da die Datenstruktur
-vorgegeben ist und der Parser daran angepasst wurde.
-
-\subsubsection{Verarbeitungsklasse}
-Die Klasse \texttt{BoatSpeedDiagram.java\footnote{Im Package 
-ch.zhaw.lakerouting.interpolation.boatdiagram zu finden}} verwaltet das
-Polardiagram und bietet die nötigen Methoden für die Abfrage der Werte
-an, kapselt die Interpolation, so das der Programmierer sich darum nicht
-kümmern muss.
-
-\subsubsection{Bilineare Interpolation}\label{sss:bilinearinterpolation}
-Die Interpolation an sich ist durch 
-\begin{equation}
-f(x,y) \approx \begin{bmatrix} 1-x & x \end{bmatrix} \begin{bmatrix}
-f(0,0) & f(0,1) \\ f(1,0) & f(1,1) \end{bmatrix} \begin{bmatrix} 1 - y
-\\ y \end{bmatrix}
-\label{eq:bilineareinterpolation}
-\end{equation}
-geben und kann in Java wie nachfolgend gezeigt, implementiert werden.
-
- \lstinputlisting[label=src:bilinearinterpolation,caption=Bilineare Interpolation]{code/BilinearInterpolation.java}
-Die konkrete Berechnung erfolgt auf den Zeilen 17-19 und zeigen den
-einfachen Charakter der Berechnung. Diese Implementation erfordert
-allerdings eine geringe Aufbereitung der Eingabewerte, ist dafür
-einfacher zu testen und somit indirekt auch weniger anfällig für
-Implementationsfehler, was direkt zu robusterem Code führt.
