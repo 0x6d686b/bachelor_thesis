@@ -1,22 +1,24 @@
 \section{Polar-Diagramm}
 \subsection{Parser}
-Die Schiffsdaten sind als CSV\footnote{Comma Separated Values}-Datei
-gegeben und werden von einem selbst\-geschriebenen Parser in ein
-passendes Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin,
-dass die Daten nicht-dekoriert sind und daher nur durch ihre Position
-von anderen Typen zu unterscheiden sind. Das bedeutet allerdings auch,
-dass der Parser sich auf diese Datenstruktur verlässt und keine
-Abweichungen duldet und sonst abstürzt.
+Die Schiffsdaten sind als CSV\footnote{Comma Separated Values}-Datei gegeben
+und werden von einem selbst\-geschriebenen Parser in ein passendes
+Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin, dass die Daten
+nicht-dekoriert sind und daher nur durch ihre Position von anderen Typen zu
+unterscheiden sind. Das bedeutet allerdings auch, dass der Parser sich auf
+diese Datenstruktur verlässt und keine Abweichungen duldet und sonst abstürzt.
 
-Dieses Problem ist allerdings vertretbar, da die Datenstruktur
-vorgegeben ist und der Parser daran angepasst wurde.
+Dieses Problem ist allerdings vertretbar, da die Datenstruktur vorgegeben ist
+und der Parser daran angepasst wurde. Es ist im Allgemeinen sehr schwierig
+einen Parser für eine schwach typisierte Datenstruktur zu schreiben. Eine
+robustere Datenstruktur würde XML bieten, die strikte Einschränkung bis hin zu
+Datentypen für einzelne Felder bietet.
 
 \subsection{Verarbeitungsklasse}
-Die Klasse \texttt{BoatSpeedDiagram.java\footnote{Im Package 
+Die Klasse \texttt{BoatSpeedDiagram.java\footnote{Im Package
 ch.zhaw.lakerouting.interpolation.boatdiagram zu finden}} verwaltet das
-Polardiagram und bietet die nötigen Methoden für die Abfrage der Werte
-an, kapselt die Interpolation, so das der Programmierer sich darum nicht
-kümmern muss.
+Polardiagram und bietet die nötigen Methoden für die Abfrage der Werte an,
+kapselt die Interpolation, so das der Programmierer sich darum nicht kümmern
+muss.
 
 \subsection{Bilineare Interpolation}\label{sss:bilinearinterpolation}
 Die Interpolation an sich ist durch 
@@ -29,40 +31,38 @@ f(0,0) & f(0,1) \\ f(1,0) & f(1,1) \end{bmatrix} \begin{bmatrix} 1 - y
 geben und kann in Java wie nachfolgend gezeigt, implementiert werden.
 
  \lstinputlisting[label=src:bilinearinterpolation,caption=Bilineare Interpolation]{code/BilinearInterpolation.java}
-Die konkrete Berechnung erfolgt auf den Zeilen 17-19 und zeigen den
-einfachen Charakter der Berechnung. Diese Implementation erfordert
-allerdings eine geringe Aufbereitung der Eingabewerte, ist dafür
-einfacher zu testen und somit indirekt auch weniger anfällig für
-Implementationsfehler, was direkt zu robusterem Code führt.
+Die konkrete Berechnung erfolgt auf den Zeilen 17-19 und zeigen den einfachen
+Charakter der Berechnung. Diese Implementation erfordert allerdings eine
+geringe Aufbereitung der Eingabewerte, ist dafür einfacher zu testen und somit
+indirekt auch weniger anfällig für Implementationsfehler, was direkt zu
+robusterem Code führt.
 
 \section{Windfelder}
-Die Implementation ist vergleichsweise einfach gehalten und besteht aus
-einer Klasse für ein einzelnes Windfeld mit Hilfsfunktionalitäten für
-die Interpolation der Windvektoren und das Abfragen der Nachbarsvektoren
-an einer bestimmten Position. Diese einzelnen Windfelder werden dann in
-einem Art Stapel aufbewahrt\footnote{Achtung, nicht mit einem Stack
-verwechseln! Wir verwenden hier nichts anderes als ein Array.} Im
-Prinzip besteht das alles aus einer dreidimensionalen Struktur aus
+Die Implementation ist vergleichsweise einfach gehalten und besteht aus einer
+Klasse für ein einzelnes Windfeld mit Hilfsfunktionalitäten für die
+Interpolation der Windvektoren und das Abfragen der Nachbarsvektoren an einer
+bestimmten Position. Diese einzelnen Windfelder werden dann in einem Art Stapel
+aufbewahrt\footnote{Wir verwenden der Einfachheit halber ein normales Array.}
+Im Prinzip besteht das alles aus einer dreidimensionalen Struktur aus
 Windvektoren.
 
 \subsection{Windfeld-Parser}
 Der Parser ist ein Eigenbau und wurde speziell für diese Datenstruktur
-geschaffen. Diverse Unzulänglichkeiten wie nicht-leere Zeilen und
-Trailing Spaces haben die Entwicklung erschwert und dementsprechend viel
-Zeit gekostet.
+geschaffen. Diverse Unzulänglichkeiten wie nicht-leere Zeilen und Trailing
+Spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
 
-Allerdings lässt sich der Parser leicht auf andere Ressourcen erweitern
-wie zum Beispiel HTTP oder auch direkte Anbindung an Datenbanken.
+Allerdings lässt sich der Parser leicht auf andere Ressourcen erweitern wie zum
+Beispiel HTTP und erlaubt auch die direkte Anbindung an Datenbanken.
 
 \subsection{Interpolation der Windvektoren}
-Da das Windfeld und das Entscheidungsnetz nicht über dieselben
-Koordinaten verfügen und dementsprechend die Entscheidungspunkte
-normalerweise zwischen den Windvektoren zu liegen kommen, wird nach
-Berechnung des Entscheidungsnetzes dem Windfeld die Koordinatenliste
-übergeben und dieser interpoliert die Windrichtung bzw. die Windvektoren
-an den geforderten Positionen. Das erfolgt wie bereits in Abschnitt
-\ref{sss:bilinearinterpolation} erklärt über dieselbe Klasse.
+Da das Windfeld und das Entscheidungsnetz nicht über dieselben Koordinaten
+verfügen und dementsprechend die Entscheidungspunkte normalerweise zwischen den
+Windvektoren zu liegen kommen, wird nach Berechnung des Entscheidungsnetzes dem
+Windfeld die Koordinatenliste übergeben. Das Windfeld interpoliert die
+Windrichtung bzw. die Windvektoren an den geforderten Positionen. Das erfolgt
+wie bereits in Abschnitt \ref{sss:bilinearinterpolation} erklärt über dieselbe
+Klasse.
 
-Nach dieser initialen Interpolation verfügt das Entscheidungsnetz und
-das Windfeld über dieselben Array-Indizes und können somit leicht
-(wieder-) verwendet werden.
+Nach dieser initialen Interpolation verfügen das Entscheidungsnetz und das
+Windfeld über dieselben Array-Indizes und können somit leicht (wieder-)
+verwendet werden.
