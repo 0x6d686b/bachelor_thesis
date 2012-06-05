@@ -25,20 +25,19 @@ Also muss in einem ersten Schritt die Ankunftszeit approximiert werden.
 Wir könnten die Euler'sche Regression verwenden, allerdings besteht hier
 das Problem, dass der Algorithmus nicht zwingend die beste Lösung findet
 und über eine unterschiedlich lange Laufzeit verfügt. Daher erschien ein
-zweischrittiges Verfahren für eine Teilapproximation vernünftig, dass in
+zweischrittiges Verfahren für eine Teilapproximation vernünftig, welches in
 linearer Zeit ausgeführt werden kann.
 
 \subsection{Berechnung der Ankunftszeit}
-Vom Startpunkt $A$ ist die Uhrzeit, die Position und somit der
-Windvektor bekannt. Daraus kann die Geschwindigkeit des Segelbootes
-bestimmt werden ausgehend von Punkt $A$. Diese Geschwindigkeit wird nun
-für die gesamte Distanz angenommen und daraus resultiert eine ungefähre
-Ankunftszeit. Wir nehmen hier an, dass das Windfeld zu einem späteren
-Zeitpunkt nicht so stark ändert, dass unsere Berechnungen komplett
-falsch sind, unter anderem weil dies der Natur von Windfeldern
-widersprechen würde. Ausgenommen sind Extremsituationen wie Windhosen
-oder Tornados. Aber in solchen Situationen wäre das Segeln auch nicht
-vernünftig.
+Vom Startpunkt $A$ ist die Uhrzeit, die Position und somit der Windvektor
+bekannt. Daraus kann die Geschwindigkeit des Segelbootes bestimmt werden
+(ausgehend von Punkt $A$). Diese Geschwindigkeit wird nun für die gesamte
+Distanz angenommen und daraus resultiert eine ungefähre Ankunftszeit. Wir
+nehmen hier an, dass das Windfeld zu einem späteren Zeitpunkt nicht so stark
+ändert, dass unsere Berechnungen zu stark von einem vernünftigen Wert abweicht,
+unter anderem weil dies der Natur von Windfeldern widersprechen würde.
+Ausgenommen sind Extremsituationen wie Windhosen oder Tornados. Aber in solchen
+Situationen wäre das Segeln auch nicht vernünftig.
 
 \subsection{Implementation}
 In der Implementation haben wir einen noch einfacheren Ansatz verfolgt:
