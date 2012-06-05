@@ -1,9 +1,3 @@
-
-
-
-
-
-
 % Author: Fevzi Yükseldi
 
 \section{Entscheidungskern}
@@ -17,6 +11,7 @@ Wie auch schon erwähnt, wird für die Berechnung der Dauer die Windvektoren ben
 In unserem Falle beträgt diese Grenze 30, da wir für jede Stunde ein neues Windfeld zur Verfügung haben. Somit wird bei jedem Knoten nach der Berechnung überprüft, ob die Minutenzahl der Dauer bis zu diesem Knoten kleiner oder grösser als diese Grenze ist. Falls sie kleiner ist, wird das aktuelle Windfeld beibehalten und die Berechnung fortgesetzt. Falls sie aber grösser ist, wird der Index des Windfelds um 1 erhöht und die Berechnung mit dem neuen Wert wiederholt. D.h. Der Windvektor des Zielknotens wird erneuert, wobei der Windvektor des Anfangsknotens gleich bleibt.
 
 \subsubsection{Erstellung eines Entscheidungsbaums}
+\label{aufg6:entscheidungsbaum}
 Nach den Berechnungen soll mit den Werten ein Entscheidungsbaum erstellt werden. Damit die Beziehungen zwischen den Knoten und die Dauer der Reisezeit nicht verloren gehen bzw. nicht jedesmal erneut berechnet werden sollen, wird versucht, alle nötigen Informationen in jedem Knoten abzuspeichern. Dementsprechend soll dieser Entscheidungsbaum folgende Angaben beinhalten: 
 \begin{itemize}
 \item Vorheriger Knoten: Die Position des vorherigen Knotens in der Form \texttt{\{i,j\}}.
