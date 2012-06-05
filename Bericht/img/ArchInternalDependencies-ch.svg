@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<svg width="2762" height="930" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <polygon points="24,917 2738,917 2750,905 2750,23 2738,11 24,11 12,23 12,905 24,917" stroke="#FFFFE0" fill="#FFFFE0"/>
+ <polyline points="2738,917 2740,917 2742,916 2743,916 2745,915 2746,913 2748,912 2749,910 2749,909 2750,907 2750,905" stroke="#FFFFE0" fill="none"/>
+ <polyline points="2750,23 2750,21 2749,19 2749,18 2748,16 2746,15 2745,13 2743,12 2742,12 2740,11 2738,11" stroke="#FFFFE0" fill="none"/>
+ <polyline points="24,11 22,11 20,12 19,12 17,13 16,15 14,16 13,18 13,19 12,21 12,23" stroke="#FFFFE0" fill="none"/>
+ <polyline points="12,905 12,907 13,909 13,910 14,912 16,913 17,915 19,916 20,916 22,917 24,917" stroke="#FFFFE0" fill="none"/>
+ <polyline points="24,917 2738,917" stroke="#000000" fill="none"/>
+ <polyline points="2738,917 2740,917 2742,916 2743,916 2745,915 2746,913 2748,912 2749,910 2749,909 2750,907 2750,905" stroke="#000000" fill="none"/>
+ <polyline points="2750,905 2750,23" stroke="#000000" fill="none"/>
+ <polyline points="2750,23 2750,21 2749,19 2749,18 2748,16 2746,15 2745,13 2743,12 2742,12 2740,11 2738,11" stroke="#000000" fill="none"/>
+ <polyline points="2738,11 24,11" stroke="#000000" fill="none"/>
+ <polyline points="24,11 22,11 20,12 19,12 17,13 16,15 14,16 13,18 13,19 12,21 12,23" stroke="#000000" fill="none"/>
+ <polyline points="12,23 12,905" stroke="#000000" fill="none"/>
+ <polyline points="12,905 12,907 13,909 13,910 14,912 16,913 17,915 19,916 20,916 22,917 24,917" stroke="#000000" fill="none"/>
+ <text x="1359" y="27" fill="#000000" font-family="Arial" font-size="12">ch/zhaw</text>
+ <polygon points="32,901 2730,901 2742,889 2742,139 2730,127 32,127 20,139 20,889 32,901" stroke="#F0FFF0" fill="#F0FFF0"/>
+ <polyline points="2730,901 2732,901 2734,900 2735,900 2737,899 2738,897 2740,896 2741,894 2741,893 2742,891 2742,889" stroke="#F0FFF0" fill="none"/>
+ <polyline points="2742,139 2742,137 2741,135 2741,134 2740,132 2738,131 2737,129 2735,128 2734,128 2732,127 2730,127" stroke="#F0FFF0" fill="none"/>
+ <polyline points="32,127 30,127 28,128 27,128 25,129 24,131 22,132 21,134 21,135 20,137 20,139" stroke="#F0FFF0" fill="none"/>
+ <polyline points="20,889 20,891 21,893 21,894 22,896 24,897 25,899 27,900 28,900 30,901 32,901" stroke="#F0FFF0" fill="none"/>
+ <polyline points="32,901 2730,901" stroke="#000000" fill="none"/>
+ <polyline points="2730,901 2732,901 2734,900 2735,900 2737,899 2738,897 2740,896 2741,894 2741,893 2742,891 2742,889" stroke="#000000" fill="none"/>
+ <polyline points="2742,889 2742,139" stroke="#000000" fill="none"/>
+ <polyline points="2742,139 2742,137 2741,135 2741,134 2740,132 2738,131 2737,129 2735,128 2734,128 2732,127 2730,127" stroke="#000000" fill="none"/>
+ <polyline points="2730,127 32,127" stroke="#000000" fill="none"/>
+ <polyline points="32,127 30,127 28,128 27,128 25,129 24,131 22,132 21,134 21,135 20,137 20,139" stroke="#000000" fill="none"/>
+ <polyline points="20,139 20,889" stroke="#000000" fill="none"/>
+ <polyline points="20,889 20,891 21,893 21,894 22,896 24,897 25,899 27,900 28,900 30,901 32,901" stroke="#000000" fill="none"/>
+ <text x="1328" y="143" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting</text>
+ <polygon points="426,235 1663,235 1675,223 1675,169 1663,157 426,157 414,169 414,223 426,235" stroke="#DFFFFF" fill="#DFFFFF"/>
+ <polyline points="1663,235 1665,235 1667,234 1668,234 1670,233 1671,231 1673,230 1674,228 1674,227 1675,225 1675,223" stroke="#DFFFFF" fill="none"/>
+ <polyline points="1675,169 1675,167 1674,165 1674,164 1673,162 1671,161 1670,159 1668,158 1667,158 1665,157 1663,157" stroke="#DFFFFF" fill="none"/>
+ <polyline points="426,157 424,157 422,158 421,158 419,159 418,161 416,162 415,164 415,165 414,167 414,169" stroke="#DFFFFF" fill="none"/>
+ <polyline points="414,223 414,225 415,227 415,228 416,230 418,231 419,233 421,234 422,234 424,235 426,235" stroke="#DFFFFF" fill="none"/>
+ <polyline points="426,235 1663,235" stroke="#000000" fill="none"/>
+ <polyline points="1663,235 1665,235 1667,234 1668,234 1670,233 1671,231 1673,230 1674,228 1674,227 1675,225 1675,223" stroke="#000000" fill="none"/>
+ <polyline points="1675,223 1675,169" stroke="#000000" fill="none"/>
+ <polyline points="1675,169 1675,167 1674,165 1674,164 1673,162 1671,161 1670,159 1668,158 1667,158 1665,157 1663,157" stroke="#000000" fill="none"/>
+ <polyline points="1663,157 426,157" stroke="#000000" fill="none"/>
+ <polyline points="426,157 424,157 422,158 421,158 419,159 418,161 416,162 415,164 415,165 414,167 414,169" stroke="#000000" fill="none"/>
+ <polyline points="414,169 414,223" stroke="#000000" fill="none"/>
+ <polyline points="414,223 414,225 415,227 415,228 416,230 418,231 419,233 421,234 422,234 424,235 426,235" stroke="#000000" fill="none"/>
+ <text x="963" y="173" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/navigation</text>
+ <polygon points="810,721 2722,721 2734,709 2734,279 2722,267 810,267 798,279 798,709 810,721" stroke="#DFFFFF" fill="#DFFFFF"/>
+ <polyline points="2722,721 2724,721 2726,720 2727,720 2729,719 2730,717 2732,716 2733,714 2733,713 2734,711 2734,709" stroke="#DFFFFF" fill="none"/>
+ <polyline points="2734,279 2734,277 2733,275 2733,274 2732,272 2730,271 2729,269 2727,268 2726,268 2724,267 2722,267" stroke="#DFFFFF" fill="none"/>
+ <polyline points="810,267 808,267 806,268 805,268 803,269 802,271 800,272 799,274 799,275 798,277 798,279" stroke="#DFFFFF" fill="none"/>
+ <polyline points="798,709 798,711 799,713 799,714 800,716 802,717 803,719 805,720 806,720 808,721 810,721" stroke="#DFFFFF" fill="none"/>
+ <polyline points="810,721 2722,721" stroke="#000000" fill="none"/>
+ <polyline points="2722,721 2724,721 2726,720 2727,720 2729,719 2730,717 2732,716 2733,714 2733,713 2734,711 2734,709" stroke="#000000" fill="none"/>
+ <polyline points="2734,709 2734,279" stroke="#000000" fill="none"/>
+ <polyline points="2734,279 2734,277 2733,275 2733,274 2732,272 2730,271 2729,269 2727,268 2726,268 2724,267 2722,267" stroke="#000000" fill="none"/>
+ <polyline points="2722,267 810,267" stroke="#000000" fill="none"/>
+ <polyline points="810,267 808,267 806,268 805,268 803,269 802,271 800,272 799,274 799,275 798,277 798,279" stroke="#000000" fill="none"/>
+ <polyline points="798,279 798,709" stroke="#000000" fill="none"/>
+ <polyline points="798,709 798,711 799,713 799,714 800,716 802,717 803,719 805,720 806,720 808,721 810,721" stroke="#000000" fill="none"/>
+ <text x="1678" y="283" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation</text>
+ <polygon points="818,453 2258,453 2270,441 2270,309 2258,297 818,297 806,309 806,441 818,453" stroke="#FFE5E2" fill="#FFE5E2"/>
+ <polyline points="2258,453 2260,453 2262,452 2263,452 2265,451 2266,449 2268,448 2269,446 2269,445 2270,443 2270,441" stroke="#FFE5E2" fill="none"/>
+ <polyline points="2270,309 2270,307 2269,305 2269,304 2268,302 2266,301 2265,299 2263,298 2262,298 2260,297 2258,297" stroke="#FFE5E2" fill="none"/>
+ <polyline points="818,297 816,297 814,298 813,298 811,299 810,301 808,302 807,304 807,305 806,307 806,309" stroke="#FFE5E2" fill="none"/>
+ <polyline points="806,441 806,443 807,445 807,446 808,448 810,449 811,451 813,452 814,452 816,453 818,453" stroke="#FFE5E2" fill="none"/>
+ <polyline points="818,453 2258,453" stroke="#000000" fill="none"/>
+ <polyline points="2258,453 2260,453 2262,452 2263,452 2265,451 2266,449 2268,448 2269,446 2269,445 2270,443 2270,441" stroke="#000000" fill="none"/>
+ <polyline points="2270,441 2270,309" stroke="#000000" fill="none"/>
+ <polyline points="2270,309 2270,307 2269,305 2269,304 2268,302 2266,301 2265,299 2263,298 2262,298 2260,297 2258,297" stroke="#000000" fill="none"/>
+ <polyline points="2258,297 818,297" stroke="#000000" fill="none"/>
+ <polyline points="818,297 816,297 814,298 813,298 811,299 810,301 808,302 807,304 807,305 806,307 806,309" stroke="#000000" fill="none"/>
+ <polyline points="806,309 806,441" stroke="#000000" fill="none"/>
+ <polyline points="806,441 806,443 807,445 807,446 808,448 810,449 811,451 813,452 814,452 816,453 818,453" stroke="#000000" fill="none"/>
+ <text x="1415" y="313" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram</text>
+ <polygon points="1298,445 2243,445 2255,433 2255,379 2243,367 1298,367 1286,379 1286,433 1298,445" stroke="#FFFFE0" fill="#FFFFE0"/>
+ <polyline points="2243,445 2245,445 2247,444 2248,444 2250,443 2251,441 2253,440 2254,438 2254,437 2255,435 2255,433" stroke="#FFFFE0" fill="none"/>
+ <polyline points="2255,379 2255,377 2254,375 2254,374 2253,372 2251,371 2250,369 2248,368 2247,368 2245,367 2243,367" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1298,367 1296,367 1294,368 1293,368 1291,369 1290,371 1288,372 1287,374 1287,375 1286,377 1286,379" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1286,433 1286,435 1287,437 1287,438 1288,440 1290,441 1291,443 1293,444 1294,444 1296,445 1298,445" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1298,445 2243,445" stroke="#000000" fill="none"/>
+ <polyline points="2243,445 2245,445 2247,444 2248,444 2250,443 2251,441 2253,440 2254,438 2254,437 2255,435 2255,433" stroke="#000000" fill="none"/>
+ <polyline points="2255,433 2255,379" stroke="#000000" fill="none"/>
+ <polyline points="2255,379 2255,377 2254,375 2254,374 2253,372 2251,371 2250,369 2248,368 2247,368 2245,367 2243,367" stroke="#000000" fill="none"/>
+ <polyline points="2243,367 1298,367" stroke="#000000" fill="none"/>
+ <polyline points="1298,367 1296,367 1294,368 1293,368 1291,369 1290,371 1288,372 1287,374 1287,375 1286,377 1286,379" stroke="#000000" fill="none"/>
+ <polyline points="1286,379 1286,433" stroke="#000000" fill="none"/>
+ <polyline points="1286,433 1286,435 1287,437 1287,438 1288,440 1290,441 1291,443 1293,444 1294,444 1296,445 1298,445" stroke="#000000" fill="none"/>
+ <text x="1630" y="383" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram/loader</text>
+ <polygon points="1358,539 2234,539 2246,527 2246,473 2234,461 1358,461 1346,473 1346,527 1358,539" stroke="#FFE5E2" fill="#FFE5E2"/>
+ <polyline points="2234,539 2236,539 2238,538 2239,538 2241,537 2242,535 2244,534 2245,532 2245,531 2246,529 2246,527" stroke="#FFE5E2" fill="none"/>
+ <polyline points="2246,473 2246,471 2245,469 2245,468 2244,466 2242,465 2241,463 2239,462 2238,462 2236,461 2234,461" stroke="#FFE5E2" fill="none"/>
+ <polyline points="1358,461 1356,461 1354,462 1353,462 1351,463 1350,465 1348,466 1347,468 1347,469 1346,471 1346,473" stroke="#FFE5E2" fill="none"/>
+ <polyline points="1346,527 1346,529 1347,531 1347,532 1348,534 1350,535 1351,537 1353,538 1354,538 1356,539 1358,539" stroke="#FFE5E2" fill="none"/>
+ <polyline points="1358,539 2234,539" stroke="#000000" fill="none"/>
+ <polyline points="2234,539 2236,539 2238,538 2239,538 2241,537 2242,535 2244,534 2245,532 2245,531 2246,529 2246,527" stroke="#000000" fill="none"/>
+ <polyline points="2246,527 2246,473" stroke="#000000" fill="none"/>
+ <polyline points="2246,473 2246,471 2245,469 2245,468 2244,466 2242,465 2241,463 2239,462 2238,462 2236,461 2234,461" stroke="#000000" fill="none"/>
+ <polyline points="2234,461 1358,461" stroke="#000000" fill="none"/>
+ <polyline points="1358,461 1356,461 1354,462 1353,462 1351,463 1350,465 1348,466 1347,468 1347,469 1346,471 1346,473" stroke="#000000" fill="none"/>
+ <polyline points="1346,473 1346,527" stroke="#000000" fill="none"/>
+ <polyline points="1346,527 1346,529 1347,531 1347,532 1348,534 1350,535 1351,537 1353,538 1354,538 1356,539 1358,539" stroke="#000000" fill="none"/>
+ <text x="1679" y="477" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/algorithms</text>
+ <polygon points="830,705 2714,705 2726,693 2726,559 2714,547 830,547 818,559 818,693 830,705" stroke="#FFE5E2" fill="#FFE5E2"/>
+ <polyline points="2714,705 2716,705 2718,704 2719,704 2721,703 2722,701 2724,700 2725,698 2725,697 2726,695 2726,693" stroke="#FFE5E2" fill="none"/>
+ <polyline points="2726,559 2726,557 2725,555 2725,554 2724,552 2722,551 2721,549 2719,548 2718,548 2716,547 2714,547" stroke="#FFE5E2" fill="none"/>
+ <polyline points="830,547 828,547 826,548 825,548 823,549 822,551 820,552 819,554 819,555 818,557 818,559" stroke="#FFE5E2" fill="none"/>
+ <polyline points="818,693 818,695 819,697 819,698 820,700 822,701 823,703 825,704 826,704 828,705 830,705" stroke="#FFE5E2" fill="none"/>
+ <polyline points="830,705 2714,705" stroke="#000000" fill="none"/>
+ <polyline points="2714,705 2716,705 2718,704 2719,704 2721,703 2722,701 2724,700 2725,698 2725,697 2726,695 2726,693" stroke="#000000" fill="none"/>
+ <polyline points="2726,693 2726,559" stroke="#000000" fill="none"/>
+ <polyline points="2726,559 2726,557 2725,555 2725,554 2724,552 2722,551 2721,549 2719,548 2718,548 2716,547 2714,547" stroke="#000000" fill="none"/>
+ <polyline points="2714,547 830,547" stroke="#000000" fill="none"/>
+ <polyline points="830,547 828,547 826,548 825,548 823,549 822,551 820,552 819,554 819,555 818,557 818,559" stroke="#000000" fill="none"/>
+ <polyline points="818,559 818,693" stroke="#000000" fill="none"/>
+ <polyline points="818,693 818,695 819,697 819,698 820,700 822,701 823,703 825,704 826,704 828,705 830,705" stroke="#000000" fill="none"/>
+ <text x="1659" y="563" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield</text>
+ <polygon points="1302,657 2234,657 2246,645 2246,589 2234,577 1302,577 1290,589 1290,645 1302,657" stroke="#FFFFE0" fill="#FFFFE0"/>
+ <polyline points="2234,657 2236,657 2238,656 2239,656 2241,655 2242,653 2244,652 2245,650 2245,649 2246,647 2246,645" stroke="#FFFFE0" fill="none"/>
+ <polyline points="2246,589 2246,587 2245,585 2245,584 2244,582 2242,581 2241,579 2239,578 2238,578 2236,577 2234,577" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1302,577 1300,577 1298,578 1297,578 1295,579 1294,581 1292,582 1291,584 1291,585 1290,587 1290,589" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1290,645 1290,647 1291,649 1291,650 1292,652 1294,653 1295,655 1297,656 1298,656 1300,657 1302,657" stroke="#FFFFE0" fill="none"/>
+ <polyline points="1302,657 2234,657" stroke="#000000" fill="none"/>
+ <polyline points="2234,657 2236,657 2238,656 2239,656 2241,655 2242,653 2244,652 2245,650 2245,649 2246,647 2246,645" stroke="#000000" fill="none"/>
+ <polyline points="2246,645 2246,589" stroke="#000000" fill="none"/>
+ <polyline points="2246,589 2246,587 2245,585 2245,584 2244,582 2242,581 2241,579 2239,578 2238,578 2236,577 2234,577" stroke="#000000" fill="none"/>
+ <polyline points="2234,577 1302,577" stroke="#000000" fill="none"/>
+ <polyline points="1302,577 1300,577 1298,578 1297,578 1295,579 1294,581 1292,582 1291,584 1291,585 1290,587 1290,589" stroke="#000000" fill="none"/>
+ <polyline points="1290,589 1290,645" stroke="#000000" fill="none"/>
+ <polyline points="1290,645 1290,647 1291,649 1291,650 1292,652 1294,653 1295,655 1297,656 1298,656 1300,657 1302,657" stroke="#000000" fill="none"/>
+ <text x="1637" y="593" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/loader</text>
+ <polygon points="441,807 1148,807 1160,795 1160,741 1148,729 441,729 429,741 429,795 441,807" stroke="#DFFFFF" fill="#DFFFFF"/>
+ <polyline points="1148,807 1150,807 1152,806 1153,806 1155,805 1156,803 1158,802 1159,800 1159,799 1160,797 1160,795" stroke="#DFFFFF" fill="none"/>
+ <polyline points="1160,741 1160,739 1159,737 1159,736 1158,734 1156,733 1155,731 1153,730 1152,730 1150,729 1148,729" stroke="#DFFFFF" fill="none"/>
+ <polyline points="441,729 439,729 437,730 436,730 434,731 433,733 431,734 430,736 430,737 429,739 429,741" stroke="#DFFFFF" fill="none"/>
+ <polyline points="429,795 429,797 430,799 430,800 431,802 433,803 434,805 436,806 437,806 439,807 441,807" stroke="#DFFFFF" fill="none"/>
+ <polyline points="441,807 1148,807" stroke="#000000" fill="none"/>
+ <polyline points="1148,807 1150,807 1152,806 1153,806 1155,805 1156,803 1158,802 1159,800 1159,799 1160,797 1160,795" stroke="#000000" fill="none"/>
+ <polyline points="1160,795 1160,741" stroke="#000000" fill="none"/>
+ <polyline points="1160,741 1160,739 1159,737 1159,736 1158,734 1156,733 1155,731 1153,730 1152,730 1150,729 1148,729" stroke="#000000" fill="none"/>
+ <polyline points="1148,729 441,729" stroke="#000000" fill="none"/>
+ <polyline points="441,729 439,729 437,730 436,730 434,731 433,733 431,734 430,736 430,737 429,739 429,741" stroke="#000000" fill="none"/>
+ <polyline points="429,741 429,795" stroke="#000000" fill="none"/>
+ <polyline points="429,795 429,797 430,799 430,800 431,802 433,803 434,805 436,806 437,806 439,807 441,807" stroke="#000000" fill="none"/>
+ <text x="715" y="745" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/rendering</text>
+ <polygon points="1399,883 2170,883 2182,871 2182,751 2170,739 1399,739 1387,751 1387,871 1399,883" stroke="#DFFFFF" fill="#DFFFFF"/>
+ <polyline points="2170,883 2172,883 2174,882 2175,882 2177,881 2178,879 2180,878 2181,876 2181,875 2182,873 2182,871" stroke="#DFFFFF" fill="none"/>
+ <polyline points="2182,751 2182,749 2181,747 2181,746 2180,744 2178,743 2177,741 2175,740 2174,740 2172,739 2170,739" stroke="#DFFFFF" fill="none"/>
+ <polyline points="1399,739 1397,739 1395,740 1394,740 1392,741 1391,743 1389,744 1388,746 1388,747 1387,749 1387,751" stroke="#DFFFFF" fill="none"/>
+ <polyline points="1387,871 1387,873 1388,875 1388,876 1389,878 1391,879 1392,881 1394,882 1395,882 1397,883 1399,883" stroke="#DFFFFF" fill="none"/>
+ <polyline points="1399,883 2170,883" stroke="#000000" fill="none"/>
+ <polyline points="2170,883 2172,883 2174,882 2175,882 2177,881 2178,879 2180,878 2181,876 2181,875 2182,873 2182,871" stroke="#000000" fill="none"/>
+ <polyline points="2182,871 2182,751" stroke="#000000" fill="none"/>
+ <polyline points="2182,751 2182,749 2181,747 2181,746 2180,744 2178,743 2177,741 2175,740 2174,740 2172,739 2170,739" stroke="#000000" fill="none"/>
+ <polyline points="2170,739 1399,739" stroke="#000000" fill="none"/>
+ <polyline points="1399,739 1397,739 1395,740 1394,740 1392,741 1391,743 1389,744 1388,746 1388,747 1387,749 1387,751" stroke="#000000" fill="none"/>
+ <polyline points="1387,751 1387,871" stroke="#000000" fill="none"/>
+ <polyline points="1387,871 1387,873 1388,875 1388,876 1389,878 1391,879 1392,881 1394,882 1395,882 1397,883 1399,883" stroke="#000000" fill="none"/>
+ <text x="1704" y="755" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/datatypes</text>
+ <polygon points="40,893 707,893 719,881 719,827 707,815 40,815 28,827 28,881 40,893" stroke="#DFFFFF" fill="#DFFFFF"/>
+ <polyline points="707,893 709,893 711,892 712,892 714,891 715,889 717,888 718,886 718,885 719,883 719,881" stroke="#DFFFFF" fill="none"/>
+ <polyline points="719,827 719,825 718,823 718,822 717,820 715,819 714,817 712,816 711,816 709,815 707,815" stroke="#DFFFFF" fill="none"/>
+ <polyline points="40,815 38,815 36,816 35,816 33,817 32,819 30,820 29,822 29,823 28,825 28,827" stroke="#DFFFFF" fill="none"/>
+ <polyline points="28,881 28,883 29,885 29,886 30,888 32,889 33,891 35,892 36,892 38,893 40,893" stroke="#DFFFFF" fill="none"/>
+ <polyline points="40,893 707,893" stroke="#000000" fill="none"/>
+ <polyline points="707,893 709,893 711,892 712,892 714,891 715,889 717,888 718,886 718,885 719,883 719,881" stroke="#000000" fill="none"/>
+ <polyline points="719,881 719,827" stroke="#000000" fill="none"/>
+ <polyline points="719,827 719,825 718,823 718,822 717,820 715,819 714,817 712,816 711,816 709,815 707,815" stroke="#000000" fill="none"/>
+ <polyline points="707,815 40,815" stroke="#000000" fill="none"/>
+ <polyline points="40,815 38,815 36,816 35,816 33,817 32,819 30,820 29,822 29,823 28,825 28,827" stroke="#000000" fill="none"/>
+ <polyline points="28,827 28,881" stroke="#000000" fill="none"/>
+ <polyline points="28,881 28,883 29,885 29,886 30,888 32,889 33,891 35,892 36,892 38,893 40,893" stroke="#000000" fill="none"/>
+ <text x="275" y="831" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/decisionScheme</text>
+ <polygon points="462,119 672,119 684,107 684,53 672,41 462,41 450,53 450,107 462,119" stroke="#F0FFF0" fill="#F0FFF0"/>
+ <polyline points="672,119 674,119 676,118 677,118 679,117 680,115 682,114 683,112 683,111 684,109 684,107" stroke="#F0FFF0" fill="none"/>
+ <polyline points="684,53 684,51 683,49 683,48 682,46 680,45 679,43 677,42 676,42 674,41 672,41" stroke="#F0FFF0" fill="none"/>
+ <polyline points="462,41 460,41 458,42 457,42 455,43 454,45 452,46 451,48 451,49 450,51 450,53" stroke="#F0FFF0" fill="none"/>
+ <polyline points="450,107 450,109 451,111 451,112 452,114 454,115 455,117 457,118 458,118 460,119 462,119" stroke="#F0FFF0" fill="none"/>
+ <polyline points="462,119 672,119" stroke="#000000" fill="none"/>
+ <polyline points="672,119 674,119 676,118 677,118 679,117 680,115 682,114 683,112 683,111 684,109 684,107" stroke="#000000" fill="none"/>
+ <polyline points="684,107 684,53" stroke="#000000" fill="none"/>
+ <polyline points="684,53 684,51 683,49 683,48 682,46 680,45 679,43 677,42 676,42 674,41 672,41" stroke="#000000" fill="none"/>
+ <polyline points="672,41 462,41" stroke="#000000" fill="none"/>
+ <polyline points="462,41 460,41 458,42 457,42 455,43 454,45 452,46 451,48 451,49 450,51 450,53" stroke="#000000" fill="none"/>
+ <polyline points="450,53 450,107" stroke="#000000" fill="none"/>
+ <polyline points="450,107 450,109 451,111 451,112 452,114 454,115 455,117 457,118 458,118 460,119 462,119" stroke="#000000" fill="none"/>
+ <text x="516" y="57" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/properties</text>
+ <polygon points="1119,187 905,187 903,189 903,209 1117,209 1119,207 1119,187" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1117,189 903,189" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1117,189 1117,209" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1117,189 1119,187" stroke="#C0C0C0" fill="none"/>
+ <text x="911" y="203" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/navigation/speed</text>
+ <polygon points="1662,190 1360,190 1360,212 1666,212 1666,194 1662,190" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1662,190 1662,194" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1666,194 1662,194" stroke="#C0C0C0" fill="none"/>
+ <text x="1367" y="206" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/navigation/TrackComputation.java</text>
+ <polyline points="1119,199 1140,199 1163,199 1186,199 1210,199 1234,200 1258,200 1283,200 1307,200 1331,200 1354,200" stroke="#0000CD" fill="none"/>
+ <polygon points="1354,198 1359,200 1354,202 1354,198" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1247" y="198" fill="#000000" font-family="Arial" font-size="12">3</text>
+ <polyline points="1094,453 1115,455 1137,457 1161,459 1186,461 1212,464 1237,466 1264,468 1290,471 1316,473 1341,475" stroke="#0000CD" fill="none"/>
+ <polygon points="1341,474 1346,476 1341,477 1341,474" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1247" y="464" fill="#000000" font-family="Arial" font-size="12">3</text>
+ <polyline points="1097,547 1114,542 1131,537 1150,531 1168,526 1188,521 1207,516 1227,511 1247,507 1267,503 1286,500 1291,499 1297,498 1302,498 1308,497 1313,496 1319,496 1324,495 1330,495 1335,494 1341,494" stroke="#0000CD" fill="none"/>
+ <polygon points="1341,492 1346,493 1342,495 1341,492" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1247" y="503" fill="#000000" font-family="Arial" font-size="12">7</text>
+ <polyline points="812,807 859,815 901,821 939,825 974,827 1007,828 1041,826 1077,823 1116,818 1159,812 1208,804 1218,802 1226,800 1234,797 1241,794 1247,791 1253,788 1260,786 1268,783 1276,780 1286,778 1295,776 1305,775 1314,773 1324,772 1334,771 1343,770 1353,769 1363,769 1372,768 1382,768" stroke="#0000CD" fill="none"/>
+ <polygon points="1382,766 1387,768 1382,770 1382,766" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1007" y="802" fill="#000000" font-family="Arial" font-size="12">8</text>
+ <polyline points="762,729 766,729 769,728 773,728 776,727 780,727 784,727 787,726 791,726 794,725 798,725 802,725 806,724 810,724 814,723 818,723 822,723 826,722 831,722 835,721 839,721" stroke="#0000CD" fill="none"/>
+ <polygon points="839,720 844,721 839,723 839,720" stroke="#0000CD" fill="#0000CD"/>
+ <text x="756" y="725" fill="#000000" font-family="Arial" font-size="12">20</text>
+ <polyline points="1162,721 1167,721 1171,722 1176,722 1181,722 1185,723 1190,723 1194,723 1199,724 1203,724 1208,725 1225,727 1243,729 1261,731 1278,733 1296,736 1314,738 1331,741 1349,743 1366,746 1382,748" stroke="#0000CD" fill="none"/>
+ <polygon points="1383,746 1387,748 1382,749 1383,746" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1244" y="727" fill="#000000" font-family="Arial" font-size="12">81</text>
+ <polygon points="2713,607 2349,607 2349,629 2717,629 2717,611 2713,607" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2713,607 2713,611" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2717,611 2713,611" stroke="#C0C0C0" fill="none"/>
+ <text x="2356" y="623" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/WindfieldMetadata.java</text>
+ <polyline points="2246,615 2256,615 2266,615 2276,615 2286,615 2296,616 2306,616 2315,616 2325,616 2334,616 2343,616" stroke="#0000CD" fill="none"/>
+ <polygon points="2343,614 2348,616 2343,618 2343,614" stroke="#0000CD" fill="#0000CD"/>
+ <text x="2033" y="608" fill="#000000" font-family="Arial" font-size="12">11</text>
+ <polygon points="2195,667 1881,667 1881,689 2199,689 2199,671 2195,667" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2195,667 2195,671" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2199,671 2195,671" stroke="#C0C0C0" fill="none"/>
+ <text x="1888" y="683" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/Windfield.java</text>
+ <polyline points="1771,657 1781,661 1791,665 1801,669 1811,672 1822,675 1832,677 1843,679 1853,681 1864,683 1875,684" stroke="#0000CD" fill="none"/>
+ <polygon points="1876,683 1880,685 1875,686 1876,683" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1768" y="653" fill="#000000" font-family="Arial" font-size="12">10</text>
+ <polyline points="2200,668 2207,667 2214,667 2221,666 2228,666 2235,665 2242,664 2249,663 2256,663 2263,662 2270,661 2291,658 2312,656 2334,653 2355,650 2376,646 2397,643 2416,640 2435,636 2453,633 2470,630" stroke="#0000CD" fill="none"/>
+ <polygon points="2469,628 2475,629 2470,632 2469,628" stroke="#0000CD" fill="#0000CD"/>
+ <text x="2298" y="654" fill="#000000" font-family="Arial" font-size="12">15</text>
+ <polyline points="257,127 271,122 285,117 301,111 316,106 332,101 348,96 365,91 381,87 398,83 414,80 417,79 420,79 423,78 426,78 429,77 432,77 435,76 439,76 442,75 445,75" stroke="#0000CD" fill="none"/>
+ <polygon points="445,73 450,75 445,77 445,73" stroke="#0000CD" fill="#0000CD"/>
+ <text x="375" y="86" fill="#000000" font-family="Arial" font-size="12">8</text>
+ <polyline points="802,235 859,238 918,241 977,245 1034,249 1088,255 1138,261 1181,267 1216,275 1243,284 1258,293 1273,319 1280,355 1282,399 1279,447 1274,499 1269,551 1266,600 1267,645 1273,682 1286,709 1294,717 1302,725 1311,732 1320,738 1330,743 1340,748 1350,753 1361,756 1372,759 1383,762" stroke="#0000CD" fill="none"/>
+ <polygon points="1383,761 1387,763 1382,764 1383,761" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1004" y="232" fill="#000000" font-family="Arial" font-size="12">42</text>
+ <polyline points="568,235 571,258 577,293 586,337 599,389 616,445 639,504 667,562 702,616 744,665 794,706" stroke="#0000CD" fill="none"/>
+ <polygon points="795,705 798,709 793,708 795,705" stroke="#0000CD" fill="#0000CD"/>
+ <text x="756" y="672" fill="#000000" font-family="Arial" font-size="12">13</text>
+ <polyline points="725,844 766,845 808,846 850,845 893,844 937,843 984,839 1034,835 1088,829 1145,821 1208,811 1214,810 1220,809 1225,808 1229,807 1234,806 1238,804 1242,803 1247,801 1252,799 1258,796 1262,794 1265,792 1267,790 1269,788 1272,786 1274,784 1276,783 1279,781 1282,779 1286,778 1295,775 1304,773 1314,771 1323,769 1333,767 1342,766 1352,765 1362,764 1371,763 1381,762" stroke="#CD0000" fill="none"/>
+ <polygon points="725,844 722,842 719,844 722,846 725,844" stroke="#CD0000" fill="#CD0000"/>
+ <polygon points="1381,762 1385,764 1387,762 1384,760 1381,762" stroke="#CD0000" fill="#CD0000"/>
+ <text x="748" y="842" fill="#000000" font-family="Arial" font-size="12">55 / 2</text>
+ <polyline points="363,815 368,806 371,797 374,787 377,777 380,768 384,758 388,749 395,740 403,732 414,725 454,705 490,693 524,686 556,685 588,687 620,691 655,697 691,703 732,707 778,709 780,709 781,709 782,709 784,709 786,709 787,709 789,709 790,709 792,709 793,709" stroke="#0000CD" fill="none"/>
+ <polygon points="793,707 798,709 793,711 793,707" stroke="#0000CD" fill="#0000CD"/>
+ <text x="560" y="682" fill="#000000" font-family="Arial" font-size="12">38</text>
+ <polyline points="358,815 362,805 364,795 365,784 366,774 365,763 365,751 365,739 366,726 368,712 372,698 392,641 413,584 435,527 458,471 480,419 502,370 521,327 538,290 551,260 561,239" stroke="#0000CD" fill="none"/>
+ <polygon points="560,238 563,235 563,240 560,238" stroke="#0000CD" fill="#0000CD"/>
+ <text x="375" y="656" fill="#000000" font-family="Arial" font-size="12">5</text>
+ <polygon points="2258,334 1818,334 1818,356 2262,356 2262,338 2258,334" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2258,334 2258,338" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2262,338 2258,338" stroke="#C0C0C0" fill="none"/>
+ <text x="1826" y="350" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagramMetadata.java</text>
+ <polyline points="1802,367 1803,367 1805,366 1806,366 1808,365 1809,365 1811,365 1813,364 1814,364 1816,363 1818,363 1821,362 1825,362 1828,361 1832,361 1835,360 1838,359 1842,359 1845,358 1849,358 1852,357" stroke="#0000CD" fill="none"/>
+ <polygon points="1852,355 1857,356 1853,359 1852,355" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1768" y="373" fill="#000000" font-family="Arial" font-size="12">10</text>
+ <polygon points="1192,636 826,636 826,658 1196,658 1196,640 1192,636" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1192,636 1192,640" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1196,640 1192,640" stroke="#C0C0C0" fill="none"/>
+ <text x="834" y="652" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/WindfieldContainer.java</text>
+ <polyline points="1094,636 1111,634 1128,632 1146,630 1165,627 1185,625 1204,623 1224,621 1245,619 1265,618 1285,616" stroke="#0000CD" fill="none"/>
+ <polygon points="1285,614 1290,616 1286,618 1285,614" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1247" y="616" fill="#000000" font-family="Arial" font-size="12">3</text>
+ <polyline points="1171,658 1175,658 1179,659 1182,659 1186,660 1190,660 1194,660 1197,661 1201,661 1204,662 1208,662 1218,663 1226,665 1234,666 1240,667 1247,669 1254,670 1260,672 1268,673 1276,674 1286,675 1347,680 1410,683 1473,686 1537,687 1599,688 1660,689 1718,688 1774,688 1827,686 1875,685" stroke="#0000CD" fill="none"/>
+ <polygon points="1875,683 1880,685 1875,687 1875,683" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1509" y="673" fill="#000000" font-family="Arial" font-size="12">7</text>
+ <polygon points="693,777 437,777 437,799 697,799 697,781 693,777" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="693,777 693,781" stroke="#C0C0C0" fill="none"/>
+ <polyline points="697,781 693,781" stroke="#C0C0C0" fill="none"/>
+ <text x="445" y="793" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/rendering/Rendering.java</text>
+ <polygon points="1148,759 870,759 870,781 1152,781 1152,763 1148,759" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1148,759 1148,763" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1152,763 1148,763" stroke="#C0C0C0" fill="none"/>
+ <text x="878" y="775" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/rendering/SVGPrimitives.java</text>
+ <polyline points="697,783 713,782 730,782 746,781 763,780 781,780 798,779 815,778 832,777 849,777 865,776" stroke="#0000CD" fill="none"/>
+ <polygon points="865,774 870,776 865,778 865,774" stroke="#0000CD" fill="#0000CD"/>
+ <text x="759" y="777" fill="#000000" font-family="Arial" font-size="12">4</text>
+ <polygon points="707,863 423,863 423,885 711,885 711,867 707,863" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="707,863 707,867" stroke="#C0C0C0" fill="none"/>
+ <polyline points="711,867 707,867" stroke="#C0C0C0" fill="none"/>
+ <text x="431" y="879" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/decisionScheme/Decision.java</text>
+ <polygon points="1724,625 1298,625 1298,647 1728,647 1728,629 1724,625" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1724,625 1724,629" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1728,629 1724,629" stroke="#C0C0C0" fill="none"/>
+ <text x="1306" y="641" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/loader/SpaceWindFieldLoader.java</text>
+ <polygon points="2234,627 1842,627 1842,649 2238,649 2238,631 2234,627" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2234,627 2234,631" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2238,631 2234,631" stroke="#C0C0C0" fill="none"/>
+ <text x="1850" y="643" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/windfield/loader/WindFieldLoader.java</text>
+ <polyline points="1728,637 1739,637 1750,637 1761,637 1771,637 1782,637 1793,637 1804,637 1815,637 1825,637 1836,637" stroke="#0000CD" fill="none"/>
+ <polygon points="1837,635 1842,637 1837,639 1837,635" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1771" y="635" fill="#000000" font-family="Arial" font-size="12">1</text>
+ <polygon points="708,187 422,187 422,209 712,209 712,191 708,187" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="708,187 708,191" stroke="#C0C0C0" fill="none"/>
+ <polyline points="712,191 708,191" stroke="#C0C0C0" fill="none"/>
+ <text x="430" y="203" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/navigation/SailingDuration.java</text>
+ <polyline points="712,198 730,198 749,198 768,198 787,198 806,198 825,198 844,198 863,198 881,198 898,198" stroke="#0000CD" fill="none"/>
+ <polygon points="898,196 903,198 898,200 898,196" stroke="#0000CD" fill="#0000CD"/>
+ <text x="759" y="196" fill="#000000" font-family="Arial" font-size="12">6</text>
+ <polygon points="2169,846 1907,846 1907,868 2173,868 2173,850 2169,846" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2169,846 2169,850" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2173,850 2169,850" stroke="#C0C0C0" fill="none"/>
+ <text x="1914" y="862" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/datatypes/WindVector.java</text>
+ <polygon points="2168,789 1908,789 1908,811 2172,811 2172,793 2168,789" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2168,789 2168,793" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2172,793 2168,793" stroke="#C0C0C0" fill="none"/>
+ <text x="1915" y="805" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/datatypes/Coordinate.java</text>
+ <polygon points="1627,787 1395,787 1395,809 1631,809 1631,791 1627,787" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1627,787 1627,791" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1631,791 1627,791" stroke="#C0C0C0" fill="none"/>
+ <text x="1403" y="803" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/datatypes/Track.java</text>
+ <polyline points="1631,798 1656,798 1682,798 1709,799 1737,799 1765,799 1794,799 1822,799 1849,799 1876,799 1902,799" stroke="#0000CD" fill="none"/>
+ <polygon points="1902,798 1907,799 1902,801 1902,798" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1768" y="797" fill="#000000" font-family="Arial" font-size="12">15</text>
+ <polygon points="1204,344 814,344 814,366 1208,366 1208,348 1204,344" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1204,344 1204,348" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1208,348 1204,348" stroke="#C0C0C0" fill="none"/>
+ <text x="822" y="360" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram/BoatSpeedDiagram.java</text>
+ <polyline points="1075,366 1092,369 1110,372 1130,375 1150,378 1171,381 1193,383 1215,386 1237,389 1259,391 1281,393" stroke="#0000CD" fill="none"/>
+ <polygon points="1281,391 1286,393 1281,394 1281,391" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1247" y="387" fill="#000000" font-family="Arial" font-size="12">8</text>
+ <polyline points="1208,353 1262,352 1320,352 1381,351 1443,351 1507,350 1571,349 1635,349 1697,348 1757,348 1813,347" stroke="#0000CD" fill="none"/>
+ <polygon points="1813,345 1818,347 1813,349 1813,345" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1509" y="346" fill="#000000" font-family="Arial" font-size="12">6</text>
+ <polygon points="1626,837 1396,837 1396,859 1630,859 1630,841 1626,837" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1626,837 1626,841" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1630,841 1626,841" stroke="#C0C0C0" fill="none"/>
+ <text x="1403" y="853" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/datatypes/Node.java</text>
+ <polyline points="1631,852 1644,853 1657,853 1671,854 1685,854 1699,854 1713,855 1727,855 1741,855 1754,856 1768,856 1781,856 1794,856 1808,857 1821,857 1835,857 1848,857 1862,857 1875,857 1888,857 1901,857" stroke="#0000CD" fill="none"/>
+ <polygon points="1901,855 1906,857 1901,859 1901,855" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1771" y="854" fill="#000000" font-family="Arial" font-size="12">9</text>
+ <polyline points="1631,837 1657,835 1684,832 1713,830 1742,827 1772,824 1801,822 1831,819 1860,816 1887,813 1914,811" stroke="#0000CD" fill="none"/>
+ <polygon points="1914,810 1919,811 1914,813 1914,810" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1771" y="822" fill="#000000" font-family="Arial" font-size="12">9</text>
+ <polygon points="2243,408 1833,408 1833,430 2247,430 2247,412 2243,408" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2243,408 2243,412" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2247,412 2243,412" stroke="#C0C0C0" fill="none"/>
+ <text x="1841" y="424" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram/loader/BoatFieldLoader.java</text>
+ <polygon points="1668,509 1354,509 1354,531 1672,531 1672,513 1668,509" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1668,509 1668,513" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1672,513 1668,513" stroke="#C0C0C0" fill="none"/>
+ <text x="1362" y="525" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/algorithms/Bilinear.java</text>
+ <polygon points="2233,502 1843,502 1843,524 2237,524 2237,506 2233,502" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="2233,502 2233,506" stroke="#C0C0C0" fill="none"/>
+ <polyline points="2237,506 2233,506" stroke="#C0C0C0" fill="none"/>
+ <text x="1850" y="518" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/algorithms/InterpolationAlgorithm.java</text>
+ <polyline points="1672,518 1688,518 1704,517 1720,517 1737,517 1753,517 1770,516 1787,516 1804,516 1820,516 1837,516" stroke="#0000CD" fill="none"/>
+ <polygon points="1837,514 1842,516 1837,517 1837,514" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1771" y="514" fill="#000000" font-family="Arial" font-size="12">1</text>
+ <polygon points="332,863 36,863 36,885 336,885 336,867 332,863" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="332,863 332,867" stroke="#C0C0C0" fill="none"/>
+ <polyline points="336,867 332,867" stroke="#C0C0C0" fill="none"/>
+ <text x="44" y="879" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/decisionScheme/GridFrame.java</text>
+ <polyline points="336,874 344,874 352,874 360,874 369,874 377,874 385,874 393,874 401,874 409,874 417,874" stroke="#0000CD" fill="none"/>
+ <polygon points="418,872 423,874 418,876 418,872" stroke="#0000CD" fill="#0000CD"/>
+ <text x="372" y="872" fill="#000000" font-family="Arial" font-size="12">27</text>
+ <polygon points="672,89 458,89 458,111 676,111 676,93 672,89" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="672,89 672,93" stroke="#C0C0C0" fill="none"/>
+ <polyline points="676,93 672,93" stroke="#C0C0C0" fill="none"/>
+ <text x="466" y="105" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/properties/PropertyLoad.java</text>
+ <polygon points="1728,415 1294,415 1294,437 1732,437 1732,419 1728,415" stroke="#C0C0C0" fill="#FFFFFF"/>
+ <polyline points="1728,415 1728,419" stroke="#C0C0C0" fill="none"/>
+ <polyline points="1732,419 1728,419" stroke="#C0C0C0" fill="none"/>
+ <text x="1302" y="431" fill="#000000" font-family="Arial" font-size="12">ch/zhaw/lakerouting/interpolation/boatdiagram/loader/CSVBoatFieldLoader.java</text>
+ <polyline points="1732,424 1737,424 1742,424 1747,423 1752,423 1757,423 1762,423 1767,423 1772,423 1777,423 1782,423 1787,423 1791,423 1796,423 1800,423 1805,423 1809,423 1814,423 1819,422 1823,422 1828,422" stroke="#0000CD" fill="none"/>
+ <polygon points="1828,421 1833,422 1828,424 1828,421" stroke="#0000CD" fill="#0000CD"/>
+ <text x="1771" y="421" fill="#000000" font-family="Arial" font-size="12">1</text>
+</svg>
