@@ -18,9 +18,20 @@ Desweiteren erbt diese Klasse von der Interface $Comparable$, um Vergleiche zwis
 
 Als nächstes wurde innerhalb der ArrayList eine sogenannte LinkedList implementiert. Jeder Knoten beinhaltet eine Referenz zum vorherigen Knoten und der Anfangsknoten hat eine Referenz auf sich selbst. Dementsprechend braucht man nicht durch alle Knoten zu iterieren um einen Pfad zu zeichnen, sondern es reicht den Knoten zu wählen, von dem man den Pfad zum Anfang zeichnen möchte. \\
 
-Die Implementation der Klasse Node sieht wie folgt aus:
+Die Implementation der Klasse $Node$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:nodeClass,caption=Node-Class]{code/node.java}
+
+\subsection{Coordinate}
+Um die Koordinaten der Knoten in der Klasse $Node$ abspeichern zu können, haben wir eine Klasse $Coordinate$ erstellt. Normalerweise werden die GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125 Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der Orthodromie es der Fall ist. 
+
+Damit wir nicht zwei Datentypen für diese zwei Einheiten erstellen müssen, werden diese jeweils mit einem Getter \& Setter jeweils gesetzt und erhalten. Da wir nicht vier Variablen erstellen möchten, zwei für Grad und zwei für Radian, und die Klasse an sich selbst auch nichts über den Inhalt wissen muss, ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und im internen als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte intern nur in Grad gehandhabt werden und bei Bedarf nach Aussen in Radian umgerechnet werden. Es ist aber auch möglich die GPS-Koordinaten in Radian zu setzen, welches im internen in Grad umgerechnet und abgespeichert wird. 
+
+Somit kann diese Klasse jederzeit erweitert und neue "Formate" hinzugefügt werden, ohne die Funktionalität zu beeinträchtigen. \\
+
+Die Implementation der Klasse $Coordinate$ sieht wie folgt aus:
+
+\lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
 \section{Polar-Diagramm}
 \subsection{Parser}
