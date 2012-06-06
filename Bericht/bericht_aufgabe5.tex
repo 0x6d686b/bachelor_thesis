@@ -33,13 +33,27 @@ bekannt. Daraus kann die Geschwindigkeit des Segelbootes bestimmt werden
 (ausgehend von Punkt $A$). Diese Geschwindigkeit wird nun für die gesamte
 Distanz angenommen und daraus resultiert eine ungefähre Ankunftszeit. Wir
 nehmen hier an, dass das Windfeld zu einem späteren Zeitpunkt nicht so stark
-ändert, dass unsere Berechnungen zu stark von einem vernünftigen Wert abweicht,
-unter anderem weil dies der Natur von Windfeldern widersprechen würde.
-Ausgenommen sind Extremsituationen wie Windhosen oder Tornados. Aber in solchen
-Situationen wäre das Segeln auch nicht vernünftig.
+ändert, dass unsere Berechnungen zu stark von einem vernünftigen Wert
+abweicht, unter anderem weil dies der Natur von Windfeldern widersprechen
+würde.  Ausgenommen sind Extremsituationen wie Windhosen oder Tornados. Aber
+in solchen Situationen wäre das Segeln auch nicht vernünftig.
 
 \subsection{Kurs (Track)}
-Die Geschwindigkeit des Segelschiffes hängt einerseits von der Intensität des Windes und andererseits von der Einfallswinkel des Windvektors ab. Damit der Einfallswinkel des Windvektors berechnet werden kann, muss bekannt sein, in welche Richtung das Segelschiff segelt. Die Berechnung des Kurses findet wie folgt statt: Zuerst wird ein Kreuzprodukt der zwei Vektoren vom Ursprung  \(\overrightarrow{A}\) und \(\overrightarrow{B}\) brerechnet. Das Resultat entspricht dann der Normalenvektor \(\overrightarrow{N}\), welche senkrecht zu der aufgespalteten Ebene von \(\overrightarrow{A}\) und \(\overrightarrow{B}\) steht. Danach wird wiederum ein Kreuzprodukt berechnet, diesmal aber vom Vektor \(\overrightarrow{A}\) und dem Normalenvektor \(\overrightarrow{N}\). Dies ergibt als Resultat die Richtung des Segelschiffes. Da dieser Vektor aber 3-dimensional ist, muss sie auf die lokale Tangentialebene (\(\overrightarrow{e_{\theta}}\), \(\overrightarrow{e_{\phi}}\)) des Punktes $A$ projiziert werden, damit wir ein 2-dimensionales Vektor kriegen. \\
+Die Geschwindigkeit des Segelschiffes hängt einerseits von der Intensität des
+Windes und andererseits von der Einfallswinkel des Windvektors ab. Damit der
+Einfallswinkel des Windvektors berechnet werden kann, muss bekannt sein, in
+welche Richtung das Segelschiff segelt. Die Berechnung des Kurses findet wie
+folgt statt: Zuerst wird ein Kreuzprodukt der zwei Vektoren vom Ursprung
+\(\overrightarrow{A}\) und \(\overrightarrow{B}\) brerechnet. Das Resultat
+entspricht dann der Normalenvektor \(\overrightarrow{N}\), welche senkrecht zu
+der aufgespalteten Ebene von \(\overrightarrow{A}\) und \(\overrightarrow{B}\)
+steht. Danach wird wiederum ein Kreuzprodukt berechnet, diesmal aber vom
+Vektor \(\overrightarrow{A}\) und dem Normalenvektor \(\overrightarrow{N}\).
+Dies ergibt als Resultat die Richtung des Segelschiffes. Da dieser Vektor aber
+3-dimensional ist, muss sie auf die lokale Tangentialebene
+(\(\overrightarrow{e_{\theta}}\), \(\overrightarrow{e_{\phi}}\)) des Punktes
+$A$ projiziert werden, damit wir ein 2-dimensionales Vektor kriegen.
+
 Die grafische Darstellung dieser Berechnung sieht wie folgt aus:
 \begin{figure}[h!]
 \centering

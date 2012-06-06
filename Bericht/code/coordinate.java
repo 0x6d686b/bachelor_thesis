@@ -9,6 +9,7 @@ public class Coordinate {
     /** Restricting range of latitude */
     private static final double MAX_LATITUDE = 90.0;
 
+
     private Logger logger = Logger.getLogger(this.getClass());  
     private BigDecimal longitude;
     private BigDecimal latitude;

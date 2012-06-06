@@ -1,14 +1,42 @@
 \section{Implementierung}
 
+\subsection{Klassendiagramm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+\includegraphics[width=\textheight, angle=90]{img/ArchInternalDependencies-ch}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+\includegraphics[width=\textheight, angle=90]{img/ArchitectureGraph-ch}
+\end{minipage}
+
 \subsection{GraphList}
-Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die Grösse des Arrays variabel ist und wir zum grössten Teil einen index-basierten Zugriff benötigen, haben wir uns entschieden die Datnestruktur $java.util.ArrayList$ mit Generics zu verwenden. Eine generische ArrayList erlaubt es genau zu definieren, welche Elemente/Datentypen einer ArrayList hinzugefügt werden dürfen. Ausserdem brauchen wir für eine tabellarische Form ein 2-dimensionales ArrayList. Um dies zu erreichen, wird ein ArrayList in einem ArrayList definiert. Somit entspricht der erste ArrayList der Spalten und die zweite der Zeilen dieser Spalten. \\
+Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir
+eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die
+Grösse des Arrays variabel ist und wir zum grössten Teil einen index-basierten
+Zugriff benötigen, haben wir uns entschieden die Datnestruktur
+$java.util.ArrayList$ mit Generics zu verwenden. Eine generische ArrayList
+erlaubt es genau zu definieren, welche Elemente/Datentypen einer ArrayList
+hinzugefügt werden dürfen. Ausserdem brauchen wir für eine tabellarische Form
+ein 2-dimensionales ArrayList. Um dies zu erreichen, wird ein ArrayList in
+einem ArrayList definiert. Somit entspricht der erste ArrayList der Spalten
+und die zweite der Zeilen dieser Spalten.
+
 Dementsprechend sieht die Initialisierung des ArrayLists so aus:
 
 \lstinputlisting[label=src:graphListInitialization,caption=Initialisierung der Liste]{code/graphlist_initialize.java}
 
 \subsubsection{Node}
-Für die Speicherung der Daten wurde eine Klasse $Node$ erstellt, welche die Werte über die Knoten beinhaltet. Weil wir nun mehrere Informationen zu den einzelnen Knoten haben, haben wir uns entschieden, neben den Auflistungen in \ref{aufg6:entscheidungsbaum} auch noch weitere Daten in der Liste abzuspeichern, um Redundanz zu vermeiden. Deshalb werden neu auch Koordinaten zu den Knoten und die dazugehörigen Windvektoren in der Liste abgelegt. \\
+Für die Speicherung der Daten wurde eine Klasse $Node$ erstellt, welche die
+Werte über die Knoten beinhaltet. Weil wir nun mehrere Informationen zu den
+einzelnen Knoten haben, haben wir uns entschieden, neben den Auflistungen in
+\ref{aufg6:entscheidungsbaum} auch noch weitere Daten in der Liste
+abzuspeichern, um Redundanz zu vermeiden. Deshalb werden neu auch Koordinaten
+zu den Knoten und die dazugehörigen Windvektoren in der Liste abgelegt.
+
 Demzufolge enthält die Klasse folgende Informationen:
+
 \begin{itemize}
 \item \textbf{TimeOfArrival}: Die Dauer vom Anfangsknoten bis zu diesem Knoten.
 \item \textbf{Previous Node}: Die Referenz zum vorherigen Knoten.
@@ -16,29 +44,55 @@ Demzufolge enthält die Klasse folgende Informationen:
 \item \textbf{WindVektor}: Der Windvektor $(u, v)$ an diesem Knoten.
 \end{itemize}
 
-Desweiteren erbt diese Klasse von der Interface $Comparable$, um Vergleiche zwischen den Knoten zu ermöglichen. Infolgedessen ist es möglich, die Klasse $Collections$ zu benutzen, welche nützliche Methoden für Listen wie $min()$, $max()$, $sort()$ etc. enthält. Wir machen in unserem Code von der $min()$-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in einer Spalte zu finden. \\
+Desweiteren erbt diese Klasse von der Interface $Comparable$, um Vergleiche
+zwischen den Knoten zu ermöglichen. Infolgedessen ist es möglich, die Klasse
+$Collections$ zu benutzen, welche nützliche Methoden für Listen wie $min()$,
+$max()$, $sort()$ etc. enthält. Wir machen in unserem Code von der
+$min()$-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in
+einer Spalte zu finden.
 
-Als nächstes wurde innerhalb der ArrayList eine sogenannte LinkedList implementiert. Jeder Knoten beinhaltet eine Referenz zum vorherigen Knoten und der Anfangsknoten hat eine Referenz auf sich selbst. Dementsprechend braucht man nicht durch alle Knoten zu iterieren um einen Pfad zu zeichnen, sondern es reicht den Knoten zu wählen, von dem man den Pfad zum Anfang zeichnen möchte. \\
+Als nächstes wurde innerhalb der ArrayList eine sogenannte LinkedList
+implementiert. Jeder Knoten beinhaltet eine Referenz zum vorherigen Knoten und
+der Anfangsknoten hat eine Referenz auf sich selbst. Dementsprechend braucht
+man nicht durch alle Knoten zu iterieren um einen Pfad zu zeichnen, sondern es
+reicht den Knoten zu wählen, von dem man den Pfad zum Anfang zeichnen möchte.
 
 Die Implementation der Klasse $Node$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:nodeClass,caption=Node-Class]{code/node.java}
 
+
 \subsubsection{Coordinate}
-Um die Koordinaten der Knoten in der Klasse $Node$ abspeichern zu können, haben wir eine Klasse $Coordinate$ erstellt. Normalerweise werden die GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125 Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der Orthodromie es der Fall ist. 
+Um die Koordinaten der Knoten in der Klasse $Node$ abspeichern zu können,
+haben wir eine Klasse $Coordinate$ erstellt. Normalerweise werden die
+GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125
+Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll
+sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der
+Orthodromie es der Fall ist. 
 
-Damit wir nicht zwei Datentypen für diese zwei Einheiten erstellen müssen, werden diese jeweils mit einem Getter \& Setter jeweils gesetzt und erhalten. Da wir nicht vier Variablen erstellen möchten, zwei für Grad und zwei für Radian, und die Klasse an sich selbst auch nichts über den Inhalt wissen muss, ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und im internen als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte intern nur in Grad gehandhabt werden und bei Bedarf nach Aussen in Radian umgerechnet werden. Es ist aber auch möglich die GPS-Koordinaten in Radian zu setzen, welches im internen in Grad umgerechnet und abgespeichert wird. 
+Damit wir nicht zwei Datentypen für diese zwei Einheiten erstellen müssen,
+werden diese jeweils mit einem Getter \& Setter jeweils gesetzt und erhalten.
+Da wir nicht vier Variablen erstellen möchten, zwei für Grad und zwei für
+Radian, und die Klasse an sich selbst auch nichts über den Inhalt wissen muss,
+ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und im
+internen als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte
+intern nur in Grad gehandhabt werden und bei Bedarf nach Aussen in Radian
+umgerechnet werden. Es ist aber auch möglich die GPS-Koordinaten in Radian zu
+setzen, welches im internen in Grad umgerechnet und abgespeichert wird. 
 
-Somit kann diese Klasse jederzeit erweitert und neue "Formate" hinzugefügt werden, ohne die Funktionalität zu beeinträchtigen. \\
+Somit kann diese Klasse jederzeit erweitert und neue "Formate" hinzugefügt
+werden, ohne die Funktionalität zu beeinträchtigen.
 
 Die Implementation der Klasse $Coordinate$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
+
 % Vielleicht noch Windvector beschreiben
 
 \subsection{Polar-Diagramm}
 \subsubsection{Parser}
+
 Die Schiffsdaten sind als CSV\footnote{Comma Separated Values}-Datei gegeben
 und werden von einem selbst\-geschriebenen Parser in ein passendes
 Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin, dass die Daten
@@ -119,3 +173,17 @@ Eine solche Properties-Datei kann mittels der Klasse $java.util.Properties$ eing
 Die Implementierung der Klasse $PropertyLoad$:
 \lstinputlisting[label=src:propLoad,caption=PropertyLoad-Klasse]{code/propertyLoad.java}
 
+\subsection{Logging}
+% TODO: Quellen angeben
+Für das Logging wird die Log4j-Library von Apache Software Foundation verwendet. Dieses Framework
+erlaubt uns, mehrere Loggingsysteme zu defnieren und die Standardausgaben über sogenannte Logger an sie
+weiterzuleiten. Somit ist es zum Beispiel möglich, die Meldungen gleichzeitig in einer Datei, an einem Syslog-
+Daemon und auf der Konsole auszugeben. Die Library ermöglicht sehr flexible Konfigurationen. Die Abhängigkeiten sind gering, man muss nur eine JAR-Datei als Library in das Projekt hinzufügen, gleiches gilt für die Verwendung: Eine einfache Verwendung ohne grosse Einarbeitungszeit ist hier möglich.
+
+Wir haben uns für den Logging entschieden, da die Konsolenausgaben viel Performance beanspruchen und diese Ausgaben nach der Schliessung der Anwendung verschwinden. Diese Ausgaben können zum Teil sehr behilflich sein, wie z.B. die Fehlerquelle zu identifizieren oder herauszufinden, was als letztes ausgeführt wurde. 
+
+Deswegen werden jetzt die Ausgaben in eine Datei namens $lakeRouting.log$ umgelenkt. Falls die Grösse der Datei die maximale Grösse von 10MB erreicht, wird diese Datei mit dem Datum versehen und eine neue Datei mit dem gleichen Namen angelegt. 
+
+Dies wurde erreicht, indem man mit der unten aufgeführten log4j.properties-Datei die Konfiguration einliest. Das Einlesen der Properties-Datei erfolgt nur an einer einzigen Stelle im ganzen Projekt, da es nur einmal geladen werden muss und die Einstellungen dann für die ganze Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner ausgeführt wird} gültig sind.
+
+\lstinputlisting[label=src:log4jProperties,caption=Properties-Datei der Log4j]{code/log4j.properties}

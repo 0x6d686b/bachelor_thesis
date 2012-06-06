@@ -322,32 +322,6 @@ unsere Route nicht das Gewässer verlässt.
 
 \include{implementation}
 
-\subsection{Klassendiagramm}
-\begin{minipage}[b]{0.5\linewidth}
-\centering
-\includegraphics[width=\textheight, angle=90]{img/ArchInternalDependencies-ch}
-\end{minipage}
-\hspace{0.5cm}
-\begin{minipage}[b]{0.5\linewidth}
-\centering
-\includegraphics[width=\textheight, angle=90]{img/ArchitectureGraph-ch}
-\end{minipage}
-
-\subsection{Logging}
-% TODO: Quellen angeben
-Für das Logging wird die Log4j-Library von Apache Software Foundation verwendet. Dieses Framework
-erlaubt uns, mehrere Loggingsysteme zu defnieren und die Standardausgaben über sogenannte Logger an sie
-weiterzuleiten. Somit ist es zum Beispiel möglich, die Meldungen gleichzeitig in einer Datei, an einem Syslog-
-Daemon und auf der Konsole auszugeben. Die Library ermöglicht sehr flexible Konfigurationen. Die Abhängigkeiten sind gering, man muss nur eine JAR-Datei als Library in das Projekt hinzufügen, gleiches gilt für die Verwendung: Eine einfache Verwendung ohne grosse Einarbeitungszeit ist hier möglich.
-
-Wir haben uns für den Logging entschieden, da die Konsolenausgaben viel Performance beanspruchen und diese Ausgaben nach der Schliessung der Anwendung verschwinden. Diese Ausgaben können zum Teil sehr behilflich sein, wie z.B. die Fehlerquelle zu identifizieren oder herauszufinden, was als letztes ausgeführt wurde. 
-
-Deswegen werden jetzt die Ausgaben in eine Datei namens $lakeRouting.log$ umgelenkt. Falls die Grösse der Datei die maximale Grösse von 10MB erreicht, wird diese Datei mit dem Datum versehen und eine neue Datei mit dem gleichen Namen angelegt. 
-
-Dies wurde erreicht, indem man mit der unten aufgeführten log4j.properties-Datei die Konfiguration einliest. Das Einlesen der Properties-Datei erfolgt nur an einer einzigen Stelle im ganzen Projekt, da es nur einmal geladen werden muss und die Einstellungen dann für die ganze Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner ausgeführt wird} gültig sind.
-
-\lstinputlisting[label=src:log4jProperties,caption=Properties-Datei der Log4j]{code/log4j.properties}
-
 \section{JavaDoc}
 % Wie JavaDoc zu bedienen sei und was alles dort drin steht.
 
@@ -358,31 +332,7 @@ Dies wurde erreicht, indem man mit der unten aufgeführten log4j.properties-Date
 \newpage
 \part{Diskussion und Ausblick}
 % Interpretation und Validierung der Resultate
-
-\section{Erweiterbarkeit}
-% Zeigen, dass es leicht erweiterbar und wiederverwendbar ist.
-\subsection{Parallelisierung}
-% Aufzeigen, dass Paralellisierung möglich ist.
-\subsection{Weitere Datenquellen}
-% Wie weitere Datenquellen eingesetzt werden können (z.B. HTTP anstatt Datei)
-\subsection{Website}
-% Wie daraus eine Webseite gemacht werden kann. Apps?
-
-\section{Programmiertechnische Grenzen}
-% (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
-% Im Bericht sollte ein Absatz vorhanden sein, welches die 
-% programmiertechnischen Grenzen oder Genauigkeiten der mathematischen 
-% Funktionen wie Sinus/Cosinus, Datentypen etc. behandelt und diskutiert. 
-
-\section{Optimierungsmöglichkeiten}
-\subsection{Sonderfälle}
-% Das Problem mit Spread ausdiskutieren
-% Grössere Distanzen
-
-\section{Erkenntnisse}
-\subsection{Schlussfolgerung}
-\subsection{Arbeitsrevue}
-
+\include{discussion}
 \newpage
 \part{Anhang}
 
