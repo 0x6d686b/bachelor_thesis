@@ -147,6 +147,19 @@ Spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
 Allerdings lässt sich der Parser leicht auf andere Ressourcen erweitern wie zum
 Beispiel HTTP und erlaubt auch die direkte Anbindung an Datenbanken.
 
+Das Prinzip vom Parser ist einfach: Er öffnet die Datei, versucht den Header
+des Windfeldes zu erkennen, liest diesen ein. Alle nachfolgenden Zeilen des
+Blocks werden als Windfeld-Daten interpretiert. Erscheint eine Leerzeile wird
+der Block als abgeschlossen betrachtet und er versucht den nächsten Header zu
+erkennen. Grafisch sieht der Controllflow wiefolgt aus:
+
+\begin{center}
+ \includegraphics[width=0.8\linewidth]{img/ControlFlowGraph-SpaceWindFieldLoader-read}
+\end{center}
+
+\lstinputlisting[label=src:windfieldparser,caption={Windfield-Parser,
+Codeausschnitt der relevanten Funktionen}]{code/spacewindfieldloader.java}
+
 \subsubsection{Interpolation der Windvektoren}
 Da das Windfeld und das Entscheidungsnetz nicht über dieselben Koordinaten
 verfügen und dementsprechend die Entscheidungspunkte normalerweise zwischen den
