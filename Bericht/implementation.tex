@@ -87,8 +87,17 @@ Die Implementation der Klasse $Coordinate$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
+\subsubsection{Windvector}
+Ein Windvektor ist nichts anderes als ein Komposit von zwei normalen Vektoren und
+beinhaltet weitere zwei Getter-Methoden für die häufig verwendeten Berechnunungen 
+wie die Windgeschwindigkeit und die Winkel. Der Vektor $u$ zeigt in den Norden 
+und der Vektor $v$ zeigt in den Osten. Aus diesem Grund wird die Geschwindigkeit 
+durch den Betrag der zwei Vektoren berechnet. Und der Winkel lässt sich mit dem 
+Arkuskosinus von Vektor $u$ und der Windgeschwindigkeit berechnen, wobei der
+Winkel von Norden im Uhrzeigersinn zeigt.
 
-% Vielleicht noch Windvector beschreiben
+\lstinputlisting[label=src:windvectorClass,caption=WindVector-Class]{code/windvector.java}
+
 
 \subsection{Polar-Diagramm}
 \subsubsection{Parser}
