@@ -62,6 +62,16 @@ Die grafische Darstellung dieser Berechnung sieht wie folgt aus:
 \label{gridnetConn}
 \end{figure}
 
+\subsection{Kurs (Track)}
+Die Geschwindigkeit des Segelschiffes hängt einerseits von der Intensität des Windes und andererseits von der Einfallswinkel des Windvektors ab. Damit der Einfallswinkel des Windvektors berechnet werden kann, muss bekannt sein, in welche Richtung das Segelschiff segelt. Die Berechnung des Kurses findet wie folgt statt: Zuerst wird ein Kreuzprodukt der zwei Vektoren vom Ursprung  \(\overrightarrow{A}\) und \(\overrightarrow{B}\) brerechnet. Das Resultat entspricht dann der Normalenvektor \(\overrightarrow{N}\), welche senkrecht zu der aufgespalteten Ebene von \(\overrightarrow{A}\) und \(\overrightarrow{B}\) steht. Danach wird wiederum ein Kreuzprodukt berechnet, diesmal aber vom Vektor \(\overrightarrow{A}\) und dem Normalenvektor \(\overrightarrow{N}\). Dies ergibt als Resultat die Richtung des Segelschiffes. Da dieser Vektor aber 3-dimensional ist, muss sie auf die lokale Tangentialebene (\(\overrightarrow{e_{\theta}}\), \(\overrightarrow{e_{\phi}}\)) des Punktes $A$ projiziert werden, damit wir ein 2-dimensionales Vektor kriegen. \\
+Die grafische Darstellung dieser Berechnung sieht wie folgt aus:
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/track}
+\caption{Berechnung des Kurses}
+\label{gridnetConn}
+\end{figure}
+
 \subsection{Implementation}
 In der Implementation haben wir einen noch einfacheren Ansatz verfolgt:
 
