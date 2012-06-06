@@ -4,12 +4,7 @@
 
 \subsection{Problemanalyse}
 \subsubsection{Erweiterung des geometrischen Entscheidungskerns}
-Da der Windfeld-Container\footnote{Ein Container, der viele verschiedene
-Windfelder beinhaltet, auf die per Index zugegriffen werden kann.} für jede
-Stunde jeweils ein Windfeld beinhaltet, müssen diese natürlich auch bei der
-Berechnung berücksichtigt werden. Je nachdem zu welcher Zeit das Programm
-ausgeführt wird, soll das dazugehörige Windfeld aus dem Container
-herausgenommen und die Werte (die Windvektoren) davon benutzen werden. 
+Da der Windfeld-Container\footnote{Ein Container, der viele verschiedene Windfelder beinhaltet, auf die per Index zugegriffen werden kann.} für jede Stunde jeweils ein Windfeld beinhaltet, müssen diese natürlich auch bei der Berechnung berücksichtigt werden. Je nachdem zu welcher Zeit das Programm ausgeführt wird, soll das dazugehörige Windfeld aus dem Container herausgenommen und die Werte (die Windvektoren) davon benutzen werden. 
 
 Wie auch schon erwähnt, wird für die Berechnung der Dauer die Windvektoren
 benötigt. Deswegen kann es vorkommen, dass während der Fahrt von einem Knoten
@@ -42,9 +37,7 @@ Dementsprechend soll dieser Entscheidungsbaum folgende Angaben beinhalten:
 \item Aktueller Knoten: Die Position des aktuellen Knotens in der Form \texttt{\{i,j\}} .
 \item Dauer: Die Dauer vom Anfangsknoten bis zu diesem Knoten.
 \end{itemize}
-
 Und sieht dann grafisch dargestellt wie folgt aus:
-
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\linewidth]{img/grid_structure}
