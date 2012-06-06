@@ -325,6 +325,33 @@ unsere Route nicht das Gewässer verlässt.
 \section{JavaDoc}
 % Wie JavaDoc zu bedienen sei und was alles dort drin steht.
 
+\subsection{JavaDoc}
+JavaDoc ist ein von Oracle\footnote{Vormals SUN} beziehungsweise von der Java
+SDK mitgelieferter Parser, der die in den Klassen geschriebene Dokumentation
+extrahiert, aufbereitet und als HTML-Dokumente rendert. Es handelt sich dabei
+um eine primitive Markup-Language, die HTML-Tags akzeptiert und somit dem
+Entwickler die Möglichkeit geben, die Dokumentation einfach und direkt zu
+beeinflussen.
+
+So ist es möglich noch während dem Entwickeln den Sourcecode zu dokumentieren,
+also wenn er noch frisch in Erinnerung ist und es wird keine wiederholte
+Einarbeitung benötigt wie einer nachträglichen Dokumentation.
+
+Wenn die Dokumentation erstellt wurde, kann mittels \texttt{javadoc} und
+diversen Switches bestimmt werden bis zu welcher Detailstufe -- sollen die
+private Methoden auch in die Dokumentation erscheinen -- ausgegeben werden
+soll. Auch ist es möglich ein separates CSS-Files anzugeben, um die
+Dokumentation der Corporate-Identity anzupassen. Nachher sind die HTML-Dateien
+bereit für die Publikation auf dem Webserver des Projektes.
+
+\begin{center}
+\begin{minipage}[c]{0.5\linewidth}
+ \centering
+ \includegraphics[width=\linewidth]{img/javadoc-screenshot.pdf}
+\end{minipage}
+\end{center}
+
+
 \include{testing}
 
 
