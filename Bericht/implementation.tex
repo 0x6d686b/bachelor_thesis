@@ -1,10 +1,12 @@
-\section{GraphList}
+\section{Implementierung}
+
+\subsection{GraphList}
 Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die Grösse des Arrays variabel ist und wir zum grössten Teil einen index-basierten Zugriff benötigen, haben wir uns entschieden die Datnestruktur $java.util.ArrayList$ mit Generics zu verwenden. Eine generische ArrayList erlaubt es genau zu definieren, welche Elemente/Datentypen einer ArrayList hinzugefügt werden dürfen. Ausserdem brauchen wir für eine tabellarische Form ein 2-dimensionales ArrayList. Um dies zu erreichen, wird ein ArrayList in einem ArrayList definiert. Somit entspricht der erste ArrayList der Spalten und die zweite der Zeilen dieser Spalten. \\
 Dementsprechend sieht die Initialisierung des ArrayLists so aus:
 
 \lstinputlisting[label=src:graphListInitialization,caption=Initialisierung der Liste]{code/graphlist_initialize.java}
 
-\subsection{Node}
+\subsubsection{Node}
 Für die Speicherung der Daten wurde eine Klasse $Node$ erstellt, welche die Werte über die Knoten beinhaltet. Weil wir nun mehrere Informationen zu den einzelnen Knoten haben, haben wir uns entschieden, neben den Auflistungen in \ref{aufg6:entscheidungsbaum} auch noch weitere Daten in der Liste abzuspeichern, um Redundanz zu vermeiden. Deshalb werden neu auch Koordinaten zu den Knoten und die dazugehörigen Windvektoren in der Liste abgelegt. \\
 Demzufolge enthält die Klasse folgende Informationen:
 \begin{itemize}
@@ -22,7 +24,7 @@ Die Implementation der Klasse $Node$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:nodeClass,caption=Node-Class]{code/node.java}
 
-\subsection{Coordinate}
+\subsubsection{Coordinate}
 Um die Koordinaten der Knoten in der Klasse $Node$ abspeichern zu können, haben wir eine Klasse $Coordinate$ erstellt. Normalerweise werden die GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125 Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der Orthodromie es der Fall ist. 
 
 Damit wir nicht zwei Datentypen für diese zwei Einheiten erstellen müssen, werden diese jeweils mit einem Getter \& Setter jeweils gesetzt und erhalten. Da wir nicht vier Variablen erstellen möchten, zwei für Grad und zwei für Radian, und die Klasse an sich selbst auch nichts über den Inhalt wissen muss, ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und im internen als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte intern nur in Grad gehandhabt werden und bei Bedarf nach Aussen in Radian umgerechnet werden. Es ist aber auch möglich die GPS-Koordinaten in Radian zu setzen, welches im internen in Grad umgerechnet und abgespeichert wird. 
@@ -33,8 +35,10 @@ Die Implementation der Klasse $Coordinate$ sieht wie folgt aus:
 
 \lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
-\section{Polar-Diagramm}
-\subsection{Parser}
+% Vielleicht noch Windvector beschreiben
+
+\subsection{Polar-Diagramm}
+\subsubsection{Parser}
 Die Schiffsdaten sind als CSV\footnote{Comma Separated Values}-Datei gegeben
 und werden von einem selbst\-geschriebenen Parser in ein passendes
 Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin, dass die Daten
@@ -48,14 +52,14 @@ einen Parser für eine schwach typisierte Datenstruktur zu schreiben. Eine
 robustere Datenstruktur würde XML bieten, die strikte Einschränkung bis hin zu
 Datentypen für einzelne Felder bietet.
 
-\subsection{Verarbeitungsklasse}
+\subsubsection{Verarbeitungsklasse}
 Die Klasse \texttt{BoatSpeedDiagram.java\footnote{Im Package
 ch.zhaw.lakerouting.interpolation.boatdiagram zu finden}} verwaltet das
 Polardiagram und bietet die nötigen Methoden für die Abfrage der Werte an,
 kapselt die Interpolation, so das der Programmierer sich darum nicht kümmern
 muss.
 
-\subsection{Bilineare Interpolation}\label{sss:bilinearinterpolation}
+\subsubsection{Bilineare Interpolation}\label{sss:bilinearinterpolation}
 Die Interpolation an sich ist durch 
 \begin{equation}
 f(x,y) \approx \begin{bmatrix} 1-x & x \end{bmatrix} \begin{bmatrix}
@@ -72,7 +76,7 @@ geringe Aufbereitung der Eingabewerte, ist dafür einfacher zu testen und somit
 indirekt auch weniger anfällig für Implementationsfehler, was direkt zu
 robusterem Code führt.
 
-\section{Windfelder}
+\subsection{Windfelder}
 Die Implementation ist vergleichsweise einfach gehalten und besteht aus einer
 Klasse für ein einzelnes Windfeld mit Hilfsfunktionalitäten für die
 Interpolation der Windvektoren und das Abfragen der Nachbarsvektoren an einer
@@ -81,7 +85,7 @@ aufbewahrt\footnote{Wir verwenden der Einfachheit halber ein normales Array.}
 Im Prinzip besteht das alles aus einer dreidimensionalen Struktur aus
 Windvektoren.
 
-\subsection{Windfeld-Parser}
+\subsubsection{Windfeld-Parser}
 Der Parser ist ein Eigenbau und wurde speziell für diese Datenstruktur
 geschaffen. Diverse Unzulänglichkeiten wie nicht-leere Zeilen und Trailing
 Spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
@@ -89,7 +93,7 @@ Spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
 Allerdings lässt sich der Parser leicht auf andere Ressourcen erweitern wie zum
 Beispiel HTTP und erlaubt auch die direkte Anbindung an Datenbanken.
 
-\subsection{Interpolation der Windvektoren}
+\subsubsection{Interpolation der Windvektoren}
 Da das Windfeld und das Entscheidungsnetz nicht über dieselben Koordinaten
 verfügen und dementsprechend die Entscheidungspunkte normalerweise zwischen den
 Windvektoren zu liegen kommen, wird nach Berechnung des Entscheidungsnetzes dem
@@ -101,3 +105,17 @@ Klasse.
 Nach dieser initialen Interpolation verfügen das Entscheidungsnetz und das
 Windfeld über dieselben Array-Indizes und können somit leicht (wieder-)
 verwendet werden.
+
+\subsection{Properties}
+Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen diese Applikation laufen gelassen wurde. Die Pfade der Dateien, die in der Applikation eingelesen werden, stimmten nicht überein und bei jeder Übernahme der Änderungen mussten die Pfade angepasst werden. Desweiteren sind statische Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme bereiten können. 
+
+Aus diesem Grund haben wir uns entschieden, eine Properties-Datei zu erstellen, welche als einfacher Konfigurationsmechanismus verwendet wird. In dieser Datei werden Variablen Werte zugewiesen, welche dann im Programm benutzt werden können. 
+
+Nachfolgend wie die Konfigurations-Datei aussieht:
+\lstinputlisting[label=src:configurationProp,caption=Konfigurations-Datei]{code/configuration.properties}
+
+Eine solche Properties-Datei kann mittels der Klasse $java.util.Properties$ eingelesen werden. Dafür haben wir eine eigene Klasse $PropertyLoad$ geschrieben, um uns Tipparbeit zu ersparen und die Handhabung der ganzen Einlesen/Auslesen zu erleichtern. Dieser Klasse wird der Name der Variablen übergeben und es liefert als Ergebnis den Wert zurück, welcher in der Properties-File zu finden ist.
+
+Die Implementierung der Klasse $PropertyLoad$:
+\lstinputlisting[label=src:propLoad,caption=PropertyLoad-Klasse]{code/propertyLoad.java}
+
