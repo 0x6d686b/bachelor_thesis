@@ -11,7 +11,6 @@
 \includegraphics[width=\textheight, angle=90]{img/ArchitectureGraph-ch}
 \end{minipage}
 
-
 \subsection{Decision}
 Die Klasse \texttt{Decision} ist die Hauptklasse unserer Applikation. Alle wichtigen
 Variablen wie \texttt{logger}, \texttt{graphList} oder
@@ -219,7 +218,19 @@ Windfeld über dieselben Array-Indizes und können somit leicht (wieder-)
 verwendet werden.
 
 \subsection{Navigation}
+Es gibt verschiedene Faktoren, die die Dauer der Reise beeinflussen. Nur die Berechnung der Ortho-Distanz reicht nicht aus, da es uns nur den Abstand zwischen zwei Punkten gibt. \\
+Die Faktoren, welche die Dauer beeinflussen sind folgende:
+\begin{itemize}
+\item \textbf{Windgeschwindigkeit}: Der Hauptfaktor für die Berechnung der Dauer. Es muss aber nicht unbedingt heissen, je schneller die Windgeschwindigkeit ist, desto kürzer die Dauer ist.
+\item \textbf{Min- bzw. Max-Geschwindigkeit des Segelschiffes}: Ab einer gewissen Limite ist der Segelschiff immer gleich schnell. Jedes Segelschiff hat eine Min- bzw. eine Max-Geschwindigkeit, egal wie stark oder schwach der Wind ist.
+\item \textbf{Angriffswinkel des Windvektors}: Es spielt auch eine Rolle, von wo der Wind weht. Je nachdem kann ein Wind mit der gleichen Geschwindigkeit das Segelschiff beschleunigen oder verlangsamen.
+\end{itemize}
 
+Wie in Abschnitt \ref{implSegelgeschwindigkeit} in der Formel \eqref{eq:6} betont wurde, wird bei der Berechnung der Dauer die doppelte Strecke durch zwei Segelgeschwindigkeiten geteilt, was das Resultat ergibt. Zuerst wird der Winkel der Verbindung der zwei Punkten mit der Klasse $Track$ berechnet. Danach wird der Unterschied zwischen der Verbindungswinkel und des Windes berechnet. Somit ist der Angriffswinkel des Windvektors auf das Segelschiff gegeben. Anschliessend wird die Segelgeschwindigkeit ermittelt, indem die Windgeschwindigkeit und der Angriffswinkel auf das Polardiagramm interpoliert wird.
+
+Folgend ist ein Ausschnitt der Berechnung abgebildet:
+
+\lstinputlisting[label=src:windfieldparser,caption={Codeausschnitt der Klasse SailingDuration}]{code/sailingDuration.java}
 
 \subsection{Properties}
 Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen
