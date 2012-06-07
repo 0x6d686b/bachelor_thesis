@@ -181,7 +181,7 @@ private static final double TIME_LIMIT_OF_WF = 30d;
 int windField_raise = (int) (position[k][__TRAVELTIME__] / TIME_LIMIT_OF_WF);
 \end{lstlisting}
 
-\subsection{Wraparound-Problem beim Äquatorüberschreiten}
+\subsection{Wrap-around-Problem beim Äquatorüberschreiten}
 Die Orthodromie ist immer die kürzeste Route zwischen zwei Punkten auf einer
 Sphäre. Nehmen wir als Beispiel eine Regatta von Spanien via Australien nach
 Hawaii an. Die Orthodromie würde nun besagen, dass es westwärts -- also via
@@ -192,7 +192,31 @@ Koordinaten) aber wie gewünscht. Eine Verwendung für transatlantische
 Segeltörns oder Äquatorquerungen bedarf einer gründlichen Überprüfung von
 Extrem- und Grenzwertkriterien.
 
-
 \section{Erkenntnisse}
 \subsection{Schlussfolgerung}
+Mit der dynamischen Programmierung ist es möglich komplexe Probleme effizient
+und elegant zu lösen, selbst wenn die Randbedingungen Ringabhängigkeiten
+bilden. Sobald der Kernalgorithmus stabil implementiert ist, kann man einfach
+die Daten für die grafische Darstellung extrahieren. Der Vorteil von der
+dynamischen Programmierung ist die Möglichkeit das Problem so aufzuteilen,
+dass es verteilt läuft und bei einer grossen Anzahl von Berechnungen auch auf
+einem Cluster skaliert.
+
 \subsection{Arbeitsrevue}
+Wie bei jeder Gruppenarbeit ist es typisch, dass unterschiedliche
+Erfahrungsniveaus, Programmierfertigkeiten und Vorwissensstände
+aufeinandertreffen. Doch bei dieser Arbeit war es erstaunlich wie selbst die
+Vorlieben für gewisse Programmiersprachen keinen Einfluss auf die Fertigkeiten
+des Schreiben von Parser und Algorithmen hatten.
+
+Problematischer war allerdings die Tatsache, dass Windows nicht durchgehend
+ein UTF-8 als Charset verwendet und sich das im Repository durch falsche
+Dateinamen manifestierte. Auch war \texttt{git} eine Herausforderung, die
+allerdings sich dann als ein mächtiges und äussert flexibles
+Source-Code-Verwaltungs-System herausstellte.
+
+Als förderlich stellte sich eine flache Hierarchie und kurze
+Kommunikationswege heraus. Da neben den Zielen kaum Einschränkungen oder
+Vorgaben gemacht wurden, konnten Design-Entscheidungen völlig frei getätigt
+werden, was auch Aufgrund der Erfahrung zu besseren Lösungen führte als in der
+Beispielimplementation.
