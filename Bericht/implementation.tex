@@ -1,12 +1,12 @@
+\part{Resultate}
 \section{Implementierung}
-
 \subsection{Klassendiagramm}
-\begin{minipage}[b]{0.5\linewidth}
+\begin{minipage}[b]{0.49\linewidth}
 \centering
 \includegraphics[width=\textheight, angle=90]{img/ArchInternalDependencies-ch}
 \end{minipage}
 \hspace{0.5cm}
-\begin{minipage}[b]{0.5\linewidth}
+\begin{minipage}[b]{0.49\linewidth}
 \centering
 \includegraphics[width=\textheight, angle=90]{img/ArchitectureGraph-ch}
 \end{minipage}
@@ -195,10 +195,10 @@ Das Prinzip vom Parser ist einfach: Er öffnet die Datei, versucht den Header
 des Windfeldes zu erkennen, liest diesen ein. Alle nachfolgenden Zeilen des
 Blocks werden als Windfeld-Daten interpretiert. Erscheint eine Leerzeile wird
 der Block als abgeschlossen betrachtet und er versucht den nächsten Header zu
-erkennen. Grafisch sieht der Controllflow wiefolgt aus:
+erkennen. Grafisch sieht das Flussdiagramm wiefolgt aus:
 
 \begin{center}
- \includegraphics[width=0.8\linewidth]{img/ControlFlowGraph-SpaceWindFieldLoader-read}
+ \includegraphics[height=0.92\textheight]{img/FlussdiagramWindfeldparser}
 \end{center}
 
 \lstinputlisting[label=src:windfieldparser,caption={Windfield-Parser,
