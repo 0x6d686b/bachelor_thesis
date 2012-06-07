@@ -13,9 +13,9 @@
 
 
 \subsection{Decision}
-Die Klasse $Decision$ ist die Hauptklasse unserer Applikation. Alle wichtigen Variablen wie $logger$, $graphlist$ oder $windfieldContainer$ werden in dieser Klasse initialisiert und berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier statt. 
+Die Klasse $Decision$ ist die Hauptklasse unserer Applikation. Alle wichtigen Variablen wie \texttt{logger}, \texttt{graphList} oder \texttt{windfieldContainer} werden in dieser Klasse initialisiert und berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier statt. 
 
-Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens $progdyn()$ gibt, welche in einer $for$-Schleife merhmals aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in einem Array abgespeichert. Anschliessend wird dann die kürzeste Verbindung ermittelt und in den globalen ArrayList $GraphList$ eingetragen. 
+Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens \texttt{progdyn()} gibt, welche in einer \texttt{for}-Schleife merhmals aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in einem Array abgespeichert. Anschliessend wird dann die kürzeste Verbindung ermittelt und in den globalen ArrayList \texttt{graphList} eingetragen. 
 
 \lstinputlisting[label=src:decision,caption=Aufruf der dynamischen Methode]{code/decision.java}
 
@@ -54,9 +54,9 @@ Demzufolge enthält die Klasse folgende Informationen:
 
 Desweiteren erbt diese Klasse von der Interface $Comparable$, um Vergleiche
 zwischen den Knoten zu ermöglichen. Infolgedessen ist es möglich, die Klasse
-$Collections$ zu benutzen, welche nützliche Methoden für Listen wie $min()$,
-$max()$, $sort()$ etc. enthält. Wir machen in unserem Code von der
-$min()$-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in
+$Collections$ zu benutzen, welche nützliche Methoden für Listen wie \texttt{min()},
+\texttt{max()}, \texttt{sort()} etc. enthält. Wir machen in unserem Code von der
+\texttt{min()}-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in
 einer Spalte zu finden.
 
 Als nächstes wurde innerhalb der ArrayList eine sogenannte LinkedList
