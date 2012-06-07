@@ -126,28 +126,47 @@ die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung
 einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter
 Randbedingungen (physikalischer oder ökonomischer Natur).
 
-...
-% Geschichtliche Entwicklung
-% Stand der Technik
-% Kurz den Industriepartner nennen.
+Richard Bellman hat den Begriff 1940 eingeführt. Der Wortteil dynamisch
+bezieht sich auf eine ursprüngliche Zeitvariabilität in Kombination des Lösens
+eines Problems -- von Bellman als Programm bezeichnet -- und soll den
+Gegensatz zum linearen Lösen von Problemen verdeutlichen.
 
+Sehr viele bekannte Probleme können effizient mittels dynamischen
+Programmierens gelöst werden, so zum Beispiel das travelling salesmen problem,
+das maximum subarray problem oder auch longest common subsequence problem, die
+alle eine sehr hohe Bedeutung in der Informatik haben und jedem Informatiker
+in der einen oder anderen Art bekannt sind.
 
-\section{Ziel / Auftrag}
-Die Bachelorarbeit schlägt eine Anwendung der DP zur
-Kursbestimmung eines Segelschiffs vor. Aufgrund der mit einem
-numerischen Modell vorausgesagten Wetterentwicklung und in Anbetracht
-der Leistungskurve (Polardiagramm) des Schiffes wird dessen optimale
-Route mittels DP gerechnet. Ähnliche Methoden wurden beim Alinghi Team
-im Rahmen des Americas Cup verwendet.
+So wollte auch die MeteoSchweiz mittels dieser Methode eine Problemstellung
+in Java implementiert haben, die bereits von einem ihrer Mitarbeiter in
+Mathematica entworfen wurde.
 
-Weitere Anwendungen der DP zum Thema ''energy trading'' für erneuerbare
-Energiequellen sind denkbar und eine Übertragung der Resultate der BA in
-diesen Bereich werden von MeteoSchweiz angestrebt.
+\section{Auftrag}
+Die Bachelorarbeit ist eine Anwendung der dynamische Programmierung zur
+Kursbestimmung eines Segelschiffs. Aufgrund der mit einem numerischen
+Modell vorausgesagten Wetterentwicklung und in Anbetracht der Leistungskurve
+(Polardiagramm) des Schiffes wird dessen optimale Route mittels dynamische
+Programmierung berechnet. Ähnliche Methoden wurden beim Alinghi Team im Rahmen
+des Americas Cup verwendet.
 
-% Anforderungen an das Resultat der Arbeit
+\subsection{Systemspezifikation}
+Die Programmiersprache ist mit Java vorgegeben. Es sind keine weiteren
+Einschränkung wie das verwenden eines bestimmten Frameworks, Librarys oder
+eines bestimmten Betriebsystemes.
+
+\subsection{Öffentlichkeitsarbeit, Auftritte}
+Von der Seite der ZHAW ist die obligatorische Bachelorarbeits-Präsentation
+gegeben und zählt als Bewertungsteil der Gesamtarbeit. Die MeteoSchweiz will
+die Arbeit bei mindestens einem internen Vortrag präsentieren, weitere
+Auftritte können mit den Autoren der Arbeit vereinbart werden.
+
+\subsubsection{Weitere Verwendung der Arbeit}
+Weitere Anwendungen der dynamischen Programmierung zum Thema ''energy
+trading'' für erneuerbare Energiequellen sind denkbar und eine Übertragung der
+Resultate der Bachelorarbeit in diesen Bereich werden von MeteoSchweiz
+angestrebt.
 
 \subsection{Terminologie}
-% Definiert die in der Arbeit verwendeten Begriffe
 \paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit,
 die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen
 dient. Sie entspricht der Länge einer Winkelminute eines Grosskreis und auf der
@@ -162,9 +181,27 @@ Längeneinheit Seemeile beruht. Somit ist ein Knoten 1852 m/h = 0.514 m/s.
 
 
 \section{Weitere Informationen sowie Danksagung}
-Für die professionelle und freundliche Kooperation möchten wir uns an
-dieser Stelle herzlich bedanken!\\
-...
+Für das gelingen dieser Arbeit haben viele Personen beigetragen, insbesondere
+bei unseren beiden Betreuer Herr Dr. R. Füchslin und Herrn J. Ambühl möchten
+wir uns für die grosse Geduld, ihre Hilfe und ihren ehrlichen Rückmeldungen
+bedanken. Nicht selbstverständlich ist es, dass unser direktes Umfeld,
+Mitstudenten, Freunde, Familie unsere Launen, Arbeitswut und teils lautstark
+kund gemachten Frustrationen ertrugen, auch denen möchten wir an dieser Stelle
+danken.
+
+\subsection{Mathias dankt \dots}
+Ich möchte an dieser Stelle allen Leuten von der NGAS-Crew und der ehemaligen
+Forkbomb-Crew danken, die mir in ihrer Freizeit die Skills vermittelt haben,
+die ich heute habe und bei dieser Arbeit einsetzen konnte. Zugleich möchte ich
+den Entwickler aller von mir im Rahmen dieser Arbeit verwendeten Tools danken,
+dass sie mir meine Arbeit so ungemein erleichtert haben.
+
+Eine grosse Unterstützung waren und sind die Freunde Astrid, Daniela, Dario,
+Juliane, Michael, Miriam, René und Tonnerre, die teils zu unmöglichen Zeiten
+für mich da waren, mir zugehört, Mut gemacht haben und ohne die ich nicht zu
+dem Mensch geworden wäre, der ich heute bin.
+
+\subsection{Fevzi dankt \dots}
 
 \newpage
 \part{Vorgehen / Methoden}
