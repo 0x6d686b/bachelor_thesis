@@ -34,4 +34,48 @@ delta)} zwei Werte, expected und actual, und kann eine Abweichung beinhalten.
 
 \subsubsection{Beispiele}
 % Mit sinnvollen Beispielen simulieren.
+Als Beispiel für ein JUnit-Test kann der Test für die Klasse $TrackComputation$ gebracht werden. 
+Diese Klasse berechnet den Winkel zwischen zwei Punkten $A$ und $B$. Für die Berechnung
+wurden simple Beispieldaten genommen, um das Resultat auch selbst nachvollziehen zu können.
+Diese Daten wurden in einer $HashMap$ gespeichert. Ein $HashMap$ ist ein Assoziativspeicher. 
+D.h. dass diese Klasse Datenelemente mit Schlüssel und Wert-Paaren abspeichert. In unserem
+Beispiel fungiert sie eher als eine Liste. Danach werden diese Werte ausgelesen und der 
+Winkel berechnet. Falls die berechneten Winkel mit den $Mathematica$ Lösungen übereinstimmen,
+war der Test erfolgreich (grün).
 
+Der JUnit-Test sieht wie folgt aus:
+
+\lstinputlisting[label=src:trackComp,caption=JUnit-Test für die Klasse TrackComputation]{code/trackComputationTest.java}
+
+Da der Windfeld-Container mehrere Windfelder hat, wurden auch einige Simulationen 
+zur besseren Veranschaulichung und der Nachvollziehbarkeit durchgeführt. Es wurde versucht,
+möglichst verschiedene Routen berechnen und zeichnen zu lassen, um die Korrektheit des
+Algorithmus aufzuzeigen. 
+
+Das erste Beispiel soll aufzeigen, wie die optimale Route einen Zick-Zack Kurs einnehmen muss,
+um am schnellsten am Ziel anzukommen:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/gridNet_1}
+\caption{Zick-Zack Kurs für die optimale Lösung.}
+\label{gridnet1}
+\end{figure}
+
+Dieses Beispiel zeigt eine primitive und glatte Lösung, da die Windvektoren schon einigermassen in diese Richtung zeigen:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/gridNet_2}
+\caption{Primitiver und glatter Kurs für die optimale Lösung.}
+\label{gridnet1}
+\end{figure}
+
+Als letztes Veraunschaulicht dieses Beispiel eine Route, die ihren Kurs in der Mitte ziemlich ändern muss, da die Richtungen der Windvektoren sich umgekehrt haben. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/gridNet_20}
+\caption{Änderung des Kurses in der Mitte für die optimale Lösung.}
+\label{gridnet1}
+\end{figure}
