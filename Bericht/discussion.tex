@@ -115,11 +115,74 @@ eine Präzision von mehreren Nachkommastellen benötigen, reicht die vorhandene
 Präzision. Dazu kommt, dass ein Segelboot unter keinen Umständen den Kurs auf
 zwei Nachkommastellen halten kann.
 
-\section{Optimierungsmöglichkeiten}
-\subsection{}
 \section{Sonderfälle}
-% Das Problem mit Spread ausdiskutieren
-% Grössere Distanzen
+\subsection{Unvollständiger Entscheidungsbaum bei zu kleinem Spread-Faktor}
+Es ist ein Fall bekannt, bei denen die Berechnungen zwar korrekt terminieren,
+aber der Entscheidungsbaum unvollständig wird. Für den Knoten \texttt{k} wird
+nun der optimale Vorgänger berechnet und gespeichert sofern dieser innerhalb
+des angegebenen Spread liegt.
+
+Allerdings könnte ein Spezialfall eintreten, bei dem der letzte
+Vorgängerknoten der optimale Vorgänger ist, allerdings ausserhalb des Spreads
+liegt. Dann wird dieser nämlich als optimaler Vorgänger gespeichert mit
+\texttt{MAX\_TOA} als Adjazenzgewicht. Allerdings scheitert wird die Abfrage
+in Zeile \ref{sloc:verifyspread} des Listings \ref{lst:decisionspreadbug} und
+der Vorgänger wird nicht in \texttt{GraphList} gespeichert, was zu einem
+Knoten ohne Vorgänger führt und damit zu einem NullPointer.
+
+\begin{lstlisting}[caption={Schwer zu findender Bug in
+Decision.java},label=lst:decisionspreadbug,escapeinside={@}{@}]
+for (int j = 0; j < getMaxj(); j++) {
+        travelDistance[j] = calcTravelDistance(r, j, k, windfieldNo);
+        
+        /*
+         * Saves the minimum distance and makes sure that the node is in
+         * the spread.
+         */
+        if (travelDistance[j] < maxTimeOfArrival) {
+        	/*
+        	 * Checks, if the position of the shortest distance is legal
+        	 * based on spread. If not, it sets the default distance.
+        	 */
+        	if (Math.abs(k - j) <= spread) {
+        		maxTimeOfArrival = travelDistance[j];
+        		position[k][__ROW__] = j;
+        		position[k][__TRAVELTIME__] = travelDistance[j];
+        	} else {
+        		position[k][__ROW__] = j;
+        		position[k][__TRAVELTIME__] = MAX_TOA;
+        	}
+        }
+}
+
+@\label{sloc:verifyspread}@ if (Math.abs(k - (int) position[k][__ROW__]) <= spread) {
+       /*
+        * SNIP
+        */
+       graphList.get(r).get(k).setTimeOfArrival(position[k][__TRAVELTIME__]);
+       graphList.get(r).get(k).setPrevious(graphList.get(r - 1).get((int) position[k][__ROW__]));
+}
+
+\end{lstlisting}
+
+\subsection{Falsche Hysterese-Berechnung}
+Ein weiterer schwer zu findender Bug ist eine unvollständige
+Hysterese-Berechnung in \texttt{Decision.java}. Wie Listing
+\ref{lst:hysterisisbug} zeigt, wird berechnet um wie viele Windfelder der
+Algorithmus in der Zeit nach vorne springen soll, wenn die Reisezeit mehr als
+30 Minuten beträgt. Nehmen wir also an, die Reisezeit
+(\texttt{\_\_TRAVELTIME\_\_}) würde nun 40 Minuten betragen, dann erhalten wir
+richtigerweise einen Sprungwert von 1. Nehmen wir nun eine Reisezeit von 70
+Minuten an, würde der Sprungwert 2 betragen, obwohl für eine Reisezeit von
+30--90 Minuten der Sprungwert 1 betragen soll.
+\begin{lstlisting}[caption={Hystereseberechnung in Decision.java},label=lst:hysterisisbug]
+private static final double TIME_LIMIT_OF_WF = 30d;
+     /* SNIP */
+int windField_raise = (int) (position[k][__TRAVELTIME__] / TIME_LIMIT_OF_WF);
+\end{lstlisting}
+
+\subsection{Wraparound-Problem beim Äquatorüberschreiten}
+
 
 \section{Erkenntnisse}
 \subsection{Schlussfolgerung}
