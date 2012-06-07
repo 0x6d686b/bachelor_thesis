@@ -1,12 +1,36 @@
 \section{Testing}
-Um die Applikation auf Erfüllung der für ihren Einsatz definierten Anforderungen zu bewerten und zu prüfen sind Softwaretests nötig. Es wurde versucht, diese Tests am Anfang zu erstellen und im Laufe der Entwicklung regelmässig zu durchführen und erweitern. Es wurden in der Regel zwei Arten von Tests eingesetzt: manuelle und automatisierte Tests. Die manuellen Tests wurden einerseits mit dem Debugger zur Verifizierung der Inhalte und andererseits mit systematisch festgelegten Eingabedaten ausgeführt. Daneben wurden auch noch die automatisierten Unit-Tests eingesetzt, um zu verifizieren, dass bei Änderungen keine unerwünschten Nebeneffekte hervortreten. 
+Um die Applikation auf Erfüllung der für ihren Einsatz definierten
+Anforderungen zu bewerten und zu prüfen sind Softwaretests nötig. Es wurde
+versucht, diese Tests am Anfang zu erstellen und im Laufe der Entwicklung
+regelmässig zu durchführen und erweitern. Es wurden in der Regel zwei Arten
+von Tests eingesetzt: manuelle und automatisierte Tests. Die manuellen Tests
+wurden einerseits mit dem Debugger zur Verifizierung der Inhalte und
+andererseits mit systematisch festgelegten Eingabedaten ausgeführt. Daneben
+wurden auch noch die automatisierten Unit-Tests eingesetzt, um zu
+verifizieren, dass bei Änderungen keine unerwünschten Nebeneffekte
+hervortreten. 
 
-In unserer Appkilation wurden für alle Packages mindestens ein JUnit-Test geschrieben. Es wurden entweder ganze Klassen oder nur gewisse, essenzielle Methoden getestet. Somit sollten diese Tests die meisten Fällen abdecken. 
+In unserer Appkilation wurden für alle Packages mindestens ein JUnit-Test
+geschrieben. Es wurden entweder ganze Klassen oder nur gewisse, essenzielle
+Methoden getestet. Somit sollten diese Tests die meisten Fällen abdecken. 
 
 \subsection{JUnit Test}
-JUnit ist ein kleines, mächtiges Java-Framework zum Schreiben und Ausführen von automatisierten Unit-Tests. Es werden in der Regel für alle Klassen, die überprüft werden sollen, ein Unit-Test erstellt. Diese Unit-Tests verhalten sich auch wie die gewöhnlichen Java-Klassen, mit dem Unterschied, dass sie im Namen das Wort $Test$ am Schluss und einige JUnit-Annotationen innerhalb der Klasse haben, wobei die Endung im Namen nur eine Konvention ist. Ein JUnit-Test kennt nur zwei Ergebnisse: Entweder war der Test erfolgreich oder nicht. Das Fehlschlagen kann zwei Gründe haben, entweder war es ein Fehler(Error) oder es lieferte ein falsches Ergebnis (Failure). Der einzige Unterschied zwischen den beiden Begriffen liegt darin, dass Errors eher unerwartet auftreten, während Failures erwartet werden. Desweiteren können die geschriebenen Testfälle zu jeder Zeit beliebig wiederholt werden. 
+JUnit ist ein kleines, mächtiges Java-Framework zum Schreiben und Ausführen
+von automatisierten Unit-Tests. Es werden in der Regel für alle Klassen, die
+überprüft werden sollen, ein Unit-Test erstellt. Diese Unit-Tests verhalten
+sich auch wie die gewöhnlichen Java-Klassen, mit dem Unterschied, dass sie im
+Namen das Wort \texttt{Test} am Schluss und einige JUnit-Annotationen innerhalb der
+Klasse haben, wobei die Endung im Namen nur eine Konvention ist. Ein
+JUnit-Test kennt nur zwei Ergebnisse: Entweder war der Test erfolgreich oder
+nicht. Das Fehlschlagen kann zwei Gründe haben, entweder war es ein
+Fehler(Error) oder es lieferte ein falsches Ergebnis (Failure). Der einzige
+Unterschied zwischen den beiden Begriffen liegt darin, dass Errors eher
+unerwartet auftreten, während Failures erwartet werden. Desweiteren können die
+geschriebenen Testfälle zu jeder Zeit beliebig wiederholt werden. 
 
-Ausserdem bietet dieses Framework einige Methoden an, um Werte vergleichen zu können. So zum Beispiel vergleicht die Methode $assertEquals(expected, actual, delta)$ zwei Werte, expected und actual, und kann eine Abweichung beinhalten. 
+Ausserdem bietet dieses Framework einige Methoden an, um Werte vergleichen zu
+können. So zum Beispiel vergleicht die Methode \texttt{assertEquals(expected, actual,
+delta)} zwei Werte, expected und actual, und kann eine Abweichung beinhalten. 
 
 \subsubsection{Beispiele}
 % Mit sinnvollen Beispielen simulieren.

@@ -13,9 +13,20 @@
 
 
 \subsection{Decision}
-Die Klasse $Decision$ ist die Hauptklasse unserer Applikation. Alle wichtigen Variablen wie \texttt{logger}, \texttt{graphList} oder \texttt{windfieldContainer} werden in dieser Klasse initialisiert und berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier statt. 
+Die Klasse \texttt{Decision} ist die Hauptklasse unserer Applikation. Alle wichtigen
+Variablen wie \texttt{logger}, \texttt{graphList} oder
+\texttt{windfieldContainer} werden in dieser Klasse initialisiert und
+berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier
+statt. 
 
-Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens \texttt{progdyn()} gibt, welche in einer \texttt{for}-Schleife merhmals aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in einem Array abgespeichert. Anschliessend wird dann die kürzeste Verbindung ermittelt und in den globalen ArrayList \texttt{graphList} eingetragen. 
+Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens
+\texttt{progdyn()} gibt, welche in einer \texttt{for}-Schleife merhmals
+aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der
+Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und
+alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden
+Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in
+einem Array abgespeichert. Anschliessend wird dann die kürzeste Verbindung
+ermittelt und in den globalen ArrayList \texttt{graphList} eingetragen. 
 
 \lstinputlisting[label=src:decision,caption=Aufruf der dynamischen Methode]{code/decision.java}
 
@@ -36,7 +47,7 @@ Dementsprechend sieht die Initialisierung des ArrayLists so aus:
 \lstinputlisting[label=src:graphListInitialization,caption=Initialisierung der Liste]{code/graphlist_initialize.java}
 
 \subsubsection{Node}
-Für die Speicherung der Daten wurde eine Klasse $Node$ erstellt, welche die
+Für die Speicherung der Daten wurde eine Klasse \texttt{Node} erstellt, welche die
 Werte über die Knoten beinhaltet. Weil wir nun mehrere Informationen zu den
 einzelnen Knoten haben, haben wir uns entschieden, neben den Auflistungen in
 \ref{aufg6:entscheidungsbaum} auch noch weitere Daten in der Liste
@@ -52,9 +63,9 @@ Demzufolge enthält die Klasse folgende Informationen:
 \item \textbf{WindVektor}: Der Windvektor $(u, v)$ an diesem Knoten.
 \end{itemize}
 
-Desweiteren erbt diese Klasse von der Interface $Comparable$, um Vergleiche
+Desweiteren erbt diese Klasse von der Interface \texttt{Comparable}, um Vergleiche
 zwischen den Knoten zu ermöglichen. Infolgedessen ist es möglich, die Klasse
-$Collections$ zu benutzen, welche nützliche Methoden für Listen wie \texttt{min()},
+\texttt{Collections} zu benutzen, welche nützliche Methoden für Listen wie \texttt{min()},
 \texttt{max()}, \texttt{sort()} etc. enthält. Wir machen in unserem Code von der
 \texttt{min()}-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in
 einer Spalte zu finden.
@@ -65,14 +76,14 @@ der Anfangsknoten hat eine Referenz auf sich selbst. Dementsprechend braucht
 man nicht durch alle Knoten zu iterieren um einen Pfad zu zeichnen, sondern es
 reicht den Knoten zu wählen, von dem man den Pfad zum Anfang zeichnen möchte.
 
-Die Implementation der Klasse $Node$ sieht wie folgt aus:
+Die Implementation der Klasse \texttt{Node} sieht wie folgt aus:
 
 \lstinputlisting[label=src:nodeClass,caption=Node-Class]{code/node.java}
 
 
 \subsubsection{Coordinate}
-Um die Koordinaten der Knoten in der Klasse $Node$ abspeichern zu können,
-haben wir eine Klasse $Coordinate$ erstellt. Normalerweise werden die
+Um die Koordinaten der Knoten in der Klasse \texttt{Node} abspeichern zu können,
+haben wir eine Klasse \texttt{Coordinate} erstellt. Normalerweise werden die
 GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125
 Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll
 sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der
@@ -91,7 +102,7 @@ setzen, welches im internen in Grad umgerechnet und abgespeichert wird.
 Somit kann diese Klasse jederzeit erweitert und neue "Formate" hinzugefügt
 werden, ohne die Funktionalität zu beeinträchtigen.
 
-Die Implementation der Klasse $Coordinate$ sieht wie folgt aus:
+Die Implementation der Klasse \texttt{Coordinate} sieht wie folgt aus:
 
 \lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
@@ -191,29 +202,61 @@ Windfeld über dieselben Array-Indizes und können somit leicht (wieder-)
 verwendet werden.
 
 \subsection{Properties}
-Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen diese Applikation laufen gelassen wurde. Die Pfade der Dateien, die in der Applikation eingelesen werden, stimmten nicht überein und bei jeder Übernahme der Änderungen mussten die Pfade angepasst werden. Desweiteren sind statische Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme bereiten können. 
+Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen
+diese Applikation laufen gelassen wurde. Die Pfade der Dateien, die in der
+Applikation eingelesen werden, stimmten nicht überein und bei jeder Übernahme
+der Änderungen mussten die Pfade angepasst werden. Desweiteren sind statische
+Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme bereiten
+können. 
 
-Aus diesem Grund haben wir uns entschieden, eine Properties-Datei zu erstellen, welche als einfacher Konfigurationsmechanismus verwendet wird. In dieser Datei werden Variablen Werte zugewiesen, welche dann im Programm benutzt werden können. 
+Aus diesem Grund haben wir uns entschieden, eine Properties-Datei zu
+erstellen, welche als einfacher Konfigurationsmechanismus verwendet wird. In
+dieser Datei werden Variablen Werte zugewiesen, welche dann im Programm
+benutzt werden können.
 
 Nachfolgend wie die Konfigurations-Datei aussieht:
+
 \lstinputlisting[label=src:configurationProp,caption=Konfigurations-Datei]{code/configuration.properties}
 
-Eine solche Properties-Datei kann mittels der Klasse $java.util.Properties$ eingelesen werden. Dafür haben wir eine eigene Klasse $PropertyLoad$ geschrieben, um uns Tipparbeit zu ersparen und die Handhabung der ganzen Einlesen/Auslesen zu erleichtern. Dieser Klasse wird der Name der Variablen übergeben und es liefert als Ergebnis den Wert zurück, welcher in der Properties-File zu finden ist.
+Eine solche Properties-Datei kann mittels der Klasse
+\texttt{java.util.Properties} eingelesen werden. Dafür haben wir eine eigene
+Klasse \texttt{PropertyLoad} geschrieben, um uns Tipparbeit zu ersparen und
+die Handhabung der ganzen Einlesen/Auslesen zu erleichtern. Dieser Klasse wird
+der Name der Variablen übergeben und es liefert als Ergebnis den Wert zurück,
+welcher in der Properties-File zu finden ist.
 
-Die Implementierung der Klasse $PropertyLoad$:
+Die Implementierung der Klasse \texttt{PropertyLoad}:
+
 \lstinputlisting[label=src:propLoad,caption=PropertyLoad-Klasse]{code/propertyLoad.java}
 
 \subsection{Logging}
 % TODO: Quellen angeben
-Für das Logging wird die Log4j-Library von Apache Software Foundation verwendet. Dieses Framework
-erlaubt uns, mehrere Loggingsysteme zu defnieren und die Standardausgaben über sogenannte Logger an sie
-weiterzuleiten. Somit ist es zum Beispiel möglich, die Meldungen gleichzeitig in einer Datei, an einem Syslog-
-Daemon und auf der Konsole auszugeben. Die Library ermöglicht sehr flexible Konfigurationen. Die Abhängigkeiten sind gering, man muss nur eine JAR-Datei als Library in das Projekt hinzufügen, gleiches gilt für die Verwendung: Eine einfache Verwendung ohne grosse Einarbeitungszeit ist hier möglich.
+Für das Logging wird die Log4j-Library von Apache Software Foundation
+verwendet. Dieses Framework erlaubt uns, mehrere Loggingsysteme zu defnieren
+und die Standardausgaben über sogenannte Logger an sie weiterzuleiten. Somit
+ist es zum Beispiel möglich, die Meldungen gleichzeitig in einer Datei, an
+einem Syslog- Daemon und auf der Konsole auszugeben. Die Library ermöglicht
+sehr flexible Konfigurationen. Die Abhängigkeiten sind gering, man muss nur
+eine JAR-Datei als Library in das Projekt hinzufügen, gleiches gilt für die
+Verwendung: Eine einfache Verwendung ohne grosse Einarbeitungszeit ist hier
+möglich.
 
-Wir haben uns für den Logging entschieden, da die Konsolenausgaben viel Performance beanspruchen und diese Ausgaben nach der Schliessung der Anwendung verschwinden. Diese Ausgaben können zum Teil sehr behilflich sein, wie z.B. die Fehlerquelle zu identifizieren oder herauszufinden, was als letztes ausgeführt wurde. 
+Wir haben uns für den Logging entschieden, da die Konsolenausgaben viel
+Performance beanspruchen und diese Ausgaben nach der Schliessung der Anwendung
+verschwinden. Diese Ausgaben können zum Teil sehr behilflich sein, wie z.B.
+die Fehlerquelle zu identifizieren oder herauszufinden, was als letztes
+ausgeführt wurde. 
 
-Deswegen werden jetzt die Ausgaben in eine Datei namens $lakeRouting.log$ umgelenkt. Falls die Grösse der Datei die maximale Grösse von 10MB erreicht, wird diese Datei mit dem Datum versehen und eine neue Datei mit dem gleichen Namen angelegt. 
+Deswegen werden jetzt die Ausgaben in eine Datei namens
+\texttt{lakeRouting.log} umgelenkt. Falls die Grösse der Datei die maximale
+Grösse von 10MB erreicht, wird diese Datei mit dem Datum versehen und eine
+neue Datei mit dem gleichen Namen angelegt.
 
-Dies wurde erreicht, indem man mit der unten aufgeführten log4j.properties-Datei die Konfiguration einliest. Das Einlesen der Properties-Datei erfolgt nur an einer einzigen Stelle im ganzen Projekt, da es nur einmal geladen werden muss und die Einstellungen dann für die ganze Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner ausgeführt wird} gültig sind.
+Dies wurde erreicht, indem man mit der unten aufgeführten
+log4j.properties-Datei die Konfiguration einliest. Das Einlesen der
+Properties-Datei erfolgt nur an einer einzigen Stelle im ganzen Projekt, da es
+nur einmal geladen werden muss und die Einstellungen dann für die ganze
+Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner
+ausgeführt wird} gültig sind.
 
 \lstinputlisting[label=src:log4jProperties,caption=Properties-Datei der Log4j]{code/log4j.properties}
