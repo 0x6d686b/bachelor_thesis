@@ -19,6 +19,17 @@ Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens \t
 
 \lstinputlisting[label=src:decision,caption=Aufruf der dynamischen Methode]{code/decision.java}
 
+Das Elegante an dieser Lösung ist, dass wir nicht nochmals eine Berechnung durchführen müssen, um die optimale Route zu bestimmen. Nach den Berechnungen der Distanzen brauchen wir nur den Zielknoten zu finden, von dem wir dann die Route zum Anfang nachzeichnen können. 
+
+In der unteren Grafik wurde das Resultat dargestellt. Die grüne Linie ist die optimale Route und die rote Linie die kürzeste Route von der ersten bis zur letzen Spalte. Die gelben Pfeile stellen die Windvektoren an diesen Knoten dar. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{img/gridNet_result}
+\caption{Koordinatennetz mit interpolierten Windvektoren und der kürzesten Verbindung}
+\label{gridnetConn}
+\end{figure}
+
 \subsection{GraphList}
 Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir
 eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die
@@ -189,6 +200,9 @@ Klasse.
 Nach dieser initialen Interpolation verfügen das Entscheidungsnetz und das
 Windfeld über dieselben Array-Indizes und können somit leicht (wieder-)
 verwendet werden.
+
+\subsection{Navigation}
+
 
 \subsection{Properties}
 Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen diese Applikation laufen gelassen wurde. Die Pfade der Dateien, die in der Applikation eingelesen werden, stimmten nicht überein und bei jeder Übernahme der Änderungen mussten die Pfade angepasst werden. Desweiteren sind statische Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme bereiten können. 
