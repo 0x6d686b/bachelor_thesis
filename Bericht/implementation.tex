@@ -11,11 +11,19 @@
 \includegraphics[width=\textheight, angle=90]{img/ArchitectureGraph-ch}
 \end{minipage}
 
+
+\subsection{Decision}
+Die Klasse $Decision$ ist die Hauptklasse unserer Applikation. Alle wichtigen Variablen wie $logger$, $graphlist$ oder $windfieldContainer$ werden in dieser Klasse initialisiert und berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier statt. 
+
+Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens $progdyn()$ gibt, welche in einer $for$-Schleife merhmals aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in einem Array abgespeichert. Anschliessend wird dann die kürzeste Verbindung ermittelt und in den globalen ArrayList $GraphList$ eingetragen. 
+
+\lstinputlisting[label=src:decision,caption=Aufruf der dynamischen Methode]{code/decision.java}
+
 \subsection{GraphList}
 Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir
 eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die
 Grösse des Arrays variabel ist und wir zum grössten Teil einen index-basierten
-Zugriff benötigen, haben wir uns entschieden die Datnestruktur
+Zugriff benötigen, haben wir uns entschieden die Datenstruktur
 $java.util.ArrayList$ mit Generics zu verwenden. Eine generische ArrayList
 erlaubt es genau zu definieren, welche Elemente/Datentypen einer ArrayList
 hinzugefügt werden dürfen. Ausserdem brauchen wir für eine tabellarische Form
