@@ -12,15 +12,14 @@
 \end{minipage}
 
 \subsection{Decision}
-Die Klasse \texttt{Decision} ist die Hauptklasse unserer Applikation. Alle wichtigen
-Variablen wie \texttt{logger}, \texttt{graphList} oder
+Die Klasse \texttt{Decision} ist die Hauptklasse unserer Applikation. Alle
+wichtigen Variablen wie \texttt{logger}, \texttt{graphList} oder
 \texttt{windfieldContainer} werden in dieser Klasse initialisiert und
-berechnet. Ausserdem findet die sogenannte dynamische Programmierung auch hier
-statt. 
+berechnet. Zudem findet die sogenannte dynamische Programmierung hier statt. 
 
 Die dynamische Programmierung wurde so umgesetzt, dass es eine Methode namens
-\texttt{progdyn()} gibt, welche in einer \texttt{for}-Schleife merhmals
-aufgerufen wurde. Als Parameter wird dieser Methode die Spaltennummer und der
+\texttt{progdyn()} gibt, welche in einer \texttt{for}-Schleife mehrmals
+aufgerufen wird. Als Parameter wird dieser Methode die Spaltennummer und der
 Windfeld-index übergeben. Danach werden über alle Knoten dieser Spalten und
 alle Knoten der vorherigen Spalte die Berechnungen durchgeführt. Für jeden
 Knoten dieser Spalte werden die Verbindungen berechnet und die Ergebnisse in
@@ -36,8 +35,8 @@ Route zum Anfang nachzeichnen können.
 
 In der unteren Grafik wurde das Resultat dargestellt. Die grüne Linie ist die
 optimale Route und die rote Linie die kürzeste Route von der ersten bis zur
-letzen Spalte. Die gelben Pfeile stellen die Windvektoren an diesen Knoten
-dar.
+letzen Spalte. Die gelben Pfeile stellen die interpolierten Windvektoren an
+diesen Knoten dar.
 
 \begin{figure}[h!]
 \centering
@@ -64,7 +63,7 @@ Dementsprechend sieht die Initialisierung des ArrayLists so aus:
 
 \subsubsection{Node}
 Für die Speicherung der Daten wurde eine Klasse \texttt{Node} erstellt, welche die
-Werte über die Knoten beinhaltet. Weil wir nun mehrere Informationen zu den
+Informationen der Knoten beinhaltet. Weil wir nun mehrere Informationen zu den
 einzelnen Knoten haben, haben wir uns entschieden, neben den Auflistungen in
 \ref{aufg6:entscheidungsbaum} auch noch weitere Daten in der Liste
 abzuspeichern, um Redundanz zu vermeiden. Deshalb werden neu auch Koordinaten
@@ -79,10 +78,10 @@ Demzufolge enthält die Klasse folgende Informationen:
 \item \textbf{WindVektor}: Der Windvektor $(u, v)$ an diesem Knoten.
 \end{itemize}
 
-Desweiteren erbt diese Klasse von der Interface \texttt{Comparable}, um Vergleiche
+Desweiteren erbt diese Klasse das Interface \texttt{Comparable}, um Vergleiche
 zwischen den Knoten zu ermöglichen. Infolgedessen ist es möglich, die Klasse
 \texttt{Collections}\cite{oracle:Collections} zu benutzen, welche nützliche Methoden für Listen wie \texttt{min()},
-\texttt{max()}, \texttt{sort()} etc. enthält. Wir machen in unserem Code von der
+\texttt{max()}, \texttt{sort()} etc. bereitstellt. Wir machen in unserem Code von der
 \texttt{min()}-Methode Gebrauch, um den Knoten mit dem kleinsten TimeOfArrival in
 einer Spalte zu finden.
 
@@ -100,34 +99,36 @@ Die Implementation der Klasse \texttt{Node} sieht wie folgt aus:
 \subsubsection{Coordinate}
 Um die Koordinaten der Knoten in der Klasse \texttt{Node} abspeichern zu können,
 haben wir eine Klasse \texttt{Coordinate} erstellt. Normalerweise werden die
-GPS-Koordinaten im Format N 47\degree 12' 45" E 12\degree 45' 30" oder 47.2125
+GPS-Koordinaten im Format N 47\degree 12' 45'' E 12\degree 45' 30'' oder 47.2125
 Längengrad and 12.758333 Breitengrad gebraucht. Aber es kann durchaus sinnvoll
 sein, diese Angaben auch in Radian zu haben, wie bei der Berechnung der
 Orthodromie es der Fall ist. 
 
 Damit wir nicht zwei Datentypen für diese zwei Einheiten erstellen müssen,
-werden diese jeweils mit einem Getter \& Setter jeweils gesetzt und erhalten.
+werden diese mit einem Getter \& Setter jeweils gesetzt und abgerufen.
 Da wir nicht vier Variablen erstellen möchten, zwei für Grad und zwei für
 Radian, und die Klasse an sich selbst auch nichts über den Inhalt wissen muss,
-ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und im
-internen als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte
+ist es von Vorteil, die zwei Einheiten nur nach Aussen zu unterscheiden und 
+intern als eine einzige Einheit zu behandeln. Das bedeutet, dass die Werte
 intern nur in Grad gehandhabt werden und bei Bedarf nach Aussen in Radian
 umgerechnet werden. Es ist aber auch möglich die GPS-Koordinaten in Radian zu
 setzen, welches im internen in Grad umgerechnet und abgespeichert wird. 
 
-Somit kann diese Klasse jederzeit erweitert und neue "Formate" hinzugefügt
-werden, ohne die Funktionalität zu beeinträchtigen.
+Somit kann diese Klasse jederzeit erweitert und neue Repräsentationen hinzugefügt
+werden, ohne die Funktionalität zu verändern.
 
 Die Implementation der Klasse \texttt{Coordinate} sieht wie folgt aus:
+
+\clearpage
 
 \lstinputlisting[label=src:crdClass,caption=Coordinate-Class]{code/coordinate.java}
 
 \subsubsection{Windvector}
-Ein Windvektor ist nichts anderes als ein Komposit von zwei normalen Vektoren und
-beinhaltet weitere zwei Getter-Methoden für die häufig verwendeten Berechnunungen 
-wie die Windgeschwindigkeit und die Winkel. Der Vektor $u$ zeigt in den Norden 
-und der Vektor $v$ zeigt in den Osten. Aus diesem Grund wird die Geschwindigkeit 
-durch den Betrag der zwei Vektoren berechnet. Und der Winkel lässt sich mit dem 
+Ein Windvektor ist nichts anderes als ein Komposit von zwei normalen Vektoren
+und beinhaltet weitere zwei Getter-Methoden für die häufig verwendeten
+Berechnunungen wie die Windgeschwindigkeit und die Winkel. Der Vektor $u$
+zeigt nach Norden und der Vektor $v$ zeigt nach Osten. Die Geschwindigkeit
+durch den Betrag der zwei Vektoren gegeben. Und der Winkel lässt sich mit dem
 Arkuskosinus von Vektor $u$ und der Windgeschwindigkeit berechnen, wobei der
 Winkel von Norden im Uhrzeigersinn zeigt.
 
@@ -142,7 +143,7 @@ und werden von einem selbst\-geschriebenen Parser in ein passendes
 Klassen-Konstrukt geladen. Die Schwierigkeit bestand darin, dass die Daten
 nicht-dekoriert sind und daher nur durch ihre Position von anderen Typen zu
 unterscheiden sind. Das bedeutet allerdings auch, dass der Parser sich auf
-diese Datenstruktur verlässt und keine Abweichungen duldet und sonst abstürzt.
+diese Datenstruktur verlässt, keine Abweichungen duldet und sonst abstürzt.
 
 Dieses Problem ist allerdings vertretbar, da die Datenstruktur vorgegeben ist
 und der Parser daran angepasst wurde. Es ist im Allgemeinen sehr schwierig
@@ -151,11 +152,9 @@ robustere Datenstruktur würde XML bieten, die strikte Einschränkung bis hin zu
 Datentypen für einzelne Felder bietet.
 
 \subsubsection{Verarbeitungsklasse}
-Die Klasse \texttt{BoatSpeedDiagram.java\footnote{Im Package
-ch.zhaw.lakerouting.interpolation.boatdiagram zu finden}} verwaltet das
-Polardiagram und bietet die nötigen Methoden für die Abfrage der Werte an,
-kapselt die Interpolation, so das der Programmierer sich darum nicht kümmern
-muss.
+Die Klasse \texttt{BoatSpeedDiagram.java} verwaltet das Polardiagram und
+bietet die nötigen Methoden für die Abfrage der Werte an, kapselt die
+Interpolation, so das der Programmierer sich darum nicht kümmern muss.
 
 \subsubsection{Bilineare Interpolation}\label{sss:bilinearinterpolation}
 Die Interpolation an sich ist durch 
@@ -185,8 +184,8 @@ Windvektoren.
 
 \subsubsection{Windfeld-Parser}
 Der Parser ist ein Eigenbau und wurde speziell für diese Datenstruktur
-geschaffen. Diverse Unzulänglichkeiten wie nicht-leere Zeilen und Trailing
-Spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
+geschaffen. Diverse Unzulänglichkeiten wie nicht-leere Zeilen und trailing
+spaces haben die Entwicklung erschwert und dementsprechend viel Zeit gekostet.
 
 Allerdings lässt sich der Parser leicht auf andere Ressourcen erweitern wie zum
 Beispiel HTTP und erlaubt auch die direkte Anbindung an Datenbanken.
@@ -197,9 +196,14 @@ Blocks werden als Windfeld-Daten interpretiert. Erscheint eine Leerzeile wird
 der Block als abgeschlossen betrachtet und er versucht den nächsten Header zu
 erkennen. Grafisch sieht das Flussdiagramm wiefolgt aus:
 
-\begin{center}
+\begin{figure}
+ \centering
  \includegraphics[height=0.92\textheight]{img/FlussdiagramWindfeldparser}
-\end{center}
+ \label{abb:flussdiagrammwindfeldparser}
+ \caption{Flussdiagramm des Windfeldparsers}
+\end{figure}
+
+\clearpage
 
 \lstinputlisting[label=src:windfieldparser,caption={Windfield-Parser,
 Codeausschnitt der relevanten Funktionen}]{code/spacewindfieldloader.java}
@@ -226,11 +230,11 @@ Die Faktoren, welche die Dauer beeinflussen sind folgende:
 
 \begin{itemize}
 \item \textbf{Windgeschwindigkeit}: Der Hauptfaktor für die Berechnung der
-Dauer. Es muss aber nicht unbedingt heissen, je schneller die
-Windgeschwindigkeit ist, desto kürzer die Dauer ist.
+Dauer. Allerdings bedeutet dies nicht, dass je grösser die Windgeschwindigkeit
+ist, auch die Dauer kürzer wird.
 
 \item \textbf{Min- bzw. Max-Geschwindigkeit des Segelschiffes}: Ab einer
-gewissen Limite ist der Segelschiff immer gleich schnell. Jedes Segelschiff
+gewissen Grenze ist der Segelschiff immer gleich schnell. Jedes Segelschiff
 hat eine Min- bzw. eine Max-Geschwindigkeit, egal wie stark oder schwach der
 Wind ist.
 
@@ -251,15 +255,17 @@ wird.
 
 Folgend ist ein Ausschnitt der Berechnung abgebildet:
 
+\pagebreak
+
 \lstinputlisting[label=src:windfieldparser,caption={Codeausschnitt der Klasse SailingDuration}]{code/sailingDuration.java}
 
 \subsection{Properties}
 Ein weiteres Problem stellten die verschiedenen Systemen dar, auf welchen
-diese Applikation laufen gelassen wurde. Die Pfade der Dateien, die in der
+diese Applikation entwickelt wurden. Die Pfade der Dateien, die in der
 Applikation eingelesen werden, stimmten nicht überein und bei jeder Übernahme
 der Änderungen mussten die Pfade angepasst werden. Desweiteren sind statische
-Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme bereiten
-können. 
+Pfade im Code unerwünscht, da sie später dem Entwickler viel Probleme
+bereiten.
 
 Aus diesem Grund haben wir uns entschieden, eine Properties-Datei zu
 erstellen, welche als einfacher Konfigurationsmechanismus verwendet wird. In
@@ -277,14 +283,12 @@ die Handhabung der ganzen Einlesen/Auslesen zu erleichtern. Dieser Klasse wird
 der Name der Variablen übergeben und es liefert als Ergebnis den Wert zurück,
 welcher in der Properties-File zu finden ist.
 
-Die Implementierung der Klasse \texttt{PropertyLoad}:
-
 \lstinputlisting[label=src:propLoad,caption=PropertyLoad-Klasse]{code/propertyLoad.java}
 
 \subsection{Logging}
 % TODO: Quellen angeben
-Für das Logging\cite{apachelog4j} wird die Log4j-Library von Apache Software Foundation
-verwendet. Dieses Framework erlaubt uns, mehrere Loggingsysteme zu defnieren
+Für das Logging\cite{apachelog4j} wird die Log4j-Library der Apache Software Foundation
+verwendet. Dieses Framework erlaubt uns, mehrere Loggingsysteme zu definieren
 und die Standardausgaben über sogenannte Logger an sie weiterzuleiten. Somit
 ist es zum Beispiel möglich, die Meldungen gleichzeitig in einer Datei, an
 einem Syslog- Daemon und auf der Konsole auszugeben. Die Library ermöglicht
@@ -331,3 +335,9 @@ weiterer Vorteil ist die Möglichkeit mittels JavaScript direkt im Browser die
 Darstellung zu beeinflussen, daher es ist möglich einzelne Komponenten der
 Darstellung auszublenden ohne Neuberechnung des Datensatzes.
 
+\begin{figure}
+ \centering
+ \includegraphics[width=\linewidth]{img/svgwindfield}
+ \label{abb:svgwindfield}
+ \caption{Ein Beispiel des SVG-Renderers}
+\end{figure}

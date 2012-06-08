@@ -8,40 +8,42 @@ wurden einerseits mit dem Debugger zur Verifizierung der Inhalte und
 andererseits mit systematisch festgelegten Eingabedaten ausgeführt. Daneben
 wurden auch noch die automatisierten Unit-Tests eingesetzt, um zu
 verifizieren, dass bei Änderungen keine unerwünschten Nebeneffekte
-hervortreten. 
+auftreten. 
 
 In unserer Appkilation wurden für alle Packages mindestens ein JUnit-Test
-geschrieben. Es wurden entweder ganze Klassen oder nur gewisse, essenzielle
+geschrieben. Entweder werden ganze Klassen oder nur gewisse, essenzielle
 Methoden getestet. Somit sollten diese Tests die meisten Fällen abdecken. 
 
 \subsection{JUnit Test}
 JUnit\cite{junitTest} ist ein kleines, mächtiges Java-Framework zum Schreiben und Ausführen
-von automatisierten Unit-Tests. Es werden in der Regel für alle Klassen, die
+von automatisierten Unit-Tests. Es wird in der Regel für alle Klassen, die
 überprüft werden sollen, ein Unit-Test erstellt. Diese Unit-Tests verhalten
 sich auch wie die gewöhnlichen Java-Klassen, mit dem Unterschied, dass sie im
 Namen das Wort \texttt{Test} am Schluss und einige JUnit-Annotationen innerhalb der
 Klasse haben, wobei die Endung im Namen nur eine Konvention ist. Ein
 JUnit-Test kennt nur zwei Ergebnisse: Entweder war der Test erfolgreich oder
 nicht. Das Fehlschlagen kann zwei Gründe haben, entweder war es ein
-Fehler(Error) oder es lieferte ein falsches Ergebnis (Failure). Der einzige
+Fehler (Error) oder es lieferte ein falsches Ergebnis (Failure). Der einzige
 Unterschied zwischen den beiden Begriffen liegt darin, dass Errors eher
 unerwartet auftreten, während Failures erwartet werden. Desweiteren können die
-geschriebenen Testfälle zu jeder Zeit beliebig wiederholt werden. 
+geschriebenen Testfälle zu jeder Zeit wiederholt werden. 
 
 Ausserdem bietet dieses Framework einige Methoden an, um Werte vergleichen zu
 können. So zum Beispiel vergleicht die Methode \texttt{assertEquals(expected, actual,
-delta)} zwei Werte, expected und actual, und kann eine Abweichung beinhalten. 
+delta)} zwei Werte, expected und actual, und kann eine Abweichung
+\texttt{delta} beinhalten. 
 
 \subsubsection{Beispiele}
-% Mit sinnvollen Beispielen simulieren.
-Als Beispiel für ein JUnit-Test kann der Test für die Klasse $TrackComputation$ gebracht werden. 
-Diese Klasse berechnet den Winkel zwischen zwei Punkten $A$ und $B$. Für die Berechnung
-wurden simple Beispieldaten genommen, um das Resultat auch selbst nachvollziehen zu können.
-Diese Daten wurden in einer $HashMap$ gespeichert. Ein $HashMap$ ist ein Assoziativspeicher. 
-D.h. dass diese Klasse Datenelemente mit Schlüssel und Wert-Paaren abspeichert. In unserem
-Beispiel fungiert sie eher als eine Liste. Danach werden diese Werte ausgelesen und der 
-Winkel berechnet. Falls die berechneten Winkel mit den $Mathematica$ Lösungen übereinstimmen,
-war der Test erfolgreich (grün).
+Als Beispiel für ein JUnit-Test kann der Test für die Klasse
+\texttt{TrackComputation} gebracht werden. Diese Klasse berechnet den Winkel
+zwischen zwei Punkten $A$ und $B$. Für die Berechnung wurden simple
+Beispieldaten genommen, um das Resultat auch selbst nachvollziehen zu können.
+Diese Daten wurden in einer \texttt{HashMap} gespeichert. Ein \texttt{HashMap}
+ist ein Assoziativspeicher.  D.h. dass diese Klasse Datenelemente mit
+Schlüssel und Wert-Paaren abspeichert. In unserem Beispiel fungiert sie eher
+als eine Liste.  Danach werden diese Werte ausgelesen und der Winkel
+berechnet. Falls die berechneten Winkel mit den \texttt{Mathematica} Lösungen
+übereinstimmen, war der Test erfolgreich (grün).
 
 Der JUnit-Test sieht wie folgt aus:
 
@@ -73,8 +75,7 @@ schon einigermassen in diese Richtung zeigen:
 \end{figure}
 
 Als letztes Veraunschaulicht dieses Beispiel eine Route, die ihren Kurs in der
-Mitte ziemlich ändern muss, da die Richtungen der Windvektoren sich umgekehrt
-haben. 
+Mitte ändern muss, da die Richtungen der Windvektoren sich gekehrt haben. 
 
 \begin{figure}[h!]
 \centering

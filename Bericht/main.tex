@@ -89,6 +89,9 @@
 
 \thispagestyle{empty}
 \newpage
+
+\includepdf[pages=-]{img/Erklaerung_BA.pdf}
+
 \thispagestyle{empty}
 
 \part*{Abstract}
@@ -100,6 +103,19 @@
 \textbf{\textsc{Deutsch}}
 \vspace{1cm}\\
 
+Diese Bachelorarbeit ist eine hocheffiziente Implementierung eines
+Routensuch-Algorithmus mittels dynamischer Programmierung in Java. Die
+mathematischen Grundlagen des Suchalgorithmus, die Design-Entscheide während
+der Implementierung und Resultate werden gründlich erklärt und diskutiert.
+Auf mögliche Verbesserungen und Erweiterungen wird hingewiesen.
+
+Implementationsfehler des Kernalgorithmus werden hervorgehoben und zeigen das
+vollständige Verständnis der Problematik durch die Autoren selbst.
+
+Zu guter Letzt wurde der Quellcode durchgehend in eine sehr hohen Detailgrad
+dokumentiert und lässt keine Verständnisprobleme übrig, wenn dieser für
+Weiterentwicklung verwendet wird
+
 \columnbreak
 
 \textbf{\textsc{English}}
@@ -108,13 +124,13 @@
 This bachelor thesis is an highly efficient implementation of an optimal track
 calculation done by using the approach of dynamic programming in Java. The
 mathematical principles of the search algorithm are thoroughly described, the
-decisions taken while the implementation process and the results while
+decisions taken throughout the implementation process and the results while
 highlighting some possible extensions and improvements are discussed.
 
 Also some flaws arisen while implementing the given core algorithm are pointed
 out which show the deep understanding of the topic by the authors.
 
-Last but not least the implementation is fully documented to the most possible
+Last but not least the implementation is fully documented to the highest possible
 level and leaves no room for misunderstandings when using the code base for
 further developments.
 
@@ -135,7 +151,7 @@ further developments.
 \part{Einleitung}
 \section{Ausgangslage}
 Zu den klassischen Methoden der mathematischen Entscheidungsvorbereitung gehört
-die Dynamische Programmierung (DP). Sie ermöglicht die optimale Gestaltung
+die ''Dynamische Programmierung'' (DP). Sie ermöglicht die optimale Gestaltung
 einer Kette sequentieller Entscheidungen aufgrund wettbewerbsrelevanter
 Randbedingungen (physikalischer oder ökonomischer Natur).
 
@@ -145,17 +161,17 @@ eines Problems -- von Bellman als Programm bezeichnet -- und soll den
 Gegensatz zum linearen Lösen von Problemen verdeutlichen.
 
 Sehr viele bekannte Probleme können effizient mittels dynamischen
-Programmierens gelöst werden, so zum Beispiel das travelling salesmen problem,
-das maximum subarray problem oder auch longest common subsequence problem, die
-alle eine sehr hohe Bedeutung in der Informatik haben und jedem Informatiker
-in der einen oder anderen Art bekannt sind.
+Programmierens gelöst werden, so zum Beispiel das ''travelling salesmen
+problem'', das ''maximum subarray problem'' oder auch ''longest common
+subsequence problem'', die alle eine sehr hohe Bedeutung in der Informatik
+haben und jedem Informatiker in der einen oder anderen Art bekannt sind.
 
 So wollte auch die MeteoSchweiz mittels dieser Methode eine Problemstellung
 in Java implementiert haben, die bereits von einem ihrer Mitarbeiter in
 Mathematica entworfen wurde.
 
 \section{Auftrag}
-Die Bachelorarbeit ist eine Anwendung der dynamische Programmierung zur
+Die Bachelorarbeit ist eine Anwendung der dynamischen Programmierung zur
 Kursbestimmung eines Segelschiffs. Aufgrund der mit einem numerischen
 Modell vorausgesagten Wetterentwicklung und in Anbetracht der Leistungskurve
 (Polardiagramm) des Schiffes wird dessen optimale Route mittels dynamische
@@ -165,12 +181,12 @@ des Americas Cup verwendet.
 \subsection{Systemspezifikation}
 Die Programmiersprache ist mit Java vorgegeben. Es sind keine weiteren
 Einschränkung wie das verwenden eines bestimmten Frameworks, Librarys oder
-eines bestimmten Betriebsystemes.
+eines bestimmten Betriebssystemes vorhanden.
 
 \subsection{Öffentlichkeitsarbeit, Auftritte}
 Von der Seite der ZHAW ist die obligatorische Bachelorarbeits-Präsentation
 gegeben und zählt als Bewertungsteil der Gesamtarbeit. Die MeteoSchweiz will
-die Arbeit bei mindestens einem internen Vortrag präsentieren, weitere
+die Arbeit bei mindestens einem internen Vortrag präsentieren. Weitere
 Auftritte können mit den Autoren der Arbeit vereinbart werden.
 
 \subsubsection{Weitere Verwendung der Arbeit}
@@ -182,12 +198,16 @@ angestrebt.
 \subsection{Terminologie}
 \paragraph{Seemeile}ist eine in der Meteorologie gebräuchliche Längeneinheit,
 die als Berechnungsgrundlage für die Navigation und das Angeben von Distanzen
-dient. Sie entspricht der Länge einer Winkelminute eines Grosskreis und auf der
+dient. Sie entspricht der Länge einer Winkelminute eines Grosskreises und auf der
 Erde beträgt diese Distanz 1852 m.
 
 \paragraph{Winkelminute}ist der sechzigste Teil eines Winkelgrades, welches
 wiederum der dreihundertsechzigste Teil einer Umdrehung ist. Somit wäre eine
-Winkelminute \\ \( W=\frac{1 Grad}{60} = 0.0\overline{16}^\circ \)
+Winkelminute 
+\begin{equation}
+\centering
+W=\frac{1 Grad}{60} = 0.0\overline{16}^\circ
+\end{equation}
 
 \paragraph{Knoten}ist ein Geschwindigkeitsmass in der Meteorologie, das auf der
 Längeneinheit Seemeile beruht. Somit ist ein Knoten 1852 m/h = 0.514 m/s.
@@ -233,13 +253,13 @@ Richard Bellman benutzt und umfasst eine Reihe von Methoden mit dem Ziel,
 Optimierungsprobleme zu lösen. 
 
 Das Optimierungsproblem wird dann erfolgreich mit diesem Verfahren
-gelöst, wenn sie in mehrere gleichartige Teilprobleme aufgeteilt werden
+gelöst, wenn es in mehrere gleichartige Teilprobleme aufgeteilt werden
 kann. Eine optimale Lösung setzt sich somit aus den optimalen Lösungen
 der Teilproblemen zusammen, wobei die Randbedingungen der Teilproblemen
 voneinander abhängen können.  Aus diesem Grund ist eine Strategie dann
 optimal, wenn alle Unterstrategien optimal sind. Die Zwischenergebnisse
 der Teilprobleme werden aber nicht rekursiv, sondern iterativ berechnet
-und in einer Tabelle gespeichert, so dass, wenn sie wieder benötigt
+und in einer Lookup-Tabelle gespeichert, so dass, wenn sie wieder benötigt
 werden, nicht nochmals berechnet werden müssen.
 
 In unserer Anwendung ist das Ziel klar: Den Kurs des Segelschiffes zu
@@ -251,12 +271,11 @@ die Windvektoren auf der Wasseroberfläche und ihre Interaktion mit dem
 Segelschiff in die Berechnung miteinbezogen. 
 
 \subsection{Die ersten Schritte}
-Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit
-einer konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses
-Fahrzeug von einem Anfangspunkt bis zu einem Ankunftspunkt reisen
-möchte. Die Unterteilung, also die Zerstückelung der Strecke wird mit
-der Aufspannung eines Gitternetzes zwischen diesen beiden Punkten
-bereitgestellt.
+Betrachten wir nun ein Fahrzeug, welches sich auf der Erdoberfläche mit einer
+konstanten Geschwindigkteit bewegt. Nehmen wir an, dass dieses Fahrzeug von
+einem Anfangspunkt bis zu einem Zielpunkt reisen möchte. Die Unterteilung,
+also die Zerstückelung der Strecke wird mit der Aufspannung eines Gitternetzes
+zwischen diesen beiden Punkten bereitgestellt.
 
 Beginnend mit einer sehr einfachen Formulierung, die schrittweise verfeinert
 werden soll, definiert man:
@@ -264,7 +283,7 @@ werden soll, definiert man:
 \( \Delta t_i\;,  i=0...m\), ist die benötigte Zeit von der \( (i-1)\)-ten
 Spalte bis zur \(i\)-ten Spalte, wobei \(i=0\) der ersten Spalte entspricht,
 wo sich der Anfangspunkt befindet und \(i=m\) der letzten Spalte entspricht,
-wo sich der Ankunftspunkt befindet.
+wo sich der Zielpunkt befindet.
 
 % TODO: Skizze vom Gitternetz mit delta_t und Spalten-Indizes hinzufügen
 
@@ -289,7 +308,7 @@ D_I = \overset{I}{\underset{i=1}{\min}} [\; \Delta t_I + \sum_{i=1}^{I-1}
 \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;]
 \end{equation}
 
-Somit liefert die Gleichsetzung der ersten und letzten Ausdrücke eine rekursive
+Somit liefert die Gleichsetzung der ersten und der letzten Ausdrücke eine rekursive
 Formulierung des Problems. Desweiteren muss ein Anfangswert angegeben werden,
 vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
  
@@ -298,9 +317,9 @@ vorausgesetzt \(D_0  = D_{i=0} =\) Abfahrtszeit ist, so dass gilt:
 D_I =  \overset{I}{\min} [\; \Delta t_I + D_{I-1} \;];\;\;\;\;\;\; D_0: Abfahrtszeit.
  \end{equation}
  
-Diese Ableitung ergibt sich aus einer Optimierungsprinzip, dass eine
+Diese Ableitung ergibt sich aus einem Optimierungsprinzip, dass eine
 Strategie nur dann optimal ist, wenn alle ihre Unterstrategien optimal
-sind. Und somit birgt eine solche pauschale Formulierung den
+sind. Und somit beschreibt eine solche pauschale Formulierung den
 Entscheidungsprozess. 
  
 Folglich gibt es zwei Entscheidungsverfahren:
@@ -363,13 +382,13 @@ D_{I,k} \to j^*\; mit\; |\;j^*\;-\;k\;| \;\le\; Spread;\; j^*\; \in Spalte\; I-1
 \end{equation}
  
 Somit werden nur die Knoten in der Spalte \(i\) als Nachbarn für die Knoten in
-der Spalte \(i-1\) gelten, welche auch diese Bedingung erfüllen. Die restlichen
-Knoten der Spalte \(i\), die diese Bedingung nicht erfüllen, werden einfach bei
-der Auswahl nicht berücksichtigt.
+der Spalte \(i-1\) gelten, welche auch diese Bedingung erfüllen. Die
+restlichen Knoten der Spalte \(i\), die diese Bedingung nicht erfüllen, werden
+bei der Auswahl nicht berücksichtigt.
 
 Der Spread-Parameter wird uns später auch einen weiteren Vorteil bringen. Er
 wird uns helfen die Problematik mit der Küste zu bewältigen, so dass
-unsere Route nicht das Gewässer verlässt.
+die Route nicht das Gewässer verlässt.
 
 \include{bericht_aufgabe1}
 \include{bericht_aufgabe3}
@@ -392,11 +411,10 @@ beeinflussen.
 
 So ist es möglich noch während dem Entwickeln den Sourcecode zu dokumentieren,
 also wenn er noch frisch in Erinnerung ist und es wird keine wiederholte
-Einarbeitung benötigt wie einer nachträglichen Dokumentation.
+Einarbeitung benötigt wie bei einer nachträglichen Dokumentation.
 
 Wenn die Dokumentation erstellt wurde, kann mittels \texttt{javadoc} und
-diversen Switches bestimmt werden bis zu welcher Detailstufe -- sollen die
-private Methoden auch in die Dokumentation erscheinen -- ausgegeben werden
+diversen Switches bestimmt werden bis zu welcher Detailstufe ausgegeben werden
 soll. Auch ist es möglich ein separates CSS-Files anzugeben, um die
 Dokumentation der Corporate-Identity anzupassen. Nachher sind die HTML-Dateien
 bereit für die Publikation auf dem Webserver des Projektes.
@@ -410,13 +428,8 @@ bereit für die Publikation auf dem Webserver des Projektes.
 
 
 \include{testing}
-
-
-\newpage
-\part{Diskussion und Ausblick}
-% Interpretation und Validierung der Resultate
 \include{discussion}
-\newpage
+
 \part{Anhang}
 
 \section{Projektplanung}
@@ -656,6 +669,40 @@ Die offizielle, unveränderte Aufgabenstellung der Bachelorarbeit.
 
 \section{Besprechungsprotokolle}
 
+\lstinputlisting[label=20120216,caption=Sitzungsprotokoll vom 16.02.2012]{protokolle/BALakeroutingSitzungsprotokoll20120216.txt}
+
+\newpage
+\lstinputlisting[label=20120228,caption=Sitzungsprotokoll vom 28.02.2012]{protokolle/BALakeroutingSitzungsprotokoll20120228.txt}
+
+\newpage
+\lstinputlisting[label=20120306,caption=Sitzungsprotokoll vom 06.03.2012]{protokolle/BALakeroutingSitzungsprotokoll20120306.txt}
+
+\newpage
+\lstinputlisting[label=20120313,caption=Sitzungsprotokoll vom 13.03.2012]{protokolle/BALakeroutingSitzungsprotokoll20120313.txt}
+
+\newpage
+\lstinputlisting[label=20120320,caption=Sitzungsprotokoll vom 20.03.2012]{protokolle/BALakeroutingSitzungsprotokoll20120320.txt}
+
+\newpage
+\lstinputlisting[label=20120327,caption=Sitzungsprotokoll vom 27.03.2012]{protokolle/BALakeroutingSitzungsprotokoll20120327.txt}
+
+\newpage
+\lstinputlisting[label=20120404,caption=Sitzungsprotokoll vom 04.04.2012]{protokolle/BALakeroutingSitzungsprotokoll20120404.txt}
+
+\newpage
+\lstinputlisting[label=20120416,caption=Sitzungsprotokoll vom 16.04.2012]{protokolle/BALakeroutingSitzungsprotokoll20120416.txt}
+
+\newpage
+\lstinputlisting[label=20120423,caption=Sitzungsprotokoll vom 23.04.2012]{protokolle/BALakeroutingSitzungsprotokoll20120423.txt}
+
+\newpage
+\lstinputlisting[label=20120508,caption=Sitzungsprotokoll vom 08.05.2012]{protokolle/BALakeroutingSitzungsprotokoll20120508.txt}
+
+\newpage
+\lstinputlisting[label=20120521,caption=Sitzungsprotokoll vom 21.05.2012]{protokolle/BALakeroutingSitzungsprotokoll20120521.txt}
+
+\newpage
+\lstinputlisting[label=20120529,caption=Sitzungsprotokoll vom 29.05.2012]{protokolle/BALakeroutingSitzungsprotokoll20120529.txt}
 
 \bibliographystyle{ba_zhaw}
 \bibliography{hablumat_biblio,yuksefev_biblio}

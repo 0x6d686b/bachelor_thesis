@@ -2,7 +2,7 @@
 
 \section{Berechnung von Segelgeschwindigkeit anhand der Windfelder}
 Die in Abschnitt \ref{s:windfields} eingelesenen Windfelder werden nun für die
-Berechnung der Segelgeschwindigkeit verwendet. Gegen sind der
+Berechnung der Segelgeschwindigkeit verwendet. Gegeben sind der
 Windangriffswinkel auf das Schiff durch die Windvektoren von Punkt $A$ nach
 $B$, die Segelrichtung ist damit auch bekannt.
 
@@ -23,7 +23,7 @@ ist im Voraus bekannt).
 Also muss in einem ersten Schritt die Ankunftszeit approximiert werden.  Wir
 könnten die Euler'sche Regression verwenden, allerdings besteht hier das
 Problem, dass der Algorithmus nicht zwingend die beste Lösung findet und über
-eine unterschiedlich lange Laufzeit verfügt. Daher erschien ein zweischrittiges
+eine unterschiedlich lange Laufzeit verfügt. Daher erschien ein zwei-schrittiges
 Verfahren für eine Teilapproximation vernünftig, welches in linearer Zeit
 ausgeführt werden kann.
 
@@ -46,18 +46,20 @@ welche Richtung das Segelschiff segelt. Die Berechnung des Kurses findet wie
 folgt statt: Zuerst wird ein Kreuzprodukt der zwei Vektoren vom Ursprung
 \(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\) und
 \(\overrightarrow{X}_{(\theta_{2},\phi_{2})}\) brerechnet. Das Resultat
-entspricht dann der Normalenvektor \(\overrightarrow{N}\), welche senkrecht zu
-der aufgespalteten Ebene von \(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\)
+entspricht dann dem Normalenvektor \(\overrightarrow{N}\), welcher senkrecht zu
+der aufgespannten Ebene von \(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\)
 und \(\overrightarrow{X}_{(\theta_{2},\phi_{2})}\) steht. Danach wird wiederum
 ein Kreuzprodukt berechnet, diesmal aber vom Vektor
 \(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\) und dem Normalenvektor
 \(\overrightarrow{N}\).  Dies ergibt als Resultat die Richtung des
-Segelschiffes. Da dieser Vektor aber 3-dimensional ist, muss sie auf die
+Segelschiffes. Da dieser Vektor aber 3-dimensional ist, muss er auf die
 lokale Tangentialebene (\(\overrightarrow{e_{\theta}}\),
 \(\overrightarrow{e_{\phi}}\)) des Punktes $X_{(\theta_{1},\phi_{1})}$
-projiziert werden, damit wir einen 2-dimensionales Vektor erhalten.
+projiziert werden, damit wir einen 2-dimensionalen Vektor erhalten.
 
-Die grafische Darstellung dieser Berechnung sieht wie folgt aus:
+Die grafische Darstellung dieser Berechnung findet sich auf der Abbildung
+\ref{gridnetConn}.
+ 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.8\linewidth]{img/track}
@@ -79,8 +81,8 @@ In der Implementation haben wir einen noch einfacheren Ansatz verfolgt:
 t = \frac{2d}{\mathbf{s_{1}} + \mathbf{s_{2}}}
 \end{align}
 
-t Reisezeit, d Distanz zwischen zwei Punkten, 
-$s_{1}$ bzw. $s_{2}$ Schiffsgeschwindigkeit einmal mit Windvektor $v_{1}$ und einmal mit $v_{2}$.
+t Reisezeit, d Distanz zwischen zwei Punkten, $s_{1}$ bzw. $s_{2}$
+Schiffsgeschwindigkeit einmal mit Windvektor $v_{1}$ und einmal mit $v_{2}$.
 
 \vspace{0.5cm}
 % Im Kapitel 9.1.1 wird es erwähnt... Hier noch ref einfügen!

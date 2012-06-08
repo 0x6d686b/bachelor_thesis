@@ -1,6 +1,6 @@
 % Author: Mathias Hablützel
 % Interpretation und Validierung der Resultate
-
+\part{Diskussion und Ausblick}
 \section{Erweiterbarkeit}
 % Zeigen, dass es leicht erweiterbar und wiederverwendbar ist.
 \subsection{Wiederverwendbarkeit}
@@ -12,20 +12,20 @@ sicherstellen, dass möglichst wiederverwendbarer Code entsteht. Ein gutes
 Anschauungsbeispiel ist hier die Klasse \texttt{Bilinear.java}, dass eine
 Implementation des Interfaces \texttt{InterpolationAlgorithm.java} ist. Das
 Interface gibt einzig vor, welche Schnittstellen beziehungsweise welche
-Methoden zu implementieren sind und in unserem Fall auch andere gewisse
+Methoden zu implementieren sind und in unserem Fall auch gewisse andere
 Randbedingungen. Somit kann die Klasse für Interpolation einfach ausgetauscht
 werden mit einem anderen Algorithmus, ohne das der Rest der Software betroffen
-ist. Somit wäre es möglich komplexere Interpolationsverfahren zu nutzen, die
+ist. Somit wäre es möglich komplexere Interpolationsverfahren zu nutzen, wie
 zum Beispiel spezialisierte Hardware wie ein FPGA\footnote{Field-programmable
-gate array}, um eine noch schnellere Berechnung grosse Datensätze zu
+gate array}, um eine noch schnellere Berechnung grosser Datensätze zu
 ermöglichen.
 
 \subsection{Parallelisierung}
 % Aufzeigen, dass Paralellisierung möglich ist.
 \subsubsection{Multi-Core-CPU}
-Im Rahmen der Arbeit hat sich schnell die Frage gestellt, wie man die
+Im Rahmen der Arbeit hat sich die Frage gestellt, wie man die
 Multi-Core-Architektur eines Supercomputer ausreizen kann. Die jetztige
-Implementation verwendet eine reine Single-Thread-Archtitektur mit synchronen
+Implementation verwendet eine reine Single-Thread-Archititektur mit synchronen
 Aufrufen. Das bedeutet einerseits, dass die nominelle Taktgrösse der CPU die
 Verarbeitungsgeschwindigkeit direkt bestimmt und andererseits liegen die
 anderen Cores brach und werden nicht benutzt. Da aber heute immer mehr CPUs
@@ -37,23 +37,24 @@ Design Power, maximale Verlustleistung} nicht verbraucht wird, sich die
 ungenutzten Cores abschalten und damit dem aktiven Core erlauben zu übertakten
 und die verfügbare Verlustleistung auszureizen.  Jedoch muss erwähnt werden,
 dass die Verlustleistung nicht linear mit der Rechenleistung zunimmt und es
-damit kein sinnvoller Trade-Off darstellt, insbesondere wenn dadurch höchsten
+damit kein sinnvoller Trade-Off darstellt, insbesondere wenn dadurch höchstens
 30\% mehr Berechnung drin liegen gegenüber 400\% bei voller
 Quad-Core-Berechnungen.
 
 \subsubsection{Asynchronous Threads}
 Auf der anderen Seite blockieren wir mit synchronen Methodenaufrufe die
-Reaktionsfähigkeit der Benutzerinterfaces. Das heisst, dass der Benutzer ein
-eingefrorenes Programm sieht, solange die Algorithmen beschäftig sind. Solche
+Reaktionsfähigkeit des Benutzerinterfaces. Das heisst, dass der Benutzer ein
+eingefrorenes Programm sieht, solange die Algorithmen beschäftigt sind. Solche
 Oberflächen gehören zu den Tabu-Design-Prinzipien: Ein Programm sollte dem
 Anwender immer über seinen internen Zustand informieren und wissen lassen wie
 weit seine Berechnungen schon getätigt wurden. Ein Benutzer könnte eine nicht
-reaktive Oberfläche so missinterpretieren, dass die Software abgestürtzt ist,
-sein Beenden erzwingt und die Berechnung unsinnigerweise von neuem anstösst.
+reaktive Oberfläche so missinterpretieren, dass die Software abgestürtzt sei,
+sein Beenden erzwingt und die Berechnung unsinnigerweise von Neuem anstossen
+muss.
 
 Somit wäre es sinnvoll Threads mit Callback-Hooks zu erstellen, die in
 regelmässigen Berechnungsabständen ihren Status melden. Wichtig ist hier, dass
-die Häufigkeit von Rückmeldungen nicht von Timern also zeitabhängig ist. Viel
+die Häufigkeit von Rückmeldungen nicht von Timern -- also zeitabhängig -- ist. Viel
 sinnvoller ist es, nach einer Anzahl von Operationen den Stand der
 Berechnungen zu melden. Eine übliche Vorgehensweise ist die Anzahl
 Berechnungen zu ermitteln und bei jedem Abschluss der Berechnung diese als
@@ -94,6 +95,9 @@ seine Zielkoordinaten. Diese werden dann an den MeteoSchweiz-Server
 als grafische Karte oder als Datei mit GPS-Koordinate ausgegeben werden. Da
 die meisten Smartphones Google Maps installiert haben, können diese sehr
 einfach das GPX-Dateiformat verwenden und die Route als Overlay darstellen.
+Der Vorteil vom GPX-Format liegt in seiner weiten Verbreitung und
+Unterstützung durch viele GPS-Navigationsgeräte. So können ohne grossen
+Aufwand Geräte von diversen Hersteller die Daten benutzen.
 
 \subsection{Isochronen}
 Die Isochronen bezeichnen die Verbindungslinien der verschiedenen Routen, die
@@ -104,15 +108,16 @@ noch festzustellen, zwischen welchen Spalten diese Zeit der Isochronen zu
 kommen hat. Nachdem dies berechnet wurde, wird anhand der Länge der Strecke
 zwischen diesen beiden Spalten ein Dreisatz gebildet, welches uns die Länge
 bis zum Isochron liefert. Zum Schluss brauchts nur noch den Punkt zu zeichnen.
-
-Umgesetzt sollte es ungefähr so aussehen:
+Die Abbildung \ref{isochron} verdeutlicht dies.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\linewidth]{img/isochronen}
-\caption{Isochronen zu gegeben Zeiten}
+\caption{Isochronen zu gegebenen Zeiten}
 \label{isochron}
 \end{figure}
+
+\clearpage
 
 \section{Programmiertechnische Grenzen}
 % (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
@@ -123,16 +128,16 @@ Umgesetzt sollte es ungefähr so aussehen:
 Intern verwendet Double die \texttt{IEEE 754}-Arithmetik und beschränkt damit
 die Genauigkeit der Zahlen und Berechnungen. Allerdings reicht die Genauigkeit
 für unsere Zwecke zu genüge aus, da wir nie in einen Grenzbereich des
-Double-Datentyps kommen. Die kleinste Zahl für die Windgeschwindigkeit ist ja
-auf $0.0001$ limitiert worden. Unvernünftig grosse Werte erwarten wir sowieso
-nicht, somit stellen diese Beschränkungen keine Probleme dar.
+Double-Datentyps kommen. Die kleinste Zahl für die Windgeschwindigkeit ist auf
+$0.0001$ limitiert worden. Unvernünftig grosse Werte erwarten wir nicht, somit
+stellen diese Beschränkungen keine Probleme dar.
 
 \subsection{Berechnungsgenauigkeit von primitiven Mathematikfunktionen}
 Intern werden die die Resultate für die Sinus- und Cosinus-Funktionen in
 Lookup-Tabellen abgespeichert und bei der Abfrage durchlaufen. Da wir nicht
 eine Präzision von mehreren Nachkommastellen benötigen, reicht die vorhandene
 Präzision. Dazu kommt, dass ein Segelboot unter keinen Umständen den Kurs auf
-zwei Nachkommastellen halten kann.
+zwei Nachkommastellen genau halten kann.
 
 \section{Sonderfälle}
 \subsection{Unvollständiger Entscheidungsbaum bei zu kleinem Spread-Faktor}
@@ -144,7 +149,7 @@ des angegebenen Spread liegt.
 Allerdings könnte ein Spezialfall eintreten, bei dem der letzte
 Vorgängerknoten der optimale Vorgänger ist, allerdings ausserhalb des Spreads
 liegt. Dann wird dieser nämlich als optimaler Vorgänger gespeichert mit
-\texttt{MAX\_TOA} als Adjazenzgewicht. Allerdings scheitert wird die Abfrage
+\texttt{MAX\_TOA} als Adjazenzgewicht. Allerdings scheitern wird die Abfrage
 in Zeile \ref{sloc:verifyspread} des Listings \ref{lst:decisionspreadbug} und
 der Vorgänger wird nicht in \texttt{GraphList} gespeichert, was zu einem
 Knoten ohne Vorgänger führt und damit zu einem NullPointer.
@@ -187,7 +192,7 @@ for (int j = 0; j < getMaxj(); j++) {
 \subsection{Falsche Hysterese-Berechnung}
 Ein weiterer schwer zu findender Bug ist eine unvollständige
 Hysterese-Berechnung in \texttt{Decision.java}. Wie Listing
-\ref{lst:hysterisisbug} zeigt, wird berechnet um wie viele Windfelder der
+\ref{lst:hysterisisbug} zeigt, wird berechnet, um wie viele Windfelder der
 Algorithmus in der Zeit nach vorne springen soll, wenn die Reisezeit mehr als
 30 Minuten beträgt. Nehmen wir also an, die Reisezeit
 (\texttt{\_\_TRAVELTIME\_\_}) würde nun 40 Minuten betragen, dann erhalten wir
@@ -205,11 +210,13 @@ Die Orthodromie ist immer die kürzeste Route zwischen zwei Punkten auf einer
 Sphäre. Nehmen wir als Beispiel eine Regatta von Spanien via Australien nach
 Hawaii an. Die Orthodromie würde nun besagen, dass es westwärts -- also via
 Amerika -- schneller wäre, obwohl das Entscheidungsnetz ostwärts zeigt. Somit
-laufen wir in ein Wraparoundproblem bei den Zahlen rein. Die Software
+laufen wir in ein Wrap-aroundproblem bei den Zahlen rein. Die Software
 funktioniert für die geforderten Zwecke (keine Vorzeichenwechsel bei den
 Koordinaten) aber wie gewünscht. Eine Verwendung für transatlantische
 Segeltörns oder Äquatorquerungen bedarf einer gründlichen Überprüfung von
 Extrem- und Grenzwertkriterien.
+
+\clearpage
 
 \section{Erkenntnisse}
 \subsection{Schlussfolgerung}

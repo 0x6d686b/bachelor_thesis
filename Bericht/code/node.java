@@ -1,19 +1,8 @@
 public class Node implements Comparable<Node> {
-    /** Time it takes to travel to the node in minutes */
     private double timeOfArrival;
-    /** The ancestor or previous node */
     private Node previous = null;
-    /** The coordinate of the node */
     private Coordinate crd;
-    /** The wind vector at the node's position */
     private WindVector windVector;
-
-    .
-    .
-    .
-    // Some specific Constructors
-    .
-    .
     .
     /**
      * <p>Comparator overloading to be able to compare two Nodes according to its
@@ -61,9 +50,4 @@ public class Node implements Comparable<Node> {
             return true;
         return false;
     }
-
-    // Some getter & setter of the variables
-    .
-    .
-    .
 }

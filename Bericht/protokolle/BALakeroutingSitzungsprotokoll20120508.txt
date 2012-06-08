@@ -1,0 +1,37 @@
+Anwesende: Amb, Furu, Hab, Yuk; Ort: MeteoSchweiz, Büro Amb
+
+1. Darstellung ist von Betreuer als gut abgesegnet worden, können also
+so weiterfahren und vervollständigen.
+
+2. Code sauber ausdokumentieren und JavaDoc ausführen, vorallem um die
+Algorithmik gut zu erklären und damit auch allfällige Fehler frühzeitig
+zu erkennen.
+
+3. Isochronen aufzeichnen zu gewissen fixen Zeitpunkten (z.Bsp. alle 10
+Minuten). Methode die alle Kanten überprüft und aussucht, welche zum
+Zeitpunkt xx:yy gerade benutzt werden. Auf diesen muss dann mittels
+einfachem Dreisatz bestimmt werden, wo genau das Schiff zum Zeitpunkt
+xx:yy genau ist. x------b-------------x zum Zeitpunkt xx:yy
+
+4. Zeitpunktvoraussage beim nächsten Punkt anhand eines optimierten
+Euler-Verfahrens optimieren (einfache Optimierung bzw. ein Zyklus), um
+den Zeitpunkt genauer bestimmen zu können und somit ggf. das neue
+Windfeld zu verwenden.
+
+5. In Bericht unbedingt Algorithmik und Entscheidungslogik erklären,
+insbesondere Entscheidungsnetze: Portfolio und optimaler Pfad/Optimal
+Ressource Allocation in byparted graphe. Wird in Spieltheorie, sozialen
+Netzwerken etc verwendet. Einführung in der dynamischen Programmierung
+unbedingt miterwähnen bzw. zitieren.
+
+6. Formale Bedingungen für die Arbeit abklären (Format, Aufbau etc)
+
+7. Vorträge an der MeteoSchweiz auf Deutsch (vermutlich in September),
+da Yuk aber abwesend sein wird, soll Hab das alleine machen. Vortrag an
+der ZHAW ist am 5.7.2012 0800CEST (IIRC) TH 368. Beurteilung der Arbeit
+erfolgt nach dem abschliessenden Vortrag.
+
+8. MeteoSchweiz will den gesamten Sourcecode inklusive Dokumentation
+erhalten, mit funktionierendem Beispiel.
+
+9. Nächste Sitzung 15. Mai 2012 1615CEST TP216 an der ZHAW

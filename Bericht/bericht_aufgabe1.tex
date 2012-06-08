@@ -65,7 +65,7 @@ zwischen den beiden Punkten $A$ und $B$ zu berechnen, werden zuerst die beiden
 Vektoren vom Kugelursprung bis zu den Punkten ermittelt. Die beiden Vektoren
 spannen dann mit dem Ursprung eine Ebene auf, deren Schnittlinie mit der
 Kugeloberfläche (Sphäre) die Orthodrome darstellt. Da die zwei Punkte den Kreis
-in zwei Kreisbogen separieren, wird nur der kürzere Distanz berücksichtigt.
+in zwei Kreisbögen separieren, wird nur der kürzere Distanz berücksichtigt.
 
 
 Auf der Erdoberfläche werden die zwei Punkten in geographische Koordinaten,
@@ -79,7 +79,7 @@ eingesetzt werden: \\
 % Formel ArcCos(...)
 \begin{equation}
 \label{eq:1}
- \frac{360*60}{2 \pi} \arccos[\cos(\theta_1 - \theta_2) \cos(\phi_1) \cos(\phi_2)+\sin(\phi_1) \sin(\phi_2)]
+ d = \frac{360*60}{2 \pi} \arccos[\cos(\theta_1 - \theta_2) \cos(\phi_1) \cos(\phi_2)+\sin(\phi_1) \sin(\phi_2)]
  \end{equation}
 
 
@@ -141,12 +141,12 @@ eingesetzt werden: \\
 \subsubsection{Erstellung eines Entscheidungsnetzes auf der Erdkugel}
 Es soll ein Koordinatennetz mit den Knoten erstellt werden, auf welches dann
 später die Berechnungen durchgeführt werden. Für die Erstellung des Netzes
-benötigt man den Start- und Endpunkt als Eingabe. Die Anzahl der Knoten im Netz
-werden von den weiteren zwei Eingaben m und n definiert, wobei m für die Anzahl
-der Spalten und n für die Anzahl der Zeilen steht. Alle Punkte in diesem Netz
-beinhalten ihre eigene Informationen über das Längen- und Breitengrad.
+benötigt man den Start- und Endpunkt als Parameter. Die Anzahl der Knoten im Netz
+werden von den weiteren zwei Parameter $m$ und $n$ definiert, wobei $m$ für die Anzahl
+der Spalten und $n$ für die Anzahl der Zeilen steht. Alle Punkte in diesem Netz
+beinhalten ihre eigene Informationen über ihre eigene Position.
 
-Der Abstand zwischen dem Start- und Endpunkt wird mittels der
+Der Abstand zwischen dem Start- und Endpunkt wird mittels dem
 Euklidischen-Abstand Verfahren ermittelt. Die Formel dafür lautet:
 
 \begin{equation}
@@ -154,7 +154,7 @@ Euklidischen-Abstand Verfahren ermittelt. Die Formel dafür lautet:
 e = \sqrt{ (\theta_2 - \theta_1)^2 + (\phi_2-\phi_1)^2}
 \end{equation}
 
-Somit sind die Spaltenlänge durch e/m und die Zeilenhöhe durch e/n definiert.
+Somit sind die Spaltenlänge durch $e/m$ und die Zeilenhöhe durch $e/n$ definiert.
 Da der Graph auch rotiert werden kann, braucht es eine Rotations-Matrix,
 welches sich wie folgt zusammensetzt wobei $\alpha$ den Rotationswinkel im
 Uhrzeigersinn darstellt.
@@ -168,7 +168,7 @@ Uhrzeigersinn darstellt.
 \end{equation}
 
 Am Ende erfolgt die Zusammenstellung des Koordinatennetzes für alle Knoten (i,
-j) mit dieser Formel \eqref{eq:4}:
+j) mit der Formel \eqref{eq:4}:
 
 \begin{equation}
 \label{eq:4}
@@ -202,11 +202,16 @@ aufgespannt, dass relativ-nördlich und -südlich des Startpunktes (und
 Zielpunktes) jeweils eine gegebene Anzahl von Gitterpunkten erstellt wird, die
 Gitterbreite. Vom Start- zum Zielpunkt hin werden auch eine gegebene Anzahl
 Punkte verwendet, die Gitterlänge. Dieses Gitter bestehend aus Gitterbreite und
--länge, also $n\times m$, stellt den Suchbereich dar.
+-länge, also $m\times n$, stellt den Suchbereich dar.
 
 \subsubsection{Erstellung eines Entscheidungskernes in der dynamischen Programmierung}
-Nach der Erstellung des Koordinatennetzes können die Orthodromie-Berechnungen auf die einzelnen Knoten durchgeführt werden. Wie auch oben in der dynamischen Programmierung beschrieben wurde, wird für jeden Knoten die Berechnung durchgeführt und mit der Knoten in der vorherigen Schicht eine Verbindung aufgebaut. \\
-Grafisch dargestellt würde es ungefähr so aussehen:
+Nach der Erstellung des Koordinatennetzes können die Orthodromie-Berechnungen
+auf den einzelnen Knoten durchgeführt werden. Wie auch oben in der dynamischen
+Programmierung beschrieben wurde, wird für jeden Knoten die Berechnung
+durchgeführt und mit der Knoten in der vorherigen Spalte eine Verbindung
+aufgebaut. Eine grafische Darstellung davon sieht in etwa wie in Abbildung
+\ref{gridnetConn} aus.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\linewidth]{img/gridNet_connections}
