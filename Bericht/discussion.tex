@@ -95,6 +95,25 @@ als grafische Karte oder als Datei mit GPS-Koordinate ausgegeben werden. Da
 die meisten Smartphones Google Maps installiert haben, können diese sehr
 einfach das GPX-Dateiformat verwenden und die Route als Overlay darstellen.
 
+\subsection{Isochronen}
+In der Meteorologie bezeichnen Isochronen die Verbindungslinien der verschiedenen
+Routen, die von einem Anfangspunkt aus in derselben Zeit zu erreichen sind. 
+Für die Umsetzung dieser Erweiterung sollte eigentlich eine Dreisatz-Berechnung
+genügen. Da wir zu jedem Knoten die Dauer der Fahrt haben, braucht man nur
+noch festzustellen, zwischen welchen Spalten diese Zeit der Isochronen zu kommen
+hat. Nachdem dies herausgefunden wurde, wird anhand der Länge der Strecke
+zwischen diesen beiden Spalten ein Dreisatz gebildet, welches uns die Länge bis zum Isochron 
+liefert. Zum Schluss brauchts nur noch den Punkt zu zeichnen.
+
+Umgesetzt sollte es ungefähr so aussehen:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\linewidth]{img/isochronen}
+\caption{Isochronen zu gegeben Zeiten}
+\label{isochron}
+\end{figure}
+
 \section{Programmiertechnische Grenzen}
 % (Im Sitzungsprotokoll vom 06.03.2012, Punkt 3)
 %% 3. Im Bericht sollte ein Absatz vorhanden sein, welches die 
