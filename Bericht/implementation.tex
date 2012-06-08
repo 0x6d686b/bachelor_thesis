@@ -51,7 +51,7 @@ Wie in Abschnitt \ref{aufg6:entscheidungsbaum} erklärt wurde, brauchen wir
 eine Liste, die alle nötigen Informationen zu den Knoten beinhaltet. Da die
 Grösse des Arrays variabel ist und wir zum grössten Teil einen index-basierten
 Zugriff benötigen, haben wir uns entschieden die Datenstruktur
-$java.util.ArrayList$ mit Generics zu verwenden. Eine generische ArrayList
+\texttt{java.util.ArrayList} mit Generics zu verwenden. Eine generische ArrayList
 erlaubt es genau zu definieren, welche Elemente/Datentypen einer ArrayList
 hinzugefügt werden dürfen. Ausserdem brauchen wir für eine tabellarische Form
 ein 2-dimensionales ArrayList. Um dies zu erreichen, wird ein ArrayList in
@@ -198,7 +198,7 @@ der Block als abgeschlossen betrachtet und er versucht den nächsten Header zu
 erkennen. Grafisch sieht das Flussdiagramm wiefolgt aus:
 
 \begin{center}
- %\includegraphics[height=0.92\textheight]{img/FlussdiagramWindfeldparser}
+ \includegraphics[height=0.92\textheight]{img/FlussdiagramWindfeldparser}
 \end{center}
 
 \lstinputlisting[label=src:windfieldparser,caption={Windfield-Parser,
@@ -312,3 +312,22 @@ Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner
 ausgeführt wird} gültig sind.
 
 \lstinputlisting[label=src:log4jProperties,caption=Properties-Datei der Log4j]{code/log4j.properties}
+
+\subsection{Datenvisualisierung}
+Um während der Entwicklung möglichst schnell eine visuelle Übersicht der
+berechneten Daten zu erhalten, wurde eine ''quick and dirty'' grafische
+Viewerklasse implementiert, die auch gleich Input-Felder beinhaltet, um
+möglichst ohne grossen Aufwand verschiedene Parameter-Sets durchprobieren zu
+können. Screenshots sind bei Abbildung \ref{gridnet1} bis \ref{gridnet3} zu
+sehen.
+
+Die in dem Projektauftrag erwähnte Webserver-Implementation verlangt
+allerdings andere Ausgabemöglichkeiten als eine reine pixelbasierte
+Darstellungskomponente. SVG ist als vektorbasiertes XML-Format die optimale
+Wahl, da es sich einfach in das PDF-Format umwandeln lässt, in den meisten
+Webbrowser\footnote{Diejenige Webbrowser die kein SVG darstellen können haben
+keine Marktrelevanz mehr.} sich darstellen lässt und verlustlos ist. Ein
+weiterer Vorteil ist die Möglichkeit mittels JavaScript direkt im Browser die
+Darstellung zu beeinflussen, daher es ist möglich einzelne Komponenten der
+Darstellung auszublenden ohne Neuberechnung des Datensatzes.
+

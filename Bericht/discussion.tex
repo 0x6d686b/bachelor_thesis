@@ -96,14 +96,14 @@ die meisten Smartphones Google Maps installiert haben, können diese sehr
 einfach das GPX-Dateiformat verwenden und die Route als Overlay darstellen.
 
 \subsection{Isochronen}
-In der Meteorologie bezeichnen Isochronen\cite{wiki:isochrone} die Verbindungslinien der verschiedenen
-Routen, die von einem Anfangspunkt aus in derselben Zeit zu erreichen sind. 
-Für die Umsetzung dieser Erweiterung sollte eigentlich eine Dreisatz-Berechnung
+Die Isochronen bezeichnen die Verbindungslinien der verschiedenen Routen, die
+von einem Anfangspunkt aus in derselben Zeit zu erreichen sind.  Für die
+Umsetzung dieser Erweiterung sollte eigentlich eine Dreisatz-Berechnung
 genügen. Da wir zu jedem Knoten die Dauer der Fahrt haben, braucht man nur
-noch festzustellen, zwischen welchen Spalten diese Zeit der Isochronen zu kommen
-hat. Nachdem dies herausgefunden wurde, wird anhand der Länge der Strecke
-zwischen diesen beiden Spalten ein Dreisatz gebildet, welches uns die Länge bis zum Isochron 
-liefert. Zum Schluss brauchts nur noch den Punkt zu zeichnen.
+noch festzustellen, zwischen welchen Spalten diese Zeit der Isochronen zu
+kommen hat. Nachdem dies berechnet wurde, wird anhand der Länge der Strecke
+zwischen diesen beiden Spalten ein Dreisatz gebildet, welches uns die Länge
+bis zum Isochron liefert. Zum Schluss brauchts nur noch den Punkt zu zeichnen.
 
 Umgesetzt sollte es ungefähr so aussehen:
 

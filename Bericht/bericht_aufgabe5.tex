@@ -44,15 +44,18 @@ Windes und andererseits von der Einfallswinkel des Windvektors ab. Damit der
 Einfallswinkel des Windvektors berechnet werden kann, muss bekannt sein, in
 welche Richtung das Segelschiff segelt. Die Berechnung des Kurses findet wie
 folgt statt: Zuerst wird ein Kreuzprodukt der zwei Vektoren vom Ursprung
-\(\overrightarrow{A}\) und \(\overrightarrow{B}\) brerechnet. Das Resultat
+\(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\) und
+\(\overrightarrow{X}_{(\theta_{2},\phi_{2})}\) brerechnet. Das Resultat
 entspricht dann der Normalenvektor \(\overrightarrow{N}\), welche senkrecht zu
-der aufgespalteten Ebene von \(\overrightarrow{A}\) und \(\overrightarrow{B}\)
-steht. Danach wird wiederum ein Kreuzprodukt berechnet, diesmal aber vom
-Vektor \(\overrightarrow{A}\) und dem Normalenvektor \(\overrightarrow{N}\).
-Dies ergibt als Resultat die Richtung des Segelschiffes. Da dieser Vektor aber
-3-dimensional ist, muss sie auf die lokale Tangentialebene
-(\(\overrightarrow{e_{\theta}}\), \(\overrightarrow{e_{\phi}}\)) des Punktes
-$A$ projiziert werden, damit wir ein 2-dimensionales Vektor kriegen.
+der aufgespalteten Ebene von \(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\)
+und \(\overrightarrow{X}_{(\theta_{2},\phi_{2})}\) steht. Danach wird wiederum
+ein Kreuzprodukt berechnet, diesmal aber vom Vektor
+\(\overrightarrow{X}_{(\theta_{1},\phi_{1})}\) und dem Normalenvektor
+\(\overrightarrow{N}\).  Dies ergibt als Resultat die Richtung des
+Segelschiffes. Da dieser Vektor aber 3-dimensional ist, muss sie auf die
+lokale Tangentialebene (\(\overrightarrow{e_{\theta}}\),
+\(\overrightarrow{e_{\phi}}\)) des Punktes $X_{(\theta_{1},\phi_{1})}$
+projiziert werden, damit wir einen 2-dimensionales Vektor erhalten.
 
 Die grafische Darstellung dieser Berechnung sieht wie folgt aus:
 \begin{figure}[h!]
