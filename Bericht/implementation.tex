@@ -312,3 +312,22 @@ Runtime\footnote{Zeitspanne, während der ein Programm von einem Rechner
 ausgeführt wird} gültig sind.
 
 \lstinputlisting[label=src:log4jProperties,caption=Properties-Datei der Log4j]{code/log4j.properties}
+
+\subsection{Datenvisualisierung}
+Um während der Entwicklung möglichst schnell eine visuelle Übersicht der
+berechneten Daten zu erhalten, wurde eine ''quick and dirty'' grafische
+Viewerklasse implementiert, die auch gleich Input-Felder beinhaltet, um
+möglichst ohne grossen Aufwand verschiedene Parameter-Sets durchprobieren zu
+können. Screenshots sind bei Abbildung \ref{gridnet1} bis \ref{gridnet3} zu
+sehen.
+
+Die in dem Projektauftrag erwähnte Webserver-Implementation verlangt
+allerdings andere Ausgabemöglichkeiten als eine reine pixelbasierte
+Darstellungskomponente. SVG ist als vektorbasiertes XML-Format die optimale
+Wahl, da es sich einfach in das PDF-Format umwandeln lässt, in den meisten
+Webbrowser\footnote{Diejenige Webbrowser die kein SVG darstellen können haben
+keine Marktrelevanz mehr.} sich darstellen lässt und verlustlos ist. Ein
+weiterer Vorteil ist die Möglichkeit mittels JavaScript direkt im Browser die
+Darstellung zu beeinflussen, daher es ist möglich einzelne Komponenten der
+Darstellung auszublenden ohne Neuberechnung des Datensatzes.
+
