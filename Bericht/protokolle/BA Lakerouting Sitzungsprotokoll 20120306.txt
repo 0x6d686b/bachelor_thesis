@@ -1,0 +1,54 @@
+﻿Anwesende: Amb, Hab, Yuk, Furu Ort: MeteoSchweiz Zürich
+
+
+1. Stand der Arbeit besprochen: Die Aufgaben 1 und 2 wurden in Java fertig 
+implementiert und dazu noch eine grafische Darstellung in i,j-Koordinaten
+geschrieben, welche die Punkte entsprechend verbindet.
+
+1.1 Die grafische Darstellung sieht gut aus, ist aber in diesem Zustand 
+für die Segler unbrauchbar. Deshalb müssten die einzelnen Punkte für eine
+bessere Anschauung die Koordinaten der Breiten- und Längengrade haben.
+
+
+2. Die Unterlagen zu Aufgabe 3 über die bilineare Interpolation wurden von 
+Herrn Ambühl per E-mail an die Teilnehmer gesendet. Programmiertechnisch 
+wurde in dieser Hinsicht noch nichts gemacht. Aber das Prinzip mit dem 
+hyperbolischen Paraboloid wurde verstanden. Die Teilnehmer haben sich 
+vielmehr mit der Thematik auseinandergesetzt.
+Desweiteren wurde der Aufbau der Datei Polaire.csv von Herrn Ambühl 
+erklärt, dass die erste Zeile die Winkel und die erste Spalte die Knoten
+beinhalten. 
+
+
+3. Im Bericht sollte ein Absatz vorhanden sein, welches die 
+programmiertechnischen Grenzen oder Genauigkeiten der mathematischen 
+Funktionen wie Sinus/Cosinus, Datentypen etc. behandelt und diskutiert. 
+
+
+4. Das Protokoll der letzten Woche(20120228) ist vergessen gegangen und 
+kam deshalb bei den Betreuern nicht an.
+
+
+5. Weiteres Vorgehen: 
+
+5.1 Bis Morgen Abend um 1800CET sollten die zwei Protokolle erfasst und den 
+Betreuern zugesendet werden. Von nun an sollten die Protokolle immer vor 
+der nächsten Sitzung geschrieben und bei den Betreuern angekommen sein. 
+
+5.2 Jacques Ambühl wird Yuk und Hab mit neuen Unterlagen zur 
+Winkelberechnung versorgen.
+
+5.3 Die Aufgabe 3 (ev. auch 4) zu Interpolation in Java fertig 
+implementieren.
+
+5.4 Die grafische Darstellung von Aufgaben 1 und 2 mit Breiten- und 
+Längengraden anzeigen lassen. 
+
+5.5 Die Implementation der Aufgaben 1 und 2 mit realen Daten testen.
+z.B. Zürich -Peking, Sao Paulo - Zürich, Peking - Sao Paulo usw. 
+
+
+6. Diese Sitzung wurde eher kurz gehalten, da Herr Ambühl seinen Dienst 
+hatte. Nächste Sitzung wird am 13.03.2012 zwischen 1300CET und 1400CET in der 
+TP-Gebäude der ZHAW stattfinden. Zusätzlich wird der Nebenbetreuer Herr
+Peter Früh an der Sitzung teilnehmen.

@@ -1,0 +1,24 @@
+Anwesende: Amb, Furu, Hab, Yuk; Ort: MeteoSchweiz, Büro Amb
+
+1. Schwerpunkt Bericht, allfällig fehlende Code-Teile nicht weiter
+berücksichtigen. Hinweis im Bericht auf solche Lücken. Erste
+Vorabversion am Sonntag 27. Mai verschicken.
+
+2. Bericht soll erklären und Überlegungen darlegen, in der Art dass es
+nachvollziehbar ist, was gemacht wurde und was passiert.
+
+3. Kapitel "Absichten" -> Dynamische Programmierung: Wieso? Herkunft?
+Prinzip?
+
+4. Aufbau Bericht nochmals mit Departement abklären.
+
+5. Sourcecode auf CDs brennen (Furu 1x, Amb 2x)
+
+6. Liste von möglichen Erweiterungen vom Produkt machen. Isochronen
+sollen nicht implementiert werden, sofern noch Zeit besteht, kann das
+noch am Schluss nachgeholt werden.
+
+7. Mehrere Routen mit Gegenwind, Seitenwind, Flaute, Rückenwind etc.
+zeichnen und im Bericht einfügen.
+
+Nächste Sitzung 29. Mai 2012 1300CEST an der MeteoSchweiz

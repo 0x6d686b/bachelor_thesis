@@ -1,0 +1,26 @@
+﻿Anwesende: Amb, Furu, Hab, Yuk Ort: MeteoSchweiz Zürich
+
+
+1. Der Stand der Arbeit wurde von Yuk vorgestellt. 
+
+1.1 Hab hatte eine 15-minütige Verspätung infolge des Staus.
+
+1.2 Hab hatte schwerwiegende Probleme in seinem Codestück, welche er 
+umschreiben und anpassen musste. 
+Die interpolierten Daten stimmen zurzeit noch nicht. Der Grund wurde noch
+gefunden.
+
+2. Weiteres Vorgehen:
+
+2.1 Hab wird die Aufgaben 3&4 mit Tests abschliessen.
+
+2.2 Nächste Woche am 16.04.2012 um 1100CET wird Hab eine kurze Präsentation
+darüber halten, was er bis jetzt gemacht hat und wo die Probleme 
+lagen/liegen.
+
+2.3 Es ist wieder einmal Zeit, eine Sitzung in Winterthur abzuhalten. 
+Wann genau dies dort stattfinden wird, wird nächste Woche noch vereinbart.
+
+
+3. Die nächste Sitzung wird mit allen Projektteilnehmern am 16.04 um 
+1100CET in der MeteoSchweiz stattfinden.

@@ -1,0 +1,36 @@
+Anwesende: Frup, amb, furu, yuksefev, hablumat
+Ort: MeteoSchweiz
+
+1. Stand der Dinge
+1.1 Entwurf des Berichtes haben sie erhalten. Furu hatte keine Zeit heute 
+morgen es anzuschauen, denn es ist vergessen gegangen den Bericht 
+in das Mail als Anhang hinzuzufügen. 
+
+2. Diskutierte Punkte
+2.1 Jacques hatte zwei Bemerkungen
+2.1.1 Die Beschreibung der "dynamischen Programmierung" ist noch nicht 
+vollständig. Der Kapitel "dynamical programming, a first glance" im Bericht 
+von Jacques soll übersetzt werden.
+2.1.2 Bei der Beschreibung der Orthodromie soll ein Bild mit Verbindungen
+der Knoten eingefügt werden, damit die ganze Methodik einfacher 
+verständlicher wird.
+2.2 Im Bericht soll zwischen Theorie und Implementation unterschieden 
+werden.
+2.3 Interessante und wichtige Punkte der Implementation sollen
+näher erläutert werden. 
+2.4 Die Reihenfolge der Überschriften ist nicht wichtig. Die Vorlage im
+Intranet dient als Checkliste. Desweiteren ist bei uns die 
+Implementation ein Teil des Resultats.
+2.5 Wenn keine Zeit für die Implementation der Isochronen verfügbar ist, 
+soll es im Bericht als ein Unterkapitel erwähnt werden. 
+
+3. Diverses
+Am Freitag 01.06.2012 soll die zweite Version zugeschickt werden.
+
+4. Nächste Sitzung
+1100CEST 04.06.2012 in Winterthur im Zimmer von furu.
+4.1 Frup kann nicht teilnehmen. 
+
+Verfasst: yuksefev
+
+

@@ -1,0 +1,54 @@
+﻿Anwesende: Amb, Hab, Yuk Ort: MeteoSchweiz Zürich
+Entschuldigt: Furu
+
+
+1. Der Stand der Arbeit wurde von Yuk und Hab vorgestellt. 
+
+1.1 Die Test's der Aufgaben 1&2 mit der Distanz wurde fertig implementiert.
+Nur die Abweichungen der Ist-Werten mit den Soll-Werten waren bei grösseren
+Strecken zum Teil sehr hoch. Das hatte damit zu tun, dass der Startknoten 
+nicht in der Mitte des Gitternetzes war. Nachdem dies angepasst wurde, 
+waren die Unterschiede deutlich kleiner.
+
+1.2 Die Aufgabe 3 wurde auch fertig implementiert und die Test's dafür 
+geschrieben, welche auch fehlerfrei durchlaufen. Somit ist man bereit,
+mit der Aufgabe 4 zu beginnen. 
+
+
+2. Im Laufe des Tages sind ein paar Fragen aufgetaucht, die Amb noch 
+klären muss. Wir sollen auch dafür im Bericht einen Abschnitt erstellen.
+
+2.1 Wie sollen die Werte der Koordinaten der einzelnen Knoten abgespeichert
+werden? Dürfen die Werte für Längengrade höher als 180 Grad sein? Oder 
+dürfen die Werte für Breitengrade höher als 90 Grad sein? 
+
+2.2 Dementsprechend berechnet die Methode Ortho immer die kürzere Distanz
+zwischen zwei Knoten und erlaubt Werte für Längengrade grösser als 180 
+Grad. Soll das angepasst werden oder nicht?
+
+2.3 Bei Bedarf kann mit dem Herrn, der die Windfelder-Dateien erstellt und
+liefert, Kontakt aufgenommen werden und offene Fragen, falls vorhanden, 
+geklärt werden.
+
+
+3. Am Schluss des Tages war der Stand wie folgt:
+Interpolation, Track, Distanz und Windfeld Komponenten wurden fertig 
+implementiert. Sie müssen nur noch ausführlich getestet werden. Somit 
+hätten wir grundsätzlich alle Puzzle-teile, die nur noch zusammengesetzt 
+werden müssen.
+
+
+4. Weiteres Vorgehen:
+
+4.1 Die Tests für die neuen Komponenten sollen fertig geschrieben werden.
+
+4.2 Hab wird die Aufgaben 3&4 mit Tests abschliessen.
+
+4.3 Yuk wird mit der Implementierung der Speed beginnen, falls Hab 
+rechtzeitig fertig wird.
+
+4.4 Amb wird neue Unterlagen schicken. 
+
+
+6. Die nächste Sitzung wird mit allen Projektteilnehmer am 27.03 um 
+1600CET in der MeteoSchweiz stattfinden.

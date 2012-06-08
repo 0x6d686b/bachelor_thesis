@@ -1,0 +1,82 @@
+Anwesende: Amb, Furu, Hab, Yuk; Ort: TP 216 Winterthur ZHAW Campus
+
+1. Kleinere Korrekturen Bericht: Furu kein Prof, Amb kein Dr., ansonsten vom
+Layout in Ordnung, Inhalt soweit in Ordnung.
+
+2.1 Variable Windfelder implementiert, verwendet aktuelle Uhrzeit vom Rechner
+auf dem die Berechnung ausgeführt wird. Rundet die Ankunftszeit auf volle
+Stunden um Windfelder-Interpolation zu vermeiden. Um grosse Zeitsprünge zu
+vermeiden, soll die Software eine Warnung ausgeben und bitten ein dichteres
+Entscheidungsnetz zu verwenden.
+
+2.2 Spread-Problem: In gewissen Situationen kann es vorkommen, dass kein
+nächster Knoten gefunden wird, weil der Spread zu klein ist.
+Bug erstmals reported: 09. März 2012 durch Hab
+Bug bestätigt: 18. April 2012 durch Yuk
+
+18.04.12 14:48 Yuksefev@students.zhaw.ch
+> Beim vierten (Index 3) Windfeld tretet dieses Problem wirklich auf. So hat
+> unser Ziel-Punkt (Knotennummer 10) eine Verbindung zu Knotennummer 2 in der
+> vorherigen Spalte, kann es aber nicht aufzeichnen, da der Spread es
+> verhindert. 
+> 
+> Gruss
+> Fevzi Yükseldi
+> ________________________________________
+> Von: Mathias Hablützel [hablumat@students.zhaw.ch]
+> Gesendet: Mittwoch, 18. April 2012 14:34
+> Bis: Yükseldi Fevzi (yuksefev)
+> Cc: Jacques.Ambuehl@meteoswiss.ch; Füchslin Rudolf Marcel (furu)
+> Betreff: Re: Problem (?) bzgl. Distanz-Berechnung
+> 
+> Morgen,
+> 
+> Am 18.04.12 14:29, schrieb Yükseldi Fevzi (yuksefev):
+> 
+> > Denn in diesem Modul wird der Distanz zwischen zwei Punkten anhand
+> > den Windvektoren und Winkel usw. berechnet. Danach werden diese Werte
+> > im Array Etabli gespeichert und der Minimum Wert wieder von diesem
+> > Array ausgelesen. Somit haben wir den kleinsten Distanz zwischen dem
+> > aktuellen Knoten und der vorherigen Spalte. Nachher wird überprüft,
+> > ob die Position des Minimums kleiner oder gleich SPREAD ist. Wenn es
+> > zutrifft, wird es gespeichert, ansonsten nicht.
+> >
+> > Und ich glaube genau hier ist der Fehler. Falls die Position des
+> > Minimums grösser als SPREAD ist, wird für diesen Knoten keine Distanz
+> > gespeichert. Nehmen wir an, der aktuelle Knoten wäre 10, die kürzeste
+> > Distanz wäre in der vorherigen Spalte mit der Knoten Nummer 2. Somit
+> > hätte dieser Knoten keine Verbindung, da er dieses Kriterium mit
+> > SPREAD nicht erfüllt.
+> 
+> > Date: Fri, 09 Mar 2012 23:30:31 +0100
+> > To: "Jacques.Ambuehl@meteoswiss.ch" <Jacques.Ambuehl@meteoswiss.ch>,
+> >  =?UTF-8?B?IkbDvGNoc2xpbiBSdWRvbGYgTWFyY2VsIChmdXJ1KSI=?= <furu@zhaw.ch>,
+> >  =?UTF-8?B?IlnDvGtzZWxkaSBGZXZ6aSAoeXVrc2VmZXYpIg==?=
+> >  <yuksefev@students.zhaw.ch>
+> > Subject: BA Lakerouting, Algo-Fehler oder doch nicht?
+> > im Dokument Decision_Sphere_Commented.pdf habe ich glaub's einen Fehler
+> > entdeckt. Seite 7, die Zeile mit If[Abs[k - posi … etc
+> >
+> > Was ist wenn k = 20, posi aber 2? Dann hätte ja dieser Knoten keinen
+> > Previous-Pfad? Das fiel hier in diesem Beispiel wohl deshalb nicht auf,
+> > weil die Matrixbreite nur 5 betrug und es deshalb nie zu so einer
+> > Situation kam.
+> >
+> > Ich bin mir nicht sicher, ob das falsch ist, es ist mir nur aufgefallen
+> > beim Code-Analysieren, dass der nicht in jeden Fall ein Previous-Node
+> > gesetzt wird.
+> Ich(!) vermute, dass dieser Fall eigentlich nie eintreten sollte in der
+> Realität, allerdings sind solche potentiellen Bugs nie schön.
+> 
+
+2.3 Dem Ingenieur zeigen, dass es technisch korrekt ist und dem
+Verwaltungsrat zeigen, dass es graphisch (HID) ansprechend ist.
+
+3.1 Windfelder graphisch in SVG darstellen, einzeln, ganzer Stack in 3D
+(isometrisch) und ganzer Output (berechnete Route) mit Umriss von Bodensee und
+Infodaten (Zeit, Start- und Zielpunkt, Boot-Typ, Dateinamen, Norden etc),
+Isochronen-Ausgabe
+
+3.2 GPX-Output für GPS-Geräte und damit auch Google Maps
+
+4. Nächste Sitzung 8. Mai 2012 1630CEST in MeteoSchweiz Institut

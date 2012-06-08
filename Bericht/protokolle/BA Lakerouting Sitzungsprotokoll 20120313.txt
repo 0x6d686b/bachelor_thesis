@@ -1,0 +1,55 @@
+﻿Anwesende: Amb, Hab, Yuk, Furu, Frup Ort: ZHAW, TP-Gebäude im Zimmer von Furu
+
+
+1. Vorstellung der Projektmitglieder an Herrn Frup durch Furu.
+
+
+2.1 Herr Furu hat die ganze Sitzung geführt. Nach einer kleinen Einführung 
+gab er das Wort an Herrn Ambühl, damit er die Arbeit kurz erklären konnte.
+
+2.2 Herr Ambühl hat die Arbeit an den Nebenbetreuer vorgestellt.
+Zuerst wurde die geschichtliche Entwicklung erzählt, und dann wie es überhaupt zu
+diesem Wunsch gekommen ist. Danach wurden die Ziele der Arbeit mit einigen
+wichtigen Aspekten erläutert, wie z.B. das Algorithmus funktioniert, weshalb
+die Interpolation gebraucht wird usw. Zuletzt wurde die bis zu dieser Zeit
+vollbrachte Arbeit beschrieben. 
+
+2.3 Danach wurde der Stand der Arbeit aus Sicht der Entwickler geschildert.
+Die Aufgaben 1+2 sind vollständig umgesetzt worden und die Aufgabe 3 wurde
+auch im grösstenteils implementiert, nur die UnitTest's funktionieren noch
+nicht einwandfrei. 
+Dabei kam seitens Herrn frup die Frage auf, inwiefern unser Algorithmus
+mit Dijkstra zu tun habe und wie die Komplexität der beiden Algorithmen 
+verglichen aussehe. Eine konkrete Antwort konnte nicht geliefert werden!
+
+2.3.1 Die Aufgaben 1+2 wurden wie schon erwähnt fertig umgesetzt und die
+grafische Darstellung an Längen- und Breitengrade angepasst. Es fehlen
+aber noch die automatisierten Test's dazu, denn es fehlten vergleichbare
+Resultate. Herr Ambühl meinte dazu, dass die ortho-Distanzen mit den 
+Raster Distanzen verglichen werden können.
+
+
+3. Herr Früh musste uns um 1345CET verlassen, da er eine Vorlesung hatte.
+
+
+4. Zuletzt spendierte uns Herr Furu einen Kaffee in der Mensa. 
+(Danke :-))
+
+
+5. Weiteres Vorgehen:
+
+5.1 Die Tests für die Aufgaben 1+2 fertig stellen.
+
+5.2 Die Aufgaben 3+4 soweit wie möglich auch fertig umsetzen. Dabei wurde
+erwähnt, dass auf nichtfunktionale Arbeiten zu verzichten sei. 
+
+5.3 Herr Ambühl wird diese Woche uns keine neue Unterlagen schicken.
+
+
+6. Diese Sitzung wurde wiederum eher kurz gehalten, da Herr Frup 
+uns früher zu verlassen hatte. 
+Nächste Sitzung wird am 20.03.2012 um 0730CET in der MeteoSchweiz 
+stattfinden. Herr Furu wird an diesem Tag abwesend sein.
+
+6.1 Deshalb wird die nächste offizielle Sitzung mit allen Projektteilnehmer 
+am 27.03 um 1600CET in der MeteoSchweiz stattfinden.
